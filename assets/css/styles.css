@@ -231,6 +231,7 @@ p {
 
 .nav-apply {
   padding-inline: 1.2rem;
+  color: var(--white) !important;
 }
 
 .menu-toggle {
@@ -909,6 +910,7 @@ tbody tr:last-child td {
 
   .nav-apply {
     width: 100%;
+    color: var(--white) !important;
   }
 
   .hero-inner {
