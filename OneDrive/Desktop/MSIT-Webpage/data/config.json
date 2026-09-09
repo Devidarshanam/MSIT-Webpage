@@ -1,0 +1,30 @@
+{
+  "applicationDeadline": "[APPLICATION DEADLINE]",
+  "applicationOpenDate": "[APPLICATION OPEN DATE]",
+  "importantDates": [
+    {"event": "Applications Open", "date": "[APPLICATION OPEN DATE]"},
+    {"event": "Application Deadline", "date": "[APPLICATION DEADLINE]"},
+    {"event": "Assessment / Selection", "date": "[ASSESSMENT DATE]"},
+    {"event": "Results", "date": "[RESULTS DATE]"},
+    {"event": "Programme Begins", "date": "[PROGRAMME START DATE]"}
+  ],
+  "fees": {
+    "tuition": "[TUITION FEE]",
+    "admission": "[ADMISSION FEE]",
+    "hostel": "[HOSTEL FEE]",
+    "mess": "[MESS FEE]",
+    "other": "[OTHER CHARGES]",
+    "total": "[TOTAL FEE]"
+  },
+  "curriculum": {
+    "year1": "Course details to be added from official MSIT curriculum.",
+    "year2": "Course details to be added from official MSIT curriculum."
+  },
+  "contact": {
+    "email": "msit.admissions@iiit.ac.in",
+    "phone": "+91-40-1234-5678",
+    "address": "IIIT Hyderabad, Gachibowli, Hyderabad, Telangana, India"
+  },
+  "applyUrl": "[APPLICATION LINK]",
+  "brochureUrl": "[BROCHURE URL]"
+}
