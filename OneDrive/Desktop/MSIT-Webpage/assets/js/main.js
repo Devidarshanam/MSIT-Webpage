@@ -1,8 +1,7 @@
 const defaultConfig = {
   applicationDeadline: '[APPLICATION DEADLINE]',
   applicationOpenDate: '[APPLICATION OPEN DATE]',
-  applyUrl: '#apply',
-  brochureUrl: '#'
+  applyUrl: '#apply'
 };
 
 async function loadConfig() {
@@ -27,10 +26,6 @@ function setDynamicContent(config) {
 
   document.querySelectorAll('[data-apply-link]').forEach((link) => {
     link.setAttribute('href', config.applyUrl || '#apply');
-  });
-
-  document.querySelectorAll('[data-brochure-link]').forEach((link) => {
-    link.setAttribute('href', config.brochureUrl || '#');
   });
 }
 
