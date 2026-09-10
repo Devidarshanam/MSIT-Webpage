@@ -1,6 +1,6 @@
 const defaultConfig = {
-  applicationDeadline: '[APPLICATION DEADLINE]',
-  applicationOpenDate: '[APPLICATION OPEN DATE]',
+  applicationDeadline: 'To be announced',
+  applicationOpenDate: 'To be announced',
   applyUrl: '#apply'
 };
 

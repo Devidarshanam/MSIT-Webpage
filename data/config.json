@@ -1,30 +1,30 @@
 {
-  "applicationDeadline": "[APPLICATION DEADLINE]",
-  "applicationOpenDate": "[APPLICATION OPEN DATE]",
+  "applicationDeadline": "To be announced",
+  "applicationOpenDate": "To be announced",
   "importantDates": [
-    {"event": "Applications Open", "date": "[APPLICATION OPEN DATE]"},
-    {"event": "Application Deadline", "date": "[APPLICATION DEADLINE]"},
-    {"event": "Assessment / Selection", "date": "[ASSESSMENT DATE]"},
-    {"event": "Results", "date": "[RESULTS DATE]"},
-    {"event": "Programme Begins", "date": "[PROGRAMME START DATE]"}
+    {"event": "Applications Open", "date": "To be announced"},
+    {"event": "Application Deadline", "date": "To be announced"},
+    {"event": "Assessment / Selection", "date": "To be announced"},
+    {"event": "Results", "date": "To be announced"},
+    {"event": "Programme Begins", "date": "January 2027"}
   ],
   "fees": {
-    "tuition": "[TUITION FEE]",
-    "admission": "[ADMISSION FEE]",
-    "hostel": "[HOSTEL FEE]",
-    "mess": "[MESS FEE]",
-    "other": "[OTHER CHARGES]",
-    "total": "[TOTAL FEE]"
+    "tuition": "To be announced",
+    "admission": "To be announced",
+    "hostel": "To be announced",
+    "mess": "To be announced",
+    "other": "To be announced",
+    "total": "To be announced"
   },
   "curriculum": {
-    "year1": "Course details to be added from official MSIT curriculum.",
-    "year2": "Course details to be added from official MSIT curriculum."
+    "year1": "AI-native, project-based learning spanning software, data, AI, industry problem solving, and professional skills.",
+    "year2": "AI-native, project-based learning spanning software, data, AI, industry problem solving, and professional skills."
   },
   "contact": {
     "email": "msit.admissions@iiit.ac.in",
     "phone": "+91-40-1234-5678",
     "address": "IIIT Hyderabad, Gachibowli, Hyderabad, Telangana, India"
   },
-  "applyUrl": "[APPLICATION LINK]",
-  "brochureUrl": "[BROCHURE URL]"
+  "applyUrl": "#apply",
+  "brochureUrl": "#apply"
 }
