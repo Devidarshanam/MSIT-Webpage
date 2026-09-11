@@ -13,10 +13,12 @@ export default function WhyChooseMSIT({ data }) {
         <div className="cards-six-grid">
           {data.cards.map((card, idx) => (
             <div key={idx} className="benefit-card">
-              <div className="benefit-icon" aria-hidden="true">
-                {card.icon}
+              <div className="benefit-card-header">
+                <div className="benefit-icon" aria-hidden="true">
+                  {card.icon}
+                </div>
+                <h3>{card.title}</h3>
               </div>
-              <h3>{card.title}</h3>
               <p>{card.description}</p>
             </div>
           ))}
