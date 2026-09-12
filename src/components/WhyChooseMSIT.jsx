@@ -1,4 +1,5 @@
 import React from 'react';
+import { getSmartIcon } from './Icons';
 
 export default function WhyChooseMSIT({ data }) {
   return (
@@ -15,7 +16,7 @@ export default function WhyChooseMSIT({ data }) {
             <div key={idx} className="benefit-card">
               <div className="benefit-card-header">
                 <div className="benefit-icon" aria-hidden="true">
-                  {card.icon}
+                  {getSmartIcon(card.icon || card.title, 20)}
                 </div>
                 <h3>{card.title}</h3>
               </div>

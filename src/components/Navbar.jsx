@@ -36,19 +36,25 @@ export default function Navbar({ data }) {
   return (
     <header className="site-header">
       <nav className="navbar container" aria-label="Main navigation">
-        <a href="#hero" className="brand" aria-label="IIIT Hyderabad MSIT home">
-          <img
-            src={data.brand.logo}
-            alt="MSIT logo"
-            className="brand-logo"
-            width="46"
-            height="46"
-          />
-          <div className="brand-text">
-            <span className="brand-name">{data.brand.title}</span>
-            <span className="brand-sub">{data.brand.subtitle}</span>
-          </div>
-        </a>
+        <div className="brand-group">
+          <a href="#hero" className="brand" aria-label="IIIT Hyderabad MSIT home">
+            <img
+              src={data.brand.logo}
+              alt="MSIT logo"
+              className="brand-logo"
+              width="44"
+              height="44"
+            />
+            <div className="brand-text">
+              <span className="brand-name">{data.brand.title}</span>
+              <span className="brand-sub">{data.brand.subtitle}</span>
+            </div>
+          </a>
+          <span className="nav-cohort-pill" title="Next Cohort: January 2027">
+            <span className="live-beacon" aria-hidden="true"></span>
+            Jan 2027 Cohort
+          </span>
+        </div>
 
         <button
           className={`menu-toggle ${isOpen ? 'open' : ''}`}

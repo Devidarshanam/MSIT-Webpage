@@ -1,4 +1,5 @@
 import React from 'react';
+import { AwardIcon, getSmartIcon } from './Icons';
 
 export default function ProgrammeOverview({ data }) {
   return (
@@ -9,6 +10,21 @@ export default function ProgrammeOverview({ data }) {
           <h2>{data.heading}</h2>
         </div>
 
+        {/* Distinguished Turing Award Laureate Quote / Legacy Banner */}
+        <div className="legacy-prestige-card">
+          <div className="legacy-seal" aria-hidden="true">
+            <AwardIcon size={32} />
+          </div>
+          <div className="legacy-content">
+            <blockquote className="legacy-quote">
+              “MSIT was founded to pioneer practical post-graduate computing education that bridges academic depth with real-world execution.”
+            </blockquote>
+            <cite className="legacy-author">
+              <strong>Conceived by Prof. Raj Reddy</strong> · Turing Award Laureate & Co-Founder of MSIT
+            </cite>
+          </div>
+        </div>
+
         <div className="overview-copy-block">
           <p>{data.leadParagraph}</p>
           <p>{data.bodyParagraph}</p>
@@ -17,6 +33,9 @@ export default function ProgrammeOverview({ data }) {
         <div className="four-up-grid">
           {data.cards.map((card, idx) => (
             <div key={idx} className="overview-card">
+              <div className="overview-card-icon" aria-hidden="true">
+                {getSmartIcon(card.label, 20)}
+              </div>
               <span className="overview-card-label">{card.label}</span>
               <strong>{card.value}</strong>
             </div>

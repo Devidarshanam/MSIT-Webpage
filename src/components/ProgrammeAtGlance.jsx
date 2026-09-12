@@ -1,4 +1,5 @@
 import React from 'react';
+import { getSmartIcon } from './Icons';
 
 export default function ProgrammeAtGlance({ data }) {
   return (
@@ -13,8 +14,13 @@ export default function ProgrammeAtGlance({ data }) {
         <div className="glance-grid">
           {data.items.map((item, idx) => (
             <div key={idx} className="glance-card">
-              <span className="glance-label">{item.label}</span>
-              <span className="glance-val">{item.value}</span>
+              <div className="glance-icon-wrap" aria-hidden="true">
+                {getSmartIcon(item.label, 18)}
+              </div>
+              <div className="glance-info">
+                <span className="glance-label">{item.label}</span>
+                <span className="glance-val">{item.value}</span>
+              </div>
             </div>
           ))}
         </div>
