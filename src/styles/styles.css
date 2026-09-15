@@ -3825,6 +3825,28 @@ p {
   border-color: var(--primary-700);
 }
 
+.signin-other-input-wrap {
+  margin-top: 0.55rem;
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.signin-other-input {
+  background: #f8fafc !important;
+  border: 1.5px solid #93c5fd !important;
+  font-size: 0.84rem !important;
+}
+
+.signin-other-input:focus {
+  background: #ffffff !important;
+  border-color: var(--primary-600) !important;
+  box-shadow: 0 0 0 3px rgba(31, 94, 196, 0.15) !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .signin-inputs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

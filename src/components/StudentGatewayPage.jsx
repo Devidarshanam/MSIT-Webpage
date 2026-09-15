@@ -13,7 +13,9 @@ export default function StudentGatewayPage() {
 
   // Form state
   const [academicStatus, setAcademicStatus] = useState('final-year');
+  const [otherAcademicStatus, setOtherAcademicStatus] = useState('');
   const [degreeStream, setDegreeStream] = useState('btech-cs');
+  const [otherDegreeStream, setOtherDegreeStream] = useState('');
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -66,7 +68,9 @@ export default function StudentGatewayPage() {
       email: email.trim(),
       college: college.trim(),
       academicStatus,
+      otherAcademicStatus: academicStatus === 'other' ? otherAcademicStatus.trim() : '',
       degreeStream,
+      otherDegreeStream: degreeStream === 'other' ? otherDegreeStream.trim() : '',
       isEligible,
       submittedAt: new Date().toISOString()
     };
@@ -91,23 +95,31 @@ export default function StudentGatewayPage() {
     setPhone('');
     setEmail('');
     setCollege('');
+    setOtherAcademicStatus('');
+    setOtherDegreeStream('');
   };
 
-  const getStatusLabel = (status) => {
+  const getStatusLabel = (status, custom) => {
+    if (status === 'other') {
+      return custom ? `Other: ${custom}` : 'Other Educational Background';
+    }
     switch (status) {
       case 'final-year': return 'Final Year College Student (Passing out in 2026)';
       case 'graduated': return 'Completed Graduation (Degree in Hand)';
       case 'working': return 'Working Professional (1–3 Years Experience)';
-      default: return '1st–3rd Year Student / Other';
+      default: return 'Other';
     }
   };
 
-  const getStreamLabel = (stream) => {
+  const getStreamLabel = (stream, custom) => {
+    if (stream === 'other') {
+      return custom ? `Other Degree: ${custom}` : 'Other Degree / Stream';
+    }
     switch (stream) {
       case 'btech-cs': return 'B.Tech / B.E. (CSE, IT, AI, Data Science)';
       case 'btech-other': return 'B.Tech / B.E. (ECE, EEE, Mech, Civil, other branches)';
       case 'mca-msc': return 'MCA / M.Sc (Computer Science, IT, Math)';
-      default: return 'BCA / B.Sc / Other Discipline';
+      default: return 'Other Degree';
     }
   };
 
@@ -249,9 +261,22 @@ export default function StudentGatewayPage() {
                         onClick={() => setAcademicStatus('other')}
                       >
                         <span className="pill-circle"></span>
-                        <span>1st–3rd Year Student / Other</span>
+                        <span>Other (Please specify)</span>
                       </button>
                     </div>
+
+                    {academicStatus === 'other' && (
+                      <div className="signin-other-input-wrap">
+                        <input
+                          type="text"
+                          className="signin-input signin-other-input"
+                          placeholder="Please specify your status (e.g. 2nd/3rd Year, Gap Year, Diploma, etc.)"
+                          value={otherAcademicStatus}
+                          onChange={(e) => setOtherAcademicStatus(e.target.value)}
+                          autoFocus
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* Step 2: Undergrad Stream */}
@@ -290,9 +315,22 @@ export default function StudentGatewayPage() {
                         onClick={() => setDegreeStream('other')}
                       >
                         <span className="pill-circle"></span>
-                        <span>BCA / B.Sc / Other Degree</span>
+                        <span>Other Degree (Please specify)</span>
                       </button>
                     </div>
+
+                    {degreeStream === 'other' && (
+                      <div className="signin-other-input-wrap">
+                        <input
+                          type="text"
+                          className="signin-input signin-other-input"
+                          placeholder="Please specify your degree & branch (e.g. BCA, B.Sc, B.Pharm, M.Tech, etc.)"
+                          value={otherDegreeStream}
+                          onChange={(e) => setOtherDegreeStream(e.target.value)}
+                          autoFocus
+                        />
+                      </div>
+                    )}
                   </div>
 
                   {/* Step 3: Contact Inputs */}
@@ -398,11 +436,11 @@ export default function StudentGatewayPage() {
                   <div className="signed-profile-box">
                     <div className="profile-row">
                       <span>Status:</span>
-                      <strong>{getStatusLabel(submittedStudent.academicStatus)}</strong>
+                      <strong>{getStatusLabel(submittedStudent.academicStatus, submittedStudent.otherAcademicStatus)}</strong>
                     </div>
                     <div className="profile-row">
                       <span>Degree:</span>
-                      <strong>{getStreamLabel(submittedStudent.degreeStream)}</strong>
+                      <strong>{getStreamLabel(submittedStudent.degreeStream, submittedStudent.otherDegreeStream)}</strong>
                     </div>
                     <div className="profile-row">
                       <span>Mobile:</span>
