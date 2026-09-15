@@ -52,7 +52,7 @@ export default function App() {
         <FAQ data={msitData.faq} />
 
         {/* Final CTA / Registration */}
-        <FinalCTA data={msitData.cta} />
+        <FinalCTA data={msitData.finalCta} />
       </main>
       <Footer data={msitData.footer} />
 

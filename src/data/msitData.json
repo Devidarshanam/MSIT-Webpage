@@ -268,35 +268,33 @@
       }
     ]
   },
-  "cta": {
+  "finalCta": {
     "sectionId": "apply",
-    "kicker": "Next Steps",
+    "badge": "Next Steps",
     "heading": "Stay Ahead of Admissions",
-    "description": "Register below to receive the official circular, entrance syllabus, and application timeline directly in your inbox the moment they are released.",
-    "form": {
-      "nameLabel": "Full Name",
-      "emailLabel": "Email Address",
-      "phoneLabel": "Phone Number",
-      "backgroundLabel": "Current Academic / Professional Background",
-      "submitLabel": "Get Application & Syllabus Alerts",
-      "successMessage": "Thank you! You will receive the official admissions circular and syllabus pattern the moment it is released."
+    "tagline": "Register below to receive the official circular, entrance syllabus, and application timeline directly in your inbox the moment they are released.",
+    "primaryBtn": {
+      "label": "Get Application & Syllabus Alerts",
+      "href": "#apply"
     },
-    "contact": {
-      "line": "Have an admissions question?",
-      "email": "query@msit.ac.in"
-    }
+    "quickLinks": [
+      { "label": "Why Choose MSIT", "href": "#why-msit" },
+      { "label": "Curriculum & Cadence", "href": "#curriculum" },
+      { "label": "Admissions & Aid", "href": "#admissions" }
+    ],
+    "contactText": "Have an admissions question?",
+    "contactEmail": "query@msit.ac.in"
   },
   "footer": {
-    "brand": "MSIT",
-    "institution": "IIIT Hyderabad",
-    "subline": "Master of Science in Information Technology",
+    "institute": "IIIT Hyderabad",
+    "programme": "MSIT — Master of Science in Information Technology",
     "description": "A pioneering master's programme in information technology, founded in 2001 by Turing Award laureate Prof. Raj Reddy and anchored at IIIT Hyderabad.",
-    "links": [
+    "quickLinks": [
       { "label": "Programme Overview", "href": "#glance" },
       { "label": "Why MSIT", "href": "#why-msit" },
       { "label": "Curriculum & Cadence", "href": "#curriculum" },
       { "label": "Career Pathways", "href": "#careers" },
-      { "label": "Admissions & Eligibility", "href": "#admissions" },
+      { "label": "Admissions & Aid", "href": "#admissions" },
       { "label": "Frequently Asked Questions", "href": "#faq" }
     ],
     "contact": {
