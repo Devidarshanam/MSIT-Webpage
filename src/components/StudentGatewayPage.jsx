@@ -152,7 +152,7 @@ export default function StudentGatewayPage() {
                 /* State 1: Sign-In Form with ONLY Name and Email */
                 <form onSubmit={handleSignIn} className="simple-signin-form">
                   <div className="simple-card-top">
-                    <span className="simple-mini-badge">STUDENT ACCESS</span>
+                    <span className="simple-mini-badge">ADMISSIONS & APPLY</span>
                     <div className="simple-card-icon student-icon">
                       <GraduationCapIcon size={26} />
                     </div>
