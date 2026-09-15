@@ -6,6 +6,11 @@ import {
 } from './Icons';
 
 export default function StudentGatewayPage() {
+  // Page view: 'signin' (default entering page) or 'about' (About MSIT page)
+  const [currentView, setCurrentView] = useState(() => {
+    return window.location.hash === '#about' ? 'about' : 'signin';
+  });
+
   // Screener form state
   const [academicStatus, setAcademicStatus] = useState('final-year');
   const [degreeStream, setDegreeStream] = useState('btech-cs');
@@ -16,12 +21,16 @@ export default function StudentGatewayPage() {
   const [submittedStudent, setSubmittedStudent] = useState(null);
   const [formError, setFormError] = useState('');
   
-  // Modals / tabs for About MSIT details
+  // 1-Page Summary Printable Modal
   const [showSummaryModal, setShowSummaryModal] = useState(false);
-  const [showAboutModal, setShowAboutModal] = useState(false);
 
-  // Load saved student on mount
+  // Sync with browser hash and load saved student
   useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentView(window.location.hash === '#about' ? 'about' : 'signin');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+
     try {
       const saved = localStorage.getItem('msit_prospective_student');
       if (saved) {
@@ -30,12 +39,20 @@ export default function StudentGatewayPage() {
     } catch (e) {
       console.error('Error loading saved student', e);
     }
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
+
+  const navigateTo = (view) => {
+    setCurrentView(view);
+    window.location.hash = view === 'about' ? '#about' : '#signin';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleScreenerSubmit = (e) => {
     e.preventDefault();
     if (!fullName.trim() || !phone.trim() || !email.trim()) {
-      setFormError('Please enter your Full Name, WhatsApp/Mobile Number, and Email.');
+      setFormError('Please enter your Full Name, WhatsApp/Mobile Number, and Email Address.');
       return;
     }
     setFormError('');
@@ -99,7 +116,7 @@ export default function StudentGatewayPage() {
       {/* Top Header */}
       <header className="gateway-header">
         <div className="gateway-header-container">
-          <div className="gateway-brand">
+          <div className="gateway-brand" onClick={() => navigateTo('signin')} style={{ cursor: 'pointer' }}>
             <img
               src="https://www.msit.ac.in/assets/msit-logo.png"
               alt="MSIT Logo"
@@ -118,13 +135,25 @@ export default function StudentGatewayPage() {
               <span className="gateway-pulse-dot" aria-hidden="true"></span>
               January 2027 Cohort
             </span>
-            <button 
-              type="button" 
-              className="btn btn-outline-ghost gateway-about-trigger"
-              onClick={() => setShowAboutModal(true)}
-            >
-              About MSIT
-            </button>
+
+            {currentView === 'signin' ? (
+              <button 
+                type="button" 
+                className="btn btn-secondary gateway-about-trigger"
+                onClick={() => navigateTo('about')}
+              >
+                <BookOpenIcon size={16} />
+                <span>About MSIT ➔</span>
+              </button>
+            ) : (
+              <button 
+                type="button" 
+                className="btn btn-primary gateway-about-trigger"
+                onClick={() => navigateTo('signin')}
+              >
+                <span>⬅ Back to Sign-In</span>
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -141,349 +170,419 @@ export default function StudentGatewayPage() {
         </div>
       </div>
 
-      {/* Main Single Entering Screen */}
-      <main className="gateway-main">
-        <div className="gateway-container">
-          <div className="gateway-split-layout">
+      {/* =========================================================================
+          PAGE 1: ENTERING SIGN-IN PAGE (Default)
+          ========================================================================= */}
+      {currentView === 'signin' && (
+        <main className="gateway-main">
+          <div className="gateway-container gateway-centered-container">
             
-            {/* LEFT COLUMN: About MSIT (Read freely without sign-in) */}
-            <div className="gateway-about-column">
-              <div className="about-msit-card">
-                <div className="about-kicker-row">
-                  <span className="about-kicker">POST-GRADUATE PROGRAMME</span>
-                  <span className="about-consortium-tag">Consortium of IIIT-H & State Universities</span>
-                </div>
-
-                <h1 className="about-main-title">About MSIT</h1>
-                <h2 className="about-main-sub">
-                  Master of Science in Information Technology
-                </h2>
-
-                <p className="about-lead">
-                  Conceived in 2001 by Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT is an intensive, industry-focused master’s programme designed to transform graduates into elite software engineers and technical leaders.
-                </p>
-
-                {/* 4 Pillars of MSIT */}
-                <div className="about-pillars-grid">
-                  <div className="about-pillar">
-                    <div className="about-pillar-icon">💡</div>
-                    <div className="about-pillar-body">
-                      <strong>100% Active Learning by Doing</strong>
-                      <p>No passive lectures. Students work in daily cognitive studios, solving real engineering challenges with continuous code reviews.</p>
-                    </div>
-                  </div>
-
-                  <div className="about-pillar">
-                    <div className="about-pillar-icon">💼</div>
-                    <div className="about-pillar-body">
-                      <strong>~50% Corporate Paid Co-op</strong>
-                      <p>Spend half of your academic duration working as a full-time software engineering intern at partner tech companies before graduation.</p>
-                    </div>
-                  </div>
-
-                  <div className="about-pillar">
-                    <div className="about-pillar-icon">🧠</div>
-                    <div className="about-pillar-body">
-                      <strong>Modern AI & Cloud Engineering</strong>
-                      <p>Curriculum engineered around Generative AI, Large Language Models, scalable distributed microservices, and defensive code quality.</p>
-                    </div>
-                  </div>
-
-                  <div className="about-pillar">
-                    <div className="about-pillar-icon">🏛️</div>
-                    <div className="about-pillar-body">
-                      <strong>IIIT Hyderabad Campus & Consortium</strong>
-                      <p>Delivered on the premier IIIT Hyderabad campus in collaboration with JNTUH, JNTUK, JNTUA, and SVU.</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* About MSIT Actions */}
-                <div className="about-card-actions">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => setShowSummaryModal(true)}
-                  >
-                    <DownloadIcon size={16} />
-                    Download 1-Page Summary (PDF)
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline-ghost"
-                    onClick={() => setShowAboutModal(true)}
-                  >
-                    <BookOpenIcon size={16} />
-                    Read Full Academic Details
-                  </button>
-                </div>
+            {/* Action Bar: Direct Button to enter About MSIT Page */}
+            <div className="enter-about-prompt">
+              <div className="prompt-text">
+                <span className="prompt-icon">🏛️</span>
+                <span>Want to inspect the curriculum, faculty legacy, co-op, and fees first?</span>
               </div>
+              <button
+                type="button"
+                className="btn btn-secondary prompt-btn"
+                onClick={() => navigateTo('about')}
+              >
+                <span>Know About MSIT Page</span>
+                <span aria-hidden="true">➔</span>
+              </button>
             </div>
 
-            {/* RIGHT COLUMN: Prospective Student Sign-In & Intake */}
-            <div className="gateway-signin-column">
-              <div className="signin-box-card">
-                {!submittedStudent ? (
-                  /* Sign In Form */
-                  <form onSubmit={handleScreenerSubmit} className="gateway-signin-form">
-                    <div className="signin-header">
-                      <div className="signin-icon-wrap">
-                        <GraduationCapIcon size={24} />
-                      </div>
-                      <div>
-                        <h3>Prospective Student Sign-In</h3>
-                        <p>Identify yourself to check eligibility & register interest for the 2027 cohort</p>
-                      </div>
+            {/* The Dedicated Sign-In Card */}
+            <div className="signin-box-card centered-signin-card">
+              {!submittedStudent ? (
+                /* Form View */
+                <form onSubmit={handleScreenerSubmit} className="gateway-signin-form">
+                  <div className="signin-header">
+                    <div className="signin-icon-wrap">
+                      <GraduationCapIcon size={26} />
                     </div>
-
-                    {formError && (
-                      <div className="signin-error-alert" role="alert">
-                        {formError}
-                      </div>
-                    )}
-
-                    {/* Step 1: Academic Status */}
-                    <div className="signin-field-group">
-                      <label className="signin-label">
-                        1. Academic Standing <span className="req">*</span>
-                      </label>
-                      <div className="signin-pills-row">
-                        <button
-                          type="button"
-                          className={`signin-pill ${academicStatus === 'final-year' ? 'active' : ''}`}
-                          onClick={() => setAcademicStatus('final-year')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>Final Year UG (2026 Batch)</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={`signin-pill ${academicStatus === 'graduated' ? 'active' : ''}`}
-                          onClick={() => setAcademicStatus('graduated')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>Completed UG (Degree Holder)</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={`signin-pill ${academicStatus === 'working' ? 'active' : ''}`}
-                          onClick={() => setAcademicStatus('working')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>Working Professional</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={`signin-pill ${academicStatus === 'other' ? 'active' : ''}`}
-                          onClick={() => setAcademicStatus('other')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>1st–3rd Year / Other</span>
-                        </button>
-                      </div>
+                    <div>
+                      <h3>Prospective Student Sign-In</h3>
+                      <p>Identify yourself to verify eligibility & log your interest for January 2027 admissions</p>
                     </div>
+                  </div>
 
-                    {/* Step 2: Undergrad Stream */}
-                    <div className="signin-field-group">
-                      <label className="signin-label">
-                        2. Undergrad Degree / Stream <span className="req">*</span>
-                      </label>
-                      <div className="signin-pills-row">
-                        <button
-                          type="button"
-                          className={`signin-pill ${degreeStream === 'btech-cs' ? 'active' : ''}`}
-                          onClick={() => setDegreeStream('btech-cs')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>B.Tech / BE (CSE, IT, AI)</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={`signin-pill ${degreeStream === 'btech-other' ? 'active' : ''}`}
-                          onClick={() => setDegreeStream('btech-other')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>B.Tech (ECE, EEE, Mech, etc.)</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={`signin-pill ${degreeStream === 'mca-msc' ? 'active' : ''}`}
-                          onClick={() => setDegreeStream('mca-msc')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>MCA / M.Sc (CS / IT / Math)</span>
-                        </button>
-                        <button
-                          type="button"
-                          className={`signin-pill ${degreeStream === 'other' ? 'active' : ''}`}
-                          onClick={() => setDegreeStream('other')}
-                        >
-                          <span className="pill-circle"></span>
-                          <span>BCA / B.Sc / Other</span>
-                        </button>
-                      </div>
+                  {formError && (
+                    <div className="signin-error-alert" role="alert">
+                      {formError}
                     </div>
+                  )}
 
-                    {/* Step 3: Contact Inputs */}
-                    <div className="signin-inputs-grid">
-                      <div className="signin-input-item">
-                        <label htmlFor="studentName">Full Name <span className="req">*</span></label>
-                        <input
-                          id="studentName"
-                          type="text"
-                          className="signin-input"
-                          placeholder="e.g. Ananya Rao"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="signin-input-item">
-                        <label htmlFor="studentPhone">WhatsApp / Mobile <span className="req">*</span></label>
-                        <input
-                          id="studentPhone"
-                          type="tel"
-                          className="signin-input"
-                          placeholder="e.g. +91 98765 43210"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          required
-                        />
-                      </div>
+                  {/* Step 1: Academic Status */}
+                  <div className="signin-field-group">
+                    <label className="signin-label">
+                      1. Academic Standing <span className="req">*</span>
+                    </label>
+                    <div className="signin-pills-row">
+                      <button
+                        type="button"
+                        className={`signin-pill ${academicStatus === 'final-year' ? 'active' : ''}`}
+                        onClick={() => setAcademicStatus('final-year')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>Final Year UG (2026 Batch)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`signin-pill ${academicStatus === 'graduated' ? 'active' : ''}`}
+                        onClick={() => setAcademicStatus('graduated')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>Completed UG (Degree Holder)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`signin-pill ${academicStatus === 'working' ? 'active' : ''}`}
+                        onClick={() => setAcademicStatus('working')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>Working Professional</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`signin-pill ${academicStatus === 'other' ? 'active' : ''}`}
+                        onClick={() => setAcademicStatus('other')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>1st–3rd Year / Other</span>
+                      </button>
                     </div>
+                  </div>
 
-                    <div className="signin-inputs-grid">
-                      <div className="signin-input-item">
-                        <label htmlFor="studentEmail">Email Address <span className="req">*</span></label>
-                        <input
-                          id="studentEmail"
-                          type="email"
-                          className="signin-input"
-                          placeholder="e.g. ananya@example.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="signin-input-item">
-                        <label htmlFor="studentCollege">College / Institution</label>
-                        <input
-                          id="studentCollege"
-                          type="text"
-                          className="signin-input"
-                          placeholder="e.g. JNTUH / CBIT Hyderabad"
-                          value={college}
-                          onChange={(e) => setCollege(e.target.value)}
-                        />
-                      </div>
+                  {/* Step 2: Undergrad Stream */}
+                  <div className="signin-field-group">
+                    <label className="signin-label">
+                      2. Undergrad Degree / Stream <span className="req">*</span>
+                    </label>
+                    <div className="signin-pills-row">
+                      <button
+                        type="button"
+                        className={`signin-pill ${degreeStream === 'btech-cs' ? 'active' : ''}`}
+                        onClick={() => setDegreeStream('btech-cs')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>B.Tech / BE (CSE, IT, AI)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`signin-pill ${degreeStream === 'btech-other' ? 'active' : ''}`}
+                        onClick={() => setDegreeStream('btech-other')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>B.Tech (ECE, EEE, Mech, etc.)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`signin-pill ${degreeStream === 'mca-msc' ? 'active' : ''}`}
+                        onClick={() => setDegreeStream('mca-msc')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>MCA / M.Sc (CS / IT / Math)</span>
+                      </button>
+                      <button
+                        type="button"
+                        className={`signin-pill ${degreeStream === 'other' ? 'active' : ''}`}
+                        onClick={() => setDegreeStream('other')}
+                      >
+                        <span className="pill-circle"></span>
+                        <span>BCA / B.Sc / Other</span>
+                      </button>
                     </div>
+                  </div>
 
-                    <button type="submit" className="btn btn-primary signin-submit-btn">
-                      <span>Sign In & Verify Eligibility</span>
-                      <ArrowRightIcon size={18} />
-                    </button>
-
-                    <div className="signin-privacy-note">
-                      <ShieldCheckIcon size={14} />
-                      <span>Official MSIT admissions intake. Information is used strictly for admissions counseling and updates.</span>
+                  {/* Step 3: Contact Inputs */}
+                  <div className="signin-inputs-grid">
+                    <div className="signin-input-item">
+                      <label htmlFor="studentName">Full Name <span className="req">*</span></label>
+                      <input
+                        id="studentName"
+                        type="text"
+                        className="signin-input"
+                        placeholder="e.g. Rahul Sharma"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                        required
+                      />
                     </div>
-                  </form>
-                ) : (
-                  /* Verified Dashboard Pass (Once signed in) */
-                  <div className="signed-in-card">
-                    <div className="signed-header">
-                      <div className="signed-avatar">
-                        {submittedStudent.isEligible ? '🎓' : 'ℹ️'}
-                      </div>
-                      <div>
-                        <span className="signed-kicker">PROSPECTIVE STUDENT PROFILE LOGGED</span>
-                        <h3>Welcome, {submittedStudent.fullName}!</h3>
-                      </div>
+                    <div className="signin-input-item">
+                      <label htmlFor="studentPhone">WhatsApp / Mobile <span className="req">*</span></label>
+                      <input
+                        id="studentPhone"
+                        type="tel"
+                        className="signin-input"
+                        placeholder="e.g. +91 98765 43210"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                      />
                     </div>
+                  </div>
 
-                    {/* Eligibility Verdict */}
-                    <div className={`signed-verdict ${submittedStudent.isEligible ? 'eligible' : 'conditional'}`}>
-                      <div className="signed-verdict-icon">
-                        {submittedStudent.isEligible ? (
-                          <CheckCircleIcon size={24} />
-                        ) : (
-                          <ShieldCheckIcon size={24} />
-                        )}
-                      </div>
-                      <div>
-                        <strong>
-                          {submittedStudent.isEligible 
-                            ? '✅ Verified Eligible for MSIT January 2027 Cohort' 
-                            : 'ℹ️ Conditional / Pre-Screening Review Required'}
-                        </strong>
-                        <p>
-                          {submittedStudent.isEligible
-                            ? 'You meet the academic eligibility criteria (Final-year student / Degree holder in Engineering or Computing disciplines). An admissions counselor will reach out to you.'
-                            : 'MSIT prioritizes final-year students and degree holders in engineering and computing disciplines. Your profile has been logged for provisional review.'}
-                        </p>
-                      </div>
+                  <div className="signin-inputs-grid">
+                    <div className="signin-input-item">
+                      <label htmlFor="studentEmail">Email Address <span className="req">*</span></label>
+                      <input
+                        id="studentEmail"
+                        type="email"
+                        className="signin-input"
+                        placeholder="e.g. rahul@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
                     </div>
+                    <div className="signin-input-item">
+                      <label htmlFor="studentCollege">College / Institution</label>
+                      <input
+                        id="studentCollege"
+                        type="text"
+                        className="signin-input"
+                        placeholder="e.g. JNTUH / CBIT Hyderabad"
+                        value={college}
+                        onChange={(e) => setCollege(e.target.value)}
+                      />
+                    </div>
+                  </div>
 
-                    {/* Profile Summary */}
-                    <div className="signed-profile-box">
-                      <div className="profile-row">
-                        <span>Academic Status:</span>
-                        <strong>{getStatusLabel(submittedStudent.academicStatus)}</strong>
-                      </div>
-                      <div className="profile-row">
-                        <span>Degree / Stream:</span>
-                        <strong>{getStreamLabel(submittedStudent.degreeStream)}</strong>
-                      </div>
-                      <div className="profile-row">
-                        <span>Contact:</span>
-                        <strong>{submittedStudent.phone}</strong>
-                      </div>
-                      <div className="profile-row">
-                        <span>Email:</span>
-                        <strong>{submittedStudent.email}</strong>
-                      </div>
-                      {submittedStudent.college && (
-                        <div className="profile-row">
-                          <span>College:</span>
-                          <strong>{submittedStudent.college}</strong>
-                        </div>
+                  <button type="submit" className="btn btn-primary signin-submit-btn">
+                    <span>Sign In & Verify Eligibility</span>
+                    <ArrowRightIcon size={18} />
+                  </button>
+
+                  <div className="signin-privacy-note">
+                    <ShieldCheckIcon size={14} />
+                    <span>Official MSIT admissions intake. Information is used strictly for admissions counseling and updates.</span>
+                  </div>
+                </form>
+              ) : (
+                /* Verified Dashboard Pass (Once signed in) */
+                <div className="signed-in-card">
+                  <div className="signed-header">
+                    <div className="signed-avatar">
+                      {submittedStudent.isEligible ? '🎓' : 'ℹ️'}
+                    </div>
+                    <div>
+                      <span className="signed-kicker">PROSPECTIVE STUDENT PROFILE LOGGED</span>
+                      <h3>Welcome, {submittedStudent.fullName}!</h3>
+                    </div>
+                  </div>
+
+                  {/* Eligibility Verdict */}
+                  <div className={`signed-verdict ${submittedStudent.isEligible ? 'eligible' : 'conditional'}`}>
+                    <div className="signed-verdict-icon">
+                      {submittedStudent.isEligible ? (
+                        <CheckCircleIcon size={24} />
+                      ) : (
+                        <ShieldCheckIcon size={24} />
                       )}
                     </div>
-
-                    <div className="signed-actions">
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        onClick={() => setShowSummaryModal(true)}
-                      >
-                        <DownloadIcon size={16} />
-                        Download 1-Page Summary (PDF)
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={() => setShowAboutModal(true)}
-                      >
-                        <BookOpenIcon size={16} />
-                        View Full MSIT Details
-                      </button>
+                    <div>
+                      <strong>
+                        {submittedStudent.isEligible 
+                          ? '✅ Verified Eligible for MSIT January 2027 Cohort' 
+                          : 'ℹ️ Conditional / Pre-Screening Review Required'}
+                      </strong>
+                      <p>
+                        {submittedStudent.isEligible
+                          ? 'You meet the academic eligibility criteria (Final-year student / Degree holder in Engineering or Computing disciplines). An admissions counselor will reach out to you.'
+                          : 'MSIT prioritizes final-year students and degree holders in engineering and computing disciplines. Your profile has been logged for provisional review.'}
+                      </p>
                     </div>
+                  </div>
 
+                  {/* Profile Summary */}
+                  <div className="signed-profile-box">
+                    <div className="profile-row">
+                      <span>Academic Status:</span>
+                      <strong>{getStatusLabel(submittedStudent.academicStatus)}</strong>
+                    </div>
+                    <div className="profile-row">
+                      <span>Degree / Stream:</span>
+                      <strong>{getStreamLabel(submittedStudent.degreeStream)}</strong>
+                    </div>
+                    <div className="profile-row">
+                      <span>Contact:</span>
+                      <strong>{submittedStudent.phone}</strong>
+                    </div>
+                    <div className="profile-row">
+                      <span>Email:</span>
+                      <strong>{submittedStudent.email}</strong>
+                    </div>
+                    {submittedStudent.college && (
+                      <div className="profile-row">
+                        <span>College:</span>
+                        <strong>{submittedStudent.college}</strong>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="signed-actions">
                     <button
                       type="button"
-                      className="btn-switch-student"
-                      onClick={handleResetStudent}
+                      className="btn btn-primary"
+                      onClick={() => setShowSummaryModal(true)}
                     >
-                      ✏️ Edit details or sign in as a different student
+                      <DownloadIcon size={16} />
+                      Download 1-Page Summary (PDF)
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={() => navigateTo('about')}
+                    >
+                      <BookOpenIcon size={16} />
+                      Enter About MSIT Page ➔
                     </button>
                   </div>
-                )}
+
+                  <button
+                    type="button"
+                    className="btn-switch-student"
+                    onClick={handleResetStudent}
+                  >
+                    ✏️ Edit details or sign in as a different student
+                  </button>
+                </div>
+              )}
+            </div>
+
+          </div>
+        </main>
+      )}
+
+      {/* =========================================================================
+          PAGE 2: ABOUT MSIT PAGE (Entered via button)
+          ========================================================================= */}
+      {currentView === 'about' && (
+        <main className="gateway-main">
+          <div className="gateway-container">
+            
+            {/* Top Navigation Bar back to Sign In */}
+            <div className="about-page-topbar">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => navigateTo('signin')}
+              >
+                <span>⬅ Back to Student Sign-In</span>
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => setShowSummaryModal(true)}
+              >
+                <DownloadIcon size={16} />
+                Download 1-Page Summary (PDF)
+              </button>
+            </div>
+
+            {/* About MSIT Comprehensive View */}
+            <div className="about-fullpage-card">
+              <div className="about-kicker-row">
+                <span className="about-kicker">ABOUT THE PROGRAMME</span>
+                <span className="about-consortium-tag">Consortium of IIIT-H, JNTUH, JNTUK, JNTUA & SVU</span>
+              </div>
+
+              <h1 className="about-main-title">Master of Science in Information Technology</h1>
+              <h2 className="about-main-sub">
+                The AI-Native Technology Master's Programme at IIIT Hyderabad
+              </h2>
+
+              <p className="about-lead">
+                Conceived in 2001 by Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT is an intensive post-graduate master's programme engineering high-impact software, scalable intelligent systems, and immersive corporate co-ops.
+              </p>
+
+              {/* 4 Core Pillars */}
+              <div className="about-pillars-grid">
+                <div className="about-pillar">
+                  <div className="about-pillar-icon">💡</div>
+                  <div className="about-pillar-body">
+                    <strong>100% Active Learning by Doing</strong>
+                    <p>No passive lecture halls. Students work in daily cognitive studios, solving algorithmic challenges, designing system architectures, and receiving code reviews from mentors.</p>
+                  </div>
+                </div>
+
+                <div className="about-pillar">
+                  <div className="about-pillar-icon">💼</div>
+                  <div className="about-pillar-body">
+                    <strong>~50% Corporate Paid Co-op</strong>
+                    <p>Spend half of your academic duration working full-time as a software engineering intern at leading tech enterprises, earning a corporate stipend and gaining real production tenure.</p>
+                  </div>
+                </div>
+
+                <div className="about-pillar">
+                  <div className="about-pillar-icon">🧠</div>
+                  <div className="about-pillar-body">
+                    <strong>Modern AI & Cloud Engineering</strong>
+                    <p>Curriculum structured around Generative AI, Large Language Models (LLMs), scalable cloud microservices, distributed systems, and defensive code quality.</p>
+                  </div>
+                </div>
+
+                <div className="about-pillar">
+                  <div className="about-pillar-icon">🏛️</div>
+                  <div className="about-pillar-body">
+                    <strong>IIIT Hyderabad Campus & Consortium</strong>
+                    <p>Delivered on the IIIT Hyderabad campus in collaboration with JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Programme Operational Snapshot */}
+              <div className="about-snapshot-section">
+                <h3>Programme Operational Facts</h3>
+                <div className="about-facts-grid">
+                  <div className="fact-item">
+                    <span>Awarding Institution</span>
+                    <strong>IIIT Hyderabad (Consortium)</strong>
+                  </div>
+                  <div className="fact-item">
+                    <span>Next Cohort Intake</span>
+                    <strong>January 2027</strong>
+                  </div>
+                  <div className="fact-item">
+                    <span>Campus Location</span>
+                    <strong>Gachibowli, Hyderabad</strong>
+                  </div>
+                  <div className="fact-item">
+                    <span>Format</span>
+                    <strong>Full-Time On-Campus + Corporate Co-op</strong>
+                  </div>
+                  <div className="fact-item">
+                    <span>Target Background</span>
+                    <strong>B.Tech/BE (All branches), MCA, M.Sc</strong>
+                  </div>
+                  <div className="fact-item">
+                    <span>Final-Year Status</span>
+                    <strong>2026 Graduating Students Eligible</strong>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Callout to Sign In */}
+              <div className="about-cta-banner">
+                <div>
+                  <h4>Ready to Verify Your Eligibility?</h4>
+                  <p>Submit your academic profile on our sign-in page to register your interest for January 2027 admissions.</p>
+                </div>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={() => navigateTo('signin')}
+                >
+                  <span>Go to Student Sign-In ➔</span>
+                </button>
               </div>
             </div>
 
           </div>
-        </div>
-      </main>
+        </main>
+      )}
 
       {/* Footer */}
       <footer className="gateway-footer">
@@ -587,75 +686,6 @@ export default function StudentGatewayPage() {
               </button>
               <button className="btn btn-primary" onClick={() => setShowSummaryModal(false)}>
                 Done
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* About MSIT Detailed Modal */}
-      {showAboutModal && (
-        <div className="modal-backdrop" onClick={() => setShowAboutModal(false)}>
-          <div className="modal-dialog modal-dialog-lg" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
-            <div className="modal-header">
-              <div>
-                <span className="kicker">Consortium of IIIT-H & State Universities</span>
-                <h3 id="aboutModalTitle">About MSIT Programme</h3>
-                <span className="modal-subtitle">Master of Science in Information Technology</span>
-              </div>
-              <button
-                className="modal-close-btn"
-                onClick={() => setShowAboutModal(false)}
-                aria-label="Close modal"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="modal-body" style={{ maxHeight: '70vh', overflowY: 'auto' }}>
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.4rem' }}>The Founding Vision</h4>
-                <p>
-                  Conceived in 2001 by Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT was created to bridge the profound chasm between traditional academic computer science theory and the production-grade reality of global software engineering.
-                </p>
-              </div>
-
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.4rem' }}>How MSIT Works: 2 Distinct Phases</h4>
-                <ul style={{ paddingLeft: '1.2rem', lineHeight: '1.6' }}>
-                  <li><strong>Phase 1: Deep Campus Immersion (IIIT Hyderabad)</strong> — Intensive full-day studio labs, problem solving, algorithms, and full-stack software development. Zero lecture halls.</li>
-                  <li><strong>Phase 2: ~50% Corporate Co-op</strong> — You join a partner tech enterprise full-time, write production code alongside senior engineers, receive active code reviews, and earn a stipend before graduation.</li>
-                </ul>
-              </div>
-
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.4rem' }}>Who Is Eligible?</h4>
-                <p>
-                  Candidates who have completed or are in their final year of <strong>B.Tech / B.E.</strong> (any branch), <strong>MCA</strong>, or <strong>M.Sc</strong> (Computer Science, IT, Mathematics) are eligible to participate in the admissions process.
-                </p>
-              </div>
-
-              <div>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.4rem' }}>Next Batch Details</h4>
-                <p>
-                  <strong>Cohort Commencement:</strong> January 2027<br />
-                  <strong>Campus:</strong> IIIT Hyderabad, Gachibowli, Hyderabad
-                </p>
-              </div>
-            </div>
-
-            <div className="modal-footer">
-              <button className="btn btn-secondary" onClick={() => setShowAboutModal(false)}>
-                Close
-              </button>
-              <button 
-                className="btn btn-primary" 
-                onClick={() => {
-                  setShowAboutModal(false);
-                  setShowSummaryModal(true);
-                }}
-              >
-                Download 1-Page Summary
               </button>
             </div>
           </div>

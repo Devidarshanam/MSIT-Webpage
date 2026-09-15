@@ -4074,5 +4074,145 @@ p {
     flex-direction: column;
     align-items: flex-start;
   }
+  .about-facts-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
+
+/* Centered Entering Sign-In View */
+.gateway-centered-container {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.enter-about-prompt {
+  background: var(--white);
+  border: 1.5px dashed rgba(24, 76, 168, 0.32);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  margin-bottom: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 14px rgba(11, 42, 107, 0.04);
+}
+
+.prompt-text {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--neutral-700);
+}
+
+.prompt-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.prompt-btn {
+  font-size: 0.84rem !important;
+  font-weight: 700 !important;
+  padding: 0.45rem 0.95rem !important;
+  white-space: nowrap;
+}
+
+.centered-signin-card {
+  width: 100%;
+}
+
+/* About MSIT Fullpage Card */
+.about-page-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.about-fullpage-card {
+  background: var(--white);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-lg);
+  padding: 2.4rem 2.8rem;
+  box-shadow: 0 14px 36px rgba(11, 42, 107, 0.06);
+}
+
+.about-snapshot-section {
+  background: #f8fafc;
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.about-snapshot-section h3 {
+  font-size: 1.08rem;
+  color: var(--primary-900);
+  margin: 0 0 1rem 0;
+}
+
+.about-facts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.fact-item span {
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.fact-item strong {
+  font-size: 0.92rem;
+  color: var(--primary-900);
+}
+
+.about-cta-banner {
+  background: linear-gradient(135deg, #0b2a6b 0%, #184ca8 100%);
+  color: var(--white);
+  border-radius: var(--radius-md);
+  padding: 1.6rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.about-cta-banner h4 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.2rem;
+  color: var(--white);
+}
+
+.about-cta-banner p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .about-fullpage-card {
+    padding: 1.5rem 1.3rem;
+  }
+  .enter-about-prompt {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .about-cta-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 
