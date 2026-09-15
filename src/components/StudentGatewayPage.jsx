@@ -96,7 +96,6 @@ export default function StudentGatewayPage() {
           
           {/* MSIT Heading & General Description */}
           <div className="gateway-hero-header">
-            <span className="gateway-kicker-badge">UNIVERSITY CONSORTIUM</span>
             <h1 className="gateway-main-title">Master of Science in Information Technology (MSIT)</h1>
             <p className="gateway-main-desc">
               A specialized postgraduate master's degree in advanced computing and software engineering, offered under the consortium of IIIT Hyderabad and prestigious state universities.
