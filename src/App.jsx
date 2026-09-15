@@ -3,17 +3,10 @@ import msitData from './data/msitData.json';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ProgrammeAtGlance from './components/ProgrammeAtGlance';
-import ProgrammeOverview from './components/ProgrammeOverview';
 import WhyChooseMSIT from './components/WhyChooseMSIT';
-import WhatMakesMSITDifferent from './components/WhatMakesMSITDifferent';
-import MSITExperience from './components/MSITExperience';
 import Curriculum from './components/Curriculum';
 import CareerOutcomes from './components/CareerOutcomes';
-import WhoShouldApply from './components/WhoShouldApply';
-import Eligibility from './components/Eligibility';
-import Admissions from './components/Admissions';
-import Fees from './components/Fees';
-import ImportantDates from './components/ImportantDates';
+import AdmissionsCenter from './components/AdmissionsCenter';
 import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
@@ -37,21 +30,29 @@ export default function App() {
     <div className="app-root">
       <Navbar data={msitData.navigation} />
       <main>
+        {/* 1. Hero with Snapshot & 1-Page Summary */}
         <Hero data={msitData.hero} />
+
+        {/* 2. Programme at a Glance (Compact operational facts) */}
         <ProgrammeAtGlance data={msitData.glance} />
-        <ProgrammeOverview data={msitData.overview} />
+
+        {/* 3. Why Choose MSIT (4 Pillars + Prof. Raj Reddy Legacy) */}
         <WhyChooseMSIT data={msitData.whyChoose} />
-        <WhatMakesMSITDifferent data={msitData.differentiation} />
-        <MSITExperience data={msitData.experience} />
+
+        {/* 4. Curriculum & Academic Cadence (Timeline + Interactive Domains) */}
         <Curriculum data={msitData.curriculum} />
+
+        {/* 5. Career Pathways & Post-Graduation Outcomes */}
         <CareerOutcomes data={msitData.careerOutcomes} />
-        <WhoShouldApply data={msitData.whoShouldApply} />
-        <Eligibility data={msitData.eligibility} />
-        <Admissions data={msitData.admissions} />
-        <Fees data={msitData.fees} />
-        <ImportantDates data={msitData.importantDates} />
+
+        {/* 6. Admissions, Eligibility & Finances Action Hub */}
+        <AdmissionsCenter data={msitData.admissionsCenter} />
+
+        {/* 7. Frequently Asked Questions */}
         <FAQ data={msitData.faq} />
-        <FinalCTA data={msitData.finalCta} />
+
+        {/* Final CTA / Registration */}
+        <FinalCTA data={msitData.cta} />
       </main>
       <Footer data={msitData.footer} />
 

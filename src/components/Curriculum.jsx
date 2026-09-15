@@ -17,6 +17,23 @@ export default function Curriculum({ data }) {
           <p className="text-muted-light">{data.description}</p>
         </div>
 
+        {/* 5-Phase Student Progression Tracker */}
+        {data.cadence && (
+          <div className="cadence-timeline-bar">
+            <h3 className="cadence-title">5-Phase Academic & Industry Cadence</h3>
+            <div className="cadence-steps-row">
+              {data.cadence.map((phase, idx) => (
+                <div key={idx} className="cadence-step-item">
+                  <div className="cadence-step-badge">{phase.step}</div>
+                  <div className="cadence-step-phase">{phase.phase}</div>
+                  <div className="cadence-step-name">{phase.title}</div>
+                  <div className="cadence-step-desc">{phase.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Interactive Domain Filter Tabs */}
         <div className="curriculum-tabs-nav" role="tablist" aria-label="Curriculum domain filters">
           <button

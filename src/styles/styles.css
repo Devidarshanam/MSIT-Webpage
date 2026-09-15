@@ -692,11 +692,17 @@ p {
   font-size: 0.94rem;
 }
 
-/* Why Choose MSIT - Fits 100% in One Glance on Laptop */
+/* Why Choose MSIT - Compact Grid */
 .cards-six-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.95rem;
+}
+
+.four-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.1rem;
 }
 
 .benefit-card {
@@ -2501,6 +2507,204 @@ p {
   margin-bottom: 0;
 }
 
+/* 5-Phase Cadence Timeline Bar (Curriculum) */
+.cadence-timeline-bar {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem 1.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.cadence-title {
+  font-size: 0.98rem;
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.cadence-steps-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.cadence-step-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.cadence-step-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #60a5fa;
+  margin-bottom: 0.15rem;
+}
+
+.cadence-step-phase {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.2rem;
+}
+
+.cadence-step-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+}
+
+.cadence-step-desc {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Admissions Roadmap & Financials (Unified Admissions Center) */
+.admissions-roadmap-card {
+  background: var(--white);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.roadmap-title-row h3 {
+  font-size: 1.18rem;
+  color: var(--primary-900);
+  margin-bottom: 1.1rem;
+}
+
+.admissions-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.roadmap-step-box {
+  background: var(--neutral-100);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.roadmap-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.step-num {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--primary-700);
+  background: var(--primary-100);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.step-subtext {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+}
+
+.roadmap-step-box h4 {
+  font-size: 0.96rem;
+  color: var(--primary-900);
+  margin-bottom: 0.35rem;
+}
+
+.roadmap-step-box p {
+  font-size: 0.86rem;
+  color: var(--neutral-700);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.financials-support-card {
+  background: var(--white);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.financials-header h3 {
+  font-size: 1.18rem;
+  color: var(--primary-900);
+  margin-bottom: 0.25rem;
+}
+
+.fee-notice {
+  font-size: 0.92rem;
+  color: var(--neutral-600);
+  margin-bottom: 1.1rem;
+}
+
+.loan-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.loan-pillar-box {
+  background: var(--neutral-100);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.loan-pillar-icon {
+  color: var(--primary-700);
+  background: var(--primary-100);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.loan-pillar-box h4 {
+  font-size: 0.98rem;
+  color: var(--primary-900);
+  margin-bottom: 0.25rem;
+}
+
+.loan-pillar-box p {
+  font-size: 0.88rem;
+  color: var(--neutral-700);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.admissions-cta-center {
+  text-align: center;
+  margin-top: 1.4rem;
+}
+
 /* Responsive Media Queries */
 @media (max-width: 1200px) {
   .nav-cohort-pill {
@@ -2533,6 +2737,22 @@ p {
   
   .cards-six-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .four-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cadence-steps-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admissions-steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .loan-pillars-grid {
+    grid-template-columns: 1fr;
   }
   
   .four-up-grid {
