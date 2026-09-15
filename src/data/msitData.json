@@ -107,60 +107,41 @@
   },
   "curriculum": {
     "sectionId": "curriculum",
-    "kicker": "Technical Coverage & Cadence",
-    "heading": "What Will You Learn & Build?",
-    "description": "Your semester-by-semester journey from foundations to corporate co-op and venture incubation.",
-    "cadence": [
-      { "step": "01", "phase": "Foundations", "title": "Core Technical Immersion", "desc": "Algorithmic computing, Unix systems, and software engineering studios." },
-      { "step": "02", "phase": "Advanced Labs", "title": "Complex Systems & Modern AI", "desc": "Neural systems, modern LLMs, distributed architectures, and cloud pipelines." },
-      { "step": "03", "phase": "Industry Co-op", "title": "Corporate Practice (~50%)", "desc": "Full-time enterprise engineering tenure with active practitioner code reviews." },
-      { "step": "04", "phase": "Venture Studio", "title": "Product Prototyping", "desc": "Market problem discovery, venture incubation, and building production MVPs." },
-      { "step": "05", "phase": "Capstone", "title": "Portfolio Synthesis", "desc": "Defensible end-to-end technical capstone project and industry launch." }
-    ],
-    "categories": [
+    "kicker": "Curriculum Focus",
+    "heading": "What Will You Master?",
+    "description": "Four core competencies engineered for modern software, intelligent systems, and industry leadership.",
+    "tracks": [
       {
-        "category": "Foundational Computing & Systems",
-        "icon": "💻",
-        "items": [
-          "Advanced computational problem solving & data structures",
-          "Software architecture & systems design principles",
-          "Concurrent, distributed, and cloud computing fundamentals"
-        ]
-      },
-      {
-        "category": "Artificial Intelligence & Modern Data",
+        "title": "Artificial Intelligence & Modern Data",
         "icon": "🧠",
-        "items": [
-          "Applied machine learning algorithms & statistical modeling",
-          "Deep learning architectures & neural systems",
-          "Modern large language models (LLMs) & generative agents",
-          "Scalable data engineering & analytics pipelines"
-        ]
+        "tag": "LLMs & Intelligent Systems",
+        "description": "Neural network architectures, modern large language models (LLMs), generative agents, and high-throughput data engineering."
       },
       {
-        "category": "Applied Engineering & Delivery",
+        "title": "Distributed Computing & Cloud Systems",
+        "icon": "💻",
+        "tag": "Architecture & Scalability",
+        "description": "Advanced systems design, concurrency, cloud-native infrastructure, microservices, and fault-tolerant computing."
+      },
+      {
+        "title": "Production Software & Defensive Quality",
         "icon": "⚙️",
-        "items": [
-          "Production software development & automated testing",
-          "API engineering, microservices, and system reliability",
-          "DevOps, continuous integration, and cloud-native deployment"
-        ]
+        "tag": "Reliability & Verification",
+        "description": "Production software architecture, automated testing, CI/CD pipelines, defensive engineering, and human code scrutiny."
       },
       {
-        "category": "Product & Professional Leadership",
-        "icon": "🎯",
-        "items": [
-          "Product discovery, user validation & venture design",
-          "Executive technical communication & collaborative leadership",
-          "Algorithmic ethics, data privacy, and governance"
-        ]
+        "title": "Corporate Co-op & Venture Incubation",
+        "icon": "🚀",
+        "tag": "~50% Practical Tenure",
+        "description": "Extensive full-time corporate software engineering tenure with practitioner code reviews, or venture incubation for technical founders."
       }
     ],
-    "criticalJudgementBox": {
-      "title": "Human Judgment & Defensive Engineering",
-      "text": "While students leverage modern AI tools to accelerate development, heavy emphasis is placed on formal verification, defensive engineering, and knowing precisely when automated solutions are fragile or erroneous."
-    },
-    "note": "Detailed course titles, credits, and elective distributions: To be announced."
+    "progression": [
+      { "step": "01", "name": "Foundations" },
+      { "step": "02", "name": "Advanced Labs" },
+      { "step": "03", "name": "Corporate Co-op (~50%)" },
+      { "step": "04", "name": "Capstone & Launch" }
+    ]
   },
   "careerOutcomes": {
     "sectionId": "careers",

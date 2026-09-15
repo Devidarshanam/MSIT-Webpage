@@ -1,13 +1,7 @@
-import React, { useState } from 'react';
-import { CpuIcon, SparklesIcon, TerminalIcon, UsersIcon, ShieldCheckIcon, getSmartIcon } from './Icons';
+import React from 'react';
+import { getSmartIcon, ArrowRightIcon } from './Icons';
 
 export default function Curriculum({ data }) {
-  const [activeTab, setActiveTab] = useState('all');
-
-  const filteredCategories = activeTab === 'all'
-    ? data.categories
-    : data.categories.filter((cat, idx) => `cat-${idx}` === activeTab);
-
   return (
     <section className="section section-curriculum-rich" id={data.sectionId}>
       <div className="container">
@@ -17,80 +11,41 @@ export default function Curriculum({ data }) {
           <p className="text-muted-light">{data.description}</p>
         </div>
 
-        {/* 5-Phase Student Progression Tracker */}
-        {data.cadence && (
-          <div className="cadence-timeline-bar">
-            <h3 className="cadence-title">5-Phase Academic & Industry Cadence</h3>
-            <div className="cadence-steps-row">
-              {data.cadence.map((phase, idx) => (
-                <div key={idx} className="cadence-step-item">
-                  <div className="cadence-step-badge">{phase.step}</div>
-                  <div className="cadence-step-phase">{phase.phase}</div>
-                  <div className="cadence-step-name">{phase.title}</div>
-                  <div className="cadence-step-desc">{phase.desc}</div>
+        {/* 4 Core Competency Cards */}
+        <div className="curriculum-four-grid">
+          {data.tracks.map((track, idx) => (
+            <div key={idx} className="curriculum-focus-card dark-card">
+              <div className="focus-card-top">
+                <div className="focus-icon" aria-hidden="true">
+                  {getSmartIcon(track.icon || track.title, 22)}
                 </div>
+                <span className="focus-tag">{track.tag}</span>
+              </div>
+              <h3>{track.title}</h3>
+              <p>{track.description}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Simple 1-Line Progression Strip */}
+        {data.progression && (
+          <div className="cadence-simple-strip">
+            <span className="strip-label">Academic Cadence:</span>
+            <div className="strip-steps">
+              {data.progression.map((p, idx) => (
+                <React.Fragment key={idx}>
+                  <div className="strip-step">
+                    <span className="strip-num">{p.step}</span>
+                    <span className="strip-name">{p.name}</span>
+                  </div>
+                  {idx < data.progression.length - 1 && (
+                    <span className="strip-arrow" aria-hidden="true">➔</span>
+                  )}
+                </React.Fragment>
               ))}
             </div>
           </div>
         )}
-
-        {/* Interactive Domain Filter Tabs */}
-        <div className="curriculum-tabs-nav" role="tablist" aria-label="Curriculum domain filters">
-          <button
-            className={`curriculum-tab-btn ${activeTab === 'all' ? 'active' : ''}`}
-            onClick={() => setActiveTab('all')}
-            role="tab"
-            aria-selected={activeTab === 'all'}
-          >
-            All Technical Domains ({data.categories.length})
-          </button>
-          {data.categories.map((cat, idx) => (
-            <button
-              key={idx}
-              className={`curriculum-tab-btn ${activeTab === `cat-${idx}` ? 'active' : ''}`}
-              onClick={() => setActiveTab(`cat-${idx}`)}
-              role="tab"
-              aria-selected={activeTab === `cat-${idx}`}
-            >
-              {cat.category}
-            </button>
-          ))}
-        </div>
-
-        <div className="curriculum-grid">
-          {filteredCategories.map((cat, idx) => (
-            <div key={idx} className="curriculum-category-card dark-card">
-              <div className="category-header">
-                <div className="category-icon" aria-hidden="true">
-                  {getSmartIcon(cat.category, 20)}
-                </div>
-                <h3>{cat.category}</h3>
-              </div>
-              <ul className="curriculum-list">
-                {cat.items.map((item, i) => (
-                  <li key={i}>
-                    <span className="bullet-indicator" aria-hidden="true">▹</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="highlight-banner dark-banner">
-          <div className="banner-icon-badge" aria-hidden="true">
-            <ShieldCheckIcon size={24} />
-          </div>
-          <div className="banner-content">
-            <h3>{data.criticalJudgementBox.title}</h3>
-            <p>{data.criticalJudgementBox.text}</p>
-          </div>
-        </div>
-
-        <div className="note-box note-box-dark">
-          {data.note}
-        </div>
       </div>
     </section>
   );
