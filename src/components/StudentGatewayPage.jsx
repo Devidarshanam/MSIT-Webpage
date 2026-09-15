@@ -94,6 +94,15 @@ export default function StudentGatewayPage() {
       <main className="gateway-main minimal-main">
         <div className="gateway-container">
           
+          {/* MSIT Heading & Description */}
+          <div className="gateway-hero-header">
+            <span className="gateway-kicker-badge">UNIVERSITY CONSORTIUM</span>
+            <h1 className="gateway-main-title">Master of Science in Information Technology (MSIT)</h1>
+            <p className="gateway-main-desc">
+              Conceived in 2001 by Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT is an intensive postgraduate computing programme offered under the consortium of IIIT Hyderabad and leading state universities. Built around 100% active learning-by-doing and ~50% paid corporate industry co-op.
+            </p>
+          </div>
+
           <div className="simple-two-card-grid">
             
             {/* =========================================================================
