@@ -328,6 +328,46 @@ p {
   display: none !important;
 }
 
+.nav-student-signed-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  padding: 0.38rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.nav-student-signed-chip:hover {
+  background: #d1fae5;
+  border-color: #6ee7b7;
+  color: #064e3b;
+}
+
+.student-chip-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.student-chip-check {
+  background: #059669;
+  color: var(--white);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  font-size: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -581,6 +621,469 @@ p {
   color: var(--primary-900);
   font-weight: 600;
 }
+
+/* ==========================================================================
+   Idea 2: Prospective Student Intake Gateway & Screener Styles
+   ========================================================================== */
+
+.hero-target-banner-wrap {
+  margin-bottom: 1.3rem;
+}
+
+.hero-target-banner {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-left: 5px solid #f59e0b;
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.08);
+}
+
+.target-banner-badge {
+  background: #f59e0b;
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.target-banner-text {
+  font-size: 0.88rem;
+  color: #78350f;
+  line-height: 1.45;
+}
+
+.target-banner-text strong {
+  color: #92400e;
+}
+
+/* Know About MSIT Callout (No Sign-In Needed) */
+.know-msit-callout {
+  background: var(--white);
+  border: 1.5px dashed rgba(24, 76, 168, 0.32);
+  border-radius: var(--radius-md);
+  padding: 1.05rem 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 16px rgba(11, 42, 107, 0.04);
+}
+
+.know-msit-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.know-msit-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.know-msit-head strong {
+  display: block;
+  font-size: 0.96rem;
+  color: var(--primary-900);
+  margin-bottom: 0.15rem;
+}
+
+.know-msit-head p {
+  font-size: 0.84rem;
+  color: var(--neutral-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.know-msit-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.know-msit-btn {
+  font-size: 0.88rem !important;
+  font-weight: 700 !important;
+  padding: 0.6rem 1.15rem !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.btn-arrow {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.know-msit-btn:hover .btn-arrow {
+  transform: translateY(2px);
+}
+
+/* Prospective Student Gateway Screener Card */
+.gateway-screener-card {
+  background: var(--white);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 34px rgba(11, 42, 107, 0.09);
+  overflow: hidden;
+}
+
+.screener-tabs-header {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--neutral-300);
+}
+
+.screener-tab-btn {
+  border: none;
+  background: transparent;
+  padding: 0.85rem 0.8rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--neutral-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border-bottom: 2px solid transparent;
+}
+
+.screener-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--primary-900);
+}
+
+.screener-tab-btn.active {
+  background: var(--white);
+  color: var(--primary-800);
+  font-weight: 700;
+  border-bottom-color: var(--primary-700);
+}
+
+.screener-tab-body {
+  padding: 1.35rem 1.45rem;
+}
+
+.screener-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.screener-title-row h3 {
+  font-size: 1.05rem;
+  color: var(--primary-900);
+  margin: 0;
+}
+
+.screener-time-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.screener-intro p {
+  font-size: 0.82rem;
+  color: var(--neutral-500);
+  margin-bottom: 0.85rem;
+  line-height: 1.4;
+}
+
+.screener-error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.85rem;
+}
+
+.screener-field-block {
+  margin-bottom: 0.85rem;
+}
+
+.screener-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--neutral-800);
+  margin-bottom: 0.4rem;
+}
+
+.screener-label .req {
+  color: #dc2626;
+}
+
+.screener-pill-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.45rem;
+}
+
+.screener-pill {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--neutral-700);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: var(--transition);
+}
+
+.screener-pill:hover {
+  border-color: var(--primary-600);
+  background: var(--primary-50);
+}
+
+.screener-pill.selected {
+  background: #eff6ff;
+  border-color: var(--primary-600);
+  color: var(--primary-900);
+  font-weight: 700;
+  box-shadow: 0 0 0 1px var(--primary-600);
+}
+
+.pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid #94a3b8;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.screener-pill.selected .pill-dot {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+}
+
+.screener-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.screener-input-group label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--neutral-700);
+  margin-bottom: 0.25rem;
+}
+
+.screener-input-group label .req {
+  color: #dc2626;
+}
+
+.screener-input {
+  width: 100%;
+  padding: 0.52rem 0.75rem;
+  font-size: 0.84rem;
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-sm);
+  background: #fdfdfd;
+  color: var(--neutral-900);
+  outline: none;
+  transition: var(--transition);
+}
+
+.screener-input:focus {
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(31, 94, 196, 0.12);
+  background: var(--white);
+}
+
+.screener-submit-btn {
+  width: 100%;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.92rem !important;
+  font-weight: 700 !important;
+  margin-top: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+
+.screener-privacy-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.71rem;
+  color: var(--neutral-500);
+  line-height: 1.35;
+}
+
+.screener-privacy-notice svg {
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+/* Verified Student Card */
+.screener-verified-card {
+  padding: 0.2rem 0;
+}
+
+.verified-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.verified-badge-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.verified-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-700);
+}
+
+.verified-card-header h3 {
+  font-size: 1.15rem;
+  color: var(--primary-900);
+  margin: 0.15rem 0 0 0;
+}
+
+.verdict-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.verdict-banner.eligible {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.verdict-banner.conditional {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  color: #92400e;
+}
+
+.verdict-icon {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.verdict-banner.eligible .verdict-icon {
+  color: #059669;
+}
+
+.verdict-banner.conditional .verdict-icon {
+  color: #d97706;
+}
+
+.verdict-content strong {
+  display: block;
+  font-size: 0.92rem;
+  margin-bottom: 0.25rem;
+}
+
+.verdict-content p {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.verified-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  background: #f8fafc;
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.82rem;
+}
+
+.verified-detail-item span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.15rem;
+}
+
+.verified-detail-item strong {
+  color: var(--primary-900);
+  font-size: 0.84rem;
+  word-break: break-word;
+}
+
+.verified-actions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-link-subtle {
+  background: none;
+  border: none;
+  color: var(--neutral-500);
+  font-size: 0.78rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.4rem;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.btn-link-subtle:hover {
+  color: var(--primary-700);
+}
+
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+  .screener-pill-grid {
+    grid-template-columns: 1fr;
+  }
+  .screener-inputs-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* Programme At a Glance Section - Fits in One Glance */
 .glance-grid {
