@@ -25,3 +25,6 @@ dist-ssr
 
 # Backup and temp files
 .legacy-backup
+
+.vercel
+.env*
