@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  BuildingIcon, DownloadIcon, CheckCircleIcon, ArrowRightIcon,
-  GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon
+  BuildingIcon, DownloadIcon, ArrowRightIcon,
+  GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon
 } from './Icons';
 
 export default function StudentGatewayPage() {
-  // Simple Student Sign-In Form state (No eligibility options/questions)
+  // Sign-in form state: ONLY Name and Email
   const [fullName, setFullName] = useState('');
-  const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
-  const [college, setCollege] = useState('');
   const [signedInStudent, setSignedInStudent] = useState(null);
   const [formError, setFormError] = useState('');
 
-  // Modals for deeper exploration
+  // Exploration modal for "Know About MSIT"
+  const [showExploreModal, setShowExploreModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
-  const [showGuideModal, setShowGuideModal] = useState(false);
 
-  // Load saved student if previously signed in
+  // Load existing session if previously signed in
   useEffect(() => {
     try {
       const saved = localStorage.getItem('msit_signed_in_student') || localStorage.getItem('msit_prospective_student');
@@ -25,23 +23,21 @@ export default function StudentGatewayPage() {
         setSignedInStudent(JSON.parse(saved));
       }
     } catch (e) {
-      console.error('Error loading saved student session', e);
+      console.error('Error reading saved session', e);
     }
   }, []);
 
-  const handleStudentSignIn = (e) => {
+  const handleSignIn = (e) => {
     e.preventDefault();
-    if (!fullName.trim() || !phone.trim() || !email.trim()) {
-      setFormError('Please fill in your Full Name, Mobile/WhatsApp, and Email.');
+    if (!fullName.trim() || !email.trim()) {
+      setFormError('Please enter both your Name and Email Address.');
       return;
     }
     setFormError('');
 
     const studentData = {
       fullName: fullName.trim(),
-      phone: phone.trim(),
       email: email.trim(),
-      college: college.trim(),
       signedInAt: new Date().toISOString()
     };
 
@@ -52,7 +48,7 @@ export default function StudentGatewayPage() {
       leads.unshift(studentData);
       localStorage.setItem('msit_intake_leads', JSON.stringify(leads.slice(0, 50)));
     } catch (err) {
-      console.error('Local storage write error', err);
+      console.error('Local storage save error', err);
     }
 
     setSignedInStudent(studentData);
@@ -63,14 +59,12 @@ export default function StudentGatewayPage() {
     localStorage.removeItem('msit_prospective_student');
     setSignedInStudent(null);
     setFullName('');
-    setPhone('');
     setEmail('');
-    setCollege('');
   };
 
   return (
     <div className="gateway-root minimal-gateway-root">
-      {/* Clean Minimal Header */}
+      {/* Top Header - Ultra Clean & Minimal */}
       <header className="gateway-header minimal-header">
         <div className="gateway-container gateway-header-container">
           <div className="gateway-brand">
@@ -78,8 +72,8 @@ export default function StudentGatewayPage() {
               src="https://www.msit.ac.in/assets/msit-logo.png"
               alt="MSIT Logo"
               className="gateway-logo"
-              width="40"
-              height="40"
+              width="38"
+              height="38"
             />
             <div className="gateway-brand-text">
               <span className="gateway-brand-title">IIIT Hyderabad Consortium</span>
@@ -96,256 +90,185 @@ export default function StudentGatewayPage() {
         </div>
       </header>
 
-      {/* Main 2 Sections in One Page: Left for Exploring | Right for Students */}
+      {/* Main 2-Section Clean Gateway */}
       <main className="gateway-main minimal-main">
         <div className="gateway-container">
-          <div className="minimal-two-section-grid">
+          
+          <div className="simple-two-card-grid">
             
             {/* =========================================================================
-                LEFT SECTION: FOR EXPLORING
+                LEFT SIDE: BOX WITH ARROW TO EXPLORE / KNOW ABOUT MSIT
                 ========================================================================= */}
-            <section className="explore-section-card" aria-label="Explore MSIT">
-              <div className="explore-header-kicker">
-                <span className="mini-tag">UNIVERSITY CONSORTIUM</span>
-                <span className="mini-subtag">IIIT Hyderabad · JNTUH · JNTUK · JNTUA · SVU</span>
-              </div>
-
-              <h1 className="explore-title">
-                Master of Science in<br />
-                Information Technology
-              </h1>
-              
-              <p className="explore-lead">
-                Founded in 2001 under the guidance of Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT is an intensive postgraduate master's programme engineering high-impact software, scalable AI systems, and paid corporate co-ops.
-              </p>
-
-              {/* Informative Highlights */}
-              <div className="explore-highlights-stack">
-                <div className="explore-highlight-item">
-                  <div className="highlight-icon">💻</div>
-                  <div className="highlight-text">
-                    <strong>100% Practical Learning by Doing</strong>
-                    <p>Daily hands-on coding studios; build production software with mentor code reviews. Zero passive lectures.</p>
-                  </div>
-                </div>
-
-                <div className="explore-highlight-item">
-                  <div className="highlight-icon">💼</div>
-                  <div className="highlight-text">
-                    <strong>~50% Paid Corporate Co-op</strong>
-                    <p>Work full-time as a software engineering intern at leading tech firms, earning a corporate stipend before graduation.</p>
-                  </div>
-                </div>
-
-                <div className="explore-highlight-item">
-                  <div className="highlight-icon">🧠</div>
-                  <div className="highlight-text">
-                    <strong>Modern AI, Cloud & Systems</strong>
-                    <p>Comprehensive curriculum covering Generative AI, LLMs, scalable cloud architectures, and production-grade code quality.</p>
-                  </div>
+            <div 
+              className="simple-action-card explore-box"
+              onClick={() => setShowExploreModal(true)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setShowExploreModal(true); }}
+              aria-label="Explore and know about MSIT"
+            >
+              <div className="simple-card-top">
+                <span className="simple-mini-badge">EXPLORE</span>
+                <div className="simple-card-icon">
+                  <BookOpenIcon size={26} />
                 </div>
               </div>
 
-              {/* Action Buttons for Exploring */}
-              <div className="explore-actions">
-                <button
-                  type="button"
-                  className="btn btn-secondary explore-btn"
-                  onClick={() => setShowGuideModal(true)}
+              <div className="simple-card-content">
+                <h2 className="simple-card-title">Know About MSIT</h2>
+                <p className="simple-card-desc">
+                  Discover the 100% learning-by-doing model, Turing Laureate Prof. Raj Reddy legacy, and ~50% paid corporate co-op.
+                </p>
+              </div>
+
+              <div className="simple-card-footer">
+                <button 
+                  type="button" 
+                  className="btn btn-secondary card-arrow-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setShowExploreModal(true);
+                  }}
                 >
-                  <BookOpenIcon size={16} />
-                  <span>Read Programme Guide</span>
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-outline-ghost explore-btn"
-                  onClick={() => setShowSummaryModal(true)}
-                >
-                  <DownloadIcon size={16} />
-                  <span>1-Page Summary (PDF)</span>
+                  <span>Explore MSIT</span>
+                  <ArrowRightIcon size={18} />
                 </button>
               </div>
-            </section>
+            </div>
 
             {/* =========================================================================
-                RIGHT SECTION: FOR STUDENTS (SIGN IN & DETAILS)
+                RIGHT SIDE: SIGN IN FOR STUDENTS (NAME & EMAIL ONLY)
                 ========================================================================= */}
-            <section className="signin-section-card" aria-label="Student Sign In & Programme Details">
+            <div className="simple-action-card signin-box">
               {!signedInStudent ? (
-                /* Student Sign In Form */
-                <form onSubmit={handleStudentSignIn} className="minimal-signin-form">
-                  <div className="signin-card-header">
-                    <div className="signin-badge-icon">
-                      <GraduationCapIcon size={24} />
-                    </div>
-                    <div>
-                      <span className="signin-kicker">STUDENT ACCESS</span>
-                      <h2>Student Sign In</h2>
-                      <p>Enter your details to view full programme details, syllabus tracks, co-op partners, and admission steps.</p>
+                /* State 1: Sign-In Form with ONLY Name and Email */
+                <form onSubmit={handleSignIn} className="simple-signin-form">
+                  <div className="simple-card-top">
+                    <span className="simple-mini-badge">STUDENT ACCESS</span>
+                    <div className="simple-card-icon student-icon">
+                      <GraduationCapIcon size={26} />
                     </div>
                   </div>
 
-                  {formError && (
-                    <div className="signin-error-alert" role="alert">
-                      {formError}
-                    </div>
-                  )}
+                  <div className="simple-card-content">
+                    <h2 className="simple-card-title">Student Sign In</h2>
+                    <p className="simple-card-desc">
+                      Sign in to know more about the programme, curriculum tracks, and admission steps.
+                    </p>
 
-                  {/* Inputs */}
-                  <div className="contact-two-col">
-                    <div className="input-group">
-                      <label htmlFor="studentName">Full Name <span className="req">*</span></label>
-                      <input
-                        id="studentName"
-                        type="text"
-                        className="minimal-input"
-                        placeholder="e.g. Rahul Sharma"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="input-group">
-                      <label htmlFor="studentPhone">Mobile / WhatsApp <span className="req">*</span></label>
-                      <input
-                        id="studentPhone"
-                        type="tel"
-                        className="minimal-input"
-                        placeholder="e.g. 9876543210"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                      />
+                    {formError && (
+                      <div className="simple-form-error" role="alert">
+                        {formError}
+                      </div>
+                    )}
+
+                    <div className="simple-fields-stack">
+                      <div className="simple-field-group">
+                        <label htmlFor="studentFullName">Your Name</label>
+                        <input
+                          id="studentFullName"
+                          type="text"
+                          className="simple-text-input"
+                          placeholder="Enter your full name"
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
+                          required
+                          autoComplete="name"
+                        />
+                      </div>
+
+                      <div className="simple-field-group">
+                        <label htmlFor="studentEmail">Email Address</label>
+                        <input
+                          id="studentEmail"
+                          type="email"
+                          className="simple-text-input"
+                          placeholder="Enter your email address"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          autoComplete="email"
+                        />
+                      </div>
                     </div>
                   </div>
 
-                  <div className="contact-two-col">
-                    <div className="input-group">
-                      <label htmlFor="studentEmail">Email Address <span className="req">*</span></label>
-                      <input
-                        id="studentEmail"
-                        type="email"
-                        className="minimal-input"
-                        placeholder="e.g. rahul@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="input-group">
-                      <label htmlFor="studentCollege">College / Degree</label>
-                      <input
-                        id="studentCollege"
-                        type="text"
-                        className="minimal-input"
-                        placeholder="e.g. CBIT, B.Tech CSE"
-                        value={college}
-                        onChange={(e) => setCollege(e.target.value)}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
-                  <button type="submit" className="btn btn-primary signin-submit-btn">
-                    <span>Sign In & View Programme Details ➔</span>
-                  </button>
-
-                  <div className="signin-privacy-note">
-                    <ShieldCheckIcon size={14} />
-                    <span>Your information is confidential and used only for academic admissions assistance.</span>
+                  <div className="simple-card-footer">
+                    <button type="submit" className="btn btn-primary card-arrow-btn full-width">
+                      <span>Know More About Programme</span>
+                      <ArrowRightIcon size={18} />
+                    </button>
                   </div>
                 </form>
               ) : (
-                /* Signed In View: Shows Programme Details to the Student */
-                <div className="unlocked-details-view">
-                  <div className="unlocked-status-banner">
-                    <div className="status-badge-icon">🎓</div>
-                    <div>
-                      <span className="status-mini-kicker">STUDENT ACCESS ACTIVE</span>
-                      <h3>Welcome, {signedInStudent.fullName}!</h3>
-                      <p>You have access to all details for the <strong>January 2027 MSIT Batch</strong>.</p>
+                /* State 2: Signed-In Student View */
+                <div className="signed-in-content-view">
+                  <div className="simple-card-top">
+                    <span className="simple-mini-badge success">SIGNED IN</span>
+                    <button 
+                      type="button" 
+                      className="simple-signout-link"
+                      onClick={handleSignOut}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+
+                  <div className="simple-card-content">
+                    <h2 className="simple-card-title">Welcome, {signedInStudent.fullName}!</h2>
+                    <p className="student-email-tag">{signedInStudent.email}</p>
+                    
+                    <div className="programme-quick-highlights">
+                      <div className="prog-highlight-row">
+                        <span className="bullet-dot"></span>
+                        <div>
+                          <strong>January 2027 Admissions:</strong>
+                          <p>Applications are open for graduates & final-year students (B.Tech, MCA, M.Sc).</p>
+                        </div>
+                      </div>
+
+                      <div className="prog-highlight-row">
+                        <span className="bullet-dot"></span>
+                        <div>
+                          <strong>~50% Corporate Co-op:</strong>
+                          <p>Paid full-time software engineering internship with senior tech mentorship.</p>
+                        </div>
+                      </div>
+
+                      <div className="prog-highlight-row">
+                        <span className="bullet-dot"></span>
+                        <div>
+                          <strong>Education Loan Assistance:</strong>
+                          <p>100% collateral-free bank loan support through nationalized bank partners.</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Student Info Strip */}
-                  <div className="minimal-cred-strip">
-                    <div className="cred-block">
-                      <span>Email:</span>
-                      <strong>{signedInStudent.email}</strong>
-                    </div>
-                    <div className="cred-block">
-                      <span>Phone:</span>
-                      <strong>{signedInStudent.phone}</strong>
-                    </div>
-                    {signedInStudent.college && (
-                      <div className="cred-block">
-                        <span>Institution:</span>
-                        <strong>{signedInStudent.college}</strong>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Programme Details */}
-                  <div className="unlocked-programme-body">
-                    <h4>Available Programme Details:</h4>
-
-                    <div className="unlocked-info-box">
-                      <div className="info-box-head">
-                        <span className="box-step">01</span>
-                        <strong>Intensive Computing Foundations & AI</strong>
-                      </div>
-                      <p>Hands-on daily studios covering Data Structures & Algorithms, Full-Stack Architecture, Generative AI, and Machine Learning.</p>
-                    </div>
-
-                    <div className="unlocked-info-box">
-                      <div className="info-box-head">
-                        <span className="box-step">02</span>
-                        <strong>~50% Paid Corporate Co-op</strong>
-                      </div>
-                      <p>Full-time paid software engineering tenure at partner tech enterprises with live mentor reviews and monthly stipend.</p>
-                    </div>
-
-                    <div className="unlocked-info-box">
-                      <div className="info-box-head">
-                        <span className="box-step">03</span>
-                        <strong>Admissions & Loan Assistance</strong>
-                      </div>
-                      <p>Next batch starts January 2027 at IIIT Hyderabad. 100% pre-approved collateral-free bank loan assistance available.</p>
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="unlocked-actions-row">
+                  <div className="simple-card-footer split-actions">
                     <button
                       type="button"
-                      className="btn btn-primary"
+                      className="btn btn-primary card-arrow-btn"
+                      onClick={() => setShowExploreModal(true)}
+                    >
+                      <span>Full Programme Details</span>
+                      <ArrowRightIcon size={16} />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-outline-ghost card-arrow-btn"
                       onClick={() => setShowSummaryModal(true)}
                     >
                       <DownloadIcon size={16} />
-                      Download 1-Page Summary (PDF)
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary"
-                      onClick={() => setShowGuideModal(true)}
-                    >
-                      <BookOpenIcon size={16} />
-                      Read Full Programme Guide
+                      <span>1-Page PDF</span>
                     </button>
                   </div>
-
-                  <button
-                    type="button"
-                    className="btn-link-subtle"
-                    onClick={handleSignOut}
-                  >
-                    ← Sign out / Sign in with different details
-                  </button>
                 </div>
               )}
-            </section>
+            </div>
 
           </div>
+
         </div>
       </main>
 
@@ -364,15 +287,91 @@ export default function StudentGatewayPage() {
         </div>
       </footer>
 
-      {/* 1-Page Summary Printable Modal */}
+      {/* "Know About MSIT" Full Modal */}
+      {showExploreModal && (
+        <div className="modal-backdrop" onClick={() => setShowExploreModal(false)}>
+          <div className="modal-dialog modal-dialog-lg" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="exploreModalTitle">
+            <div className="modal-header">
+              <div>
+                <span className="kicker">IIIT Hyderabad Consortium</span>
+                <h3 id="exploreModalTitle">About MSIT Programme</h3>
+                <span className="modal-subtitle">Master of Science in Information Technology</span>
+              </div>
+              <button
+                className="modal-close-btn"
+                onClick={() => setShowExploreModal(false)}
+                aria-label="Close modal"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="modal-body" style={{ maxHeight: '68vh', overflowY: 'auto' }}>
+              <div style={{ marginBottom: '1.4rem' }}>
+                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.35rem' }}>1. Founding Vision & Legacy</h4>
+                <p style={{ fontSize: '0.92rem', lineHeight: '1.6', color: 'var(--neutral-700)' }}>
+                  Started in 2001 under the guidance of Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT was engineered to eliminate passive chalk-and-talk lectures in favor of real-world computing expertise.
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '1.4rem' }}>
+                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.35rem' }}>2. 100% Learning By Doing</h4>
+                <p style={{ fontSize: '0.92rem', lineHeight: '1.6', color: 'var(--neutral-700)' }}>
+                  Students work in daily hands-on coding studios from morning to evening. You build production-grade web systems, machine learning pipelines, and cloud services with real-time mentor code reviews.
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '1.4rem' }}>
+                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.35rem' }}>3. ~50% Paid Corporate Co-op</h4>
+                <p style={{ fontSize: '0.92rem', lineHeight: '1.6', color: 'var(--neutral-700)' }}>
+                  Roughly half of your master's tenure is spent working full-time as an engineering intern inside partner tech enterprises, earning a monthly corporate stipend before graduation.
+                </p>
+              </div>
+
+              <div style={{ marginBottom: '1.4rem' }}>
+                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.35rem' }}>4. University Consortium</h4>
+                <p style={{ fontSize: '0.92rem', lineHeight: '1.6', color: 'var(--neutral-700)' }}>
+                  Offered under the consortium of <strong>IIIT Hyderabad</strong> together with leading state universities: <strong>JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University (SVU)</strong>.
+                </p>
+              </div>
+
+              <div>
+                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.35rem' }}>5. Key Dates & Intake</h4>
+                <p style={{ fontSize: '0.92rem', lineHeight: '1.6', color: 'var(--neutral-700)' }}>
+                  <strong>Next Intake:</strong> January 2027<br />
+                  <strong>Campus:</strong> IIIT Hyderabad, Gachibowli, Hyderabad
+                </p>
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <button className="btn btn-secondary" onClick={() => setShowExploreModal(false)}>
+                Close
+              </button>
+              <button 
+                className="btn btn-primary"
+                onClick={() => {
+                  setShowExploreModal(false);
+                  setShowSummaryModal(true);
+                }}
+              >
+                <DownloadIcon size={16} />
+                Download 1-Page Summary
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 1-Page Summary Modal */}
       {showSummaryModal && (
         <div className="modal-backdrop" onClick={() => setShowSummaryModal(false)}>
           <div className="modal-dialog modal-dialog-lg" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="summaryModalTitle">
             <div className="modal-header">
               <div className="modal-header-branding">
-                <span className="kicker">IIIT Hyderabad · Official Academic Summary</span>
-                <h3 id="summaryModalTitle">Master of Science in Information Technology (MSIT)</h3>
-                <span className="modal-subtitle">January 2027 Batch Overview & Guide</span>
+                <span className="kicker">Official Academic Summary</span>
+                <h3 id="summaryModalTitle">MSIT — Master of Science in Information Technology</h3>
+                <span className="modal-subtitle">January 2027 Intake Reference</span>
               </div>
               <button
                 className="modal-close-btn"
@@ -391,45 +390,45 @@ export default function StudentGatewayPage() {
                     <h4>1. University Credentials</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Awarding Institution:</strong> International Institute of Information Technology, Hyderabad (IIIT-H).</li>
-                    <li><strong>Founding Vision:</strong> Conceived in 2001 by Turing Award laureate Prof. Raj Reddy.</li>
-                    <li><strong>University Consortium:</strong> IIIT Hyderabad, JNTUH, JNTUK, JNTUA, and SVU.</li>
+                    <li><strong>Institution:</strong> IIIT Hyderabad Consortium.</li>
+                    <li><strong>Founded:</strong> 2001 by Turing Award Laureate Prof. Raj Reddy.</li>
+                    <li><strong>Partner Universities:</strong> JNTUH, JNTUK, JNTUA, SVU.</li>
                   </ul>
                 </div>
 
                 <div className="summary-card">
                   <div className="summary-card-head">
                     <BuildingIcon size={18} />
-                    <h4>2. How the Program Works</h4>
+                    <h4>2. Programme Structure</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Next Batch:</strong> January 2027 (Full-Time On-Campus at IIIT Hyderabad).</li>
-                    <li><strong>How You Learn:</strong> 100% Practical Studios (Build real software; zero passive lectures).</li>
-                    <li><strong>Company Internship:</strong> ~50% spent working full-time at partner tech firms.</li>
+                    <li><strong>Batch:</strong> January 2027 (Full-Time On-Campus).</li>
+                    <li><strong>Methodology:</strong> 100% Practical Studios.</li>
+                    <li><strong>Co-op:</strong> ~50% paid corporate industry internship.</li>
                   </ul>
                 </div>
 
                 <div className="summary-card">
                   <div className="summary-card-head">
                     <CpuIcon size={18} />
-                    <h4>3. What You Learn</h4>
+                    <h4>3. Technical Focus</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Modern AI & Data:</strong> Machine learning, deep learning, LLMs, and data systems.</li>
-                    <li><strong>Cloud Systems:</strong> Microservices, distributed architecture, and cloud deployment.</li>
-                    <li><strong>Software Engineering:</strong> Automated testing, clean code, and CI/CD pipelines.</li>
+                    <li><strong>AI & Machine Learning:</strong> LLMs, Deep Learning, Data Systems.</li>
+                    <li><strong>Cloud Architecture:</strong> Distributed systems & microservices.</li>
+                    <li><strong>Software Engineering:</strong> Clean code, testing & DevOps.</li>
                   </ul>
                 </div>
 
                 <div className="summary-card">
                   <div className="summary-card-head">
                     <ShieldCheckIcon size={18} />
-                    <h4>4. Admission & Bank Loans</h4>
+                    <h4>4. Admissions & Support</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Eligible Candidates:</strong> Graduates & final-year students in B.Tech/B.E., MCA, or M.Sc.</li>
-                    <li><strong>January 2027 Intake:</strong> Applications currently open.</li>
-                    <li><strong>Education Loans:</strong> Pre-approved loan assistance available through nationalized banks.</li>
+                    <li><strong>Eligibility:</strong> Graduates & final-year (B.Tech, MCA, M.Sc).</li>
+                    <li><strong>Intake:</strong> January 2027.</li>
+                    <li><strong>Bank Loans:</strong> 100% collateral-free education loans.</li>
                   </ul>
                 </div>
               </div>
@@ -451,76 +450,6 @@ export default function StudentGatewayPage() {
               </button>
               <button className="btn btn-primary" onClick={() => setShowSummaryModal(false)}>
                 Done
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Guide Modal (For deeper exploration without page reloading) */}
-      {showGuideModal && (
-        <div className="modal-backdrop" onClick={() => setShowGuideModal(false)}>
-          <div className="modal-dialog modal-dialog-lg" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-labelledby="guideModalTitle">
-            <div className="modal-header">
-              <div>
-                <span className="kicker">Consortium of IIIT-H & State Universities</span>
-                <h3 id="guideModalTitle">MSIT Academic Programme Guide</h3>
-                <span className="modal-subtitle">Master of Science in Information Technology</span>
-              </div>
-              <button
-                className="modal-close-btn"
-                onClick={() => setShowGuideModal(false)}
-                aria-label="Close modal"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="modal-body" style={{ maxHeight: '68vh', overflowY: 'auto' }}>
-              <div style={{ marginBottom: '1.4rem' }}>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.3rem' }}>Founding Legacy & Leadership</h4>
-                <p style={{ fontSize: '0.92rem', lineHeight: '1.55', color: 'var(--neutral-700)' }}>
-                  Conceived in 2001 by Turing Award laureate <strong>Prof. Raj Reddy</strong>, MSIT is an innovative computing master’s programme designed to bridge the chasm between textbook academic theory and real-world global tech industry practice.
-                </p>
-              </div>
-
-              <div style={{ marginBottom: '1.4rem' }}>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.3rem' }}>2 Distinct Phases: From Foundations to Corporate Tenure</h4>
-                <ul style={{ fontSize: '0.9rem', lineHeight: '1.6', color: 'var(--neutral-700)', paddingLeft: '1.2rem' }}>
-                  <li><strong>Phase 1: Deep Campus Immersion (IIIT Hyderabad)</strong> — Intensive full-day studio labs, algorithmic problem solving, modern web/cloud systems, and AI model deployment. Zero rote lectures.</li>
-                  <li><strong>Phase 2: ~50% Corporate Co-op</strong> — Full-time software engineering tenure inside partner tech companies with senior engineer mentorship, live code reviews, and monthly corporate stipends.</li>
-                </ul>
-              </div>
-
-              <div style={{ marginBottom: '1.4rem' }}>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.3rem' }}>Key Curriculum Pillars</h4>
-                <p style={{ fontSize: '0.92rem', lineHeight: '1.55', color: 'var(--neutral-700)' }}>
-                  Full-Stack Application Development · Artificial Intelligence & Machine Learning · Scalable Cloud Architectures · DevOps & Production Quality Systems.
-                </p>
-              </div>
-
-              <div>
-                <h4 style={{ color: 'var(--primary-900)', marginBottom: '0.3rem' }}>Batch Commencement</h4>
-                <p style={{ fontSize: '0.92rem', lineHeight: '1.55', color: 'var(--neutral-700)' }}>
-                  <strong>Next Intake:</strong> January 2027<br />
-                  <strong>Campus:</strong> IIIT Hyderabad, Gachibowli, Hyderabad
-                </p>
-              </div>
-            </div>
-
-            <div className="modal-footer">
-              <button className="btn btn-secondary" onClick={() => setShowGuideModal(false)}>
-                Close
-              </button>
-              <button 
-                className="btn btn-primary" 
-                onClick={() => {
-                  setShowGuideModal(false);
-                  setShowSummaryModal(true);
-                }}
-              >
-                <DownloadIcon size={16} />
-                Download 1-Page Summary
               </button>
             </div>
           </div>
