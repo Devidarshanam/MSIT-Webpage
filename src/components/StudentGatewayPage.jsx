@@ -3,16 +3,19 @@ import {
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon
 } from './Icons';
+import KnowAboutMSITPage from './KnowAboutMSITPage';
 
 export default function StudentGatewayPage() {
+  // Page view: 'gateway' | 'about-msit'
+  const [view, setView] = useState('gateway');
+
   // Sign-in form state: ONLY Name and Email
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [signedInStudent, setSignedInStudent] = useState(null);
   const [formError, setFormError] = useState('');
 
-  // Exploration modal for "Know About MSIT"
-  const [showExploreModal, setShowExploreModal] = useState(false);
+  // Exploration modal for 1-page summary
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   // Load existing session if previously signed in
@@ -62,6 +65,21 @@ export default function StudentGatewayPage() {
     setEmail('');
   };
 
+  // If user navigated to "Know About MSIT" slideshow page
+  if (view === 'about-msit') {
+    return (
+      <KnowAboutMSITPage 
+        onBack={() => setView('gateway')}
+        onGoToSignIn={() => {
+          setView('gateway');
+          setTimeout(() => {
+            document.getElementById('studentFullName')?.focus();
+          }, 150);
+        }}
+      />
+    );
+  }
+
   return (
     <div className="gateway-root minimal-gateway-root">
       {/* Top Header - Ultra Clean & Minimal */}
@@ -109,10 +127,10 @@ export default function StudentGatewayPage() {
                 ========================================================================= */}
             <div 
               className="simple-action-card explore-box"
-              onClick={() => setShowExploreModal(true)}
+              onClick={() => setView('about-msit')}
               role="button"
               tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setShowExploreModal(true); }}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setView('about-msit'); }}
               aria-label="Explore and know about MSIT"
             >
               <div className="simple-card-top">
@@ -135,7 +153,7 @@ export default function StudentGatewayPage() {
                   className="btn btn-secondary card-arrow-btn"
                   onClick={(e) => {
                     e.stopPropagation();
-                    setShowExploreModal(true);
+                    setView('about-msit');
                   }}
                 >
                   <span>Explore MSIT</span>
@@ -257,7 +275,7 @@ export default function StudentGatewayPage() {
                     <button
                       type="button"
                       className="btn btn-primary card-arrow-btn"
-                      onClick={() => setShowExploreModal(true)}
+                      onClick={() => setView('about-msit')}
                     >
                       <span>Full Programme Details</span>
                       <ArrowRightIcon size={16} />
