@@ -48,13 +48,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'backgrounds',
       number: '04',
-      category: 'STUDENT TRANSFORMATIONS & ALUMNI SUCCESS',
+      category: 'EDUCATIONAL TRANSFORMATION',
       themeClass: 'slide-theme-backgrounds',
       layoutClass: 'slide-layout-backgrounds',
-      title: 'Diverse Roots, Elite Outcomes: Real Alumni Transitions',
-      lead: 'Where you start does not define your career ceiling. See how graduates from Non-CS branches, 3-year degrees, and Tier-3 colleges mastered computing studios and secured top compensation brackets.',
+      title: 'From Past Education to MSIT: How Diverse Backgrounds Transform',
+      lead: 'MSIT is built for students from all academic paths. See how diverse backgrounds unlearn passive classroom habits and build genuine engineering independence through mastery-based studios.',
       image: '/assets/iiit-ai-lab.jpg',
-      imageCaption: 'Advanced Systems & AI Studios Where Real Transformation Happens'
+      imageCaption: 'The MSIT Studio Learning Environment at IIIT Hyderabad'
     },
     {
       id: 'events',
@@ -436,104 +436,134 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       case 'backgrounds':
         return (
           <div className="slide-content-layout layout-student-transformations">
-            <div className="alumni-stories-grid">
-              {/* Alumni Story 1: Non-CS */}
-              <div className="alumni-story-card card-non-cs">
-                <div className="story-card-header">
-                  <span className="story-pill non-cs">Non-CS Background</span>
-                  <span className="story-pkg">₹24 LPA+</span>
-                </div>
-                <h4 className="story-role">Distributed Systems Engineer</h4>
-                <div className="story-points">
-                  <div className="story-point">
-                    <span className="point-badge from">FROM</span>
-                    <p>Mechanical / Non-CS undergrad with zero production coding experience</p>
+            <div className="edu-transform-grid">
+              {/* Archetype 1: Non-CS Engineers */}
+              <div className="edu-transform-card">
+                <div className="edu-card-top">
+                  <div className="edu-badge-group">
+                    <span className="edu-tag non-cs">Non-CS Graduates</span>
+                    <span className="edu-sub">Mechanical, Civil, Chemical, EEE</span>
                   </div>
-                  <div className="story-point">
-                    <span className="point-badge to">TO</span>
-                    <p>Mastered Go & microservices; architecting high-throughput cloud backends</p>
+                </div>
+
+                <div className="edu-journey-steps">
+                  <div className="edu-step past">
+                    <span className="step-tag past-tag">Past Education:</span>
+                    <p>Chalk-and-board lectures, rote formulas, and paper tests. Zero real-world coding; intimidated by data structures.</p>
+                  </div>
+
+                  <div className="edu-step msit">
+                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
+                    <p>Immersive 9-to-6 coding studios with 1:10 personal mentor guidance; incremental mastery learning from fundamentals to scale.</p>
+                  </div>
+
+                  <div className="edu-step outcome">
+                    <span className="step-tag outcome-tag">How They Achieved It:</span>
+                    <p>Built software daily to form engineering muscle memory, writing 2,000+ lines of production code and mastering core systems.</p>
                   </div>
                 </div>
               </div>
 
-              {/* Alumni Story 2: 3-Year Degree */}
-              <div className="alumni-story-card card-bca">
-                <div className="story-card-header">
-                  <span className="story-pill bca">3-Year Degree (BCA / B.Sc)</span>
-                  <span className="story-pkg">₹28 LPA+</span>
-                </div>
-                <h4 className="story-role">Full-Stack AI Application Architect</h4>
-                <div className="story-points">
-                  <div className="story-point">
-                    <span className="point-badge from">FROM</span>
-                    <p>Ineligible for conventional M.Tech programmes requiring a 4-year degree</p>
+              {/* Archetype 2: 3-Year Degrees */}
+              <div className="edu-transform-card">
+                <div className="edu-card-top">
+                  <div className="edu-badge-group">
+                    <span className="edu-tag bca">3-Year Degree Holders</span>
+                    <span className="edu-sub">BCA, B.Sc (Computer Science / Maths)</span>
                   </div>
-                  <div className="story-point">
-                    <span className="point-badge to">TO</span>
-                    <p>Gained direct postgraduate entry; building enterprise GenAI & LLM pipelines</p>
+                </div>
+
+                <div className="edu-journey-steps">
+                  <div className="edu-step past">
+                    <span className="step-tag past-tag">Past Education:</span>
+                    <p>Barred by traditional Indian master's (GATE / conventional M.Tech) that restrict eligibility strictly to 4-year B.Tech holders.</p>
+                  </div>
+
+                  <div className="edu-step msit">
+                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
+                    <p>Open eligibility based purely on merit and capability; rigorous deep-dive into operating systems, algorithms, and cloud architectures.</p>
+                  </div>
+
+                  <div className="edu-step outcome">
+                    <span className="step-tag outcome-tag">How They Achieved It:</span>
+                    <p>Demonstrated capability on deployable software products, proving that mastery-based execution supersedes degree duration.</p>
                   </div>
                 </div>
               </div>
 
-              {/* Alumni Story 3: Tier-3 College */}
-              <div className="alumni-story-card card-tier3">
-                <div className="story-card-header">
-                  <span className="story-pill tier3">Tier-2 / Tier-3 Colleges</span>
-                  <span className="story-pkg">₹32 LPA+</span>
-                </div>
-                <h4 className="story-role">Applied Machine Learning & Vision Engineer</h4>
-                <div className="story-points">
-                  <div className="story-point">
-                    <span className="point-badge from">FROM</span>
-                    <p>Textbook-only syllabus with zero Tier-1 campus product company visits</p>
+              {/* Archetype 3: Tier-2 & Tier-3 Colleges */}
+              <div className="edu-transform-card">
+                <div className="edu-card-top">
+                  <div className="edu-badge-group">
+                    <span className="edu-tag tier3">Tier-2 / Tier-3 Colleges</span>
+                    <span className="edu-sub">Colleges with Outdated Syllabi</span>
                   </div>
-                  <div className="story-point">
-                    <span className="point-badge to">TO</span>
-                    <p>2,000+ hours in mentored studios; cracked top-tier vision & ML product role</p>
+                </div>
+
+                <div className="edu-journey-steps">
+                  <div className="edu-step past">
+                    <span className="step-tag past-tag">Past Education:</span>
+                    <p>Passive 50-minute lectures; writing programs on exam sheets; copy-pasting obsolete textbook lab assignments.</p>
+                  </div>
+
+                  <div className="edu-step msit">
+                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
+                    <p>Zero lectures. Mastery learning requiring 90%+ proficiency on every real project before advancing ("Learn · Think · Do").</p>
+                  </div>
+
+                  <div className="edu-step outcome">
+                    <span className="step-tag outcome-tag">How They Achieved It:</span>
+                    <p>Developed genuine engineering autonomy: learning how to read documentation, debug stack traces, and architect clean systems.</p>
                   </div>
                 </div>
               </div>
 
-              {/* Alumni Story 4: Career Upskiller */}
-              <div className="alumni-story-card card-upskill">
-                <div className="story-card-header">
-                  <span className="story-pill upskill">Career Restarter / IT Support</span>
-                  <span className="story-pkg">₹22 LPA+</span>
-                </div>
-                <h4 className="story-role">Cloud Platform & DevOps Architect</h4>
-                <div className="story-points">
-                  <div className="story-point">
-                    <span className="point-badge from">FROM</span>
-                    <p>2 years stuck in manual ticketing, maintenance shifts, and support tasks</p>
+              {/* Archetype 4: Career Restarters & IT Support */}
+              <div className="edu-transform-card">
+                <div className="edu-card-top">
+                  <div className="edu-badge-group">
+                    <span className="edu-tag upskill">Career Restarters & Support</span>
+                    <span className="edu-sub">Manual Testing, IT Ops & Career Breaks</span>
                   </div>
-                  <div className="story-point">
-                    <span className="point-badge to">TO</span>
-                    <p>Mastered Kubernetes & IaC; transitioned to core platform architecture lead</p>
+                </div>
+
+                <div className="edu-journey-steps">
+                  <div className="edu-step past">
+                    <span className="step-tag past-tag">Past Education:</span>
+                    <p>Confined to repetitive manual ticketing shifts, server maintenance, or seeking to re-enter tech after prolonged career breaks.</p>
+                  </div>
+
+                  <div className="edu-step msit">
+                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
+                    <p>Collaborative agile studios simulating production engineering teams with daily standups, code reviews, and corporate co-ops.</p>
+                  </div>
+
+                  <div className="edu-step outcome">
+                    <span className="step-tag outcome-tag">How They Achieved It:</span>
+                    <p>Rebuilt technical confidence, modernized their skillset in cloud/AI tooling, and transformed into core product developers.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Clean, High-Impact Summary Strip */}
-            <div className="transformation-summary-strip">
-              <div className="summary-strip-metric">
-                <span className="metric-num">45%+</span>
-                <span className="metric-lbl">Non-CS & Diverse Intake</span>
+            {/* The 3 Educational Shift Pillars */}
+            <div className="edu-pillars-strip">
+              <div className="edu-pillar-item">
+                <span className="pillar-shift-badge">PEDAGOGY SHIFT</span>
+                <strong>Zero Lectures ➔ 100% Studio Learning</strong>
+                <p>Learn by building and debugging real software, not by memorizing slides.</p>
               </div>
-              <div className="summary-strip-divider"></div>
-              <div className="summary-strip-metric">
-                <span className="metric-num">2,000+</span>
-                <span className="metric-lbl">Hands-on Studio Hours</span>
+              <div className="edu-pillar-divider"></div>
+              <div className="edu-pillar-item">
+                <span className="pillar-shift-badge">THE STANDARD</span>
+                <strong>90%+ Mastery Threshold</strong>
+                <p>Time is variable, outcome is constant. Every concept is fully mastered.</p>
               </div>
-              <div className="summary-strip-divider"></div>
-              <div className="summary-strip-metric">
-                <span className="metric-num">₹20 LPA+</span>
-                <span className="metric-lbl">Top Career Outcomes</span>
-              </div>
-              <div className="summary-strip-divider"></div>
-              <div className="summary-strip-metric">
-                <span className="metric-num">1:10</span>
-                <span className="metric-lbl">Dedicated Mentor Ratio</span>
+              <div className="edu-pillar-divider"></div>
+              <div className="edu-pillar-item">
+                <span className="pillar-shift-badge">THE MENTORSHIP</span>
+                <strong>1:10 Dedicated Mentorship</strong>
+                <p>Industry-experienced mentors review code and guide daily engineering progress.</p>
               </div>
             </div>
           </div>
