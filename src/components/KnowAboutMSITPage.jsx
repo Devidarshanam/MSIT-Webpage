@@ -20,7 +20,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       layoutClass: 'slide-layout-origin',
       title: 'The Origin Story: 25 Years of Active Learning',
       lead: 'Founded in 2001 under the visionary direction of Turing Laureate Prof. Raj Reddy, MSIT was created to replace passive classroom lectures with immersive, studio-based software engineering.',
-      image: '/assets/rajreddy.jpg',
+      image: 'https://www.rguktong.ac.in/img/rajreddy.jpg',
       imageCaption: 'Prof. Raj Reddy — Turing Award Laureate & Founding Chair'
     },
     {
@@ -194,12 +194,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <div className="spotlight-card">
                   <div className="spotlight-img-frame">
                     <img 
-                      src="/assets/rajreddy.jpg" 
-                      alt="Prof. Raj Reddy" 
+                      src="https://www.rguktong.ac.in/img/rajreddy.jpg" 
+                      alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
                       className="spotlight-portrait-img"
+                      referrerPolicy="no-referrer"
                       onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = 'https://www.rguktong.ac.in/img/rajreddy.jpg';
+                        e.target.src = '/assets/rajreddy.jpg';
                       }}
                     />
                   </div>
