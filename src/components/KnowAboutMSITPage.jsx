@@ -7,209 +7,91 @@ import {
 
 export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [timerResetKey, setTimerResetKey] = useState(0);
+  const timerRef = useRef(null);
 
-  // Sub-states for interactive elements inside slides
-  const [activeTimelineYear, setActiveTimelineYear] = useState('2026-2027');
-  const [activeTestimonialIndex, setActiveTestimonialIndex] = useState(0);
-  const [selectedAlumniCategory, setSelectedAlumniCategory] = useState('all');
-
-  // Timeline milestones data for Slide 2
-  const timelineMilestones = [
-    {
-      year: '2001',
-      title: 'Foundation by Prof. Raj Reddy',
-      desc: 'Launched at IIIT Hyderabad under the Consortium of Institutions of Higher Learning (CIHL) with Turing Laureate Prof. Raj Reddy to eliminate lecture-based computing education.'
-    },
-    {
-      year: '2008',
-      title: 'Corporate Practicum Inception',
-      desc: 'Pioneered the ~50% paid corporate co-op internship model, embedding students directly into leading tech enterprise engineering teams.'
-    },
-    {
-      year: '2015',
-      title: 'Cloud & Distributed Systems',
-      desc: 'Modernized the studio curriculum with cloud-native architectures, containerization, microservices, and distributed big-data pipelines.'
-    },
-    {
-      year: '2021',
-      title: '20-Year Milestone & AI/ML Tracks',
-      desc: 'Celebrated two decades of computing leadership; introduced specialized tracks in Applied Machine Learning, Deep Learning, and Data Science.'
-    },
-    {
-      year: '2026-2027',
-      title: 'The AI-Native Postgraduate Era',
-      desc: 'Fully revamped for the generative AI era with focus on Large Language Models (LLMs), autonomous AI agents, prompt engineering, and cloud deployment.'
-    }
-  ];
-
-  // Alumni cards data for Slide 4
-  const alumniList = [
-    {
-      name: 'Vamshi Ambati',
-      role: 'Founder & CEO, PredEra (AI Enterprise)',
-      batch: 'Distinguished Alumnus',
-      company: 'PredEra / Ex-CMU',
-      highlight: 'Mentored by Prof. Raj Reddy; built enterprise AI systems powering Fortune 500 enterprises.',
-      tag: 'founder'
-    },
-    {
-      name: 'Sravanthi K.',
-      role: 'Senior Principal Software Engineer',
-      batch: 'Alumna',
-      company: 'Microsoft Cloud & AI',
-      highlight: 'Leads high-throughput distributed microservices for Azure global infrastructure.',
-      tag: 'bigtech'
-    },
-    {
-      name: 'Rahul Verma',
-      role: 'Staff Machine Learning Engineer',
-      batch: 'Alumnus',
-      company: 'Google DeepMind',
-      highlight: 'Specializes in foundation model alignment and production deep learning pipelines.',
-      tag: 'ai'
-    },
-    {
-      name: 'Pooja Narayanan',
-      role: 'VP of Engineering Systems',
-      batch: 'Alumna',
-      company: 'Goldman Sachs FinTech',
-      highlight: 'Architects ultra-low latency transaction processing and quantitative data layers.',
-      tag: 'fintech'
-    },
-    {
-      name: 'Karthik Ramanathan',
-      role: 'Director of Software Engineering',
-      batch: 'Alumnus',
-      company: 'Amazon AWS',
-      highlight: 'Oversees scalable cloud database clusters serving millions of enterprise queries per second.',
-      tag: 'bigtech'
-    },
-    {
-      name: 'Vikram Gundeti',
-      role: 'Principal Firmware & Edge Architect',
-      batch: 'Alumnus',
-      company: 'Qualcomm Technologies',
-      highlight: 'Develops low-power neural processing unit (NPU) accelerators for mobile devices.',
-      tag: 'ai'
-    }
-  ];
-
-  // Testimonials data for Slide 6
-  const testimonials = [
-    {
-      name: 'Anurag Sharma',
-      batch: 'Batch of 2022',
-      trajectory: 'Mechanical Engineering ➔ SDE-2 at Microsoft',
-      quote: 'Coming from a non-CS mechanical background, I was intimidated by code. At MSIT, there are zero boring lectures—you write code every single day from 9 AM to 6 PM with dedicated mentors reviewing every pull request. In 6 months, I had built distributed web applications and landed a dream offer at Microsoft.',
-      stipend: 'Secured PPO during 6-Month Co-op'
-    },
-    {
-      name: 'Divya Medicherla',
-      batch: 'Batch of 2023',
-      trajectory: 'Tier-3 Engineering College ➔ Cloud Architect at Amazon',
-      quote: 'In my undergrad college, computing was just memorizing theoretical definitions for written tests. MSIT completely rewired my brain: continuous sprints, git workflows, and automated test-driven development. The ~50% paid industry co-op gave me genuine corporate software experience before graduation.',
-      stipend: 'Full-Time Pre-Placement Offer'
-    },
-    {
-      name: 'Harish Varma',
-      batch: 'Batch of 2024',
-      trajectory: 'BCA (Computer Applications) ➔ AI Systems Engineer',
-      quote: 'MSIT bridged the gap between academic theory and high-performance industry expectations. Working with GPU clusters and fine-tuning LLMs in the AI studios directly prepared me for production AI engineering. The investment paid for itself in my first year.',
-      stipend: 'Corporate Internship Stipend'
-    }
-  ];
-
-  // 7 Slides Definition with Theme Color Palettes
+  // 7 Slides Definition with Theme Color Palettes and Bespoke Layouts
   const slides = [
     {
-      id: 'history',
+      id: 'origin',
       number: '01',
-      category: 'HISTORY & ORIGINS',
-      themeClass: 'slide-theme-history',
-      themeAccent: '#b45309',
-      title: 'Revolutionizing Computing Education Since 2001',
-      lead: 'Conceived in 2001 by Turing Award Laureate Prof. Raj Reddy (former Dean of Computer Science at Carnegie Mellon University) and visionary leadership, MSIT was engineered to dismantle passive chalk-and-talk lectures in favor of active, project-driven software development studios.',
+      category: 'HOW IT STARTED',
+      themeClass: 'slide-theme-origin',
+      layoutClass: 'slide-layout-origin',
+      title: 'The Origin Story: 25 Years of Active Learning',
+      lead: 'Founded in 2001 under the visionary direction of Turing Laureate Prof. Raj Reddy, MSIT was created to replace passive classroom lectures with immersive, studio-based software engineering.',
       image: '/assets/iiit-raj-reddy.png',
-      imageCaption: 'Academic Visionary Prof. Raj Reddy (Turing Laureate & Founding Chair)',
-      customRenderer: 'history'
-    },
-    {
-      id: 'journey',
-      number: '02',
-      category: 'JOURNEY & EVOLUTION',
-      themeClass: 'slide-theme-journey',
-      themeAccent: '#0284c7',
-      title: 'A Quarter Century of Engineering Evolution (2001–2027)',
-      lead: 'Over 25 continuous batches, MSIT has continuously adapted to global computing breakthroughs—evolving from web and object-oriented systems to distributed cloud computing, and now into an AI-Native curriculum.',
-      image: '/assets/iiit-campus.jpg',
-      imageCaption: 'The Iconic Academic Campus of IIIT Hyderabad, Gachibowli',
-      customRenderer: 'journey'
-    },
-    {
-      id: 'community',
-      number: '03',
-      category: 'MSIT COMMUNITY',
-      themeClass: 'slide-theme-community',
-      themeAccent: '#059669',
-      title: 'A Vibrant Developer Ecosystem on a 66-Acre Green Campus',
-      lead: 'Housed on the premier research campus of IIIT Hyderabad, MSIT is more than a degree—it is an immersive residential peer community surrounded by India’s top researchers, hackathons, and global technology innovators.',
-      image: '/assets/iiit-campus-life.jpg',
-      imageCaption: 'Lush Walkways & Collaborative Spaces at IIIT Hyderabad',
-      customRenderer: 'community'
-    },
-    {
-      id: 'alumni',
-      number: '04',
-      category: 'GLOBAL ALUMNI',
-      themeClass: 'slide-theme-alumni',
-      themeAccent: '#7c3aed',
-      title: 'Alumni Powering Global Tech Giants & Pioneering Startups',
-      lead: 'MSIT alumni hold distinguished leadership positions as Principal Architects, Engineering Directors, and Tech Founders across Silicon Valley, Europe, and India’s premier innovation hubs.',
-      image: '/assets/iiit-alumni-network.jpg',
-      imageCaption: 'Proud IIIT Hyderabad Alumni & Graduates Outside the Research Block',
-      customRenderer: 'alumni'
-    },
-    {
-      id: 'backgrounds',
-      number: '05',
-      category: 'STUDENT BACKGROUNDS',
-      themeClass: 'slide-theme-backgrounds',
-      themeAccent: '#ea580c',
-      title: 'Who Joins MSIT & How They Transform into Top Engineers',
-      lead: 'Whether coming from non-CS disciplines, Tier-2/3 institutions, or mathematical sciences, MSIT’s rigorous mastery-based studio methodology transforms motivated candidates into high-caliber software engineers.',
-      image: '/assets/iiit-studios.jpg',
-      imageCaption: 'Collaborative Daily Hands-On Coding Studios at IIIT Hyderabad',
-      customRenderer: 'backgrounds'
-    },
-    {
-      id: 'careers',
-      number: '06',
-      category: 'CAREER & PLACEMENTS',
-      themeClass: 'slide-theme-careers',
-      themeAccent: '#4f46e5',
-      title: 'Real Career Journeys & Corporate Co-op Placement Outcomes',
-      lead: 'With roughly half the master’s tenure spent inside partner technology enterprises, students gain hands-on production code experience and frequently graduate with pre-placement offers (PPOs).',
-      image: '/assets/iiit-coop.jpg',
-      imageCaption: 'MSIT Students in Action at Corporate Partner Offices in Hyderabad',
-      customRenderer: 'careers'
+      imageCaption: 'Prof. Raj Reddy — Turing Award Laureate & Founding Chair'
     },
     {
       id: 'why-msit',
-      number: '07',
+      number: '02',
       category: 'WHY CHOOSE MSIT',
-      themeClass: 'slide-theme-why-msit',
-      themeAccent: '#d97706',
-      title: 'The 6 Definitive Pillars That Set MSIT Apart',
-      lead: 'MSIT is not an ordinary textbook degree. It is a proven, career-accelerating master’s programme engineered from the ground up to prepare you for the highest levels of global technology innovation.',
+      themeClass: 'slide-theme-pillars',
+      layoutClass: 'slide-layout-pillars',
+      title: '5 Defining Pillars That Make MSIT Unique',
+      lead: 'MSIT is not a conventional textbook degree. It is a high-intensity master’s programme engineered from the ground up to prepare you for global technology leadership.',
+      image: '/assets/iiit-studios.jpg',
+      imageCaption: 'Full-Time Hands-on Software Engineering Studios at IIIT Hyderabad'
+    },
+    {
+      id: 'placements',
+      number: '03',
+      category: 'TOP PLACEMENTS',
+      themeClass: 'slide-theme-placements',
+      layoutClass: 'slide-layout-placements',
+      title: 'Top Placements & Career Packages',
+      lead: 'Graduates consistently secure high-growth engineering roles across artificial intelligence, enterprise cloud, and high-performance computing.',
+      image: '/assets/iiit-alumni-network.jpg',
+      imageCaption: 'Distinguished MSIT Alumni Leading Global Technology Teams'
+    },
+    {
+      id: 'backgrounds',
+      number: '04',
+      category: 'STUDENT BACKGROUNDS',
+      themeClass: 'slide-theme-backgrounds',
+      layoutClass: 'slide-layout-backgrounds',
+      title: 'Student Backgrounds & Real Transformations',
+      lead: 'Where you started does not limit where you can go. MSIT’s mastery-based studio methodology transforms students from diverse academic paths into core software engineers.',
       image: '/assets/iiit-ai-lab.jpg',
-      imageCaption: 'High-Performance AI & Cloud Computing Laboratories',
-      customRenderer: 'why-msit'
+      imageCaption: 'Advanced AI & Systems Research Laboratories at IIIT Hyderabad'
+    },
+    {
+      id: 'events',
+      number: '05',
+      category: 'CAMPUS LIFE & EVENTS',
+      themeClass: 'slide-theme-events',
+      layoutClass: 'slide-layout-events',
+      title: 'Events & Life at MSIT: Culture, Code & Community',
+      lead: 'Experience a vibrant student journey that blends high-energy hackathons, cultural festivals, Freshers celebrations, and grand project expos.',
+      image: '/assets/iiit-campus-life.jpg',
+      imageCaption: 'Vibrant Campus Life, Cultural Celebrations & Student Community'
+    },
+    {
+      id: 'practicum',
+      number: '06',
+      category: 'PAID CORPORATE PRACTICUM',
+      themeClass: 'slide-theme-practicum',
+      layoutClass: 'slide-layout-practicum',
+      title: 'Paid Corporate Practicum: Earn While You Learn',
+      lead: 'Spend ~50% of your postgraduate programme embedded directly inside corporate engineering teams in Hyderabad’s tech corridor, earning monthly stipends while you study.',
+      image: '/assets/iiit-coop.jpg',
+      imageCaption: 'Corporate Co-op Practicum at Premier Tech Offices in Gachibowli'
+    },
+    {
+      id: 'admissions',
+      number: '07',
+      category: 'BEGIN YOUR JOURNEY',
+      themeClass: 'slide-theme-admissions',
+      layoutClass: 'slide-layout-admissions',
+      title: 'Take the Next Step: Join the MSIT Legacy',
+      lead: 'Transparent eligibility criteria, a structured 3-step admissions pathway, and an immediate gateway to high-impact computing careers.',
+      image: '/assets/iiit-campus.jpg',
+      imageCaption: 'The Academic Campus of IIIT Hyderabad, Gachibowli'
     }
   ];
 
   const totalSlides = slides.length;
-  const [timerResetKey, setTimerResetKey] = useState(0);
-  const timerRef = useRef(null);
 
   // Schedules the 10-second auto-advance timeout
   const startTimer = useCallback(() => {
@@ -243,7 +125,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     setCurrentSlide(index);
   }, [handleUserAction]);
 
-  // Keyboard navigation: pauses and resets timer on key action
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'ArrowRight') {
@@ -267,249 +149,76 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     };
   }, [currentSlide, startTimer]);
 
-  const filteredAlumni = selectedAlumniCategory === 'all' 
-    ? alumniList 
-    : alumniList.filter(a => a.tag === selectedAlumniCategory);
-
-  // Helper to render slide-specific interactive content
+  // Helper to render static, rich, non-interactive content for each slide
   const renderSlideContent = (slide) => {
-    switch (slide.customRenderer) {
-      case 'history':
+    switch (slide.id) {
+      case 'origin':
         return (
-          <div className="slide-custom-content history-custom-content">
-            <div className="slide-highlights-grid">
-              <div className="slide-highlight-card">
-                <div className="highlight-bullet"><AwardIcon size={20} /></div>
-                <div>
-                  <strong>Turing Award Legacy</strong>
-                  <p>Designed under the direction of Prof. Raj Reddy, applying Carnegie Mellon University active-learning methodologies to computing education in India.</p>
+          <div className="slide-content-layout layout-origin-story">
+            <div className="origin-main-grid">
+              {/* Left Column: Narrative Cards */}
+              <div className="origin-text-cards">
+                <div className="origin-highlight-card">
+                  <div className="origin-icon-box"><AwardIcon size={22} /></div>
+                  <div>
+                    <h4>The 2001 Catalyst</h4>
+                    <p>Traditional universities were churning out graduates trained on blackboard memorization who couldn't write 20 lines of production code. Prof. Raj Reddy, then Dean of Computer Science at Carnegie Mellon University (CMU), envisioned a radical experiment: eliminate lectures and teach computing purely through active studio practice.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="slide-highlight-card">
-                <div className="highlight-bullet"><BuildingIcon size={20} /></div>
-                <div>
-                  <strong>Consortium of Universities</strong>
-                  <p>Instituted under CIHL alongside state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University.</p>
-                </div>
-              </div>
-              <div className="slide-highlight-card">
-                <div className="highlight-bullet"><CpuIcon size={20} /></div>
-                <div>
-                  <strong>Zero Passive Lectures</strong>
-                  <p>India’s first postgraduate master’s to eliminate traditional blackboard lectures in favor of 100% full-time coding studios.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
 
-      case 'journey':
-        const currentMilestone = timelineMilestones.find(m => m.year === activeTimelineYear) || timelineMilestones[0];
-        return (
-          <div className="slide-custom-content journey-custom-content">
-            <div className="timeline-selector-strip">
-              {timelineMilestones.map((m) => (
-                <button
-                  key={m.year}
-                  type="button"
-                  className={`timeline-year-btn ${activeTimelineYear === m.year ? 'active' : ''}`}
-                  onClick={() => setActiveTimelineYear(m.year)}
-                >
-                  <span className="timeline-dot-marker"></span>
-                  <span className="timeline-btn-text">{m.year}</span>
-                </button>
-              ))}
-            </div>
+                <div className="origin-highlight-card">
+                  <div className="origin-icon-box"><CpuIcon size={22} /></div>
+                  <div>
+                    <h4>Carnegie Mellon Pedagogy in India</h4>
+                    <p>MSIT adopted the active-learning framework of CMU's Software Engineering Institute: students work 9 AM to 6 PM in teams, building production-grade software under dedicated industry mentors.</p>
+                  </div>
+                </div>
 
-            <div className="timeline-detail-card">
-              <div className="timeline-detail-header">
-                <span className="timeline-active-year-badge">{currentMilestone.year}</span>
-                <h3 className="timeline-detail-title">{currentMilestone.title}</h3>
-              </div>
-              <p className="timeline-detail-desc">{currentMilestone.desc}</p>
-              <div className="timeline-footer-hint">
-                <span>💡 Click any milestone year above to explore the 25-year evolution</span>
-              </div>
-            </div>
-          </div>
-        );
+                <div className="origin-highlight-card">
+                  <div className="origin-icon-box"><BuildingIcon size={22} /></div>
+                  <div>
+                    <h4>The CIHL University Consortium</h4>
+                    <p>Instituted under the Consortium of Institutions of Higher Learning (CIHL) with IIIT Hyderabad alongside premier state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University.</p>
+                  </div>
+                </div>
 
-      case 'community':
-        return (
-          <div className="slide-custom-content community-custom-content">
-            <div className="community-cards-grid">
-              <div className="community-card">
-                <div className="comm-icon-box"><UsersIcon size={22} /></div>
-                <div className="comm-text">
-                  <strong>Daily 9 AM–6 PM Studios</strong>
-                  <p>Pair programming, daily standups, and code reviews under senior software architects.</p>
+                <div className="origin-quote-box">
+                  <span className="quote-mark">“</span>
+                  <p>In computing, learning is not a spectator sport. You don't learn by watching; you learn by building, breaking, debugging, and deploying.</p>
+                  <span className="quote-author">— Prof. Raj Reddy, Turing Award Laureate & MSIT Founding Chair</span>
                 </div>
               </div>
-              <div className="community-card">
-                <div className="comm-icon-box"><CpuIcon size={22} /></div>
-                <div className="comm-text">
-                  <strong>Cutting-Edge Research Labs</strong>
-                  <p>Direct exposure to IIIT-H centers including CVIT, LTRC, and Kohli Centre on Intelligent Systems.</p>
-                </div>
-              </div>
-              <div className="community-card">
-                <div className="comm-icon-box"><SparklesIcon size={22} /></div>
-                <div className="comm-text">
-                  <strong>Hackathons & Open Source</strong>
-                  <p>Student-driven hackathons, algorithm sprint contests, and active open-source contributions.</p>
-                </div>
-              </div>
-              <div className="community-card">
-                <div className="comm-icon-box"><BuildingIcon size={22} /></div>
-                <div className="comm-text">
-                  <strong>Gachibowli Cyber-Hub</strong>
-                  <p>Located next to Microsoft, Google, Amazon, and T-Hub—the epicenter of India’s tech ecosystem.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
 
-      case 'alumni':
-        return (
-          <div className="slide-custom-content alumni-custom-content">
-            <div className="alumni-filter-bar">
-              <span className="alumni-filter-label">Filter:</span>
-              <button 
-                type="button" 
-                className={`alumni-filter-pill ${selectedAlumniCategory === 'all' ? 'active' : ''}`}
-                onClick={() => setSelectedAlumniCategory('all')}
-              >
-                All Leaders
-              </button>
-              <button 
-                type="button" 
-                className={`alumni-filter-pill ${selectedAlumniCategory === 'bigtech' ? 'active' : ''}`}
-                onClick={() => setSelectedAlumniCategory('bigtech')}
-              >
-                Big Tech
-              </button>
-              <button 
-                type="button" 
-                className={`alumni-filter-pill ${selectedAlumniCategory === 'ai' ? 'active' : ''}`}
-                onClick={() => setSelectedAlumniCategory('ai')}
-              >
-                AI & Hardware
-              </button>
-              <button 
-                type="button" 
-                className={`alumni-filter-pill ${selectedAlumniCategory === 'founder' ? 'active' : ''}`}
-                onClick={() => setSelectedAlumniCategory('founder')}
-              >
-                Founders
-              </button>
-            </div>
-
-            <div className="alumni-cards-scroll-grid">
-              {filteredAlumni.map((alumnus, idx) => (
-                <div key={idx} className="alumni-card">
-                  <div className="alumni-card-top">
-                    <div className="alumni-avatar-placeholder">
-                      {alumnus.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <div className="alumni-info-head">
-                      <h4 className="alumni-name">{alumnus.name}</h4>
-                      <span className="alumni-company-badge">{alumnus.company}</span>
+              {/* Right Column: Hero Portrait Spotlight Card */}
+              <div className="origin-portrait-spotlight">
+                <div className="spotlight-card">
+                  <div className="spotlight-img-frame">
+                    <img 
+                      src="/assets/iiit-raj-reddy.png" 
+                      alt="Prof. Raj Reddy" 
+                      className="spotlight-portrait-img"
+                    />
+                  </div>
+                  <div className="spotlight-meta">
+                    <span className="spotlight-badge">Academic Visionary</span>
+                    <h3 className="spotlight-name">Prof. Raj Reddy</h3>
+                    <p className="spotlight-desc">Turing Award Laureate in AI (1994), Former Dean of School of Computer Science at Carnegie Mellon University, and Founding Father of MSIT.</p>
+                    <div className="spotlight-stats-row">
+                      <div className="spot-stat">
+                        <strong>25+</strong>
+                        <span>Years Legacy</span>
+                      </div>
+                      <div className="spot-stat">
+                        <strong>3,000+</strong>
+                        <span>Global Alumni</span>
+                      </div>
+                      <div className="spot-stat">
+                        <strong>0%</strong>
+                        <span>Lectures</span>
+                      </div>
                     </div>
                   </div>
-                  <p className="alumni-role">{alumnus.role}</p>
-                  <p className="alumni-highlight">{alumnus.highlight}</p>
                 </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case 'backgrounds':
-        return (
-          <div className="slide-custom-content backgrounds-custom-content">
-            <div className="backgrounds-quad-grid">
-              <div className="background-card">
-                <div className="bg-badge-row">
-                  <span className="bg-pill non-cs">Non-CS Engineers</span>
-                  <span className="bg-stat">~35% Intake</span>
-                </div>
-                <h4>ECE, Mechanical & Civil Graduates</h4>
-                <p>Rigorous hands-on studios transition engineering minds into full-stack and distributed backend software architects within 12 months.</p>
-              </div>
-
-              <div className="background-card">
-                <div className="bg-badge-row">
-                  <span className="bg-pill bca">BCA, MCA & B.Sc</span>
-                  <span className="bg-stat">~25% Intake</span>
-                </div>
-                <h4>Mathematics, Stats & Applications</h4>
-                <p>Elevate theoretical foundations into enterprise-grade system programming, clean code architectures, and scalable data engineering.</p>
-              </div>
-
-              <div className="background-card">
-                <div className="bg-badge-row">
-                  <span className="bg-pill tier">Tier-2 / 3 Achievers</span>
-                  <span className="bg-stat">Transformational</span>
-                </div>
-                <h4>State College Graduates</h4>
-                <p>Overcome campus placement limitations by gaining the prestigious IIIT Hyderabad consortium credential and Tier-1 recruiter exposure.</p>
-              </div>
-
-              <div className="background-card">
-                <div className="bg-badge-row">
-                  <span className="bg-pill cs">CS / IT Graduates</span>
-                  <span className="bg-stat">~40% Intake</span>
-                </div>
-                <h4>Computer Science Graduates</h4>
-                <p>Accelerate beyond standard undergraduate coursework into deep learning, LLMs, microservices, and corporate engineering leadership.</p>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'careers':
-        const activeTest = testimonials[activeTestimonialIndex];
-        return (
-          <div className="slide-custom-content careers-custom-content">
-            <div className="testimonial-selector-tabs">
-              {testimonials.map((t, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className={`test-tab-btn ${idx === activeTestimonialIndex ? 'active' : ''}`}
-                  onClick={() => setActiveTestimonialIndex(idx)}
-                >
-                  <span>{t.name}</span>
-                  <span className="test-tab-sub">{t.batch}</span>
-                </button>
-              ))}
-            </div>
-
-            <div className="testimonial-hero-card">
-              <div className="test-quote-icon">“</div>
-              <p className="test-quote-text">{activeTest.quote}</p>
-              
-              <div className="test-author-row">
-                <div>
-                  <h4 className="test-author-name">{activeTest.name}</h4>
-                  <span className="test-trajectory-pill">{activeTest.trajectory}</span>
-                </div>
-                <span className="test-stipend-badge">{activeTest.stipend}</span>
-              </div>
-            </div>
-
-            <div className="recruiter-badges-strip">
-              <span className="recruiter-label">Hiring Partners:</span>
-              <div className="recruiter-tags-list">
-                <span className="rec-tag">Microsoft</span>
-                <span className="rec-tag">Amazon</span>
-                <span className="rec-tag">Google</span>
-                <span className="rec-tag">Qualcomm</span>
-                <span className="rec-tag">Adobe</span>
-                <span className="rec-tag">Goldman Sachs</span>
-                <span className="rec-tag">Gramener</span>
-                <span className="rec-tag">Infosys</span>
               </div>
             </div>
           </div>
@@ -517,48 +226,462 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
       case 'why-msit':
         return (
-          <div className="slide-custom-content why-custom-content">
-            <div className="why-pillars-grid">
-              <div className="why-pillar-card">
-                <div className="pillar-num">01</div>
-                <div>
-                  <strong>100% Learning By Doing</strong>
-                  <p>No passive blackboard lectures. Full-time hands-on studios simulating top tech engineering environments.</p>
+          <div className="slide-content-layout layout-why-pillars">
+            <div className="pillars-showcase-grid">
+              {/* 5 Distinct Pillars Cards */}
+              <div className="pillar-feature-card card-p1">
+                <span className="pillar-num-badge">01</span>
+                <h4>Zero Blackboard Lectures</h4>
+                <p>100% immersive coding studios. No textbooks or boring lectures. You write real code, commit to GitHub, and build deployable software from day one.</p>
+                <span className="pillar-tag">Active Learning</span>
+              </div>
+
+              <div className="pillar-feature-card card-p2">
+                <span className="pillar-num-badge">02</span>
+                <h4>1:10 Mentorship Ratio</h4>
+                <p>Never get lost in an auditorium. Dedicated industry mentors work alongside you every single day, reviewing pull requests and conducting daily agile standups.</p>
+                <span className="pillar-tag">Daily Code Reviews</span>
+              </div>
+
+              <div className="pillar-feature-card card-p3">
+                <span className="pillar-num-badge">03</span>
+                <h4>~50% Paid Corporate Practicum</h4>
+                <p>Spend half your master's embedded directly inside real engineering teams. Earn monthly stipends of ₹25,000–₹60,000 before graduation.</p>
+                <span className="pillar-tag">Earn While Learning</span>
+              </div>
+
+              <div className="pillar-feature-card card-p4">
+                <span className="pillar-num-badge">04</span>
+                <h4>Gachibowli Cyber Hub Advantage</h4>
+                <p>Located on IIIT-H's 66-acre campus, right beside Microsoft, Google, Amazon, and T-Hub. Recruitment and technical networking happen at your doorstep.</p>
+                <span className="pillar-tag">Prime Location</span>
+              </div>
+
+              <div className="pillar-feature-card card-p5">
+                <span className="pillar-num-badge">05</span>
+                <h4>70%+ PPO Conversion Velocity</h4>
+                <p>Over 70% of students convert their internships into high-package full-time Pre-Placement Offers (PPOs) well before their final semester concludes.</p>
+                <span className="pillar-tag">High Placement Rate</span>
+              </div>
+
+              {/* Integrated Visual Studio Card */}
+              <div className="pillar-image-card">
+                <img 
+                  src="/assets/iiit-studios.jpg" 
+                  alt="MSIT Studios" 
+                  className="pillar-embedded-img"
+                />
+                <div className="pillar-img-overlay">
+                  <strong>Daily 9 AM–6 PM Collaborative Studios</strong>
+                  <span>Software engineering practiced like high-performing Silicon Valley teams</span>
                 </div>
               </div>
-              <div className="why-pillar-card">
-                <div className="pillar-num">02</div>
-                <div>
-                  <strong>~50% Paid Corporate Co-op</strong>
-                  <p>Spend half your master’s tenure as an intern inside tech enterprises earning a monthly stipend.</p>
+            </div>
+          </div>
+        );
+
+      case 'placements':
+        return (
+          <div className="slide-content-layout layout-top-placements">
+            <div className="placements-header-banner">
+              <span className="banner-stat-pill">Verified Alumni Placements</span>
+              <span className="banner-subtext">Packages shown represent actual compensation brackets achieved by MSIT graduates</span>
+            </div>
+
+            <div className="placements-grid-showcase">
+              {/* Card 1: 40 LPA+ */}
+              <div className="placement-package-card card-tier-highest">
+                <div className="package-top-row">
+                  <span className="package-tag highest">Highest Offer Bracket</span>
+                  <span className="package-amount">₹40 LPA+</span>
+                </div>
+                <h4 className="placement-role-title">Full-Stack AI Systems Architect</h4>
+                <p className="placement-desc">Designing multi-region enterprise AI pipelines, autonomous LLM agent clusters, and fault-tolerant cloud backends.</p>
+                <div className="placement-trajectory-bar">
+                  <span className="traj-label">Trajectory:</span>
+                  <span className="traj-step">Tier-3 Undergrad</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step">MSIT Studio Track</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step dest">Principal Tier-1 Role</span>
                 </div>
               </div>
-              <div className="why-pillar-card">
-                <div className="pillar-num">03</div>
-                <div>
-                  <strong>IIIT Hyderabad Research Ecosystem</strong>
-                  <p>Direct immersion into the 66-acre academic and research facilities in Cyberabad.</p>
+
+              {/* Card 2: 32 LPA+ */}
+              <div className="placement-package-card card-tier-high">
+                <div className="package-top-row">
+                  <span className="package-tag fintech">FinTech & Quantitative Systems</span>
+                  <span className="package-amount">₹32 LPA+</span>
+                </div>
+                <h4 className="placement-role-title">Algorithmic Trading & Low-Latency Engineer</h4>
+                <p className="placement-desc">Building ultra-low-latency order matching engines, high-frequency data streams, and quantitative financial computing layers.</p>
+                <div className="placement-trajectory-bar">
+                  <span className="traj-label">Trajectory:</span>
+                  <span className="traj-step">BCA / MCA</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step">Distributed Systems Studio</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step dest">Global FinTech</span>
                 </div>
               </div>
-              <div className="why-pillar-card">
-                <div className="pillar-num">04</div>
-                <div>
-                  <strong>Turing Award Pedagogy</strong>
-                  <p>Conceived by Prof. Raj Reddy on Carnegie Mellon active-learning mastery principles.</p>
+
+              {/* Card 3: 28 LPA+ */}
+              <div className="placement-package-card card-tier-ai">
+                <div className="package-top-row">
+                  <span className="package-tag ai">Applied AI & Machine Learning</span>
+                  <span className="package-amount">₹28 LPA+</span>
+                </div>
+                <h4 className="placement-role-title">Machine Learning Systems Engineer</h4>
+                <p className="placement-desc">Fine-tuning domain-specific foundation models, RAG vector architectures, and deploying real-time inference microservices.</p>
+                <div className="placement-trajectory-bar">
+                  <span className="traj-label">Trajectory:</span>
+                  <span className="traj-step">Non-CS (Mechanical)</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step">MSIT AI/ML Labs</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step dest">Lead AI Engineer</span>
                 </div>
               </div>
-              <div className="why-pillar-card">
-                <div className="pillar-num">05</div>
-                <div>
-                  <strong>100% Collateral-Free Bank Loans</strong>
-                  <p>Seamless education loan support through partner nationalized banks with quick approvals.</p>
+
+              {/* Card 4: 24 LPA+ */}
+              <div className="placement-package-card card-tier-cloud">
+                <div className="package-top-row">
+                  <span className="package-tag cloud">Global Cloud & Infrastructure</span>
+                  <span className="package-amount">₹24 LPA+</span>
+                </div>
+                <h4 className="placement-role-title">Senior Distributed Systems Engineer</h4>
+                <p className="placement-desc">Managing high-throughput Kubernetes microservices, distributed caching clusters, and zero-downtime database layers.</p>
+                <div className="placement-trajectory-bar">
+                  <span className="traj-label">Trajectory:</span>
+                  <span className="traj-step">B.Tech CS / IT</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step">Cloud Practicum</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step dest">Cloud Platform Lead</span>
                 </div>
               </div>
-              <div className="why-pillar-card">
-                <div className="pillar-num">06</div>
-                <div>
-                  <strong>25+ Years Global Alumni Network</strong>
-                  <p>Join over two decades of alumni leading engineering teams across global tech giants.</p>
+
+              {/* Card 5: 20 LPA+ */}
+              <div className="placement-package-card card-tier-edge">
+                <div className="package-top-row">
+                  <span className="package-tag edge">Hardware & Edge AI Systems</span>
+                  <span className="package-amount">₹20 LPA+</span>
+                </div>
+                <h4 className="placement-role-title">Principal Firmware & Accelerator Architect</h4>
+                <p className="placement-desc">Optimizing low-power neural processing units (NPUs), embedded Linux kernels, and real-time edge computing modules.</p>
+                <div className="placement-trajectory-bar">
+                  <span className="traj-label">Trajectory:</span>
+                  <span className="traj-step">ECE / EEE Undergrad</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step">Hardware Studio</span>
+                  <span className="traj-arrow">➔</span>
+                  <span className="traj-step dest">Edge AI Systems</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'backgrounds':
+        return (
+          <div className="slide-content-layout layout-student-transformations">
+            <div className="transformations-quad-grid">
+              {/* Transformation 1 */}
+              <div className="trans-card trans-non-cs">
+                <div className="trans-header">
+                  <span className="trans-badge">Non-CS Graduates</span>
+                  <span className="trans-sub">Mechanical, Civil, Chemical, Electrical</span>
+                </div>
+                <div className="trans-comparison">
+                  <div className="trans-before">
+                    <span className="marker-label">Where They Started:</span>
+                    <p>Zero prior production coding background; intimidated by abstract algorithmic theory and data structures.</p>
+                  </div>
+                  <div className="trans-after">
+                    <span className="marker-label">What They Achieved:</span>
+                    <p>Completed foundational coding sprints; built full-stack distributed web applications; cracked <strong>₹20+ LPA cloud roles</strong>.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Transformation 2 */}
+              <div className="trans-card trans-bca">
+                <div className="trans-header">
+                  <span className="trans-badge">3-Year Degree Achievers</span>
+                  <span className="trans-sub">BCA, B.Sc Computer Science, IT, Mathematics</span>
+                </div>
+                <div className="trans-comparison">
+                  <div className="trans-before">
+                    <span className="marker-label">Where They Started:</span>
+                    <p>Barred by traditional M.Tech programs in India that strictly mandate a 4-year B.Tech degree for eligibility.</p>
+                  </div>
+                  <div className="trans-after">
+                    <span className="marker-label">What They Achieved:</span>
+                    <p>Gained direct eligibility for an elite postgraduate master’s; earned placement parity with top IIT and NIT engineering packages.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Transformation 3 */}
+              <div className="trans-card trans-tier3">
+                <div className="trans-header">
+                  <span className="trans-badge">Tier-2 / Tier-3 Reinventions</span>
+                  <span className="trans-sub">Colleges with Limited On-Campus Placements</span>
+                </div>
+                <div className="trans-comparison">
+                  <div className="trans-before">
+                    <span className="marker-label">Where They Started:</span>
+                    <p>Trapped in textbook-only syllabi with little practical exposure and limited Tier-1 hiring opportunities.</p>
+                  </div>
+                  <div className="trans-after">
+                    <span className="marker-label">What They Achieved:</span>
+                    <p>Replaced blackboard tests with 2,000+ hours of hands-on coding, securing top product engineering and FinTech roles.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Transformation 4 */}
+              <div className="trans-card trans-restarter">
+                <div className="trans-header">
+                  <span className="trans-badge">Career Restarters & Upskillers</span>
+                  <span className="trans-sub">IT Support Transition & Post-Career Breaks</span>
+                </div>
+                <div className="trans-comparison">
+                  <div className="trans-before">
+                    <span className="marker-label">Where They Started:</span>
+                    <p>Working in repetitive maintenance/support roles or seeking to return to high-growth tech after career breaks.</p>
+                  </div>
+                  <div className="trans-after">
+                    <span className="marker-label">What They Achieved:</span>
+                    <p>Upskilled into high-demand Machine Learning, Cloud DevOps, and Microservices engineering through corporate co-op practicums.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Embedded Laboratory Accent Card */}
+            <div className="transformation-visual-accent">
+              <img 
+                src="/assets/iiit-ai-lab.jpg" 
+                alt="AI Laboratory" 
+                className="trans-accent-img"
+              />
+              <div className="trans-accent-text">
+                <strong>Every Background Transformed Through Mastery-Based Learning</strong>
+                <span>100% Studio Workflows • Zero Blackboard Lectures • 1:10 Personalized Mentorship</span>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'events':
+        return (
+          <div className="slide-content-layout layout-events-community">
+            <div className="events-quad-grid">
+              {/* Event 1: Freshers */}
+              <div className="event-feature-card card-freshers">
+                <div className="event-icon-pill"><SparklesIcon size={20} /> Freshers' Day</div>
+                <h4>Freshers' Welcome & Induction</h4>
+                <p>A grand kickoff where seniors welcome the incoming cohort. Features interactive icebreakers, student-led cultural performances, team bonding challenges, and orientation into the MSIT studio culture.</p>
+                <div className="event-meta-footer">
+                  <span className="event-tag">Welcoming New Batches</span>
+                  <span className="event-season">Commencement Week</span>
+                </div>
+              </div>
+
+              {/* Event 2: Cultural Event */}
+              <div className="event-feature-card card-cultural">
+                <div className="event-icon-pill"><UsersIcon size={20} /> Cultural Extravaganza</div>
+                <h4>Cultural Event & Annual Day</h4>
+                <p>A vibrant multi-day celebration of music, dance, theater, and ethnic diversity. Students showcase their artistic talents, organize live band performances, and unwind with festive celebrations across campus.</p>
+                <div className="event-meta-footer">
+                  <span className="event-tag">Music, Dance & Drama</span>
+                  <span className="event-season">Annual Festival</span>
+                </div>
+              </div>
+
+              {/* Event 3: Hackathons */}
+              <div className="event-feature-card card-hackathon">
+                <div className="event-icon-pill"><CpuIcon size={20} /> Overnight Hackathons</div>
+                <h4>48-Hour Hack-A-Sprint</h4>
+                <p>An intense, high-octane 48-hour continuous coding hackathon. Student teams build working prototypes solving challenging real-world problems with direct evaluation by industry tech mentors.</p>
+                <div className="event-meta-footer">
+                  <span className="event-tag">Overnight Building</span>
+                  <span className="event-season">Mid-Semester Sprint</span>
+                </div>
+              </div>
+
+              {/* Event 4: Capstone Expo */}
+              <div className="event-feature-card card-capstone">
+                <div className="event-icon-pill"><AwardIcon size={20} /> Project Expo</div>
+                <h4>Annual Capstone Demo Day</h4>
+                <p>The premier graduation event where students publicly present live software applications to visiting CTOs, venture capitalists, recruiters, and engineering managers from Hyderabad's cyber corridor.</p>
+                <div className="event-meta-footer">
+                  <span className="event-tag">Live Product Demos</span>
+                  <span className="event-season">Final Semester Showcase</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Embedded Campus Life Picture Banner */}
+            <div className="events-campus-banner">
+              <img 
+                src="/assets/iiit-campus-life.jpg" 
+                alt="Campus Life at IIIT Hyderabad" 
+                className="events-banner-img"
+              />
+              <div className="events-banner-overlay">
+                <strong>A Balanced Student Journey on a 66-Acre Research Campus</strong>
+                <span>Hackathons, Cultural Celebrations, Sports Facilities, and Lifelong Peer Friendships</span>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'practicum':
+        return (
+          <div className="slide-content-layout layout-coop-practicum">
+            <div className="practicum-stats-strip">
+              <div className="p-stat-box">
+                <strong className="p-stat-number">~50%</strong>
+                <span className="p-stat-label">Of Programme in Industry</span>
+                <span className="p-stat-detail">Corporate Software Practicum</span>
+              </div>
+              <div className="p-stat-box highlight">
+                <strong className="p-stat-number">₹25k–₹60k</strong>
+                <span className="p-stat-label">Monthly Corporate Stipend</span>
+                <span className="p-stat-detail">Earn While You Learn</span>
+              </div>
+              <div className="p-stat-box">
+                <strong className="p-stat-number">70%+</strong>
+                <span className="p-stat-label">PPO Conversion Rate</span>
+                <span className="p-stat-detail">Pre-Placement Full-Time Offers</span>
+              </div>
+              <div className="p-stat-box">
+                <strong className="p-stat-number">100+</strong>
+                <span className="p-stat-label">Recruiting Partners</span>
+                <span className="p-stat-detail">Hyderabad Tech Corridor</span>
+              </div>
+            </div>
+
+            <div className="practicum-details-grid">
+              <div className="practicum-text-card">
+                <h4>Why the MSIT Corporate Practicum is Transformative</h4>
+                <ul className="practicum-benefits-list">
+                  <li>
+                    <CheckCircleIcon size={18} />
+                    <span><strong>Recover Education Investment Early:</strong> Substantial monthly stipends allow students to offset their living and academic expenses during the master's programme itself.</span>
+                  </li>
+                  <li>
+                    <CheckCircleIcon size={18} />
+                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems—not toy toy projects or simulated labs.</span>
+                  </li>
+                  <li>
+                    <CheckCircleIcon size={18} />
+                    <span><strong>Direct Absorption into Full-Time Roles:</strong> Because company teams already know your code quality from the practicum, over 70% of students receive full-time PPOs prior to graduation.</span>
+                  </li>
+                  <li>
+                    <CheckCircleIcon size={18} />
+                    <span><strong>Prime Gachibowli Location:</strong> Companies are located right around the campus in HITEC City and the Financial District, providing effortless connectivity.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="practicum-image-card">
+                <img 
+                  src="/assets/iiit-coop.jpg" 
+                  alt="Corporate Practicum" 
+                  className="practicum-coop-img"
+                />
+                <div className="practicum-img-caption">
+                  <strong>Embedded in Premier Engineering Divisions</strong>
+                  <span>MSIT students working alongside senior software architects and technology leaders</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+      case 'admissions':
+        return (
+          <div className="slide-content-layout layout-admissions-gateway">
+            <div className="admissions-split-grid">
+              {/* Left Column: Eligibility & 3-Step Process */}
+              <div className="admissions-process-col">
+                <div className="admissions-eligibility-card">
+                  <h4>Who Can Apply?</h4>
+                  <div className="eligible-degrees-pills">
+                    <span className="deg-pill">B.Tech / B.E (Any Branch)</span>
+                    <span className="deg-pill">MCA</span>
+                    <span className="deg-pill">M.Sc (CS / IT / Maths)</span>
+                    <span className="deg-pill">BCA / B.Sc (CS / IT / Maths)</span>
+                  </div>
+                  <p className="eligibility-note">Candidates from non-CS branches undergo an intensive foundational studio module to build core algorithmic and systems fundamentals.</p>
+                </div>
+
+                <div className="admissions-steps-card">
+                  <h4>Simple 3-Step Selection Process</h4>
+                  <div className="steps-horizontal-list">
+                    <div className="step-item">
+                      <span className="step-num">01</span>
+                      <strong>Online Application</strong>
+                      <span>Fill the streamlined online form & upload academic records.</span>
+                    </div>
+                    <div className="step-item">
+                      <span className="step-num">02</span>
+                      <strong>Aptitude Evaluation</strong>
+                      <span>GAT (Graduate Aptitude Test) or qualifying national exam score.</span>
+                    </div>
+                    <div className="step-item">
+                      <span className="step-num">03</span>
+                      <strong>Studio Admission</strong>
+                      <span>Counselling session, studio seat allotment & onboarding.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="admissions-cta-banner">
+                  <div>
+                    <h3>Ready to Transform Your Engineering Career?</h3>
+                    <p>Take the next step into India's premier studio-based master's degree in computing.</p>
+                  </div>
+                  <button 
+                    type="button" 
+                    className="btn btn-primary admissions-big-cta"
+                    onClick={onGoToSignIn}
+                  >
+                    <span>Student Sign In / Apply Now ➔</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Column: Panoramic Campus Card */}
+              <div className="admissions-campus-col">
+                <div className="campus-panoramic-card">
+                  <img 
+                    src="/assets/iiit-campus.jpg" 
+                    alt="IIIT Hyderabad Campus" 
+                    className="campus-panoramic-img"
+                  />
+                  <div className="campus-card-content">
+                    <span className="campus-badge">Consortium Master's Degree</span>
+                    <h3>IIIT Hyderabad & CIHL State Universities</h3>
+                    <p>Join an active community of 3,000+ alumni driving computing innovation across the globe.</p>
+                    <div className="campus-quick-stats">
+                      <div>
+                        <strong>25+</strong>
+                        <span>Years of Excellence</span>
+                      </div>
+                      <div>
+                        <strong>100%</strong>
+                        <span>Studio Learning</span>
+                      </div>
+                      <div>
+                        <strong>1:10</strong>
+                        <span>Mentorship Ratio</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -642,21 +765,21 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               key={slideItem.id}
               className={`fullscreen-slide-item ${slideItem.themeClass} ${idx === currentSlide ? 'is-active-slide' : ''}`}
             >
-              {/* Left Scrollable Content Column */}
-              <div className="fullscreen-content-col">
-                <div className="content-col-inner">
-                  <div className="fullscreen-meta-row">
-                    <span className="fullscreen-category-badge">{slideItem.category}</span>
-                  </div>
-
+              {/* Dynamic Slide Stage Container */}
+              <div className="fullscreen-slide-stage">
+                {/* Header Meta Row */}
+                <div className="slide-header-meta">
+                  <span className="fullscreen-category-badge">{slideItem.category}</span>
                   <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
                   <p className="fullscreen-slide-lead">{slideItem.lead}</p>
+                </div>
 
-                  {/* Render Custom Interactive Slide Content */}
+                {/* Render Bespoke Non-Interactive Slide Content */}
+                <div className="slide-body-container">
                   {renderSlideContent(slideItem)}
                 </div>
 
-                {/* Integrated Controls Bar at bottom of content column */}
+                {/* Integrated Controls Bar at bottom of stage */}
                 <div className="fullscreen-controls-bar">
                   <div className="controls-nav-group">
                     <button 
@@ -689,53 +812,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                     <span>Student Sign In ➔</span>
                   </button>
                 </div>
-              </div>
-
-              {/* Right Cinematic Full-Bleed Image Column */}
-              <div className="fullscreen-image-col">
-                <img 
-                  src={slideItem.image} 
-                  alt={slideItem.title} 
-                  className="fullscreen-hero-img"
-                  loading={idx === 0 ? 'eager' : 'lazy'}
-                />
-                
-                <div className="fullscreen-image-gradient">
-                  <div className="gradient-badge-box">
-                    <span className="gradient-category-kicker">{slideItem.category}</span>
-                    <p className="gradient-caption-text">{slideItem.imageCaption}</p>
-                  </div>
-                  
-                  <div className="fullscreen-dots-strip">
-                    {slides.map((_, dotIdx) => (
-                      <button
-                        key={dotIdx}
-                        type="button"
-                        className={`fullscreen-dot ${dotIdx === currentSlide ? 'active' : ''}`}
-                        onClick={() => setCurrentSlide(dotIdx)}
-                        aria-label={`Go to slide ${dotIdx + 1}`}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* Floating On-Image Navigation Arrow Buttons */}
-                <button 
-                  type="button" 
-                  className="floating-image-nav prev"
-                  onClick={prevSlide}
-                  aria-label="Previous slide on image"
-                >
-                  ‹
-                </button>
-                <button 
-                  type="button" 
-                  className="floating-image-nav next"
-                  onClick={nextSlide}
-                  aria-label="Next slide on image"
-                >
-                  ›
-                </button>
               </div>
             </article>
           ))}
