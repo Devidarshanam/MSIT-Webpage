@@ -643,10 +643,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </div>
 
                   <div className="controls-center-group">
-                    <div className="slideshow-timer-indicator" title="Slideshow advances automatically every 10 seconds">
-                      <span className="timer-pulse-dot" aria-hidden="true"></span>
-                      <span className="timer-label">Auto-advancing (10s)</span>
-                    </div>
                     <span className="controls-keyboard-hint">Keyboard: ← / →</span>
                   </div>
 
