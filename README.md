@@ -54,6 +54,32 @@ Official student-centric announcement and programme website for the revamped AI-
 
 ---
 
+## 🔐 Environment Configuration
+
+This project uses Supabase for email OTP authentication.
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in your Supabase credentials:
+   ```
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
+   ```
+
+3. (Optional) Set the application portal URL when available:
+   ```
+   VITE_APPLICATION_PORTAL_URL=https://apply.msit.ac.in
+   ```
+
+**Note:** The website functions without Supabase credentials — authentication
+features will show a "coming soon" message. The public "Know About MSIT"
+experience works without any configuration.
+
+---
+
 ## 🌐 Deployment on Vercel
 
 This repository is pre-configured for one-click deployment on **Vercel**:
