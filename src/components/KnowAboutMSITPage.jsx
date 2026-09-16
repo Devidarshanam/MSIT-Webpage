@@ -195,6 +195,17 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <div className="spotlight-img-frame">
                     <img 
                       src="https://www.rguktong.ac.in/img/rajreddy.jpg" 
+                      alt="" 
+                      className="spotlight-img-backdrop"
+                      aria-hidden="true"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = '/assets/rajreddy.jpg';
+                      }}
+                    />
+                    <img 
+                      src="https://www.rguktong.ac.in/img/rajreddy.jpg" 
                       alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
                       className="spotlight-portrait-img"
                       referrerPolicy="no-referrer"
