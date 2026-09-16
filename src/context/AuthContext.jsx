@@ -45,9 +45,10 @@ export function AuthProvider({ children }) {
   /**
    * Send OTP to the given email address via Supabase Auth.
    * @param {string} email
+   * @param {string} fullName
    * @returns {{ data: object|null, error: object|null }}
    */
-  const signInWithOtp = async (email) => {
+  const signInWithOtp = async (email, fullName = '') => {
     if (!isSupabaseConfigured()) {
       return { data: null, error: { message: 'Authentication is not configured.' } };
     }
@@ -55,7 +56,10 @@ export function AuthProvider({ children }) {
       const result = await supabase.auth.signInWithOtp({ 
         email,
         options: {
-          emailRedirectTo: window.location.origin
+          emailRedirectTo: window.location.origin,
+          data: {
+            full_name: fullName
+          }
         }
       });
       return result;
