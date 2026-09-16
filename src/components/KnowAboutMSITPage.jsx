@@ -439,163 +439,101 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             <div className="alumni-stories-grid">
               {/* Alumni Story 1: Non-CS */}
               <div className="alumni-story-card card-non-cs">
-                <div className="story-top-row">
-                  <span className="story-category-tag non-cs">Non-CS Transition (Mechanical)</span>
-                  <span className="story-package-pill">₹24 LPA+</span>
+                <div className="story-card-header">
+                  <span className="story-pill non-cs">Non-CS Background</span>
+                  <span className="story-pkg">₹24 LPA+</span>
                 </div>
-                <h4 className="story-target-role">Senior Distributed Systems Engineer</h4>
-
-                <div className="story-journey-path">
-                  <span className="journey-node origin">Mechanical B.Tech</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node msit">MSIT Systems Studio</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node destination">Tier-1 Core SDE</span>
-                </div>
-
-                <div className="story-details-grid">
-                  <div className="story-detail-box from">
-                    <span className="detail-tag">Where They Started</span>
-                    <p>State university graduate with zero production coding experience; had never written algorithms or deployed a server.</p>
+                <h4 className="story-role">Distributed Systems Engineer</h4>
+                <div className="story-points">
+                  <div className="story-point">
+                    <span className="point-badge from">FROM</span>
+                    <p>Mechanical / Non-CS undergrad with zero production coding experience</p>
                   </div>
-                  <div className="story-detail-box to">
-                    <span className="detail-tag">What They Achieved</span>
-                    <p>Mastered Go, distributed caching, and microservices; completed 1-year Corporate Co-op; secured <strong>₹24 LPA+</strong> lead role.</p>
+                  <div className="story-point">
+                    <span className="point-badge to">TO</span>
+                    <p>Mastered Go & microservices; architecting high-throughput cloud backends</p>
                   </div>
-                </div>
-
-                <div className="story-quote-footer">
-                  <span className="quote-mark">“</span>
-                  <span>From drawing CAD gears in college to architecting fault-tolerant microservices handling millions of daily events.</span>
                 </div>
               </div>
 
               {/* Alumni Story 2: 3-Year Degree */}
               <div className="alumni-story-card card-bca">
-                <div className="story-top-row">
-                  <span className="story-category-tag bca">3-Year Degree (BCA / B.Sc)</span>
-                  <span className="story-package-pill">₹28 LPA+</span>
+                <div className="story-card-header">
+                  <span className="story-pill bca">3-Year Degree (BCA / B.Sc)</span>
+                  <span className="story-pkg">₹28 LPA+</span>
                 </div>
-                <h4 className="story-target-role">Full-Stack AI Application Architect</h4>
-
-                <div className="story-journey-path">
-                  <span className="journey-node origin">3-Yr BCA Degree</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node msit">GenAI & LLM Lab</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node destination">AI Solutions Lead</span>
-                </div>
-
-                <div className="story-details-grid">
-                  <div className="story-detail-box from">
-                    <span className="detail-tag">Where They Started</span>
-                    <p>Barred by traditional M.Tech / GATE eligibility requiring a 4-year degree; faced severe salary glass ceilings in IT service companies.</p>
+                <h4 className="story-role">Full-Stack AI Application Architect</h4>
+                <div className="story-points">
+                  <div className="story-point">
+                    <span className="point-badge from">FROM</span>
+                    <p>Ineligible for conventional M.Tech programmes requiring a 4-year degree</p>
                   </div>
-                  <div className="story-detail-box to">
-                    <span className="detail-tag">What They Achieved</span>
-                    <p>Earned direct postgraduate entry; built enterprise RAG pipelines; achieved complete salary parity with elite B.Tech cohorts.</p>
+                  <div className="story-point">
+                    <span className="point-badge to">TO</span>
+                    <p>Gained direct postgraduate entry; building enterprise GenAI & LLM pipelines</p>
                   </div>
-                </div>
-
-                <div className="story-quote-footer">
-                  <span className="quote-mark">“</span>
-                  <span>MSIT eliminated the 3-year degree gatekeeping and let my engineering output speak for itself.</span>
                 </div>
               </div>
 
               {/* Alumni Story 3: Tier-3 College */}
               <div className="alumni-story-card card-tier3">
-                <div className="story-top-row">
-                  <span className="story-category-tag tier3">Tier-3 Rural Engineering</span>
-                  <span className="story-package-pill">₹32 LPA+</span>
+                <div className="story-card-header">
+                  <span className="story-pill tier3">Tier-2 / Tier-3 Colleges</span>
+                  <span className="story-pkg">₹32 LPA+</span>
                 </div>
-                <h4 className="story-target-role">Applied Machine Learning & Vision Engineer</h4>
-
-                <div className="story-journey-path">
-                  <span className="journey-node origin">Tier-3 College</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node msit">Deep Learning Studio</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node destination">Senior ML Engineer</span>
-                </div>
-
-                <div className="story-details-grid">
-                  <div className="story-detail-box from">
-                    <span className="detail-tag">Where They Started</span>
-                    <p>College lacked product company visits; syllabus was theoretical blackboard exam memorization without practical software exposure.</p>
+                <h4 className="story-role">Applied Machine Learning & Vision Engineer</h4>
+                <div className="story-points">
+                  <div className="story-point">
+                    <span className="point-badge from">FROM</span>
+                    <p>Textbook-only syllabus with zero Tier-1 campus product company visits</p>
                   </div>
-                  <div className="story-detail-box to">
-                    <span className="detail-tag">What They Achieved</span>
-                    <p>Logged 2,200+ hours in mentored studios; published capstone open-source tools; unlocked Tier-1 interviews via CIHL network.</p>
+                  <div className="story-point">
+                    <span className="point-badge to">TO</span>
+                    <p>2,000+ hours in mentored studios; cracked top-tier vision & ML product role</p>
                   </div>
-                </div>
-
-                <div className="story-quote-footer">
-                  <span className="quote-mark">“</span>
-                  <span>Replaced blackboard memorization with real software shipping under dedicated industry mentors.</span>
                 </div>
               </div>
 
               {/* Alumni Story 4: Career Upskiller */}
               <div className="alumni-story-card card-upskill">
-                <div className="story-top-row">
-                  <span className="story-category-tag upskill">IT Support to Core Dev</span>
-                  <span className="story-package-pill">₹22 LPA+</span>
+                <div className="story-card-header">
+                  <span className="story-pill upskill">Career Restarter / IT Support</span>
+                  <span className="story-pkg">₹22 LPA+</span>
                 </div>
-                <h4 className="story-target-role">Cloud Platform & DevOps Architect</h4>
-
-                <div className="story-journey-path">
-                  <span className="journey-node origin">IT Helpdesk Support</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node msit">Cloud Co-op Practicum</span>
-                  <span className="journey-separator">➔</span>
-                  <span className="journey-node destination">Cloud Infrastructure Lead</span>
-                </div>
-
-                <div className="story-details-grid">
-                  <div className="story-detail-box from">
-                    <span className="detail-tag">Where They Started</span>
-                    <p>Stuck in repetitive ticketing, server maintenance, and application monitoring shifts for 2 years with no code development.</p>
+                <h4 className="story-role">Cloud Platform & DevOps Architect</h4>
+                <div className="story-points">
+                  <div className="story-point">
+                    <span className="point-badge from">FROM</span>
+                    <p>2 years stuck in manual ticketing, maintenance shifts, and support tasks</p>
                   </div>
-                  <div className="story-detail-box to">
-                    <span className="detail-tag">What They Achieved</span>
-                    <p>Mastered Kubernetes, infrastructure-as-code, and distributed monitoring; transitioned directly to a high-bracket production platform architect role.</p>
+                  <div className="story-point">
+                    <span className="point-badge to">TO</span>
+                    <p>Mastered Kubernetes & IaC; transitioned to core platform architecture lead</p>
                   </div>
-                </div>
-
-                <div className="story-quote-footer">
-                  <span className="quote-mark">“</span>
-                  <span>Broke out of the support shift cycle into core architectural decision-making and infrastructure engineering.</span>
                 </div>
               </div>
             </div>
 
-            {/* Bottom Transformation Highlights Banner */}
-            <div className="transformation-visual-accent">
-              <div className="trans-accent-left">
-                <img 
-                  src="/assets/iiit-ai-lab.jpg" 
-                  alt="AI Laboratory" 
-                  className="trans-accent-img"
-                />
-                <div className="trans-accent-text">
-                  <strong>Every Background Transformed Through Mastery-Based Studios</strong>
-                  <span>100% Studio Workflows • Zero Blackboard Lectures • 1:10 Personalized Mentorship</span>
-                </div>
+            {/* Clean, High-Impact Summary Strip */}
+            <div className="transformation-summary-strip">
+              <div className="summary-strip-metric">
+                <span className="metric-num">45%+</span>
+                <span className="metric-lbl">Non-CS & Diverse Intake</span>
               </div>
-              <div className="trans-accent-metrics">
-                <div className="accent-metric-item">
-                  <strong>45%+</strong>
-                  <span>Non-CS Intake</span>
-                </div>
-                <div className="accent-metric-item">
-                  <strong>2,000+</strong>
-                  <span>Studio Hours</span>
-                </div>
-                <div className="accent-metric-item">
-                  <strong>₹20 LPA+</strong>
-                  <span>Top Brackets</span>
-                </div>
+              <div className="summary-strip-divider"></div>
+              <div className="summary-strip-metric">
+                <span className="metric-num">2,000+</span>
+                <span className="metric-lbl">Hands-on Studio Hours</span>
+              </div>
+              <div className="summary-strip-divider"></div>
+              <div className="summary-strip-metric">
+                <span className="metric-num">₹20 LPA+</span>
+                <span className="metric-lbl">Top Career Outcomes</span>
+              </div>
+              <div className="summary-strip-divider"></div>
+              <div className="summary-strip-metric">
+                <span className="metric-num">1:10</span>
+                <span className="metric-lbl">Dedicated Mentor Ratio</span>
               </div>
             </div>
           </div>
