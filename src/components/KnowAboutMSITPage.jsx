@@ -230,466 +230,466 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     : alumniList.filter(a => a.tag === selectedAlumniCategory);
 
   return (
-    <div className="slideshow-page-root">
-      {/* Top Header Bar */}
-      <header className="slideshow-header">
-        <div className="gateway-container slideshow-header-inner">
+    <div className="fullscreen-slideshow-root">
+      {/* Top Full-Width Navigation Bar */}
+      <header className="fullscreen-top-bar">
+        <div className="top-bar-left">
           <button 
             type="button" 
-            className="slideshow-back-btn" 
+            className="top-bar-back-btn" 
             onClick={onBack}
             aria-label="Back to Gateway"
           >
             <span>← Back to Gateway</span>
           </button>
 
-          <div className="slideshow-branding">
+          <div className="top-bar-brand">
             <img
               src="https://www.msit.ac.in/assets/msit-logo.png"
               alt="MSIT Logo"
-              width="34"
-              height="34"
+              width="32"
+              height="32"
             />
-            <div className="slideshow-brand-text">
-              <span className="slideshow-brand-title">Know About MSIT</span>
-              <span className="slideshow-brand-subtitle">IIIT Hyderabad Consortium · Comprehensive Overview</span>
+            <span className="top-bar-title">Know About MSIT</span>
+          </div>
+        </div>
+
+        {/* Quick Jump Category Strip (All 7 Slides) */}
+        <nav className="top-bar-category-nav" aria-label="Slideshow Navigation">
+          {slides.map((s, idx) => (
+            <button
+              key={s.id}
+              type="button"
+              className={`top-category-pill ${idx === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(idx)}
+            >
+              <span className="pill-num">{s.number}</span>
+              <span className="pill-label">{s.category.split(' & ')[0]}</span>
+            </button>
+          ))}
+        </nav>
+
+        <div className="top-bar-right">
+          <span className="slide-fraction-badge">{currentSlide + 1} / {totalSlides}</span>
+          <button 
+            type="button" 
+            className="btn btn-primary top-bar-signin-btn"
+            onClick={onGoToSignIn}
+          >
+            <span>Student Sign In ➔</span>
+          </button>
+        </div>
+      </header>
+
+      {/* Full-Screen Slide Stage (Split 55% Content / 45% Image) */}
+      <main className="fullscreen-stage">
+        
+        {/* Left Scrollable Content Panel */}
+        <div className="fullscreen-content-col">
+          <div className="content-col-inner">
+            <div className="fullscreen-meta-row">
+              <span className="fullscreen-category-badge">{slide.category}</span>
+              <span className="fullscreen-slide-counter">Slide {currentSlide + 1} of {totalSlides}</span>
             </div>
+
+            <h1 className="fullscreen-slide-title">{slide.title}</h1>
+            <p className="fullscreen-slide-lead">{slide.lead}</p>
+
+            {/* =========================================================================
+                CUSTOM RENDERER PER SLIDE
+                ========================================================================= */}
+
+            {/* SLIDE 1: MSIT HISTORY */}
+            {slide.customRenderer === 'history' && (
+              <div className="slide-custom-content history-custom-content">
+                <div className="slide-highlights-grid">
+                  <div className="slide-highlight-card">
+                    <div className="highlight-bullet"><AwardIcon size={18} /></div>
+                    <div>
+                      <strong>Turing Award Legacy</strong>
+                      <p>Designed under the direction of Prof. Raj Reddy, applying Carnegie Mellon University active-learning methodologies to computing education in India.</p>
+                    </div>
+                  </div>
+                  <div className="slide-highlight-card">
+                    <div className="highlight-bullet"><BuildingIcon size={18} /></div>
+                    <div>
+                      <strong>Consortium of Universities</strong>
+                      <p>Instituted under CIHL alongside state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University.</p>
+                    </div>
+                  </div>
+                  <div className="slide-highlight-card">
+                    <div className="highlight-bullet"><CpuIcon size={18} /></div>
+                    <div>
+                      <strong>Zero Passive Lectures</strong>
+                      <p>India’s first postgraduate master’s to eliminate traditional blackboard lectures in favor of 100% full-time coding studios.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SLIDE 2: JOURNEY & EVOLUTION (TIMELINE) */}
+            {slide.customRenderer === 'journey' && (
+              <div className="slide-custom-content journey-custom-content">
+                <div className="timeline-selector-strip">
+                  {timelineMilestones.map((m) => (
+                    <button
+                      key={m.year}
+                      type="button"
+                      className={`timeline-year-btn ${activeTimelineYear === m.year ? 'active' : ''}`}
+                      onClick={() => setActiveTimelineYear(m.year)}
+                    >
+                      <span className="timeline-dot-marker"></span>
+                      <span className="timeline-btn-text">{m.year}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {(() => {
+                  const currentMilestone = timelineMilestones.find(m => m.year === activeTimelineYear) || timelineMilestones[0];
+                  return (
+                    <div className="timeline-detail-card">
+                      <div className="timeline-detail-header">
+                        <span className="timeline-active-year-badge">{currentMilestone.year}</span>
+                        <h3 className="timeline-detail-title">{currentMilestone.title}</h3>
+                      </div>
+                      <p className="timeline-detail-desc">{currentMilestone.desc}</p>
+                      <div className="timeline-footer-hint">
+                        <span>💡 Click any year above to explore MSIT’s 25-year evolution</span>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
+
+            {/* SLIDE 3: COMMUNITY & CAMPUS LIFE */}
+            {slide.customRenderer === 'community' && (
+              <div className="slide-custom-content community-custom-content">
+                <div className="community-cards-grid">
+                  <div className="community-card">
+                    <div className="comm-icon-box"><UsersIcon size={20} /></div>
+                    <div className="comm-text">
+                      <strong>Daily 9 AM–6 PM Studios</strong>
+                      <p>Pair programming, daily standups, and code reviews under senior software architects.</p>
+                    </div>
+                  </div>
+                  <div className="community-card">
+                    <div className="comm-icon-box"><CpuIcon size={20} /></div>
+                    <div className="comm-text">
+                      <strong>Cutting-Edge Research Labs</strong>
+                      <p>Direct exposure to IIIT-H centers including CVIT, LTRC, and Kohli Centre on Intelligent Systems.</p>
+                    </div>
+                  </div>
+                  <div className="community-card">
+                    <div className="comm-icon-box"><SparklesIcon size={20} /></div>
+                    <div className="comm-text">
+                      <strong>Hackathons & Open Source</strong>
+                      <p>Student-driven hackathons, algorithm sprint contests, and active open-source contributions.</p>
+                    </div>
+                  </div>
+                  <div className="community-card">
+                    <div className="comm-icon-box"><BuildingIcon size={20} /></div>
+                    <div className="comm-text">
+                      <strong>Gachibowli Cyber-Hub</strong>
+                      <p>Located next to Microsoft, Google, Amazon, and T-Hub—the epicenter of India’s tech ecosystem.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SLIDE 4: ALUMNI NETWORK */}
+            {slide.customRenderer === 'alumni' && (
+              <div className="slide-custom-content alumni-custom-content">
+                <div className="alumni-filter-bar">
+                  <span className="alumni-filter-label">Filter:</span>
+                  <button 
+                    type="button" 
+                    className={`alumni-filter-pill ${selectedAlumniCategory === 'all' ? 'active' : ''}`}
+                    onClick={() => setSelectedAlumniCategory('all')}
+                  >
+                    All Leaders
+                  </button>
+                  <button 
+                    type="button" 
+                    className={`alumni-filter-pill ${selectedAlumniCategory === 'bigtech' ? 'active' : ''}`}
+                    onClick={() => setSelectedAlumniCategory('bigtech')}
+                  >
+                    Big Tech
+                  </button>
+                  <button 
+                    type="button" 
+                    className={`alumni-filter-pill ${selectedAlumniCategory === 'ai' ? 'active' : ''}`}
+                    onClick={() => setSelectedAlumniCategory('ai')}
+                  >
+                    AI & Hardware
+                  </button>
+                  <button 
+                    type="button" 
+                    className={`alumni-filter-pill ${selectedAlumniCategory === 'founder' ? 'active' : ''}`}
+                    onClick={() => setSelectedAlumniCategory('founder')}
+                  >
+                    Founders
+                  </button>
+                </div>
+
+                <div className="alumni-cards-scroll-grid">
+                  {filteredAlumni.map((alumnus, idx) => (
+                    <div key={idx} className="alumni-card">
+                      <div className="alumni-card-top">
+                        <div className="alumni-avatar-placeholder">
+                          {alumnus.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        <div className="alumni-info-head">
+                          <h4 className="alumni-name">{alumnus.name}</h4>
+                          <span className="alumni-company-badge">{alumnus.company}</span>
+                        </div>
+                      </div>
+                      <p className="alumni-role">{alumnus.role}</p>
+                      <p className="alumni-highlight">{alumnus.highlight}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SLIDE 5: STUDENT BACKGROUNDS */}
+            {slide.customRenderer === 'backgrounds' && (
+              <div className="slide-custom-content backgrounds-custom-content">
+                <div className="backgrounds-quad-grid">
+                  <div className="background-card">
+                    <div className="bg-badge-row">
+                      <span className="bg-pill non-cs">Non-CS Engineers</span>
+                      <span className="bg-stat">~35% Intake</span>
+                    </div>
+                    <h4>ECE, Mechanical & Civil Graduates</h4>
+                    <p>Rigorous hands-on studios transition engineering minds into full-stack and distributed backend software architects within 12 months.</p>
+                  </div>
+
+                  <div className="background-card">
+                    <div className="bg-badge-row">
+                      <span className="bg-pill bca">BCA, MCA & B.Sc</span>
+                      <span className="bg-stat">~25% Intake</span>
+                    </div>
+                    <h4>Mathematics, Stats & Applications</h4>
+                    <p>Elevate theoretical foundations into enterprise-grade system programming, clean code architectures, and scalable data engineering.</p>
+                  </div>
+
+                  <div className="background-card">
+                    <div className="bg-badge-row">
+                      <span className="bg-pill tier">Tier-2 / 3 Achievers</span>
+                      <span className="bg-stat">Transformational</span>
+                    </div>
+                    <h4>State College Graduates</h4>
+                    <p>Overcome campus placement limitations by gaining the prestigious IIIT Hyderabad consortium credential and Tier-1 recruiter exposure.</p>
+                  </div>
+
+                  <div className="background-card">
+                    <div className="bg-badge-row">
+                      <span className="bg-pill cs">CS / IT Graduates</span>
+                      <span className="bg-stat">~40% Intake</span>
+                    </div>
+                    <h4>Computer Science Graduates</h4>
+                    <p>Accelerate beyond standard undergraduate coursework into deep learning, LLMs, microservices, and corporate engineering leadership.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SLIDE 6: CAREER & PLACEMENT STORIES */}
+            {slide.customRenderer === 'careers' && (
+              <div className="slide-custom-content careers-custom-content">
+                {/* Testimonial Tabs */}
+                <div className="testimonial-selector-tabs">
+                  {testimonials.map((t, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      className={`test-tab-btn ${idx === activeTestimonialIndex ? 'active' : ''}`}
+                      onClick={() => setActiveTestimonialIndex(idx)}
+                    >
+                      <span>{t.name}</span>
+                      <span className="test-tab-sub">{t.batch}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Active Testimonial Card */}
+                {(() => {
+                  const activeTest = testimonials[activeTestimonialIndex];
+                  return (
+                    <div className="testimonial-hero-card">
+                      <div className="test-quote-icon">“</div>
+                      <p className="test-quote-text">{activeTest.quote}</p>
+                      
+                      <div className="test-author-row">
+                        <div>
+                          <h4 className="test-author-name">{activeTest.name}</h4>
+                          <span className="test-trajectory-pill">{activeTest.trajectory}</span>
+                        </div>
+                        <span className="test-stipend-badge">{activeTest.stipend}</span>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                <div className="recruiter-badges-strip">
+                  <span className="recruiter-label">Hiring Partners:</span>
+                  <div className="recruiter-tags-list">
+                    <span className="rec-tag">Microsoft</span>
+                    <span className="rec-tag">Amazon</span>
+                    <span className="rec-tag">Google</span>
+                    <span className="rec-tag">Qualcomm</span>
+                    <span className="rec-tag">Adobe</span>
+                    <span className="rec-tag">Goldman Sachs</span>
+                    <span className="rec-tag">Gramener</span>
+                    <span className="rec-tag">Infosys</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* SLIDE 7: WHY CHOOSE MSIT */}
+            {slide.customRenderer === 'why-msit' && (
+              <div className="slide-custom-content why-custom-content">
+                <div className="why-pillars-grid">
+                  <div className="why-pillar-card">
+                    <div className="pillar-num">01</div>
+                    <div>
+                      <strong>100% Learning By Doing</strong>
+                      <p>No passive blackboard lectures. Full-time hands-on studios simulating top tech engineering environments.</p>
+                    </div>
+                  </div>
+                  <div className="why-pillar-card">
+                    <div className="pillar-num">02</div>
+                    <div>
+                      <strong>~50% Paid Corporate Co-op</strong>
+                      <p>Spend half your master’s tenure as an intern inside tech enterprises earning a monthly stipend.</p>
+                    </div>
+                  </div>
+                  <div className="why-pillar-card">
+                    <div className="pillar-num">03</div>
+                    <div>
+                      <strong>IIIT Hyderabad Research Ecosystem</strong>
+                      <p>Direct immersion into the 66-acre academic and research facilities in Cyberabad.</p>
+                    </div>
+                  </div>
+                  <div className="why-pillar-card">
+                    <div className="pillar-num">04</div>
+                    <div>
+                      <strong>Turing Award Pedagogy</strong>
+                      <p>Conceived by Prof. Raj Reddy on Carnegie Mellon active-learning mastery principles.</p>
+                    </div>
+                  </div>
+                  <div className="why-pillar-card">
+                    <div className="pillar-num">05</div>
+                    <div>
+                      <strong>100% Collateral-Free Bank Loans</strong>
+                      <p>Seamless education loan support through partner nationalized banks with quick approvals.</p>
+                    </div>
+                  </div>
+                  <div className="why-pillar-card">
+                    <div className="pillar-num">06</div>
+                    <div>
+                      <strong>25+ Years Global Alumni Network</strong>
+                      <p>Join over two decades of alumni leading engineering teams across global tech giants.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="slideshow-header-actions">
+          {/* Controls Bar at bottom of content column */}
+          <div className="fullscreen-controls-bar">
+            <div className="controls-nav-group">
+              <button 
+                type="button" 
+                className="controls-nav-btn prev"
+                onClick={prevSlide}
+                aria-label="Previous Slide"
+              >
+                ❮ Previous
+              </button>
+              <button 
+                type="button" 
+                className="controls-nav-btn next"
+                onClick={nextSlide}
+                aria-label="Next Slide"
+              >
+                Next ❯
+              </button>
+            </div>
+
+            <div className="controls-center-group">
+              <button 
+                type="button" 
+                className={`controls-autoplay-btn ${isAutoPlaying ? 'playing' : ''}`}
+                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                aria-label={isAutoPlaying ? 'Pause Slideshow' : 'Auto-play Slideshow'}
+              >
+                {isAutoPlaying ? '⏸ Pause Auto-Play' : '▶ Play Slideshow'}
+              </button>
+              <span className="controls-keyboard-hint">Tip: Use ← / → arrow keys</span>
+            </div>
+
             <button 
               type="button" 
-              className="btn btn-primary slideshow-cta-pill"
+              className="btn btn-primary controls-cta-btn"
               onClick={onGoToSignIn}
             >
               <span>Student Sign In ➔</span>
             </button>
           </div>
         </div>
-      </header>
 
-      {/* Main Slideshow Container */}
-      <main className="slideshow-main">
-        <div className="gateway-container">
-          
-          {/* Quick Jump Category Strip (All 7 Slides) */}
-          <nav className="slideshow-nav-strip" aria-label="Slideshow Navigation">
-            {slides.map((s, idx) => (
-              <button
-                key={s.id}
-                type="button"
-                className={`slide-nav-tab ${idx === currentSlide ? 'active' : ''}`}
-                onClick={() => setCurrentSlide(idx)}
-              >
-                <span className="tab-num">{s.number}</span>
-                <span className="tab-label">{s.category.split(' & ')[0]}</span>
-              </button>
-            ))}
-          </nav>
-
-          {/* Active Slide Card */}
-          <article className="slideshow-card">
+        {/* Right Cinematic Full-Bleed Image Stage */}
+        <div className="fullscreen-image-col">
+          <img 
+            src={slide.image} 
+            alt={slide.title} 
+            className="fullscreen-hero-img"
+            key={slide.image}
+          />
+          <div className="fullscreen-image-gradient">
+            <div className="gradient-badge-box">
+              <span className="gradient-category-kicker">{slide.category}</span>
+              <p className="gradient-caption-text">{slide.imageCaption}</p>
+            </div>
             
-            {/* Left Content Column */}
-            <div className="slide-content-col">
-              <div className="slide-meta-row">
-                <span className="slide-badge">{slide.category}</span>
-                <span className="slide-counter-badge">Slide {currentSlide + 1} of {totalSlides}</span>
-              </div>
-
-              <h1 className="slide-title">{slide.title}</h1>
-              <p className="slide-lead">{slide.lead}</p>
-
-              {/* =========================================================================
-                  CUSTOM RENDERER PER SLIDE
-                  ========================================================================= */}
-
-              {/* SLIDE 1: MSIT HISTORY */}
-              {slide.customRenderer === 'history' && (
-                <div className="slide-custom-content history-custom-content">
-                  <div className="slide-highlights-grid">
-                    <div className="slide-highlight-card">
-                      <div className="highlight-bullet"><AwardIcon size={16} /></div>
-                      <div>
-                        <strong>Turing Award Legacy</strong>
-                        <p>Designed under the direction of Prof. Raj Reddy, applying Carnegie Mellon University active-learning methodologies to computing education in India.</p>
-                      </div>
-                    </div>
-                    <div className="slide-highlight-card">
-                      <div className="highlight-bullet"><BuildingIcon size={16} /></div>
-                      <div>
-                        <strong>Consortium of Universities</strong>
-                        <p>Instituted under CIHL alongside state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University.</p>
-                      </div>
-                    </div>
-                    <div className="slide-highlight-card">
-                      <div className="highlight-bullet"><CpuIcon size={16} /></div>
-                      <div>
-                        <strong>Zero Passive Lectures</strong>
-                        <p>India’s first postgraduate master’s to eliminate traditional blackboard lectures in favor of 100% full-time coding studios.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* SLIDE 2: JOURNEY & EVOLUTION (TIMELINE) */}
-              {slide.customRenderer === 'journey' && (
-                <div className="slide-custom-content journey-custom-content">
-                  <div className="timeline-selector-strip">
-                    {timelineMilestones.map((m) => (
-                      <button
-                        key={m.year}
-                        type="button"
-                        className={`timeline-year-btn ${activeTimelineYear === m.year ? 'active' : ''}`}
-                        onClick={() => setActiveTimelineYear(m.year)}
-                      >
-                        <span className="timeline-dot-marker"></span>
-                        <span className="timeline-btn-text">{m.year}</span>
-                      </button>
-                    ))}
-                  </div>
-
-                  {(() => {
-                    const currentMilestone = timelineMilestones.find(m => m.year === activeTimelineYear) || timelineMilestones[0];
-                    return (
-                      <div className="timeline-detail-card">
-                        <div className="timeline-detail-header">
-                          <span className="timeline-active-year-badge">{currentMilestone.year}</span>
-                          <h3 className="timeline-detail-title">{currentMilestone.title}</h3>
-                        </div>
-                        <p className="timeline-detail-desc">{currentMilestone.desc}</p>
-                        <div className="timeline-footer-hint">
-                          <span>💡 Click any year above to explore MSIT’s 25-year evolution</span>
-                        </div>
-                      </div>
-                    );
-                  })()}
-                </div>
-              )}
-
-              {/* SLIDE 3: COMMUNITY & CAMPUS LIFE */}
-              {slide.customRenderer === 'community' && (
-                <div className="slide-custom-content community-custom-content">
-                  <div className="community-cards-grid">
-                    <div className="community-card">
-                      <div className="comm-icon-box"><UsersIcon size={20} /></div>
-                      <div className="comm-text">
-                        <strong>Daily 9 AM–6 PM Studios</strong>
-                        <p>Pair programming, daily standups, and code reviews under senior software architects.</p>
-                      </div>
-                    </div>
-                    <div className="community-card">
-                      <div className="comm-icon-box"><CpuIcon size={20} /></div>
-                      <div className="comm-text">
-                        <strong>Cutting-Edge Research Labs</strong>
-                        <p>Direct exposure to IIIT-H centers including CVIT, LTRC, and Kohli Centre on Intelligent Systems.</p>
-                      </div>
-                    </div>
-                    <div className="community-card">
-                      <div className="comm-icon-box"><SparklesIcon size={20} /></div>
-                      <div className="comm-text">
-                        <strong>Hackathons & Open Source</strong>
-                        <p>Student-driven hackathons, algorithm sprint contests, and active open-source contributions.</p>
-                      </div>
-                    </div>
-                    <div className="community-card">
-                      <div className="comm-icon-box"><BuildingIcon size={20} /></div>
-                      <div className="comm-text">
-                        <strong>Gachibowli Cyber-Hub</strong>
-                        <p>Located next to Microsoft, Google, Amazon, and T-Hub—the epicenter of India’s tech ecosystem.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* SLIDE 4: ALUMNI NETWORK */}
-              {slide.customRenderer === 'alumni' && (
-                <div className="slide-custom-content alumni-custom-content">
-                  <div className="alumni-filter-bar">
-                    <span className="alumni-filter-label">Filter:</span>
-                    <button 
-                      type="button" 
-                      className={`alumni-filter-pill ${selectedAlumniCategory === 'all' ? 'active' : ''}`}
-                      onClick={() => setSelectedAlumniCategory('all')}
-                    >
-                      All Leaders
-                    </button>
-                    <button 
-                      type="button" 
-                      className={`alumni-filter-pill ${selectedAlumniCategory === 'bigtech' ? 'active' : ''}`}
-                      onClick={() => setSelectedAlumniCategory('bigtech')}
-                    >
-                      Big Tech
-                    </button>
-                    <button 
-                      type="button" 
-                      className={`alumni-filter-pill ${selectedAlumniCategory === 'ai' ? 'active' : ''}`}
-                      onClick={() => setSelectedAlumniCategory('ai')}
-                    >
-                      AI & Hardware
-                    </button>
-                    <button 
-                      type="button" 
-                      className={`alumni-filter-pill ${selectedAlumniCategory === 'founder' ? 'active' : ''}`}
-                      onClick={() => setSelectedAlumniCategory('founder')}
-                    >
-                      Founders
-                    </button>
-                  </div>
-
-                  <div className="alumni-cards-scroll-grid">
-                    {filteredAlumni.map((alumnus, idx) => (
-                      <div key={idx} className="alumni-card">
-                        <div className="alumni-card-top">
-                          <div className="alumni-avatar-placeholder">
-                            {alumnus.name.split(' ').map(n => n[0]).join('')}
-                          </div>
-                          <div className="alumni-info-head">
-                            <h4 className="alumni-name">{alumnus.name}</h4>
-                            <span className="alumni-company-badge">{alumnus.company}</span>
-                          </div>
-                        </div>
-                        <p className="alumni-role">{alumnus.role}</p>
-                        <p className="alumni-highlight">{alumnus.highlight}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* SLIDE 5: STUDENT BACKGROUNDS */}
-              {slide.customRenderer === 'backgrounds' && (
-                <div className="slide-custom-content backgrounds-custom-content">
-                  <div className="backgrounds-quad-grid">
-                    <div className="background-card">
-                      <div className="bg-badge-row">
-                        <span className="bg-pill non-cs">Non-CS Engineers</span>
-                        <span className="bg-stat">~35% Intake</span>
-                      </div>
-                      <h4>ECE, Mechanical & Civil Graduates</h4>
-                      <p>Rigorous hands-on studios transition engineering minds into full-stack and distributed backend software architects within 12 months.</p>
-                    </div>
-
-                    <div className="background-card">
-                      <div className="bg-badge-row">
-                        <span className="bg-pill bca">BCA, MCA & B.Sc</span>
-                        <span className="bg-stat">~25% Intake</span>
-                      </div>
-                      <h4>Mathematics, Stats & Applications</h4>
-                      <p>Elevate theoretical foundations into enterprise-grade system programming, clean code architectures, and scalable data engineering.</p>
-                    </div>
-
-                    <div className="background-card">
-                      <div className="bg-badge-row">
-                        <span className="bg-pill tier">Tier-2 / 3 Achievers</span>
-                        <span className="bg-stat">Transformational</span>
-                      </div>
-                      <h4>State College Graduates</h4>
-                      <p>Overcome campus placement limitations by gaining the prestigious IIIT Hyderabad consortium credential and Tier-1 recruiter exposure.</p>
-                    </div>
-
-                    <div className="background-card">
-                      <div className="bg-badge-row">
-                        <span className="bg-pill cs">CS / IT Graduates</span>
-                        <span className="bg-stat">~40% Intake</span>
-                      </div>
-                      <h4>Computer Science Graduates</h4>
-                      <p>Accelerate beyond standard undergraduate coursework into deep learning, LLMs, microservices, and corporate engineering leadership.</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* SLIDE 6: CAREER & PLACEMENT STORIES */}
-              {slide.customRenderer === 'careers' && (
-                <div className="slide-custom-content careers-custom-content">
-                  {/* Testimonial Tabs */}
-                  <div className="testimonial-selector-tabs">
-                    {testimonials.map((t, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        className={`test-tab-btn ${idx === activeTestimonialIndex ? 'active' : ''}`}
-                        onClick={() => setActiveTestimonialIndex(idx)}
-                      >
-                        <span>{t.name}</span>
-                        <span className="test-tab-sub">{t.batch}</span>
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Active Testimonial Card */}
-                  {(() => {
-                    const activeTest = testimonials[activeTestimonialIndex];
-                    return (
-                      <div className="testimonial-hero-card">
-                        <div className="test-quote-icon">“</div>
-                        <p className="test-quote-text">{activeTest.quote}</p>
-                        
-                        <div className="test-author-row">
-                          <div>
-                            <h4 className="test-author-name">{activeTest.name}</h4>
-                            <span className="test-trajectory-pill">{activeTest.trajectory}</span>
-                          </div>
-                          <span className="test-stipend-badge">{activeTest.stipend}</span>
-                        </div>
-                      </div>
-                    );
-                  })()}
-
-                  <div className="recruiter-badges-strip">
-                    <span className="recruiter-label">Hiring Partners:</span>
-                    <div className="recruiter-tags-list">
-                      <span className="rec-tag">Microsoft</span>
-                      <span className="rec-tag">Amazon</span>
-                      <span className="rec-tag">Google</span>
-                      <span className="rec-tag">Qualcomm</span>
-                      <span className="rec-tag">Adobe</span>
-                      <span className="rec-tag">Goldman Sachs</span>
-                      <span className="rec-tag">Gramener</span>
-                      <span className="rec-tag">Infosys</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* SLIDE 7: WHY CHOOSE MSIT */}
-              {slide.customRenderer === 'why-msit' && (
-                <div className="slide-custom-content why-custom-content">
-                  <div className="why-pillars-grid">
-                    <div className="why-pillar-card">
-                      <div className="pillar-num">01</div>
-                      <div>
-                        <strong>100% Learning By Doing</strong>
-                        <p>No passive blackboard lectures. Full-time hands-on studios simulating top tech engineering environments.</p>
-                      </div>
-                    </div>
-                    <div className="why-pillar-card">
-                      <div className="pillar-num">02</div>
-                      <div>
-                        <strong>~50% Paid Corporate Co-op</strong>
-                        <p>Spend half your master’s tenure as an intern inside tech enterprises earning a monthly stipend.</p>
-                      </div>
-                    </div>
-                    <div className="why-pillar-card">
-                      <div className="pillar-num">03</div>
-                      <div>
-                        <strong>IIIT Hyderabad Research Ecosystem</strong>
-                        <p>Direct immersion into the 66-acre academic and research facilities in Cyberabad.</p>
-                      </div>
-                    </div>
-                    <div className="why-pillar-card">
-                      <div className="pillar-num">04</div>
-                      <div>
-                        <strong>Turing Award Pedagogy</strong>
-                        <p>Conceived by Prof. Raj Reddy on Carnegie Mellon active-learning mastery principles.</p>
-                      </div>
-                    </div>
-                    <div className="why-pillar-card">
-                      <div className="pillar-num">05</div>
-                      <div>
-                        <strong>100% Collateral-Free Bank Loans</strong>
-                        <p>Seamless education loan support through partner nationalized banks with quick approvals.</p>
-                      </div>
-                    </div>
-                    <div className="why-pillar-card">
-                      <div className="pillar-num">06</div>
-                      <div>
-                        <strong>25+ Years Global Alumni Network</strong>
-                        <p>Join over two decades of alumni leading engineering teams across global tech giants.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Slide Navigation Controls */}
-              <div className="slide-controls-row">
-                <div className="slide-arrows-group">
-                  <button 
-                    type="button" 
-                    className="slide-arrow-nav prev"
-                    onClick={prevSlide}
-                    aria-label="Previous Slide"
-                  >
-                    ❮ Previous
-                  </button>
-                  <button 
-                    type="button" 
-                    className="slide-arrow-nav next"
-                    onClick={nextSlide}
-                    aria-label="Next Slide"
-                  >
-                    Next ❯
-                  </button>
-                </div>
-
-                <button 
-                  type="button" 
-                  className={`slide-autoplay-toggle ${isAutoPlaying ? 'playing' : ''}`}
-                  onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                  aria-label={isAutoPlaying ? 'Pause Slideshow' : 'Auto-play Slideshow'}
-                >
-                  {isAutoPlaying ? '⏸ Pause Auto-Play' : '▶ Play Slideshow'}
-                </button>
-              </div>
-            </div>
-
-            {/* Right Image Column */}
-            <div className="slide-image-col">
-              <div className="slide-image-frame">
-                <img 
-                  src={slide.image} 
-                  alt={slide.title} 
-                  className="slide-hero-img"
-                  key={slide.image} // forces smooth fade on slide change
+            <div className="fullscreen-dots-strip">
+              {slides.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`fullscreen-dot ${idx === currentSlide ? 'active' : ''}`}
+                  onClick={() => setCurrentSlide(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
                 />
-                <div className="slide-image-overlay">
-                  <span className="slide-image-caption">{slide.imageCaption}</span>
-                </div>
-              </div>
-
-              {/* Progress Indicator Dots */}
-              <div className="slide-dots-indicator">
-                {slides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    type="button"
-                    className={`slide-dot ${idx === currentSlide ? 'active' : ''}`}
-                    onClick={() => setCurrentSlide(idx)}
-                    aria-label={`Go to slide ${idx + 1}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-          </article>
-
-          {/* Bottom Action Footer */}
-          <div className="slideshow-bottom-bar">
-            <button 
-              type="button" 
-              className="btn btn-secondary"
-              onClick={onBack}
-            >
-              <span>← Back to Entry Page</span>
-            </button>
-
-            <div className="slideshow-bottom-right">
-              <span className="bottom-hint">Admissions Opening for January 2027 Cohort</span>
-              <button 
-                type="button" 
-                className="btn btn-primary"
-                onClick={onGoToSignIn}
-              >
-                <span>Proceed to Student Sign In ➔</span>
-              </button>
+              ))}
             </div>
           </div>
 
+          {/* Floating On-Image Arrow Buttons for Direct Clicking */}
+          <button 
+            type="button" 
+            className="floating-image-nav prev"
+            onClick={prevSlide}
+            aria-label="Previous slide on image"
+          >
+            ‹
+          </button>
+          <button 
+            type="button" 
+            className="floating-image-nav next"
+            onClick={nextSlide}
+            aria-label="Next slide on image"
+          >
+            ›
+          </button>
         </div>
+
       </main>
     </div>
   );
