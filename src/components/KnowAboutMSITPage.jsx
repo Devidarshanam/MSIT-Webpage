@@ -48,11 +48,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'backgrounds',
       number: '04',
-      category: 'EDUCATIONAL TRANSFORMATION',
+      category: 'B.TECH TRANSFORMATION & METHODOLOGY',
       themeClass: 'slide-theme-backgrounds',
       layoutClass: 'slide-layout-backgrounds',
-      title: 'From Past Education to MSIT: How Diverse Backgrounds Transform',
-      lead: 'MSIT is built for students from all academic paths. See how diverse backgrounds unlearn passive classroom habits and build genuine engineering independence through mastery-based studios.',
+      title: 'How B.Tech Graduates from All Branches Transform at MSIT',
+      lead: 'Engineered exclusively for B.Tech engineers. Discover how graduates from non-CS disciplines and freshers bridge the gap between classroom theory and elite software engineering.',
       image: '/assets/iiit-ai-lab.jpg',
       imageCaption: 'The MSIT Studio Learning Environment at IIIT Hyderabad'
     },
@@ -368,7 +368,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <p className="placement-desc">Building ultra-low-latency order matching engines, high-frequency data streams, and quantitative financial computing layers.</p>
                 <div className="placement-trajectory-bar">
                   <span className="traj-label">Trajectory:</span>
-                  <span className="traj-step">BCA / MCA</span>
+                  <span className="traj-step">B.Tech (ECE / EEE)</span>
                   <span className="traj-arrow">➔</span>
                   <span className="traj-step">Distributed Systems Studio</span>
                   <span className="traj-arrow">➔</span>
@@ -436,134 +436,78 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       case 'backgrounds':
         return (
           <div className="slide-content-layout layout-student-transformations">
-            <div className="edu-transform-grid">
-              {/* Archetype 1: Non-CS Engineers */}
-              <div className="edu-transform-card">
-                <div className="edu-card-top">
-                  <div className="edu-badge-group">
-                    <span className="edu-tag non-cs">Non-CS Graduates</span>
-                    <span className="edu-sub">Mechanical, Civil, Chemical, EEE</span>
-                  </div>
+            <div className="dual-btech-grid">
+              {/* Panel 1: Non-CS B.Tech Graduates */}
+              <div className="dual-btech-card card-non-cs">
+                <div className="btech-card-header">
+                  <span className="btech-badge non-cs">Non-CS B.Tech Graduates</span>
+                  <h3 className="btech-headline">Bridging the Non-Software Divide</h3>
+                  <span className="btech-branch-sub">Mechanical, Civil, Chemical, Electrical & Allied Branches</span>
                 </div>
 
-                <div className="edu-journey-steps">
-                  <div className="edu-step past">
-                    <span className="step-tag past-tag">Past Education:</span>
-                    <p>Chalk-and-board lectures, rote formulas, and paper tests. Zero real-world coding; intimidated by data structures.</p>
+                <div className="btech-transformation-rows">
+                  <div className="btech-row past">
+                    <span className="phase-pill past-pill">The Past Education:</span>
+                    <p>4 years of non-software formulas, blackboard lectures, and exam cramming. Zero production coding experience and anxiety around data structures and algorithms.</p>
                   </div>
 
-                  <div className="edu-step msit">
-                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
-                    <p>Immersive 9-to-6 coding studios with 1:10 personal mentor guidance; incremental mastery learning from fundamentals to scale.</p>
+                  <div className="btech-row msit">
+                    <span className="phase-pill msit-pill">The MSIT Studio Shift:</span>
+                    <p>Immersive 9-to-6 daily coding studios with dedicated 1:10 personal mentor guidance. Progressive building from first principles to complex distributed architectures.</p>
                   </div>
 
-                  <div className="edu-step outcome">
-                    <span className="step-tag outcome-tag">How They Achieved It:</span>
-                    <p>Built software daily to form engineering muscle memory, writing 2,000+ lines of production code and mastering core systems.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Archetype 2: 3-Year Degrees */}
-              <div className="edu-transform-card">
-                <div className="edu-card-top">
-                  <div className="edu-badge-group">
-                    <span className="edu-tag bca">3-Year Degree Holders</span>
-                    <span className="edu-sub">BCA, B.Sc (Computer Science / Maths)</span>
-                  </div>
-                </div>
-
-                <div className="edu-journey-steps">
-                  <div className="edu-step past">
-                    <span className="step-tag past-tag">Past Education:</span>
-                    <p>Barred by traditional Indian master's (GATE / conventional M.Tech) that restrict eligibility strictly to 4-year B.Tech holders.</p>
-                  </div>
-
-                  <div className="edu-step msit">
-                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
-                    <p>Open eligibility based purely on merit and capability; rigorous deep-dive into operating systems, algorithms, and cloud architectures.</p>
-                  </div>
-
-                  <div className="edu-step outcome">
-                    <span className="step-tag outcome-tag">How They Achieved It:</span>
-                    <p>Demonstrated capability on deployable software products, proving that mastery-based execution supersedes degree duration.</p>
+                  <div className="btech-row outcome">
+                    <span className="phase-pill outcome-pill">The Transformation:</span>
+                    <p>Completely eliminated the "CS vs Non-CS" divide; built engineering muscle memory through 2,000+ hours of continuous coding, mastering full-stack microservices.</p>
                   </div>
                 </div>
               </div>
 
-              {/* Archetype 3: Tier-2 & Tier-3 Colleges */}
-              <div className="edu-transform-card">
-                <div className="edu-card-top">
-                  <div className="edu-badge-group">
-                    <span className="edu-tag tier3">Tier-2 / Tier-3 Colleges</span>
-                    <span className="edu-sub">Colleges with Outdated Syllabi</span>
-                  </div>
+              {/* Panel 2: B.Tech Freshers */}
+              <div className="dual-btech-card card-freshers">
+                <div className="btech-card-header">
+                  <span className="btech-badge freshers">B.Tech Freshers</span>
+                  <h3 className="btech-headline">Closing the Classroom-to-Industry Void</h3>
+                  <span className="btech-branch-sub">Computer Science, IT & All Engineering Streams</span>
                 </div>
 
-                <div className="edu-journey-steps">
-                  <div className="edu-step past">
-                    <span className="step-tag past-tag">Past Education:</span>
-                    <p>Passive 50-minute lectures; writing programs on exam sheets; copy-pasting obsolete textbook lab assignments.</p>
+                <div className="btech-transformation-rows">
+                  <div className="btech-row past">
+                    <span className="phase-pill past-pill">The Past Education:</span>
+                    <p>High GPA earned through rote memorization and semester exams, but zero git commits, production deployment tenure, or real system debugging experience.</p>
                   </div>
 
-                  <div className="edu-step msit">
-                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
-                    <p>Zero lectures. Mastery learning requiring 90%+ proficiency on every real project before advancing ("Learn · Think · Do").</p>
+                  <div className="btech-row msit">
+                    <span className="phase-pill msit-pill">The MSIT Studio Shift:</span>
+                    <p>~50% of the master’s programme embedded directly inside paid corporate co-ops with active engineering sprint teams in Hyderabad's HITEC City cyber corridor.</p>
                   </div>
 
-                  <div className="edu-step outcome">
-                    <span className="step-tag outcome-tag">How They Achieved It:</span>
-                    <p>Developed genuine engineering autonomy: learning how to read documentation, debug stack traces, and architect clean systems.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Archetype 4: Career Restarters & IT Support */}
-              <div className="edu-transform-card">
-                <div className="edu-card-top">
-                  <div className="edu-badge-group">
-                    <span className="edu-tag upskill">Career Restarters & Support</span>
-                    <span className="edu-sub">Manual Testing, IT Ops & Career Breaks</span>
-                  </div>
-                </div>
-
-                <div className="edu-journey-steps">
-                  <div className="edu-step past">
-                    <span className="step-tag past-tag">Past Education:</span>
-                    <p>Confined to repetitive manual ticketing shifts, server maintenance, or seeking to re-enter tech after prolonged career breaks.</p>
-                  </div>
-
-                  <div className="edu-step msit">
-                    <span className="step-tag msit-tag">MSIT Studio Structure:</span>
-                    <p>Collaborative agile studios simulating production engineering teams with daily standups, code reviews, and corporate co-ops.</p>
-                  </div>
-
-                  <div className="edu-step outcome">
-                    <span className="step-tag outcome-tag">How They Achieved It:</span>
-                    <p>Rebuilt technical confidence, modernized their skillset in cloud/AI tooling, and transformed into core product developers.</p>
+                  <div className="btech-row outcome">
+                    <span className="phase-pill outcome-pill">The Transformation:</span>
+                    <p>Graduated as production-hardened software engineers with real corporate tenure, eliminating the "fresher ramp-up gap" and securing core product roles.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* The 3 Educational Shift Pillars */}
+            {/* Bottom 3-Pillar Pedagogical Shift Strip */}
             <div className="edu-pillars-strip">
               <div className="edu-pillar-item">
                 <span className="pillar-shift-badge">PEDAGOGY SHIFT</span>
-                <strong>Zero Lectures ➔ 100% Studio Learning</strong>
-                <p>Learn by building and debugging real software, not by memorizing slides.</p>
+                <strong>Zero Passive Lectures ➔ 100% Studio Learning</strong>
+                <p>Students build, debug, and deploy software daily instead of memorizing slides.</p>
               </div>
               <div className="edu-pillar-divider"></div>
               <div className="edu-pillar-item">
                 <span className="pillar-shift-badge">THE STANDARD</span>
                 <strong>90%+ Mastery Threshold</strong>
-                <p>Time is variable, outcome is constant. Every concept is fully mastered.</p>
+                <p>No passing with 40%. Time is variable, outcome is constant until production-ready.</p>
               </div>
               <div className="edu-pillar-divider"></div>
               <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">THE MENTORSHIP</span>
-                <strong>1:10 Dedicated Mentorship</strong>
-                <p>Industry-experienced mentors review code and guide daily engineering progress.</p>
+                <span className="pillar-shift-badge">THE INDUSTRY TENURE</span>
+                <strong>~50% Paid Corporate Practicum</strong>
+                <p>Real production tenure and monthly stipends in Hyderabad's premier tech corridor.</p>
               </div>
             </div>
           </div>
@@ -706,12 +650,10 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <div className="admissions-eligibility-card">
                   <h4>Who Can Apply?</h4>
                   <div className="eligible-degrees-pills">
-                    <span className="deg-pill">B.Tech / B.E (Any Branch)</span>
-                    <span className="deg-pill">MCA</span>
-                    <span className="deg-pill">M.Sc (CS / IT / Maths)</span>
-                    <span className="deg-pill">BCA / B.Sc (CS / IT / Maths)</span>
+                    <span className="deg-pill highlight">B.Tech / B.E (All Engineering Disciplines)</span>
+                    <span className="deg-pill">Final-Year B.Tech / B.E Students (Graduating 2026/2027)</span>
                   </div>
-                  <p className="eligibility-note">Candidates from non-CS branches undergo an intensive foundational studio module to build core algorithmic and systems fundamentals.</p>
+                  <p className="eligibility-note">Engineers from non-CS branches undergo an intensive foundational studio module to build core algorithmic and systems fundamentals.</p>
                 </div>
 
                 <div className="admissions-steps-card">

@@ -378,7 +378,7 @@ export default function StudentGatewayPage() {
                     <h4>4. Admissions & Support</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Eligibility:</strong> Graduates & final-year (B.Tech, MCA, M.Sc).</li>
+                    <li><strong>Eligibility:</strong> Graduates & final-year (B.Tech / B.E. all branches).</li>
                     <li><strong>Intake:</strong> January 2027.</li>
                     <li><strong>Bank Loans:</strong> 100% collateral-free education loans.</li>
                   </ul>
