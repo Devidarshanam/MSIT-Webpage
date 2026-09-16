@@ -5205,16 +5205,6 @@ p {
   gap: 0.85rem;
 }
 
-.slide-fraction-badge {
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--primary-900);
-  background: var(--primary-100);
-  padding: 0.3rem 0.75rem;
-  border-radius: var(--radius-pill);
-  letter-spacing: 0.04em;
-}
-
 .top-bar-signin-btn {
   font-size: 0.8rem !important;
   padding: 0.4rem 1rem !important;
@@ -5448,12 +5438,6 @@ p {
   color: var(--primary-800);
   padding: 0.25rem 0.7rem;
   border-radius: var(--radius-pill);
-}
-
-.fullscreen-slide-counter {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--neutral-500);
 }
 
 .fullscreen-slide-title {

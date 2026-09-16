@@ -616,7 +616,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         </nav>
 
         <div className="top-bar-right">
-          <span className="slide-fraction-badge">Slide {currentSlide + 1} of {totalSlides}</span>
           <button 
             type="button" 
             className="btn btn-primary top-bar-signin-btn"
@@ -648,7 +647,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <div className="content-col-inner">
                   <div className="fullscreen-meta-row">
                     <span className="fullscreen-category-badge">{slideItem.category}</span>
-                    <span className="fullscreen-slide-counter">Slide {idx + 1} of {totalSlides}</span>
                   </div>
 
                   <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
