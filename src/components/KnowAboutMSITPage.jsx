@@ -7,7 +7,6 @@ import {
 
 export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
 
   // Sub-states for interactive elements inside slides
   const [activeTimelineYear, setActiveTimelineYear] = useState('2026-2027');
@@ -228,14 +227,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
-  // Autoplay handler
+  // Direct automatic slideshow: advance every 10 seconds (10000ms)
   useEffect(() => {
-    if (!isAutoPlaying) return;
     const timer = setInterval(() => {
       nextSlide();
-    }, 6500);
+    }, 10000);
     return () => clearInterval(timer);
-  }, [isAutoPlaying, nextSlide]);
+  }, [currentSlide, nextSlide]);
 
   const filteredAlumni = selectedAlumniCategory === 'all' 
     ? alumniList 
@@ -594,6 +592,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
       {/* Full-Screen Horizontal Sliding Track */}
       <main className="fullscreen-stage-viewport">
+        {/* Visual 10-Second Auto-Advance Progress Bar */}
+        <div className="fullscreen-timer-bar" key={currentSlide}>
+          <div className="fullscreen-timer-fill"></div>
+        </div>
+
         <div 
           className="fullscreen-slides-track"
           style={{ transform: `translate3d(-${currentSlide * 100}vw, 0, 0)` }}
@@ -640,14 +643,10 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </div>
 
                   <div className="controls-center-group">
-                    <button 
-                      type="button" 
-                      className={`controls-autoplay-btn ${isAutoPlaying ? 'playing' : ''}`}
-                      onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-                      aria-label={isAutoPlaying ? 'Pause Slideshow' : 'Auto-play Slideshow'}
-                    >
-                      {isAutoPlaying ? '⏸ Pause' : '▶ Auto-Play'}
-                    </button>
+                    <div className="slideshow-timer-indicator" title="Slideshow advances automatically every 10 seconds">
+                      <span className="timer-pulse-dot" aria-hidden="true"></span>
+                      <span className="timer-label">Auto-advancing (10s)</span>
+                    </div>
                     <span className="controls-keyboard-hint">Keyboard: ← / →</span>
                   </div>
 
