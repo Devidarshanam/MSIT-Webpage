@@ -5505,107 +5505,87 @@ p {
 }
 
 /* =========================================================================
-   SLIDE 2: WHY CHOOSE MSIT (5 PILLARS)
+   SLIDE 2: JOURNEY & EVOLUTION (FROM 2001 TO 2026)
    ========================================================================= */
-.layout-why-pillars .pillars-showcase-grid {
+.layout-journey-evolution .journey-milestones-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.1rem;
 }
 
-.pillar-feature-card {
+.journey-milestone-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: 1.1rem 1.2rem;
+  padding: 1.1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
-.pillar-feature-card:hover {
+.journey-milestone-card:hover {
   transform: translateY(-2px);
   border-color: #0284c7;
   box-shadow: 0 6px 16px rgba(2, 132, 199, 0.1);
 }
 
-.pillar-num-badge {
-  font-size: 0.78rem;
-  font-weight: 900;
-  background: #e0f2fe;
-  color: #0369a1;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+.journey-card-top {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 0.55rem;
 }
 
-.pillar-feature-card h4 {
+.journey-year-badge {
+  font-size: 0.78rem;
+  font-weight: 900;
+  background: #0284c7;
+  color: #ffffff;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+
+.journey-era-label {
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #0369a1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.journey-milestone-card h4 {
   font-size: 0.94rem;
   font-weight: 800;
   color: var(--primary-900);
   margin: 0 0 0.35rem 0;
+  line-height: 1.32;
 }
 
-.pillar-feature-card p {
+.journey-milestone-card p {
   font-size: 0.81rem;
   color: var(--neutral-600);
-  line-height: 1.45;
+  line-height: 1.48;
   margin: 0 0 0.75rem 0;
   flex: 1;
 }
 
-.pillar-tag {
-  font-size: 0.68rem;
+.journey-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.71rem;
   font-weight: 700;
   color: #0284c7;
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
-  padding: 0.15rem 0.55rem;
-  border-radius: var(--radius-pill);
-  align-self: flex-start;
 }
 
-.pillar-image-card {
-  position: relative;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  min-height: 170px;
-}
-
-.pillar-embedded-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.pillar-img-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.92) 100%);
-  padding: 1.5rem 1rem 0.75rem;
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-}
-
-.pillar-img-overlay strong {
-  font-size: 0.84rem;
-  margin-bottom: 0.15rem;
-}
-
-.pillar-img-overlay span {
-  font-size: 0.72rem;
-  color: #cbd5e1;
+.journey-card-footer svg {
+  flex-shrink: 0;
+  color: #0284c7;
 }
 
 /* =========================================================================
@@ -6389,7 +6369,7 @@ p {
     grid-template-columns: 1fr;
   }
 
-  .pillars-showcase-grid,
+  .journey-milestones-grid,
   .placements-grid-showcase {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -6454,7 +6434,7 @@ p {
     font-size: 0.84rem;
   }
 
-  .pillars-showcase-grid,
+  .journey-milestones-grid,
   .placements-grid-showcase,
   .practicum-stats-strip {
     grid-template-columns: 1fr;

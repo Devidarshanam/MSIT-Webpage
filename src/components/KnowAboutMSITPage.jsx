@@ -24,15 +24,15 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       imageCaption: 'Prof. Raj Reddy — Turing Award Laureate & Founding Chair'
     },
     {
-      id: 'why-msit',
+      id: 'journey',
       number: '02',
-      category: 'WHY CHOOSE MSIT',
-      themeClass: 'slide-theme-pillars',
-      layoutClass: 'slide-layout-pillars',
-      title: '5 Defining Pillars That Make MSIT Unique',
-      lead: 'MSIT is not a conventional textbook degree. It is a high-intensity master’s programme engineered from the ground up to prepare you for global technology leadership.',
-      image: '/assets/iiit-studios.jpg',
-      imageCaption: 'Full-Time Hands-on Software Engineering Studios at IIIT Hyderabad'
+      category: 'JOURNEY & EVOLUTION',
+      themeClass: 'slide-theme-journey',
+      layoutClass: 'slide-layout-journey',
+      title: 'The 25-Year Journey: From Inception in 2001 to the AI Era',
+      lead: 'Launched in 2001 under the Consortium of Institutions of Higher Learning (CIHL) with Carnegie Mellon University guidance, MSIT has evolved over a quarter-century into India’s flagship active-learning computing master’s.',
+      image: '/assets/iiit-campus.jpg',
+      imageCaption: '25 Years of Continuous Computing Pedagogy Evolution at IIIT Hyderabad'
     },
     {
       id: 'placements',
@@ -224,56 +224,91 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </div>
         );
 
-      case 'why-msit':
+      case 'journey':
         return (
-          <div className="slide-content-layout layout-why-pillars">
-            <div className="pillars-showcase-grid">
-              {/* 5 Distinct Pillars Cards */}
-              <div className="pillar-feature-card card-p1">
-                <span className="pillar-num-badge">01</span>
-                <h4>Zero Blackboard Lectures</h4>
-                <p>100% immersive coding studios. No textbooks or boring lectures. You write real code, commit to GitHub, and build deployable software from day one.</p>
-                <span className="pillar-tag">Active Learning</span>
+          <div className="slide-content-layout layout-journey-evolution">
+            <div className="journey-milestones-grid">
+              {/* Milestone 1: 2001 */}
+              <div className="journey-milestone-card card-m2001">
+                <div className="journey-card-top">
+                  <span className="journey-year-badge">2001</span>
+                  <span className="journey-era-label">Consortium Inception</span>
+                </div>
+                <h4>Launched by CIHL & CMU Collaboration</h4>
+                <p>Created under the Consortium of Institutions of Higher Learning (CIHL) at IIIT Hyderabad under the guidance of Turing Laureate Prof. Raj Reddy. Developed with researchers from Carnegie Mellon University (CMU) to replace passive blackboard lectures with project-centered computing.</p>
+                <div className="journey-card-footer">
+                  <CheckCircleIcon size={14} />
+                  <span>CIHL & Carnegie Mellon Course Framework</span>
+                </div>
               </div>
 
-              <div className="pillar-feature-card card-p2">
-                <span className="pillar-num-badge">02</span>
-                <h4>1:10 Mentorship Ratio</h4>
-                <p>Never get lost in an auditorium. Dedicated industry mentors work alongside you every single day, reviewing pull requests and conducting daily agile standups.</p>
-                <span className="pillar-tag">Daily Code Reviews</span>
+              {/* Milestone 2: 2002-2005 */}
+              <div className="journey-milestone-card card-m2004">
+                <div className="journey-card-top">
+                  <span className="journey-year-badge">2002–2005</span>
+                  <span className="journey-era-label">Pedagogy Breakthrough</span>
+                </div>
+                <h4>The "Mastery Learning" Paradigm</h4>
+                <p>Pioneered the "Time-Variable, Outcome-Constant" model: students must demonstrate 90%+ mastery ('A' grade) before advancing. Instituted 100% full-time 9 AM to 6 PM collaborative coding studios with a dedicated 1:10 personal mentor ratio.</p>
+                <div className="journey-card-footer">
+                  <CheckCircleIcon size={14} />
+                  <span>90%+ Mastery Threshold & Studio Model</span>
+                </div>
               </div>
 
-              <div className="pillar-feature-card card-p3">
-                <span className="pillar-num-badge">03</span>
-                <h4>~50% Paid Corporate Practicum</h4>
-                <p>Spend half your master's embedded directly inside real engineering teams. Earn monthly stipends of ₹25,000–₹60,000 before graduation.</p>
-                <span className="pillar-tag">Earn While Learning</span>
+              {/* Milestone 3: 2008 */}
+              <div className="journey-milestone-card card-m2008">
+                <div className="journey-card-top">
+                  <span className="journey-year-badge">2008</span>
+                  <span className="journey-era-label">Industry Integration</span>
+                </div>
+                <h4>Pioneering Paid Corporate Co-op Practicum</h4>
+                <p>Pioneered the corporate co-op internship model where students spend nearly half their master's embedded directly in real engineering sprints across Hyderabad's HITEC City cyber-corridor, earning monthly stipends while studying.</p>
+                <div className="journey-card-footer">
+                  <CheckCircleIcon size={14} />
+                  <span>~50% Tenure in Real Corporate Sprints</span>
+                </div>
               </div>
 
-              <div className="pillar-feature-card card-p4">
-                <span className="pillar-num-badge">04</span>
-                <h4>Gachibowli Cyber Hub Advantage</h4>
-                <p>Located on IIIT-H's 66-acre campus, right beside Microsoft, Google, Amazon, and T-Hub. Recruitment and technical networking happen at your doorstep.</p>
-                <span className="pillar-tag">Prime Location</span>
+              {/* Milestone 4: 2015-2018 */}
+              <div className="journey-milestone-card card-m2016">
+                <div className="journey-card-top">
+                  <span className="journey-year-badge">2015–2018</span>
+                  <span className="journey-era-label">Cloud Systems Era</span>
+                </div>
+                <h4>Cloud & Distributed Systems Modernization</h4>
+                <p>Modernized the curriculum into distributed computing, microservices, containerization, and data engineering pipelines. MSIT alumni footprint expanded significantly across Silicon Valley, Europe, and leading global product engineering centers.</p>
+                <div className="journey-card-footer">
+                  <CheckCircleIcon size={14} />
+                  <span>Distributed Systems & Cloud-Native Studios</span>
+                </div>
               </div>
 
-              <div className="pillar-feature-card card-p5">
-                <span className="pillar-num-badge">05</span>
-                <h4>70%+ PPO Conversion Velocity</h4>
-                <p>Over 70% of students convert their internships into high-package full-time Pre-Placement Offers (PPOs) well before their final semester concludes.</p>
-                <span className="pillar-tag">High Placement Rate</span>
+              {/* Milestone 5: 2020-2022 */}
+              <div className="journey-milestone-card card-m2020">
+                <div className="journey-card-top">
+                  <span className="journey-year-badge">2020–2022</span>
+                  <span className="journey-era-label">Digital Transformation</span>
+                </div>
+                <h4>Flexible Mastery & Hybrid Restructuring</h4>
+                <p>Restructured in response to global remote learning to introduce personalized, hybrid formats alongside staggered rolling admissions. Enabled self-paced progression and individual mentor code reviews without compromising hands-on rigor.</p>
+                <div className="journey-card-footer">
+                  <CheckCircleIcon size={14} />
+                  <span>Hybrid Learning & Rolling Admissions</span>
+                </div>
               </div>
 
-              {/* Integrated Visual Studio Card */}
-              <div className="pillar-image-card">
-                <img 
-                  src="/assets/iiit-studios.jpg" 
-                  alt="MSIT Studios" 
-                  className="pillar-embedded-img"
-                />
-                <div className="pillar-img-overlay">
-                  <strong>Daily 9 AM–6 PM Collaborative Studios</strong>
-                  <span>Software engineering practiced like high-performing Silicon Valley teams</span>
+              {/* Milestone 6: 2024-2026 */}
+              <div className="journey-milestone-card card-m2026">
+                <div className="journey-card-top">
+                  <span className="journey-year-badge">2024–2026</span>
+                  <span className="journey-era-label">AI-Native Era</span>
+                </div>
+                <h4>Generative AI & 25-Year Excellence Legacy</h4>
+                <p>Completing 25 continuous batches with over 3,000 global alumni. Full-scale curriculum expansion into Large Language Models (LLMs), autonomous AI agents, GPU clusters, and high-performance computing architectures.</p>
+                <div className="journey-card-footer">
+                  <CheckCircleIcon size={14} />
+                  <span>GenAI Studios & 3,000+ Global Alumni</span>
                 </div>
               </div>
             </div>
