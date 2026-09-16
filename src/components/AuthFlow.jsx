@@ -41,37 +41,6 @@ export default function AuthFlow() {
   }, [resendCooldown]);
 
   // ------------------------------------------------------------------
-  // Supabase not configured — show graceful fallback
-  // ------------------------------------------------------------------
-  if (!isConfigured) {
-    return (
-      <div className="auth-flow-container">
-        <div className="simple-card-top">
-          <span className="simple-mini-badge">GET STARTED</span>
-          <div className="simple-card-icon student-icon">
-            <MailIcon size={26} />
-          </div>
-        </div>
-        <div className="simple-card-content">
-          <h2 className="simple-card-title">Interested in MSIT?</h2>
-          <div className="auth-unconfigured-notice">
-            <ShieldCheckIcon size={20} />
-            <div>
-              <strong>Coming Soon</strong>
-              <p>
-                Email verification is currently being set up. Please check back shortly
-                or contact{' '}
-                <a href="mailto:query@msit.ac.in">query@msit.ac.in</a> for programme
-                information.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ------------------------------------------------------------------
   // Validation
   // ------------------------------------------------------------------
   const validateForm = () => {
@@ -401,6 +370,11 @@ export default function AuthFlow() {
                 />
               ))}
             </div>
+            {!isConfigured && (
+              <p style={{ fontSize: '0.74rem', color: '#6366f1', textAlign: 'center', margin: '0.4rem 0 0 0', fontWeight: '600' }}>
+                Demo Verification: Enter any 8 digits (e.g. 12345678) to verify
+              </p>
+            )}
           </div>
 
           <div className="simple-card-footer">

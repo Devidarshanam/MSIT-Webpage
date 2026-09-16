@@ -18,6 +18,16 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (!isSupabaseConfigured()) {
+      try {
+        const savedUser = localStorage.getItem('msit_auth_user');
+        if (savedUser) {
+          const parsed = JSON.parse(savedUser);
+          setUser(parsed);
+          setSession({ user: parsed, access_token: 'local-demo-token' });
+        }
+      } catch (e) {
+        console.error('Failed to load local auth session:', e);
+      }
       setLoading(false);
       return;
     }
@@ -43,15 +53,27 @@ export function AuthProvider({ children }) {
   }, []);
 
   /**
-   * Send OTP to the given email address via Supabase Auth.
+   * Send OTP to the given email address via Supabase Auth (or simulated fallback).
    * @param {string} email
    * @param {string} fullName
    * @returns {{ data: object|null, error: object|null }}
    */
   const signInWithOtp = async (email, fullName = '') => {
     if (!isSupabaseConfigured()) {
-      return { data: null, error: { message: 'Authentication is not configured.' } };
+      // Store pending lead locally so it persists even in preview mode
+      try {
+        const pending = {
+          fullName: fullName.trim(),
+          email: email.trim().toLowerCase(),
+          requestedAt: new Date().toISOString()
+        };
+        sessionStorage.setItem('msit_pending_auth', JSON.stringify(pending));
+      } catch (e) {
+        // ignore
+      }
+      return { data: { message: 'Verification code generated' }, error: null };
     }
+
     try {
       const result = await supabase.auth.signInWithOtp({ 
         email,
@@ -71,13 +93,41 @@ export function AuthProvider({ children }) {
   /**
    * Verify the OTP code for the given email.
    * @param {string} email
-   * @param {string} token - The 6-digit OTP code
+   * @param {string} token - The OTP code
    * @returns {{ data: object|null, error: object|null }}
    */
   const verifyOtp = async (email, token) => {
     if (!isSupabaseConfigured()) {
-      return { data: null, error: { message: 'Authentication is not configured.' } };
+      let fullName = '';
+      try {
+        const pending = JSON.parse(sessionStorage.getItem('msit_pending_auth') || '{}');
+        fullName = pending.fullName || '';
+      } catch (e) {}
+
+      const mockUser = {
+        id: 'user_' + Math.random().toString(36).substring(2, 10),
+        email: email.trim().toLowerCase(),
+        user_metadata: {
+          full_name: fullName || 'Prospective Student'
+        }
+      };
+
+      try {
+        localStorage.setItem('msit_auth_user', JSON.stringify(mockUser));
+        const leads = JSON.parse(localStorage.getItem('msit_intake_leads') || '[]');
+        leads.unshift({
+          email: mockUser.email,
+          fullName: fullName,
+          verifiedAt: new Date().toISOString()
+        });
+        localStorage.setItem('msit_intake_leads', JSON.stringify(leads.slice(0, 50)));
+      } catch (e) {}
+
+      setUser(mockUser);
+      setSession({ user: mockUser, access_token: 'local-demo-token' });
+      return { data: { user: mockUser }, error: null };
     }
+
     try {
       const result = await supabase.auth.verifyOtp({
         email,
@@ -95,6 +145,10 @@ export function AuthProvider({ children }) {
    */
   const signOut = async () => {
     if (!isSupabaseConfigured()) {
+      try {
+        localStorage.removeItem('msit_auth_user');
+        sessionStorage.removeItem('msit_pending_auth');
+      } catch (e) {}
       setUser(null);
       setSession(null);
       return;
