@@ -5436,10 +5436,10 @@ p {
 }
 
 .spotlight-img-frame {
-  height: 180px;
+  height: 200px;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: #0f172a;
+  background: #1e293b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5449,8 +5449,9 @@ p {
 .spotlight-portrait-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: #1e293b;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .spotlight-badge {
