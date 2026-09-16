@@ -75,15 +75,33 @@ export function AuthProvider({ children }) {
     }
 
     try {
-      const result = await supabase.auth.signInWithOtp({ 
+      let result = await supabase.auth.signInWithOtp({ 
         email,
         options: {
-          emailRedirectTo: window.location.origin,
+          emailRedirectTo: typeof window !== 'undefined' ? window.location.origin : undefined,
           data: {
             full_name: fullName
           }
         }
       });
+
+      // If Supabase rejects because the Vercel domain is not in the Redirect URLs allowlist,
+      // retry without emailRedirectTo so the OTP email is still sent directly to user's inbox!
+      if (result?.error?.message && (
+        result.error.message.toLowerCase().includes('redirect') ||
+        result.error.message.toLowerCase().includes('url')
+      )) {
+        console.warn('[MSIT] Redirect URL rejected by Supabase, retrying without emailRedirectTo:', result.error.message);
+        result = await supabase.auth.signInWithOtp({
+          email,
+          options: {
+            data: {
+              full_name: fullName
+            }
+          }
+        });
+      }
+
       return result;
     } catch (err) {
       return { data: null, error: { message: err.message || 'An unexpected error occurred.' } };
