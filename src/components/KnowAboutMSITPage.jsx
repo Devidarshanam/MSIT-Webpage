@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon,
@@ -208,32 +208,64 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   ];
 
   const totalSlides = slides.length;
+  const [timerResetKey, setTimerResetKey] = useState(0);
+  const timerRef = useRef(null);
+
+  // Schedules the 10-second auto-advance timeout
+  const startTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = setTimeout(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    }, 10000);
+  }, [totalSlides]);
+
+  // Handler for ANY user action or click in the slide:
+  // Pauses current timer and continues after 10 seconds if no action is rendered after that click
+  const handleUserAction = useCallback(() => {
+    setTimerResetKey((prev) => prev + 1);
+    startTimer();
+  }, [startTimer]);
 
   const nextSlide = useCallback(() => {
+    handleUserAction();
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
-  }, [totalSlides]);
+  }, [handleUserAction, totalSlides]);
 
   const prevSlide = useCallback(() => {
+    handleUserAction();
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
-  }, [totalSlides]);
+  }, [handleUserAction, totalSlides]);
 
-  // Keyboard navigation
+  const goToSlide = useCallback((index) => {
+    handleUserAction();
+    setCurrentSlide(index);
+  }, [handleUserAction]);
+
+  // Keyboard navigation: pauses and resets timer on key action
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+      }
+      if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
-  // Direct automatic slideshow: advance every 10 seconds (10000ms)
+  // Slideshow timer lifecycle: on slide change, start the 10-second timer
   useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 10000);
-    return () => clearInterval(timer);
-  }, [currentSlide, nextSlide]);
+    startTimer();
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [currentSlide, startTimer]);
 
   const filteredAlumni = selectedAlumniCategory === 'all' 
     ? alumniList 
@@ -539,7 +571,12 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   };
 
   return (
-    <div className="fullscreen-slideshow-root">
+    <div 
+      className="fullscreen-slideshow-root"
+      onClickCapture={handleUserAction}
+      onTouchStartCapture={handleUserAction}
+      onScrollCapture={handleUserAction}
+    >
       {/* Top Full-Width Navigation Bar */}
       <header className="fullscreen-top-bar">
         <div className="top-bar-left">
@@ -570,7 +607,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               key={s.id}
               type="button"
               className={`top-category-pill ${idx === currentSlide ? 'active' : ''}`}
-              onClick={() => setCurrentSlide(idx)}
+              onClick={() => goToSlide(idx)}
             >
               <span className="pill-num">{s.number}</span>
               <span className="pill-label">{s.category.split(' & ')[0]}</span>
@@ -593,7 +630,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       {/* Full-Screen Horizontal Sliding Track */}
       <main className="fullscreen-stage-viewport">
         {/* Visual 10-Second Auto-Advance Progress Bar */}
-        <div className="fullscreen-timer-bar" key={currentSlide}>
+        <div className="fullscreen-timer-bar" key={`${currentSlide}-${timerResetKey}`}>
           <div className="fullscreen-timer-fill"></div>
         </div>
 
