@@ -370,11 +370,6 @@ export default function AuthFlow() {
                 />
               ))}
             </div>
-            {!isConfigured && (
-              <p style={{ fontSize: '0.74rem', color: '#6366f1', textAlign: 'center', margin: '0.4rem 0 0 0', fontWeight: '600' }}>
-                Demo Verification: Enter any 8 digits (e.g. 12345678) to verify
-              </p>
-            )}
           </div>
 
           <div className="simple-card-footer">
