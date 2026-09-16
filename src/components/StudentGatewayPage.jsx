@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import AuthFlow from './AuthFlow';
 import { 
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon
@@ -6,64 +9,14 @@ import {
 import KnowAboutMSITPage from './KnowAboutMSITPage';
 
 export default function StudentGatewayPage() {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
   // Page view: 'gateway' | 'about-msit'
   const [view, setView] = useState('gateway');
 
-  // Sign-in form state: ONLY Name and Email
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [signedInStudent, setSignedInStudent] = useState(null);
-  const [formError, setFormError] = useState('');
-
   // Exploration modal for 1-page summary
   const [showSummaryModal, setShowSummaryModal] = useState(false);
-
-  // Load existing session if previously signed in
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('msit_signed_in_student') || localStorage.getItem('msit_prospective_student');
-      if (saved) {
-        setSignedInStudent(JSON.parse(saved));
-      }
-    } catch (e) {
-      console.error('Error reading saved session', e);
-    }
-  }, []);
-
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    if (!fullName.trim() || !email.trim()) {
-      setFormError('Please enter both your Name and Email Address.');
-      return;
-    }
-    setFormError('');
-
-    const studentData = {
-      fullName: fullName.trim(),
-      email: email.trim(),
-      signedInAt: new Date().toISOString()
-    };
-
-    try {
-      localStorage.setItem('msit_signed_in_student', JSON.stringify(studentData));
-      
-      const leads = JSON.parse(localStorage.getItem('msit_intake_leads') || '[]');
-      leads.unshift(studentData);
-      localStorage.setItem('msit_intake_leads', JSON.stringify(leads.slice(0, 50)));
-    } catch (err) {
-      console.error('Local storage save error', err);
-    }
-
-    setSignedInStudent(studentData);
-  };
-
-  const handleSignOut = () => {
-    localStorage.removeItem('msit_signed_in_student');
-    localStorage.removeItem('msit_prospective_student');
-    setSignedInStudent(null);
-    setFullName('');
-    setEmail('');
-  };
 
   // If user navigated to "Know About MSIT" slideshow page
   if (view === 'about-msit') {
@@ -73,13 +26,12 @@ export default function StudentGatewayPage() {
         onGoToSignIn={() => {
           setView('gateway');
           setTimeout(() => {
-            document.getElementById('studentFullName')?.focus();
+            document.getElementById('email')?.focus();
           }, 150);
         }}
       />
     );
   }
-
   return (
     <div className="gateway-root minimal-gateway-root">
       {/* Top Header - Ultra Clean & Minimal */}
@@ -163,130 +115,42 @@ export default function StudentGatewayPage() {
             </div>
 
             {/* =========================================================================
-                RIGHT SIDE: SIGN IN FOR STUDENTS (NAME & EMAIL ONLY)
+                RIGHT SIDE: INTERESTED IN MSIT
                 ========================================================================= */}
             <div className="simple-action-card signin-box">
-              {!signedInStudent ? (
-                /* State 1: Sign-In Form with ONLY Name and Email */
-                <form onSubmit={handleSignIn} className="simple-signin-form">
-                  <div className="simple-card-top">
-                    <span className="simple-mini-badge">ADMISSIONS & APPLY</span>
-                    <div className="simple-card-icon student-icon">
-                      <GraduationCapIcon size={26} />
-                    </div>
-                  </div>
-
-                  <div className="simple-card-content">
-                    <h2 className="simple-card-title">Student Sign In</h2>
-                    <p className="simple-card-desc">
-                      Sign in to access detailed curriculum tracks, admissions roadmap, and fee schedules for the upcoming batch.
-                    </p>
-
-                    {formError && (
-                      <div className="simple-form-error" role="alert">
-                        {formError}
-                      </div>
-                    )}
-
-                    <div className="simple-fields-stack">
-                      <div className="simple-field-group">
-                        <label htmlFor="studentFullName">Your Name</label>
-                        <input
-                          id="studentFullName"
-                          type="text"
-                          className="simple-text-input"
-                          placeholder="Enter your full name"
-                          value={fullName}
-                          onChange={(e) => setFullName(e.target.value)}
-                          required
-                          autoComplete="name"
-                        />
-                      </div>
-
-                      <div className="simple-field-group">
-                        <label htmlFor="studentEmail">Email Address</label>
-                        <input
-                          id="studentEmail"
-                          type="email"
-                          className="simple-text-input"
-                          placeholder="Enter your email address"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          required
-                          autoComplete="email"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="simple-card-footer">
-                    <button type="submit" className="btn btn-primary card-arrow-btn full-width">
-                      <span>Know More About Programme</span>
-                      <ArrowRightIcon size={18} />
-                    </button>
-                  </div>
-                </form>
+              {!user ? (
+                <AuthFlow />
               ) : (
-                /* State 2: Signed-In Student View */
                 <div className="signed-in-content-view">
                   <div className="simple-card-top">
-                    <span className="simple-mini-badge success">SIGNED IN</span>
+                    <span className="simple-mini-badge success">VERIFIED</span>
                     <button 
                       type="button" 
                       className="simple-signout-link"
-                      onClick={handleSignOut}
+                      onClick={() => signOut()}
                     >
                       Sign Out
                     </button>
                   </div>
 
                   <div className="simple-card-content">
-                    <h2 className="simple-card-title">Welcome, {signedInStudent.fullName}!</h2>
-                    <p className="student-email-tag">{signedInStudent.email}</p>
+                    <h2 className="simple-card-title">Welcome Back!</h2>
+                    <p className="student-email-tag">{user.email}</p>
                     
-                    <div className="programme-quick-highlights">
-                      <div className="prog-highlight-row">
-                        <span className="bullet-dot"></span>
-                        <div>
-                          <strong>January 2027 Admissions:</strong>
-                          <p>Applications are open for graduates & final-year students (B.Tech, MCA, M.Sc).</p>
-                        </div>
-                      </div>
-
-                      <div className="prog-highlight-row">
-                        <span className="bullet-dot"></span>
-                        <div>
-                          <strong>~50% Corporate Co-op:</strong>
-                          <p>Paid full-time software engineering internship with senior tech mentorship.</p>
-                        </div>
-                      </div>
-
-                      <div className="prog-highlight-row">
-                        <span className="bullet-dot"></span>
-                        <div>
-                          <strong>Education Loan Assistance:</strong>
-                          <p>100% collateral-free bank loan support through nationalized bank partners.</p>
-                        </div>
-                      </div>
-                    </div>
+                    <p className="simple-card-desc">
+                      Your email is verified. Access the full programme details,
+                      curriculum, admissions roadmap, and application information.
+                    </p>
                   </div>
 
-                  <div className="simple-card-footer split-actions">
+                  <div className="simple-card-footer">
                     <button
                       type="button"
-                      className="btn btn-primary card-arrow-btn"
-                      onClick={() => setView('about-msit')}
+                      className="btn btn-primary card-arrow-btn full-width"
+                      onClick={() => navigate('/programme')}
                     >
-                      <span>Full Programme Details</span>
-                      <ArrowRightIcon size={16} />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-outline-ghost card-arrow-btn"
-                      onClick={() => setShowSummaryModal(true)}
-                    >
-                      <DownloadIcon size={16} />
-                      <span>1-Page PDF</span>
+                      <span>View Programme Details</span>
+                      <ArrowRightIcon size={18} />
                     </button>
                   </div>
                 </div>
