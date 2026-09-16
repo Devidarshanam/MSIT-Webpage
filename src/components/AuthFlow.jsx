@@ -19,6 +19,7 @@ export default function AuthFlow() {
   const [step, setStep] = useState('email'); // 'email' | 'otp' | 'success'
 
   // Email step state
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailLoading, setEmailLoading] = useState(false);
@@ -71,12 +72,13 @@ export default function AuthFlow() {
   }
 
   // ------------------------------------------------------------------
-  // Email validation
+  // Validation
   // ------------------------------------------------------------------
-  const validateEmail = (value) => {
-    if (!value.trim()) return 'Please enter your email address.';
+  const validateForm = () => {
+    if (!fullName.trim()) return 'Please enter your full name.';
+    if (!email.trim()) return 'Please enter your email address.';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value.trim())) return 'Please enter a valid email address.';
+    if (!emailRegex.test(email.trim())) return 'Please enter a valid email address.';
     return '';
   };
 
@@ -86,7 +88,7 @@ export default function AuthFlow() {
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
 
-    const validationError = validateEmail(email);
+    const validationError = validateForm();
     if (validationError) {
       setEmailError(validationError);
       return;
@@ -95,7 +97,7 @@ export default function AuthFlow() {
     setEmailError('');
     setEmailLoading(true);
 
-    const { error } = await signInWithOtp(email.trim());
+    const { error } = await signInWithOtp(email.trim(), fullName.trim());
 
     setEmailLoading(false);
 
@@ -178,7 +180,7 @@ export default function AuthFlow() {
 
     const otpString = otp.join('');
     if (otpString.length < OTP_LENGTH) {
-      setOtpError('Please enter the complete 6-digit code.');
+      setOtpError('Please enter the complete 8-digit code.');
       return;
     }
 
@@ -209,6 +211,7 @@ export default function AuthFlow() {
         await supabase.from('prospective_leads').upsert(
           {
             email: email.trim().toLowerCase(),
+            full_name: fullName.trim(),
             auth_user_id: data.user.id,
             email_verified: true,
             source: 'Landing',
@@ -239,7 +242,7 @@ export default function AuthFlow() {
     setOtpError('');
     setResendCooldown(RESEND_COOLDOWN_SECONDS);
 
-    const { error } = await signInWithOtp(email.trim());
+    const { error } = await signInWithOtp(email.trim(), fullName.trim());
     if (error) {
       setOtpError(error.message || 'Failed to resend code. Please try again.');
       setResendCooldown(0);
@@ -287,6 +290,24 @@ export default function AuthFlow() {
             )}
 
             <div className="simple-fields-stack">
+              <div className="simple-field-group">
+                <label htmlFor="authName">Full Name</label>
+                <input
+                  id="authName"
+                  type="text"
+                  className="simple-text-input"
+                  placeholder="Enter your full name"
+                  value={fullName}
+                  onChange={(e) => {
+                    setFullName(e.target.value);
+                    if (emailError) setEmailError('');
+                  }}
+                  required
+                  autoComplete="name"
+                  disabled={emailLoading}
+                />
+              </div>
+
               <div className="simple-field-group">
                 <label htmlFor="authEmail">Email Address</label>
                 <input
