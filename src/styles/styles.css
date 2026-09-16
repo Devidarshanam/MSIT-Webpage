@@ -5221,17 +5221,159 @@ p {
   font-weight: 700 !important;
 }
 
-/* Full-Screen Stage: 55% Content / 45% Edge-to-Edge Image */
-.fullscreen-stage {
+/* Full-Screen Stage Viewport: 100vw × 100vh with Horizontal Track */
+.fullscreen-stage-viewport {
   flex: 1;
-  display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
   width: 100vw;
   height: calc(100vh - 60px);
   overflow: hidden;
+  position: relative;
+  background: #0f172a;
 }
 
-/* Left Content Column */
+.fullscreen-slides-track {
+  display: flex;
+  width: 700vw;
+  height: 100%;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.fullscreen-slide-item {
+  width: 100vw;
+  height: 100%;
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1.18fr 0.82fr;
+  overflow: hidden;
+  background: #ffffff;
+  position: relative;
+}
+
+/* =========================================================================
+   PER-SLIDE DISTINCT VISUAL THEMES & ACCENTS
+   ========================================================================= */
+
+/* Theme 1: History — Heritage Gold & Royal Navy */
+.slide-theme-history {
+  background: #fffdf9;
+}
+.slide-theme-history .fullscreen-category-badge {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+.slide-theme-history .highlight-bullet {
+  color: #b45309;
+}
+.slide-theme-history .slide-highlight-card:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px rgba(180, 83, 9, 0.08);
+}
+
+/* Theme 2: Evolution — Electric Cyan & Deep Space */
+.slide-theme-journey {
+  background: #f8fafc;
+}
+.slide-theme-journey .fullscreen-category-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+.slide-theme-journey .timeline-active-year-badge {
+  background: #0284c7;
+  color: #ffffff;
+}
+.slide-theme-journey .timeline-year-btn.active {
+  background: #0284c7;
+  border-color: #0284c7;
+}
+
+/* Theme 3: Community — Emerald Green Campus */
+.slide-theme-community {
+  background: #f9fbf9;
+}
+.slide-theme-community .fullscreen-category-badge {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.slide-theme-community .comm-icon-box {
+  background: #d1fae5;
+  color: #059669;
+}
+.slide-theme-community .community-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.08);
+}
+
+/* Theme 4: Alumni — Executive Violet & Big Tech */
+.slide-theme-alumni {
+  background: #fbfaff;
+}
+.slide-theme-alumni .fullscreen-category-badge {
+  background: #ede9fe;
+  color: #5b21b6;
+  border: 1px solid #ddd6fe;
+}
+.slide-theme-alumni .alumni-avatar-placeholder {
+  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+}
+.slide-theme-alumni .alumni-filter-pill.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+}
+
+/* Theme 5: Backgrounds — Sunset Amber & Orange */
+.slide-theme-backgrounds {
+  background: #fffcf8;
+}
+.slide-theme-backgrounds .fullscreen-category-badge {
+  background: #ffedd5;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+.slide-theme-backgrounds .background-card:hover {
+  border-color: #f97316;
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.08);
+}
+
+/* Theme 6: Careers — Indigo & Silicon Tech */
+.slide-theme-careers {
+  background: #f9faff;
+}
+.slide-theme-careers .fullscreen-category-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+}
+.slide-theme-careers .test-tab-btn.active {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+.slide-theme-careers .test-quote-icon {
+  color: rgba(67, 56, 202, 0.12);
+}
+
+/* Theme 7: Why MSIT — Academic Gold & Leadership */
+.slide-theme-why-msit {
+  background: #fffdf6;
+}
+.slide-theme-why-msit .fullscreen-category-badge {
+  background: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
+}
+.slide-theme-why-msit .pillar-num {
+  background: #fef3c7;
+  color: #b45309;
+}
+.slide-theme-why-msit .why-pillar-card:hover {
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.1);
+}
+
+/* Content Column in each slide */
 .fullscreen-content-col {
   height: 100%;
   overflow-y: auto;
@@ -5239,13 +5381,31 @@ p {
   flex-direction: column;
   justify-content: space-between;
   padding: 2.2rem 3.5rem 1.6rem;
-  background: #ffffff;
   scrollbar-width: thin;
 }
 
 .content-col-inner {
   display: flex;
   flex-direction: column;
+}
+
+/* Stagger entrance animations on active slide */
+.is-active-slide .fullscreen-slide-title {
+  animation: slideTitleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.is-active-slide .slide-custom-content {
+  animation: slideContentIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+}
+
+@keyframes slideTitleIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideContentIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .fullscreen-meta-row {
@@ -5430,7 +5590,6 @@ p {
   height: 100%;
   object-fit: cover;
   display: block;
-  animation: slideFadeIn 0.35s ease-out;
 }
 
 @keyframes slideFadeIn {
@@ -6100,17 +6259,21 @@ p {
 
 /* Responsive Styles for Full-Screen Presentation */
 @media (max-width: 980px) {
-  .fullscreen-stage {
-    grid-template-columns: 1fr;
+  .fullscreen-stage-viewport {
     height: calc(100vh - 58px);
+  }
+
+  .fullscreen-slide-item {
+    grid-template-columns: 1fr;
+    height: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
   }
 
   .fullscreen-image-col {
-    height: 320px;
-    min-height: 280px;
+    height: 280px;
+    min-height: 240px;
     width: 100%;
     flex-shrink: 0;
     order: -1;
@@ -6168,13 +6331,13 @@ p {
     display: none;
   }
 
-  .fullscreen-stage {
+  .fullscreen-stage-viewport {
     height: calc(100vh - 54px);
   }
 
   .fullscreen-image-col {
-    height: 220px;
-    min-height: 200px;
+    height: 200px;
+    min-height: 180px;
   }
 
   .floating-image-nav {
