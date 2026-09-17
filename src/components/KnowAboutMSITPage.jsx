@@ -769,7 +769,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               className={`top-category-pill ${idx === currentSlide ? 'active' : ''}`}
               onClick={() => goToSlide(idx)}
             >
-              <span className="pill-num">{s.number}</span>
               <span className="pill-label">{s.category.split(' & ')[0]}</span>
             </button>
           ))}
