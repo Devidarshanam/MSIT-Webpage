@@ -809,12 +809,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         </nav>
 
         <div className="top-bar-right">
+          <span className="top-bar-active-cat">{slides[currentSlide].category.split(' & ')[0]}</span>
           <button 
             type="button" 
             className="btn btn-primary top-bar-signin-btn"
             onClick={onGoToSignIn}
           >
-            <span>Student Sign In ➔</span>
+            <span>Sign In ➔</span>
           </button>
         </div>
       </header>
@@ -862,7 +863,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                       onClick={prevSlide}
                       aria-label="Previous Slide"
                     >
-                      ❮ Previous
+                      ❮ Prev
                     </button>
                     <button 
                       type="button" 
@@ -875,7 +876,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </div>
 
                   <div className="controls-center-group">
-                    <span className="slide-counter-badge">Slide {idx + 1} of {totalSlides}</span>
+                    <span className="slide-counter-badge">{idx + 1} / {totalSlides}</span>
                     <span className="controls-keyboard-hint">Keyboard: ← / →</span>
                   </div>
 
