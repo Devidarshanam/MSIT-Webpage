@@ -844,7 +844,10 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="fullscreen-slide-stage">
                 {/* Header Meta Row */}
                 <div className="slide-header-meta">
-                  <span className="fullscreen-category-badge">{slideItem.category}</span>
+                  <div className="slide-meta-top-row">
+                    <span className="fullscreen-category-badge">{slideItem.category}</span>
+                    <span className="mobile-desktop-hint-pill">💻 For detailed view & full info, use desktop</span>
+                  </div>
                   <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
                   <p className="fullscreen-slide-lead">{slideItem.lead}</p>
                 </div>

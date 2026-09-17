@@ -97,6 +97,9 @@ export default function StudentGatewayPage() {
                 <p className="simple-card-desc">
                   Learn how MSIT works — our founding legacy under Prof. Raj Reddy, hands-on learning model, and corporate co-op internships.
                 </p>
+                <div className="gateway-mobile-tip">
+                  <span>💻 Tip: For in-depth archives & full details, open on desktop</span>
+                </div>
               </div>
 
               <div className="simple-card-footer">
