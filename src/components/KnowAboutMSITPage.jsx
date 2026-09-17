@@ -139,6 +139,39 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [nextSlide, prevSlide]);
 
+  // Touch swipe support for mobile devices
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
+  const handleTouchStart = (e) => {
+    handleUserAction();
+    if (e.touches && e.touches.length === 1) {
+      touchStartX.current = e.touches[0].clientX;
+      touchStartY.current = e.touches[0].clientY;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    handleUserAction();
+    if (touchStartX.current === null || touchStartY.current === null) return;
+    if (!e.changedTouches || e.changedTouches.length === 0) return;
+
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+
+    // Detect horizontal swipe (horizontal distance > vertical distance and threshold > 45px)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 45) {
+      if (deltaX < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   // Slideshow timer lifecycle: on slide change, start the 10-second timer
   useEffect(() => {
     startTimer();
@@ -746,7 +779,8 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             onClick={onBack}
             aria-label="Back to Gateway"
           >
-            <span>← Back to Gateway</span>
+            <span className="back-btn-text-full">← Back to Gateway</span>
+            <span className="back-btn-text-short">← Gateway</span>
           </button>
 
           <div className="top-bar-brand">
@@ -786,7 +820,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       </header>
 
       {/* Full-Screen Horizontal Sliding Track */}
-      <main className="fullscreen-stage-viewport">
+      <main 
+        className="fullscreen-stage-viewport"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Visual 10-Second Auto-Advance Progress Bar */}
         <div className="fullscreen-timer-bar" key={`${currentSlide}-${timerResetKey}`}>
           <div className="fullscreen-timer-fill"></div>
@@ -837,6 +875,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </div>
 
                   <div className="controls-center-group">
+                    <span className="slide-counter-badge">Slide {idx + 1} of {totalSlides}</span>
                     <span className="controls-keyboard-hint">Keyboard: ← / →</span>
                   </div>
 
