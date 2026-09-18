@@ -1041,7 +1041,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                         width: 'fit-content'
                       }}
                     >
-                      Admissions Open • Academic Year 2026–27
+                      Admissions Opening Soon • Academic Year 2026–27
                     </span>
                     <h3 
                       className="cta-banner-heading"
@@ -1062,7 +1062,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                         margin: 0
                       }}
                     >
-                      Sign in now to start your application, book your evaluation slot, and reserve your studio seat today.
+                      Sign in now to register your interest, prepare your application, and reserve your studio seat early.
                     </p>
                   </div>
                   <button 
