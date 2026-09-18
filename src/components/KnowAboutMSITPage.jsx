@@ -62,10 +62,10 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       category: 'CAMPUS LIFE & EVENTS',
       themeClass: 'slide-theme-events',
       layoutClass: 'slide-layout-events',
-      title: 'Events & Life at MSIT: Culture, Code & Community',
-      lead: 'Experience a vibrant student journey that blends high-energy hackathons, cultural festivals, Freshers celebrations, and grand project expos.',
+      title: 'Life on Campus & Events: Culture, Code & Community',
+      lead: 'Experience a vibrant student journey on a 66-acre green research campus — hackathons, sports grounds, cultural fests, and collaborative studios.',
       image: '/assets/iiit-campus-life.jpg',
-      imageCaption: 'Vibrant Campus Life, Cultural Celebrations & Student Community'
+      imageCaption: 'Vibrant Campus Life, Sports, Studios & Student Community at IIIT Hyderabad'
     },
     {
       id: 'practicum',
@@ -549,62 +549,83 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       case 'events':
         return (
           <div className="slide-content-layout layout-events-community">
-            <div className="events-quad-grid">
-              {/* Event 1: Freshers */}
-              <div className="event-feature-card card-freshers">
-                <div className="event-icon-pill"><SparklesIcon size={20} /> Freshers' Day</div>
-                <h4>Freshers' Welcome & Induction</h4>
-                <p>A grand kickoff where seniors welcome the incoming cohort. Features interactive icebreakers, student-led cultural performances, team bonding challenges, and orientation into the MSIT studio culture.</p>
-                <div className="event-meta-footer">
-                  <span className="event-tag">Welcoming New Batches</span>
-                  <span className="event-season">Commencement Week</span>
-                </div>
+            {/* Top Quick Amenities Strip */}
+            <div className="events-amenities-strip">
+              <div className="amenity-pill">
+                <span className="amenity-dot"></span>
+                <strong>66-Acre Green Campus</strong>
               </div>
-
-              {/* Event 2: Cultural Event */}
-              <div className="event-feature-card card-cultural">
-                <div className="event-icon-pill"><UsersIcon size={20} /> Cultural Extravaganza</div>
-                <h4>Cultural Event & Annual Day</h4>
-                <p>A vibrant multi-day celebration of music, dance, theater, and ethnic diversity. Students showcase their artistic talents, organize live band performances, and unwind with festive celebrations across campus.</p>
-                <div className="event-meta-footer">
-                  <span className="event-tag">Music, Dance & Drama</span>
-                  <span className="event-season">Annual Festival</span>
-                </div>
+              <div className="amenity-pill">
+                <span className="amenity-dot"></span>
+                <strong>Sports Grounds & Gym Complex</strong>
               </div>
-
-              {/* Event 3: Hackathons */}
-              <div className="event-feature-card card-hackathon">
-                <div className="event-icon-pill"><CpuIcon size={20} /> Overnight Hackathons</div>
-                <h4>48-Hour Hack-A-Sprint</h4>
-                <p>An intense, high-octane 48-hour continuous coding hackathon. Student teams build working prototypes solving challenging real-world problems with direct evaluation by industry tech mentors.</p>
-                <div className="event-meta-footer">
-                  <span className="event-tag">Overnight Building</span>
-                  <span className="event-season">Mid-Semester Sprint</span>
-                </div>
+              <div className="amenity-pill">
+                <span className="amenity-dot"></span>
+                <strong>Student-Led Technical Clubs</strong>
               </div>
-
-              {/* Event 4: Capstone Expo */}
-              <div className="event-feature-card card-capstone">
-                <div className="event-icon-pill"><AwardIcon size={20} /> Project Expo</div>
-                <h4>Annual Capstone Demo Day</h4>
-                <p>The premier graduation event where students publicly present live software applications to visiting CTOs, venture capitalists, recruiters, and engineering managers from Hyderabad's cyber corridor.</p>
-                <div className="event-meta-footer">
-                  <span className="event-tag">Live Product Demos</span>
-                  <span className="event-season">Final Semester Showcase</span>
-                </div>
+              <div className="amenity-pill">
+                <span className="amenity-dot"></span>
+                <strong>Active Collaborative Studios</strong>
               </div>
             </div>
 
-            {/* Embedded Campus Life Picture Banner */}
-            <div className="events-campus-banner">
-              <img 
-                src="/assets/iiit-campus-life.jpg" 
-                alt="Campus Life at IIIT Hyderabad" 
-                className="events-banner-img"
-              />
-              <div className="events-banner-overlay">
-                <strong>A Balanced Student Journey on a 66-Acre Research Campus</strong>
-                <span>Hackathons, Cultural Celebrations, Sports Facilities, and Lifelong Peer Friendships</span>
+            {/* Split Showcase: Streamlined Event Cards + Real Campus Life Collage */}
+            <div className="events-split-showcase">
+              {/* Left Column: 4 Clean, High-Readability Cards */}
+              <div className="events-streamlined-list">
+                <div className="event-streamlined-card card-freshers">
+                  <div className="event-streamlined-header">
+                    <span className="event-streamlined-badge"><SparklesIcon size={14} /> Induction</span>
+                    <span className="event-streamlined-term">Day 1</span>
+                  </div>
+                  <h4>Freshers' Welcome & Icebreakers</h4>
+                  <p>Senior-led cultural welcome, team bonding challenges, and studio onboarding.</p>
+                </div>
+
+                <div className="event-streamlined-card card-cultural">
+                  <div className="event-streamlined-header">
+                    <span className="event-streamlined-badge"><UsersIcon size={14} /> Annual Fest</span>
+                    <span className="event-streamlined-term">Annual</span>
+                  </div>
+                  <h4>Cultural Celebrations & Annual Day</h4>
+                  <p>Campus celebrations featuring music bands, dance performances, theater, and arts.</p>
+                </div>
+
+                <div className="event-streamlined-card card-hackathon">
+                  <div className="event-streamlined-header">
+                    <span className="event-streamlined-badge"><CpuIcon size={14} /> 48-Hr Sprint</span>
+                    <span className="event-streamlined-term">Mid-Term</span>
+                  </div>
+                  <h4>Overnight Hackathons</h4>
+                  <p>Continuous building sprints creating functional prototypes evaluated by tech mentors.</p>
+                </div>
+
+                <div className="event-streamlined-card card-capstone">
+                  <div className="event-streamlined-header">
+                    <span className="event-streamlined-badge"><AwardIcon size={14} /> Demo Day</span>
+                    <span className="event-streamlined-term">Finale</span>
+                  </div>
+                  <h4>Capstone Expo & Project Showcase</h4>
+                  <p>Live production demos presented directly to visiting industry CTOs and hiring leaders.</p>
+                </div>
+              </div>
+
+              {/* Right Column: Prominent Campus Life Photo Card */}
+              <div className="events-photo-showcase">
+                <div className="campus-collage-wrapper">
+                  <img 
+                    src="/assets/iiit-campus-life.jpg" 
+                    alt="Life on Campus IIIT Hyderabad - Academic, Sports, Cultural & Student Activities" 
+                    className="campus-collage-img"
+                  />
+                  <div className="campus-collage-tag">
+                    <span>IIIT Hyderabad Campus Life</span>
+                  </div>
+                </div>
+                <div className="campus-collage-footer">
+                  <strong>Vibrant Life at IIIT Hyderabad</strong>
+                  <span>State-of-the-art sports grounds, indoor recreation, modern lecture theatres & rich student culture</span>
+                </div>
               </div>
             </div>
           </div>

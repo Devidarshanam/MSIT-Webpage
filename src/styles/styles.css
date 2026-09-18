@@ -6301,121 +6301,185 @@ p {
 }
 
 /* =========================================================================
-   SLIDE 5: EVENTS & COMMUNITY
+   SLIDE 5: EVENTS & CAMPUS LIFE (CLEAN SPLIT LAYOUT)
    ========================================================================= */
-.layout-events-community .events-quad-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.1rem;
-  margin-bottom: 0.95rem;
-}
-
-.event-feature-card {
-  background: #ffffff;
-  border: 1px solid #fed7aa;
-  border-radius: var(--radius-sm);
-  padding: 1.05rem 1.15rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+.layout-events-community {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.2s ease;
+  height: 100%;
+  gap: 0.75rem;
 }
 
-.event-feature-card:hover {
-  border-color: #ea580c;
-  box-shadow: 0 6px 16px rgba(234, 88, 12, 0.09);
-  transform: translateY(-2px);
+.events-amenities-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
 }
 
-.event-icon-pill {
+.amenity-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.71rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.22rem 0.6rem;
+  background: #f8fafc;
+  border: 1px solid #fed7aa;
   border-radius: var(--radius-pill);
-  align-self: flex-start;
-  margin-bottom: 0.55rem;
-}
-
-.card-freshers .event-icon-pill { background: #ffedd5; color: #c2410c; }
-.card-cultural .event-icon-pill { background: #fce7f3; color: #be185d; }
-.card-hackathon .event-icon-pill { background: #e0f2fe; color: #0369a1; }
-.card-capstone .event-icon-pill { background: #fef3c7; color: #b45309; }
-
-.event-feature-card h4 {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--primary-900);
-  margin: 0 0 0.35rem 0;
-}
-
-.event-feature-card p {
-  font-size: 0.81rem;
-  color: var(--neutral-600);
-  line-height: 1.45;
-  margin: 0 0 0.75rem 0;
-  flex: 1;
-}
-
-.event-meta-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 0.55rem;
-  border-top: 1px solid #f1f5f9;
-}
-
-.event-tag {
-  font-size: 0.71rem;
-  font-weight: 700;
+  padding: 0.22rem 0.75rem;
+  font-size: 0.76rem;
   color: var(--neutral-700);
 }
 
-.event-season {
-  font-size: 0.67rem;
+.amenity-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ea580c;
+}
+
+.events-split-showcase {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1.1rem;
+  flex: 1;
+  min-height: 0;
+}
+
+.events-streamlined-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  height: 100%;
+}
+
+.event-streamlined-card {
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-radius: var(--radius-sm);
+  padding: 0.85rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: all 0.2s ease;
+}
+
+.event-streamlined-card:hover {
+  border-color: #ea580c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.09);
+}
+
+.event-streamlined-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.event-streamlined-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  color: #ea580c;
   text-transform: uppercase;
   letter-spacing: 0.04em;
+  padding: 0.18rem 0.5rem;
+  border-radius: var(--radius-pill);
 }
 
-.events-campus-banner {
-  position: relative;
+.card-freshers .event-streamlined-badge { background: #ffedd5; color: #c2410c; }
+.card-cultural .event-streamlined-badge { background: #fce7f3; color: #be185d; }
+.card-hackathon .event-streamlined-badge { background: #e0f2fe; color: #0369a1; }
+.card-capstone .event-streamlined-badge { background: #fef3c7; color: #b45309; }
+
+.event-streamlined-term {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--neutral-400);
+}
+
+.event-streamlined-card h4 {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  margin: 0 0 0.3rem 0;
+  line-height: 1.25;
+}
+
+.event-streamlined-card p {
+  font-size: 0.77rem;
+  color: var(--neutral-600);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Right Column: Campus Photo Showcase */
+.events-photo-showcase {
+  background: #ffffff;
+  border: 1px solid #fed7aa;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  height: 85px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
-.events-banner-img {
+.campus-collage-wrapper {
+  position: relative;
+  flex: 1;
+  min-height: 190px;
+  overflow: hidden;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.campus-collage-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Scale 1.05 neatly clips the black letterbox sidebars in the source image */
+  transform: scale(1.05);
+  transform-origin: center center;
+  display: block;
 }
 
-.events-banner-overlay {
+.campus-collage-tag {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.65) 100%);
-  padding: 0 1.5rem;
+  top: 0.65rem;
+  left: 0.65rem;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.22rem 0.65rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.campus-collage-footer {
+  padding: 0.65rem 0.95rem;
+  background: #ffffff;
+  border-top: 1px solid #f1f5f9;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  color: #ffffff;
+  gap: 0.15rem;
 }
 
-.events-banner-overlay strong {
-  font-size: 0.88rem;
-  margin-bottom: 0.15rem;
+.campus-collage-footer strong {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--primary-900);
 }
 
-.events-banner-overlay span {
-  font-size: 0.76rem;
-  color: #cbd5e1;
+.campus-collage-footer span {
+  font-size: 0.72rem;
+  color: var(--neutral-600);
+  line-height: 1.35;
 }
 
 /* =========================================================================
@@ -7343,61 +7407,87 @@ p {
   }
 
   /* -------------------------------------------------------------------------
-     SLIDE 5: EVENTS & COMMUNITY (CLEAN 4-EVENT QUAD)
+     SLIDE 5: EVENTS & CAMPUS LIFE (MOBILE STREAMLINED)
      ------------------------------------------------------------------------- */
-  .layout-events-community .events-quad-grid {
+  .layout-events-community {
+    gap: 0.4rem;
+  }
+
+  .events-amenities-strip {
+    display: none;
+  }
+
+  .events-split-showcase {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 0.45rem;
+    height: 100%;
+  }
+
+  .events-streamlined-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 0.55rem;
-    height: calc(100% - 64px);
+    gap: 0.4rem;
   }
 
-  .event-feature-card {
-    padding: 0.6rem 0.75rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .event-streamlined-card {
+    padding: 0.45rem 0.6rem;
+    border-radius: 8px;
   }
 
-  .event-icon-pill {
-    font-size: 0.66rem;
-    padding: 0.15rem 0.45rem;
+  .event-streamlined-header {
     margin-bottom: 0.2rem;
   }
 
-  .event-feature-card h4 {
-    font-size: 0.86rem;
-    line-height: 1.2;
-    margin: 0;
+  .event-streamlined-badge {
+    font-size: 0.62rem;
+    padding: 0.12rem 0.4rem;
   }
 
-  /* Hide long event descriptions to keep cards airy */
-  .event-feature-card p {
+  .event-streamlined-term {
+    font-size: 0.6rem;
+  }
+
+  .event-streamlined-card h4 {
+    font-size: 0.78rem;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .event-streamlined-card p {
     display: none !important;
   }
 
-  .event-meta-footer {
-    padding-top: 0.25rem;
+  .events-photo-showcase {
+    border-radius: 8px;
+    height: 100%;
+    min-height: 110px;
   }
 
-  .event-tag, .event-season {
+  .campus-collage-wrapper {
+    min-height: 95px;
+  }
+
+  .campus-collage-tag {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .campus-collage-footer {
+    padding: 0.35rem 0.65rem;
+  }
+
+  .campus-collage-footer strong {
+    font-size: 0.74rem;
+  }
+
+  .campus-collage-footer span {
     font-size: 0.64rem;
-  }
-
-  .events-campus-banner {
-    height: 56px;
-    margin-top: 0.45rem;
-    border-radius: 10px;
-  }
-
-  .events-banner-overlay strong {
-    font-size: 0.8rem;
-  }
-
-  .events-banner-overlay span {
-    font-size: 0.66rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* -------------------------------------------------------------------------
@@ -7700,9 +7790,37 @@ p {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  .layout-events-community .events-quad-grid {
-    grid-template-columns: repeat(4, 1fr) !important;
+  .layout-events-community .events-amenities-strip {
+    display: flex !important;
+    gap: 0.35rem;
+  }
+
+  .layout-events-community .amenity-pill {
+    font-size: 0.62rem !important;
+    padding: 0.1rem 0.45rem !important;
+  }
+
+  .layout-events-community .events-split-showcase {
+    grid-template-columns: 1.15fr 1fr !important;
     grid-template-rows: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .layout-events-community .events-streamlined-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.35rem !important;
+  }
+
+  .layout-events-community .event-streamlined-card {
+    padding: 0.35rem 0.5rem !important;
+  }
+
+  .layout-events-community .event-streamlined-card p {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    font-size: 0.64rem !important;
   }
 
   .layout-origin-story .origin-main-grid {
