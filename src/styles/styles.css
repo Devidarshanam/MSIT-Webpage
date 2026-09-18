@@ -5900,14 +5900,14 @@ p {
 .layout-journey-evolution .journey-milestones-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.1rem;
+  gap: 0.65rem;
 }
 
 .journey-milestone-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: 1.1rem 1.25rem;
+  padding: 0.75rem 0.9rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
@@ -5925,21 +5925,21 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.55rem;
+  margin-bottom: 0.35rem;
 }
 
 .journey-year-badge {
-  font-size: 0.78rem;
+  font-size: 0.65rem;
   font-weight: 900;
-  background: #0284c7;
-  color: #ffffff;
-  padding: 0.2rem 0.65rem;
+  background: #0b2a6b;
+  color: #fcd34d;
+  padding: 0.15rem 0.55rem;
   border-radius: var(--radius-pill);
   letter-spacing: 0.04em;
 }
 
 .journey-era-label {
-  font-size: 0.68rem;
+  font-size: 0.58rem;
   font-weight: 800;
   color: #0369a1;
   text-transform: uppercase;
@@ -5947,18 +5947,18 @@ p {
 }
 
 .journey-milestone-card h4 {
-  font-size: 0.94rem;
+  font-size: 0.84rem;
   font-weight: 800;
   color: var(--primary-900);
-  margin: 0 0 0.35rem 0;
-  line-height: 1.32;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
 }
 
 .journey-milestone-card p {
-  font-size: 0.81rem;
+  font-size: 0.72rem;
   color: var(--neutral-600);
-  line-height: 1.48;
-  margin: 0 0 0.75rem 0;
+  line-height: 1.35;
+  margin: 0 0 0.45rem 0;
   flex: 1;
 }
 
@@ -5966,9 +5966,9 @@ p {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  padding-top: 0.55rem;
+  padding-top: 0.35rem;
   border-top: 1px solid #f1f5f9;
-  font-size: 0.71rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: #0284c7;
 }
