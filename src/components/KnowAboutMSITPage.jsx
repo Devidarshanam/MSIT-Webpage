@@ -59,13 +59,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'events',
       number: '05',
-      category: 'CAMPUS LIFE & EVENTS',
+      category: 'CAMPUS LIFE',
       themeClass: 'slide-theme-events',
       layoutClass: 'slide-layout-events',
-      title: 'Life on Campus & Events: Culture, Code & Community',
-      lead: 'Experience a vibrant student journey on a 66-acre green research campus — hackathons, sports grounds, cultural fests, and collaborative studios.',
+      title: 'Life on Campus at IIIT Hyderabad',
+      lead: 'A vibrant 66-acre green research campus offering an enriching student experience with modern sports, technical clubs, and active community life.',
       image: '/assets/iiit-campus-life.jpg',
-      imageCaption: 'Vibrant Campus Life, Sports, Studios & Student Community at IIIT Hyderabad'
+      imageCaption: 'Life on Campus — 66-Acre Green Research Campus at IIIT Hyderabad'
     },
     {
       id: 'practicum',
@@ -549,82 +549,77 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       case 'events':
         return (
           <div className="slide-content-layout layout-events-community">
-            {/* Top Quick Amenities Strip */}
-            <div className="events-amenities-strip">
-              <div className="amenity-pill">
-                <span className="amenity-dot"></span>
-                <strong>66-Acre Green Campus</strong>
-              </div>
-              <div className="amenity-pill">
-                <span className="amenity-dot"></span>
-                <strong>Sports Grounds & Gym Complex</strong>
-              </div>
-              <div className="amenity-pill">
-                <span className="amenity-dot"></span>
-                <strong>Student-Led Technical Clubs</strong>
-              </div>
-              <div className="amenity-pill">
-                <span className="amenity-dot"></span>
-                <strong>Active Collaborative Studios</strong>
-              </div>
-            </div>
-
-            {/* Split Showcase: Streamlined Event Cards + Real Campus Life Collage */}
+            {/* Split Showcase: Simple Campus Life Highlights on Left, Real Photo Collage on Right */}
             <div className="events-split-showcase">
-              {/* Left Column: 4 Clean, High-Readability Cards */}
-              <div className="events-streamlined-list">
-                <div className="event-streamlined-card card-freshers">
-                  <div className="event-streamlined-header">
-                    <span className="event-streamlined-badge"><SparklesIcon size={14} /> Induction</span>
-                    <span className="event-streamlined-term">Day 1</span>
+              {/* Left Column: Simple, Elegant Campus Life Pillars + Portal Link */}
+              <div className="campus-overview-panel">
+                <div className="campus-pillars-grid">
+                  <div className="campus-pillar-card">
+                    <div className="pillar-header">
+                      <span className="pillar-dot green"></span>
+                      <h4>Green 66-Acre Campus</h4>
+                    </div>
+                    <p>Serene residential campus in Hyderabad's tech corridor with 24/7 studios and computing labs.</p>
                   </div>
-                  <h4>Freshers' Welcome & Icebreakers</h4>
-                  <p>Senior-led cultural welcome, team bonding challenges, and studio onboarding.</p>
+
+                  <div className="campus-pillar-card">
+                    <div className="pillar-header">
+                      <span className="pillar-dot blue"></span>
+                      <h4>Sports & Recreation</h4>
+                    </div>
+                    <p>Cricket & football grounds, basketball, badminton, table tennis, yoga, and a gymnasium.</p>
+                  </div>
+
+                  <div className="campus-pillar-card">
+                    <div className="pillar-header">
+                      <span className="pillar-dot amber"></span>
+                      <h4>Clubs & Creative Arts</h4>
+                    </div>
+                    <p>Student-led societies across technology, music, dance, literature, robotics, and arts.</p>
+                  </div>
+
+                  <div className="campus-pillar-card">
+                    <div className="pillar-header">
+                      <span className="pillar-dot purple"></span>
+                      <h4>Student Community</h4>
+                    </div>
+                    <p>An inspiring peer culture fostering collaborative learning, innovation, and lifelong friendships.</p>
+                  </div>
                 </div>
 
-                <div className="event-streamlined-card card-cultural">
-                  <div className="event-streamlined-header">
-                    <span className="event-streamlined-badge"><UsersIcon size={14} /> Annual Fest</span>
-                    <span className="event-streamlined-term">Annual</span>
+                {/* Direct Link to Official IIIT Hyderabad Life on Campus Page */}
+                <a
+                  href="https://www.iiit.ac.in/life-on-campus/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="campus-life-portal-btn"
+                  aria-label="Visit IIIT Hyderabad Life on Campus Page"
+                >
+                  <div className="portal-btn-content">
+                    <span className="portal-btn-kicker">Official IIIT Portal</span>
+                    <strong className="portal-btn-text">Explore Full Campus Life at IIIT Hyderabad</strong>
                   </div>
-                  <h4>Cultural Celebrations & Annual Day</h4>
-                  <p>Campus celebrations featuring music bands, dance performances, theater, and arts.</p>
-                </div>
-
-                <div className="event-streamlined-card card-hackathon">
-                  <div className="event-streamlined-header">
-                    <span className="event-streamlined-badge"><CpuIcon size={14} /> 48-Hr Sprint</span>
-                    <span className="event-streamlined-term">Mid-Term</span>
-                  </div>
-                  <h4>Overnight Hackathons</h4>
-                  <p>Continuous building sprints creating functional prototypes evaluated by tech mentors.</p>
-                </div>
-
-                <div className="event-streamlined-card card-capstone">
-                  <div className="event-streamlined-header">
-                    <span className="event-streamlined-badge"><AwardIcon size={14} /> Demo Day</span>
-                    <span className="event-streamlined-term">Finale</span>
-                  </div>
-                  <h4>Capstone Expo & Project Showcase</h4>
-                  <p>Live production demos presented directly to visiting industry CTOs and hiring leaders.</p>
-                </div>
+                  <span className="portal-btn-arrow">
+                    <ArrowRightIcon size={18} />
+                  </span>
+                </a>
               </div>
 
-              {/* Right Column: Prominent Campus Life Photo Card */}
+              {/* Right Column: Prominent Campus Life Photo Collage */}
               <div className="events-photo-showcase">
                 <div className="campus-collage-wrapper">
                   <img 
                     src="/assets/iiit-campus-life.jpg" 
-                    alt="Life on Campus IIIT Hyderabad - Academic, Sports, Cultural & Student Activities" 
+                    alt="Life on Campus IIIT Hyderabad - Campus, Sports, Studios and Community" 
                     className="campus-collage-img"
                   />
                   <div className="campus-collage-tag">
-                    <span>IIIT Hyderabad Campus Life</span>
+                    <span>Life on Campus · IIIT Hyderabad</span>
                   </div>
                 </div>
                 <div className="campus-collage-footer">
-                  <strong>Vibrant Life at IIIT Hyderabad</strong>
-                  <span>State-of-the-art sports grounds, indoor recreation, modern lecture theatres & rich student culture</span>
+                  <strong>66-Acre Green Research Campus</strong>
+                  <span>A holistic student experience combining active computing studios, sports, and community life</span>
                 </div>
               </div>
             </div>
