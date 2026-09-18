@@ -83,11 +83,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'practicum',
       number: '06',
-      category: 'PAID CORPORATE PRACTICUM',
+      category: 'REAL-WORLD PRACTICUM',
       themeClass: 'slide-theme-practicum',
       layoutClass: 'slide-layout-practicum',
-      title: 'Paid Corporate Practicum: Earn While You Learn',
-      lead: 'Spend ~50% of your postgraduate programme embedded directly inside corporate engineering teams in Hyderabad’s tech corridor, earning monthly stipends while you study.',
+      title: 'Real-World Practicum: 50% Learning, 50% Projects',
+      lead: 'Spend ~50% of your postgraduate programme embedded directly in real-world projects working with CETL and mastering industry-relevant skills.',
       image: '/assets/iiit-coop.jpg',
       imageCaption: 'Corporate Co-op Practicum at Premier Tech Offices in Gachibowli'
     },
@@ -614,7 +614,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
                   <div className="btech-row outcome">
                     <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Graduated as production-hardened AI software engineers with ~50% paid corporate practicum, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
+                    <p>Graduated as production-hardened AI software engineers with a ~50% real-world practicum with CETL, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
                   </div>
                 </div>
               </div>
@@ -642,8 +642,8 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="edu-pillar-divider"></div>
               <div className="edu-pillar-item">
                 <span className="pillar-shift-badge">CORPORATE TENURE</span>
-                <strong>~50% Paid Corporate Practicum</strong>
-                <p>Real production microservices and stipends in Hyderabad's premier tech corridor.</p>
+                <strong>50% Real-World Practicum</strong>
+                <p>Real production microservices and projects working alongside CETL.</p>
               </div>
             </div>
           </div>
@@ -736,42 +736,28 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           <div className="slide-content-layout layout-coop-practicum">
             <div className="practicum-stats-strip">
               <div className="p-stat-box">
-                <strong className="p-stat-number">~50%</strong>
-                <span className="p-stat-label">Of Programme in Industry</span>
-                <span className="p-stat-detail">Corporate Software Practicum</span>
+                <strong className="p-stat-number">50 / 50</strong>
+                <span className="p-stat-label">Learning & Projects</span>
+                <span className="p-stat-detail">Working with CETL</span>
               </div>
               <div className="p-stat-box highlight">
-                <strong className="p-stat-number">₹25k–₹60k</strong>
-                <span className="p-stat-label">Monthly Corporate Stipend</span>
-                <span className="p-stat-detail">Earn While You Learn</span>
-              </div>
-              <div className="p-stat-box">
-                <strong className="p-stat-number">70%+</strong>
-                <span className="p-stat-label">PPO Conversion Rate</span>
-                <span className="p-stat-detail">Pre-Placement Full-Time Offers</span>
-              </div>
-              <div className="p-stat-box">
-                <strong className="p-stat-number">100+</strong>
-                <span className="p-stat-label">Recruiting Partners</span>
-                <span className="p-stat-detail">Hyderabad Tech Corridor</span>
+                <strong className="p-stat-number">100%</strong>
+                <span className="p-stat-label">Industry Aligned</span>
+                <span className="p-stat-detail">Real-world Problem Solving</span>
               </div>
             </div>
 
             <div className="practicum-details-grid">
               <div className="practicum-text-card">
-                <h4>Why the MSIT Corporate Practicum is Transformative</h4>
+                <h4>Why the MSIT Real-World Practicum is Transformative</h4>
                 <ul className="practicum-benefits-list">
                   <li>
                     <CheckCircleIcon size={18} />
-                    <span><strong>Recover Education Investment Early:</strong> Substantial monthly stipends allow students to offset their living and academic expenses during the master's programme itself.</span>
+                    <span><strong>Industry-Integrated Learning:</strong> Master cutting-edge technologies by working on real-world problems, directly aligning your skills with industry requirements.</span>
                   </li>
                   <li>
                     <CheckCircleIcon size={18} />
-                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems—not toy toy projects or simulated labs.</span>
-                  </li>
-                  <li>
-                    <CheckCircleIcon size={18} />
-                    <span><strong>Direct Absorption into Full-Time Roles:</strong> Because company teams already know your code quality from the practicum, over 70% of students receive full-time PPOs prior to graduation.</span>
+                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems in collaboration with CETL.</span>
                   </li>
                   <li>
                     <CheckCircleIcon size={18} />
