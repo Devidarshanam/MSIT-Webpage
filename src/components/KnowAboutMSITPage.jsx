@@ -84,8 +84,8 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       category: 'BEGIN YOUR JOURNEY',
       themeClass: 'slide-theme-admissions',
       layoutClass: 'slide-layout-admissions',
-      title: 'Take the Next Step: Join the MSIT Legacy',
-      lead: 'Transparent eligibility criteria, a structured 3-step admissions pathway, and an immediate gateway to high-impact computing careers.',
+      title: 'Begin Your Journey: Admissions & Eligibility',
+      lead: 'Clear eligibility criteria, a structured 3-step selection pathway, and direct enrollment into India’s flagship studio computing programme.',
       image: '/assets/iiit-campus.jpg',
       imageCaption: 'The Academic Campus of IIIT Hyderabad, Gachibowli'
     }
@@ -702,77 +702,124 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         return (
           <div className="slide-content-layout layout-admissions-gateway">
             <div className="admissions-split-grid">
-              {/* Left Column: Eligibility & 3-Step Process */}
+              {/* Left Column: Eligibility Criteria & 3-Step Pathway */}
               <div className="admissions-process-col">
+                {/* 1. Eligibility Criteria */}
                 <div className="admissions-eligibility-card">
-                  <h4>Who Can Apply?</h4>
-                  <div className="eligible-degrees-pills">
-                    <span className="deg-pill highlight">B.Tech / B.E (All Engineering Disciplines)</span>
-                    <span className="deg-pill">Final-Year B.Tech / B.E Students (Graduating 2026/2027)</span>
+                  <div className="admissions-card-header">
+                    <span className="admissions-section-tag">CRITERIA</span>
+                    <h4>Eligibility Requirements</h4>
                   </div>
-                  <p className="eligibility-note">Engineers from non-CS branches undergo an intensive foundational studio module to build core algorithmic and systems fundamentals.</p>
+                  <div className="eligibility-points-list">
+                    <div className="eligibility-item">
+                      <span className="eligibility-check-badge">✓</span>
+                      <div className="eligibility-text">
+                        <strong>B.Tech / B.E (All Engineering Disciplines)</strong>
+                        <span>Open to graduates from CSE, ECE, EEE, Mechanical, Civil, IT & all allied engineering streams.</span>
+                      </div>
+                    </div>
+                    <div className="eligibility-item">
+                      <span className="eligibility-check-badge">✓</span>
+                      <div className="eligibility-text">
+                        <strong>Final-Year Engineering Students</strong>
+                        <span>Students graduating in 2026 or 2027 can apply and secure advance admission prior to final semester results.</span>
+                      </div>
+                    </div>
+                    <div className="eligibility-item eligibility-bridge-item">
+                      <span className="eligibility-check-badge">✓</span>
+                      <div className="eligibility-text">
+                        <strong>Preparatory Bridge Studio for Non-CS Graduates</strong>
+                        <span>Dedicated foundational immersion in algorithmic problem-solving, data structures, and programming systems.</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
+                {/* 2. 3-Step Selection Process */}
                 <div className="admissions-steps-card">
-                  <h4>Simple 3-Step Selection Process</h4>
+                  <div className="admissions-card-header">
+                    <span className="admissions-section-tag">PROCESS</span>
+                    <h4>3-Step Admission Pathway</h4>
+                  </div>
                   <div className="steps-horizontal-list">
                     <div className="step-item">
                       <span className="step-num">01</span>
-                      <strong>Online Application</strong>
-                      <span>Fill the streamlined online form & upload academic records.</span>
+                      <strong>Online Registration</strong>
+                      <span>Fill the quick online form and upload academic records.</span>
                     </div>
                     <div className="step-item">
                       <span className="step-num">02</span>
                       <strong>Aptitude Evaluation</strong>
-                      <span>GAT (Graduate Aptitude Test) or qualifying national exam score.</span>
+                      <span>Qualify via GAT (Graduate Aptitude Test) or national GATE score.</span>
                     </div>
                     <div className="step-item">
                       <span className="step-num">03</span>
-                      <strong>Studio Admission</strong>
-                      <span>Counselling session, studio seat allotment & onboarding.</span>
+                      <strong>Studio Allotment</strong>
+                      <span>Interactive interview, domain seat allocation & cohort onboarding.</span>
                     </div>
                   </div>
                 </div>
 
+                {/* 3. Action CTA Banner */}
                 <div className="admissions-cta-banner">
-                  <div>
-                    <h3>Ready to Transform Your Engineering Career?</h3>
-                    <p>Take the next step into India's premier studio-based master's degree in computing.</p>
+                  <div className="cta-banner-info">
+                    <span className="cta-status-badge">Admissions Open • Academic Year 2026–27</span>
+                    <h3>Begin Your Master's in Computing</h3>
+                    <p>Experience India’s pioneer studio-learning postgraduate degree with 1-year paid corporate practicum.</p>
                   </div>
                   <button 
                     type="button" 
                     className="btn btn-primary admissions-big-cta"
                     onClick={onGoToSignIn}
                   >
-                    <span>Student Sign In / Apply Now ➔</span>
+                    <span>Student Portal / Apply Now ➔</span>
                   </button>
                 </div>
               </div>
 
-              {/* Right Column: Panoramic Campus Card */}
+              {/* Right Column: Full Campus Image Showcase & Consortium Facts */}
               <div className="admissions-campus-col">
-                <div className="campus-panoramic-card">
-                  <img 
-                    src="/assets/iiit-campus.jpg" 
-                    alt="IIIT Hyderabad Campus" 
-                    className="campus-panoramic-img"
-                  />
-                  <div className="campus-card-content">
-                    <span className="campus-badge">Consortium Master's Degree</span>
-                    <h3>IIIT Hyderabad & CIHL State Universities</h3>
-                    <p>Join an active community of 3,000+ alumni driving computing innovation across the globe.</p>
-                    <div className="campus-quick-stats">
-                      <div>
+                <div className="campus-showcase-card">
+                  {/* Full Campus Photo Container - No Cropping */}
+                  <div className="campus-full-photo-frame">
+                    <img 
+                      src="/assets/iiit-campus.jpg" 
+                      alt="IIIT Hyderabad Campus - Academic Block" 
+                      className="campus-full-img"
+                    />
+                    <div className="campus-photo-overlay-tag">
+                      <span className="photo-pin-icon">📍</span>
+                      <span>IIIT Hyderabad • Academic Block</span>
+                    </div>
+                  </div>
+
+                  {/* Program Context & Metrics */}
+                  <div className="campus-showcase-content">
+                    <div className="consortium-header-group">
+                      <span className="consortium-pill">Consortium Master's Degree</span>
+                      <span className="consortium-sub">CIHL & State Universities</span>
+                    </div>
+                    <h3>Consortium Academic Leadership</h3>
+                    <p className="campus-desc">
+                      Offered jointly by CIHL, IIIT Hyderabad, JNTU Hyderabad, Osmania University, SVU, and JNTU Kakinada with a 25+ year legacy of computing excellence.
+                    </p>
+
+                    <div className="campus-metrics-grid">
+                      <div className="campus-metric-box">
                         <strong>25+</strong>
-                        <span>Years of Excellence</span>
+                        <span>Years Legacy</span>
                       </div>
-                      <div>
+                      <div className="campus-metric-box">
                         <strong>100%</strong>
-                        <span>Studio Learning</span>
+                        <span>Active Studios</span>
                       </div>
-                      <div>
-                        <strong>1:10</strong>
-                        <span>Mentorship Ratio</span>
+                      <div className="campus-metric-box">
+                        <strong>~50%</strong>
+                        <span>Corporate Co-op</span>
+                      </div>
+                      <div className="campus-metric-box">
+                        <strong>3,000+</strong>
+                        <span>Alumni Network</span>
                       </div>
                     </div>
                   </div>
