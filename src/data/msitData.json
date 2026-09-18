@@ -3,7 +3,7 @@
     "brand": {
       "title": "IIIT Hyderabad",
       "subtitle": "MSIT",
-      "logo": "https://www.msit.ac.in/assets/msit-logo.png"
+      "logo": "/assets/msit-logo.png"
     },
     "links": [
       { "label": "Know About MSIT", "href": "#glance" },

@@ -785,7 +785,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
           <div className="top-bar-brand">
             <img
-              src="https://www.msit.ac.in/assets/msit-logo.png"
+              src="/assets/msit-logo.png"
               alt="MSIT Logo"
               width="32"
               height="32"

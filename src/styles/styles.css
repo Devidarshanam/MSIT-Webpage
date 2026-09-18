@@ -5492,6 +5492,14 @@ p {
   gap: 0.6rem;
 }
 
+.top-bar-brand img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
 .top-bar-title {
   font-size: 1rem;
   font-weight: 800;

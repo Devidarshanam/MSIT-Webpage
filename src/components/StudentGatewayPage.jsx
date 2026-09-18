@@ -39,7 +39,7 @@ export default function StudentGatewayPage() {
         <div className="gateway-container gateway-header-container">
           <div className="gateway-brand">
             <img
-              src="https://www.msit.ac.in/assets/msit-logo.png"
+              src="/assets/msit-logo.png"
               alt="MSIT Logo"
               className="gateway-logo"
               width="38"
