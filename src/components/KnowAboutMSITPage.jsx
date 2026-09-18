@@ -324,11 +324,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2008</span>
                   <span className="journey-era-label">Industry Integration</span>
                 </div>
-                <h4>Pioneering Paid Corporate Co-op Practicum</h4>
-                <p>Pioneered the corporate co-op internship model where students spend nearly half their master's embedded directly in real engineering sprints across Hyderabad's HITEC City cyber-corridor, earning monthly stipends while studying.</p>
+                <h4>Pioneering the Real-World Practicum</h4>
+                <p>Introduced an immersive practicum model where students spend nearly half their master's working directly on real-world engineering sprints and production-grade software projects alongside industry experts and CETL.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>~50% Tenure in Real Corporate Sprints</span>
+                  <span>~50% Tenure in Real-World Projects</span>
                 </div>
               </div>
 
@@ -379,11 +379,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
       case 'ainative':
         return (
-          <div className="slide-content-layout layout-ai-native" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', height: '100%', alignItems: 'stretch', backgroundColor: '#ffffff' }}>
+          <div className="slide-content-layout layout-ai-native" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', minHeight: 'calc(100% + 2.7rem)', margin: '-1.5rem -3.5rem -1.2rem -3.5rem', alignItems: 'stretch', backgroundColor: '#ffffff' }}>
             {/* Left Sidebar */}
-            <div style={{ backgroundColor: '#0b2a6b', color: '#fff', padding: '2.5rem 2.2rem', display: 'flex', flexDirection: 'column' }}>
-              <img src="/assets/msit-25-logo.png" alt="25 Years of MSIT" style={{ width: '110px', marginBottom: '1.5rem', alignSelf: 'flex-start', background: '#fff', borderRadius: '10px', padding: '0.4rem' }} />
-              <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.5rem', lineHeight: 1.15, letterSpacing: '-0.02em' }}>MSIT at 25:<br/><span style={{ color: '#fcd34d' }}>AI Native</span></h2>
+            <div style={{ background: 'linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%)', color: '#fff', padding: '3rem 2.2rem 3rem 5.7rem', display: 'flex', flexDirection: 'column' }}>
+              <img src="/assets/msit-25-logo.png" alt="25 Years of MSIT" style={{ width: '110px', marginBottom: '1.5rem', alignSelf: 'flex-start', background: '#fff', borderRadius: '10px', padding: '0.4rem', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.5rem', lineHeight: 1.15, letterSpacing: '-0.02em', color: '#ffffff' }}>MSIT at 25:<br/><span style={{ color: '#fcd34d' }}>AI Native</span></h2>
               <p style={{ fontSize: '0.9rem', color: '#cbd5e1', marginBottom: '2rem', lineHeight: 1.5 }}>
                 A quarter-century of learning by doing enters its AI-native era.
               </p>
@@ -412,7 +412,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             </div>
 
             {/* Right Content */}
-            <div style={{ display: 'flex', flexDirection: 'column', padding: '2.5rem 3.5rem 2.5rem 2.2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', padding: '3rem 7rem 3rem 2.2rem' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '1rem' }}>THE AI-NATIVE PROGRAM</span>
               
               <div style={{ backgroundColor: '#fffbeb', borderRadius: '12px', padding: '1.4rem 1.8rem', marginBottom: '1.5rem' }}>
