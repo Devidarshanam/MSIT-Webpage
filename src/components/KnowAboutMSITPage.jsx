@@ -808,13 +808,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                         <span>Students graduating in 2026 or 2027 can apply and secure advance admission prior to final semester results.</span>
                       </div>
                     </div>
-                    <div className="eligibility-item eligibility-bridge-item">
-                      <span className="eligibility-check-badge">✓</span>
-                      <div className="eligibility-text">
-                        <strong>Preparatory Bridge Studio for Non-CS Graduates</strong>
-                        <span>Dedicated foundational immersion in algorithmic problem-solving, data structures, and programming systems.</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -844,11 +837,52 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 </div>
 
                 {/* 3. Action CTA Banner */}
-                <div className="admissions-cta-banner">
+                <div 
+                  className="admissions-cta-banner"
+                  style={{
+                    background: 'linear-gradient(135deg, #071a38 0%, #17386d 100%)',
+                    border: '1.5px solid #3b82f6',
+                    borderRadius: '12px',
+                    color: '#ffffff',
+                    boxShadow: '0 6px 20px rgba(7, 26, 56, 0.35)'
+                  }}
+                >
                   <div className="cta-banner-info">
-                    <span className="cta-status-badge">Admissions Open • Academic Year 2026–27</span>
-                    <h3>Begin Your Master's in Computing</h3>
-                    <p>Experience India’s pioneer studio-learning postgraduate degree with 1-year paid corporate practicum.</p>
+                    <span 
+                      className="cta-status-badge"
+                      style={{
+                        background: '#fef08a',
+                        color: '#78350f',
+                        border: '1px solid #fde047',
+                        fontWeight: 900,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        width: 'fit-content'
+                      }}
+                    >
+                      Admissions Open • Academic Year 2026–27
+                    </span>
+                    <h3 
+                      className="cta-banner-heading"
+                      style={{
+                        color: '#ffffff',
+                        fontWeight: 900,
+                        textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)',
+                        margin: '0.2rem 0'
+                      }}
+                    >
+                      Begin Your Master's in Computing
+                    </h3>
+                    <p 
+                      className="cta-banner-desc"
+                      style={{
+                        color: '#f1f5f9',
+                        fontWeight: 500,
+                        margin: 0
+                      }}
+                    >
+                      Experience India’s pioneer studio-learning postgraduate degree with 1-year paid corporate practicum.
+                    </p>
                   </div>
                   <button 
                     type="button" 
@@ -880,11 +914,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <div className="campus-showcase-content">
                     <div className="consortium-header-group">
                       <span className="consortium-pill">Consortium Master's Degree</span>
-                      <span className="consortium-sub">CIHL & State Universities</span>
+                      <span className="consortium-sub">Offered by IIITH</span>
                     </div>
-                    <h3>Consortium Academic Leadership</h3>
+                    <h3>Offered by IIIT Hyderabad (IIITH)</h3>
                     <p className="campus-desc">
-                      Offered jointly by CIHL, IIIT Hyderabad, JNTU Hyderabad, Osmania University, SVU, and JNTU Kakinada with a 25+ year legacy of computing excellence.
+                      Offered jointly by CIHL, IIIT Hyderabad, JNTU Hyderabad, Osmania University, SVU, and JNTU Kakinada with a 25+ year legacy of computing excellence (offered by IIITH).
                     </p>
 
                     <div className="campus-metrics-grid">

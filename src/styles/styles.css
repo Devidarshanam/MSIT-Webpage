@@ -6691,64 +6691,82 @@ p {
 }
 
 .admissions-cta-banner {
-  background: linear-gradient(135deg, #0b2454 0%, #1e3a8a 100%);
+  background: linear-gradient(135deg, #071e46 0%, #173f78 100%) !important;
+  border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
   border-radius: var(--radius-sm);
   padding: 0.85rem 1.15rem;
-  color: #ffffff;
+  color: #ffffff !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  box-shadow: 0 4px 14px rgba(11, 36, 84, 0.22);
+  box-shadow: 0 4px 18px rgba(7, 30, 70, 0.3);
 }
 
+.cta-banner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.admissions-cta-banner .cta-status-badge,
 .cta-status-badge {
-  display: inline-block;
-  font-size: 0.64rem;
-  font-weight: 700;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.15);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  padding: 0.12rem 0.5rem;
-  border-radius: var(--radius-pill);
-  margin-bottom: 0.25rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  display: inline-flex !important;
+  align-items: center !important;
+  font-size: 0.66rem !important;
+  font-weight: 900 !important;
+  color: #78350f !important;
+  background: #fef08a !important;
+  border: 1px solid #fde047 !important;
+  padding: 0.16rem 0.6rem !important;
+  border-radius: var(--radius-pill) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  width: fit-content !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
 }
 
-.admissions-cta-banner h3 {
-  font-size: 0.94rem;
-  font-weight: 800;
-  margin: 0 0 0.15rem 0;
-  color: #ffffff;
+.fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner h3,
+.admissions-cta-banner h3,
+.cta-banner-heading {
+  font-size: 0.98rem !important;
+  font-weight: 900 !important;
+  color: #ffffff !important;
+  margin: 0.15rem 0 0.15rem 0 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+  line-height: 1.25 !important;
 }
 
-.admissions-cta-banner p {
-  font-size: 0.75rem;
-  color: #cbd5e1;
-  margin: 0;
-  line-height: 1.35;
+.fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner p,
+.admissions-cta-banner p,
+.cta-banner-desc {
+  font-size: 0.78rem !important;
+  color: #f1f5f9 !important;
+  margin: 0 !important;
+  line-height: 1.35 !important;
+  font-weight: 500 !important;
 }
 
 .admissions-big-cta {
   font-size: 0.82rem !important;
   padding: 0.55rem 1.15rem !important;
-  font-weight: 700 !important;
-  white-space: nowrap;
-  flex-shrink: 0;
-  background: #fbbf24 !important;
-  color: #0f172a !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  background: #f59e0b !important;
+  color: #0b1528 !important;
   border: none !important;
   border-radius: var(--radius-pill) !important;
-  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.35) !important;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.4) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
 }
 
 .admissions-big-cta:hover {
-  background: #f59e0b !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.45) !important;
+  background: #d97706 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 5px 15px rgba(217, 119, 6, 0.5) !important;
 }
 
 /* Right Column: Full Campus Image Showcase Card */
@@ -7522,24 +7540,31 @@ p {
   }
 
   .admissions-cta-banner {
-    padding: 0.55rem 0.85rem;
+    padding: 0.65rem 0.85rem !important;
     border-radius: 10px;
     gap: 0.55rem;
   }
 
+  .admissions-cta-banner .cta-status-badge,
   .cta-status-badge {
-    font-size: 0.58rem;
-    padding: 0.1rem 0.45rem;
+    font-size: 0.6rem !important;
+    padding: 0.12rem 0.45rem !important;
     margin-bottom: 0.15rem;
   }
 
-  .admissions-cta-banner h3 {
-    font-size: 0.84rem;
+  .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner h3,
+  .admissions-cta-banner h3,
+  .cta-banner-heading {
+    font-size: 0.86rem !important;
+    color: #ffffff !important;
     margin-bottom: 0.1rem;
   }
 
-  .admissions-cta-banner p {
-    font-size: 0.66rem;
+  .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner p,
+  .admissions-cta-banner p,
+  .cta-banner-desc {
+    font-size: 0.68rem !important;
+    color: #f1f5f9 !important;
     line-height: 1.25;
   }
 
