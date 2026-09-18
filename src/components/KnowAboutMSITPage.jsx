@@ -48,11 +48,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'backgrounds',
       number: '04',
-      category: 'B.TECH TRANSFORMATION & METHODOLOGY',
+      category: 'B.TECH TRANSFORMATION & AI PEDAGOGY',
       themeClass: 'slide-theme-backgrounds',
       layoutClass: 'slide-layout-backgrounds',
-      title: 'How B.Tech Graduates from All Branches Transform at MSIT',
-      lead: 'Engineered exclusively for B.Tech engineers. Discover how graduates from non-CS disciplines and freshers bridge the gap between classroom theory and elite software engineering.',
+      title: 'How B.Tech Graduates Transform into AI-Native Engineers',
+      lead: 'Engineered exclusively for B.Tech engineers. Discover how AI-assisted studio learning, copilot pair programming, and paid corporate co-ops bridge the gap to elite software and AI roles.',
       image: '/assets/iiit-ai-lab.jpg',
       imageCaption: 'The MSIT Studio Learning Environment at IIIT Hyderabad'
     },
@@ -474,7 +474,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="dual-btech-card card-non-cs">
                 <div className="btech-card-header">
                   <span className="btech-badge non-cs">Non-CS B.Tech Graduates</span>
-                  <h3 className="btech-headline">Bridging the Non-Software Divide</h3>
+                  <h3 className="btech-headline">Bridging the Non-Software Divide with AI</h3>
                   <span className="btech-branch-sub">Mechanical, Civil, Chemical, Electrical & Allied Branches</span>
                 </div>
 
@@ -485,13 +485,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </div>
 
                   <div className="btech-row msit">
-                    <span className="phase-pill msit-pill">The MSIT Studio Shift:</span>
-                    <p>Immersive 9-to-6 daily coding studios with dedicated 1:10 personal mentor guidance. Progressive building from first principles to complex distributed architectures.</p>
+                    <span className="phase-pill msit-pill">The AI Studio Shift:</span>
+                    <p>Immersive 9-to-6 coding studios paired with personalized AI tutoring. AI copilots break down complex algorithmic logic into intuitive first principles, accelerating learning speed 5x.</p>
                   </div>
 
                   <div className="btech-row outcome">
                     <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Completely eliminated the "CS vs Non-CS" divide; built engineering muscle memory through 2,000+ hours of continuous coding, mastering full-stack microservices.</p>
+                    <p>Completely eliminated the "CS vs Non-CS" divide; built real systems muscle memory across full-stack microservices, modern AI workflows, and production deployments.</p>
                   </div>
                 </div>
               </div>
@@ -500,35 +500,41 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="dual-btech-card card-freshers">
                 <div className="btech-card-header">
                   <span className="btech-badge freshers">B.Tech Freshers</span>
-                  <h3 className="btech-headline">Closing the Classroom-to-Industry Void</h3>
+                  <h3 className="btech-headline">From Classroom Theory to AI-Native Engineering</h3>
                   <span className="btech-branch-sub">Computer Science, IT & All Engineering Streams</span>
                 </div>
 
                 <div className="btech-transformation-rows">
                   <div className="btech-row past">
                     <span className="phase-pill past-pill">The Past Education:</span>
-                    <p>High GPA earned through rote memorization and semester exams, but zero git commits, production deployment tenure, or real system debugging experience.</p>
+                    <p>High GPA earned through rote memorization and semester exams, but zero git commits, production deployment tenure, or practical familiarity with modern AI copilots.</p>
                   </div>
 
                   <div className="btech-row msit">
-                    <span className="phase-pill msit-pill">The MSIT Studio Shift:</span>
-                    <p>~50% of the master’s programme embedded directly inside paid corporate co-ops with active engineering sprint teams in Hyderabad's HITEC City cyber corridor.</p>
+                    <span className="phase-pill msit-pill">The AI Studio Shift:</span>
+                    <p>Students build with AI copilots, autonomous agent workflows, and LLM microservices. Learning shifts from routine syntax recall to system architecture, prompt engineering, and cloud scalability.</p>
                   </div>
 
                   <div className="btech-row outcome">
                     <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Graduated as production-hardened software engineers with real corporate tenure, eliminating the "fresher ramp-up gap" and securing core product roles.</p>
+                    <p>Graduated as production-hardened AI software engineers with ~50% paid corporate practicum, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom 3-Pillar Pedagogical Shift Strip */}
+            {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
             <div className="edu-pillars-strip">
               <div className="edu-pillar-item">
                 <span className="pillar-shift-badge">PEDAGOGY SHIFT</span>
-                <strong>Zero Passive Lectures ➔ 100% Studio Learning</strong>
+                <strong>Zero Lectures ➔ 100% Studio Learning</strong>
                 <p>Students build, debug, and deploy software daily instead of memorizing slides.</p>
+              </div>
+              <div className="edu-pillar-divider"></div>
+              <div className="edu-pillar-item">
+                <span className="pillar-shift-badge">AI-NATIVE LEARNING</span>
+                <strong>AI Pair Programming & LLM Studios</strong>
+                <p>Prompt engineering, autonomous agents & AI-assisted rapid prototyping.</p>
               </div>
               <div className="edu-pillar-divider"></div>
               <div className="edu-pillar-item">
@@ -538,9 +544,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               </div>
               <div className="edu-pillar-divider"></div>
               <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">THE INDUSTRY TENURE</span>
+                <span className="pillar-shift-badge">CORPORATE TENURE</span>
                 <strong>~50% Paid Corporate Practicum</strong>
-                <p>Real production tenure and monthly stipends in Hyderabad's premier tech corridor.</p>
+                <p>Real production microservices and stipends in Hyderabad's premier tech corridor.</p>
               </div>
             </div>
           </div>
