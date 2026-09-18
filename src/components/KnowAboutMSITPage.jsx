@@ -87,7 +87,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       themeClass: 'slide-theme-practicum',
       layoutClass: 'slide-layout-practicum',
       title: 'Real-World Practicum: 50% Learning, 50% Projects',
-      lead: 'Spend ~50% of your postgraduate programme embedded directly in real-world projects working with CETL and mastering industry-relevant skills.',
+      lead: 'Spend ~50% of your postgraduate programme embedded directly in real-world projects working with CETLS and mastering industry-relevant skills.',
       image: '/assets/iiit-coop.jpg',
       imageCaption: 'Corporate Co-op Practicum at Premier Tech Offices in Gachibowli'
     },
@@ -357,7 +357,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-era-label">Industry Integration</span>
                 </div>
                 <h4>Pioneering the Real-World Practicum</h4>
-                <p>Introduced an immersive practicum model where students spend nearly half their master's working directly on real-world engineering sprints and production-grade software projects alongside industry experts and CETL.</p>
+                <p>Introduced an immersive practicum model where students spend nearly half their master's working directly on real-world engineering sprints and production-grade software projects alongside industry experts and CETLS.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
                   <span>~50% Tenure in Real-World Projects</span>
@@ -646,7 +646,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
                   <div className="btech-row outcome">
                     <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Graduated as production-hardened AI software engineers with a ~50% real-world practicum with CETL, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
+                    <p>Graduated as production-hardened AI software engineers with a ~50% real-world practicum with CETLS, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
                   </div>
                 </div>
               </div>
@@ -823,7 +823,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                     fontWeight: 500
                   }}
                 >
-                  Real production microservices and projects working alongside CETL.
+                  Real production microservices and projects working alongside CETLS.
                 </p>
               </div>
             </div>
@@ -919,7 +919,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="p-stat-box">
                 <strong className="p-stat-number">50 / 50</strong>
                 <span className="p-stat-label">Learning & Projects</span>
-                <span className="p-stat-detail">Working with CETL</span>
+                <span className="p-stat-detail">Working with CETLS</span>
               </div>
               <div className="p-stat-box highlight">
                 <strong className="p-stat-number">100%</strong>
@@ -938,7 +938,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </li>
                   <li>
                     <CheckCircleIcon size={18} />
-                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems in collaboration with CETL.</span>
+                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems in collaboration with CETLS.</span>
                   </li>
                   <li>
                     <CheckCircleIcon size={18} />
