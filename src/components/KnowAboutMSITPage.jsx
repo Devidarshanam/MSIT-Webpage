@@ -549,77 +549,79 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       case 'events':
         return (
           <div className="slide-content-layout layout-events-community">
-            {/* Split Showcase: Simple Campus Life Highlights on Left, Real Photo Collage on Right */}
-            <div className="events-split-showcase">
-              {/* Left Column: Simple, Elegant Campus Life Pillars + Portal Link */}
-              <div className="campus-overview-panel">
-                <div className="campus-pillars-grid">
-                  <div className="campus-pillar-card">
-                    <div className="pillar-header">
-                      <span className="pillar-dot green"></span>
-                      <h4>Green 66-Acre Campus</h4>
+            <div className="campus-editorial-container">
+              {/* Left Column: Pure Clean Typography & Flow (No Boxes) */}
+              <div className="campus-text-column">
+                <div className="campus-intro-block">
+                  <span className="campus-kicker">66-Acre Research Campus · Gachibowli</span>
+                  <h3 className="campus-lead-heading">A Balanced Ecosystem for Growth, Recreation & Community</h3>
+                  <p className="campus-lead-narrative">
+                    Life at IIIT Hyderabad blends high-rigour computing studios with an open, green residential atmosphere designed for well-being and collaboration.
+                  </p>
+                </div>
+
+                {/* Minimal Highlights (Clean, Unboxed, Dot Accents) */}
+                <div className="campus-feature-list">
+                  <div className="campus-feature-row">
+                    <span className="feature-indicator green"></span>
+                    <div className="feature-text">
+                      <strong>Green Residential Campus</strong>
+                      <span>Pedestrian-friendly pathways, vast central library, and 24/7 collaborative computing labs.</span>
                     </div>
-                    <p>Serene residential campus in Hyderabad's tech corridor with 24/7 studios and computing labs.</p>
                   </div>
 
-                  <div className="campus-pillar-card">
-                    <div className="pillar-header">
-                      <span className="pillar-dot blue"></span>
-                      <h4>Sports & Recreation</h4>
+                  <div className="campus-feature-row">
+                    <span className="feature-indicator blue"></span>
+                    <div className="feature-text">
+                      <strong>Sports & Fitness Amenities</strong>
+                      <span>Football and cricket grounds, tennis & basketball courts, badminton, indoor games, gym, and yoga.</span>
                     </div>
-                    <p>Cricket & football grounds, basketball, badminton, table tennis, yoga, and a gymnasium.</p>
                   </div>
 
-                  <div className="campus-pillar-card">
-                    <div className="pillar-header">
-                      <span className="pillar-dot amber"></span>
-                      <h4>Clubs & Creative Arts</h4>
+                  <div className="campus-feature-row">
+                    <span className="feature-indicator amber"></span>
+                    <div className="feature-text">
+                      <strong>Student Clubs & Creative Arts</strong>
+                      <span>Active student societies across robotics, coding, music, dance, dramatics, literature, and visual arts.</span>
                     </div>
-                    <p>Student-led societies across technology, music, dance, literature, robotics, and arts.</p>
                   </div>
 
-                  <div className="campus-pillar-card">
-                    <div className="pillar-header">
-                      <span className="pillar-dot purple"></span>
-                      <h4>Student Community</h4>
+                  <div className="campus-feature-row">
+                    <span className="feature-indicator purple"></span>
+                    <div className="feature-text">
+                      <strong>Collaborative Peer Community</strong>
+                      <span>A close-knit, supportive campus culture building lasting camaraderie, peer learning, and lifelong networks.</span>
                     </div>
-                    <p>An inspiring peer culture fostering collaborative learning, innovation, and lifelong friendships.</p>
                   </div>
                 </div>
 
-                {/* Direct Link to Official IIIT Hyderabad Life on Campus Page */}
-                <a
-                  href="https://www.iiit.ac.in/life-on-campus/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="campus-life-portal-btn"
-                  aria-label="Visit IIIT Hyderabad Life on Campus Page"
-                >
-                  <div className="portal-btn-content">
-                    <span className="portal-btn-kicker">Official IIIT Portal</span>
-                    <strong className="portal-btn-text">Explore Full Campus Life at IIIT Hyderabad</strong>
-                  </div>
-                  <span className="portal-btn-arrow">
-                    <ArrowRightIcon size={18} />
-                  </span>
-                </a>
+                {/* Minimalist Official Link Button */}
+                <div className="campus-action-area">
+                  <a
+                    href="https://www.iiit.ac.in/life-on-campus/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="campus-clean-portal-link"
+                    aria-label="Visit IIIT Hyderabad Life on Campus Official Website"
+                  >
+                    <span>Explore Life on Campus at IIIT Hyderabad</span>
+                    <ArrowRightIcon size={16} />
+                  </a>
+                  <span className="campus-link-caption">Official portal with campus details & photos ↗</span>
+                </div>
               </div>
 
-              {/* Right Column: Prominent Campus Life Photo Collage */}
-              <div className="events-photo-showcase">
-                <div className="campus-collage-wrapper">
+              {/* Right Column: Framed Campus Life Photo Montage */}
+              <div className="campus-visual-column">
+                <div className="campus-visual-frame">
                   <img 
                     src="/assets/iiit-campus-life.jpg" 
-                    alt="Life on Campus IIIT Hyderabad - Campus, Sports, Studios and Community" 
-                    className="campus-collage-img"
+                    alt="Life on Campus IIIT Hyderabad" 
+                    className="campus-visual-img"
                   />
-                  <div className="campus-collage-tag">
-                    <span>Life on Campus · IIIT Hyderabad</span>
+                  <div className="campus-visual-floating-tag">
+                    <span>IIIT Hyderabad · Life on Campus</span>
                   </div>
-                </div>
-                <div className="campus-collage-footer">
-                  <strong>66-Acre Green Research Campus</strong>
-                  <span>A holistic student experience combining active computing studios, sports, and community life</span>
                 </div>
               </div>
             </div>

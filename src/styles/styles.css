@@ -6301,7 +6301,7 @@ p {
 }
 
 /* =========================================================================
-   SLIDE 5: CAMPUS LIFE (CLEAN & SIMPLE)
+   SLIDE 5: CAMPUS LIFE (CLEAN & MINIMAL EDITORIAL LAYOUT - NO BOXES)
    ========================================================================= */
 .layout-events-community {
   display: flex;
@@ -6309,213 +6309,176 @@ p {
   height: 100%;
 }
 
-.events-split-showcase {
+.campus-editorial-container {
   display: grid;
   grid-template-columns: 1.15fr 1fr;
-  gap: 1.25rem;
+  gap: 2.2rem;
+  align-items: center;
   height: 100%;
   min-height: 0;
 }
 
-.campus-overview-panel {
+.campus-text-column {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.85rem;
   height: 100%;
+  gap: 1.1rem;
 }
 
-.campus-pillars-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.8rem;
-  flex: 1;
-}
-
-.campus-pillar-card {
-  background: #ffffff;
-  border: 1px solid #fed7aa;
-  border-radius: var(--radius-sm);
-  padding: 0.95rem 1.05rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+.campus-intro-block {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  transition: all 0.2s ease;
+  gap: 0.35rem;
 }
 
-.campus-pillar-card:hover {
-  border-color: #ea580c;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.09);
+.campus-kicker {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ea580c;
 }
 
-.pillar-header {
+.campus-lead-heading {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.campus-lead-narrative {
+  font-size: 0.84rem;
+  color: var(--neutral-600);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Feature List (No boxes, pure clean typography) */
+.campus-feature-list {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.4rem;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
-.pillar-dot {
+.campus-feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.feature-indicator {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  margin-top: 0.35rem;
   flex-shrink: 0;
 }
 
-.pillar-dot.green { background: #16a34a; }
-.pillar-dot.blue { background: #0284c7; }
-.pillar-dot.amber { background: #d97706; }
-.pillar-dot.purple { background: #9333ea; }
+.feature-indicator.green { background: #16a34a; box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15); }
+.feature-indicator.blue { background: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15); }
+.feature-indicator.amber { background: #d97706; box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15); }
+.feature-indicator.purple { background: #9333ea; box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.15); }
 
-.campus-pillar-card h4 {
-  font-size: 0.92rem;
-  font-weight: 800;
-  color: var(--primary-900);
-  margin: 0;
-  line-height: 1.25;
-}
-
-.campus-pillar-card p {
-  font-size: 0.8rem;
-  color: var(--neutral-600);
-  line-height: 1.45;
-  margin: 0;
-}
-
-/* Official Life on Campus Portal Button */
-.campus-life-portal-btn {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.15rem;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  border: 1px solid #334155;
-  border-radius: var(--radius-sm);
-  color: #ffffff;
-  text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
-  flex-shrink: 0;
-}
-
-.campus-life-portal-btn:hover {
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-  border-color: #38bdf8;
-  color: #ffffff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(2, 132, 199, 0.3);
-}
-
-.portal-btn-content {
+.feature-text {
   display: flex;
   flex-direction: column;
   gap: 0.15rem;
 }
 
-.portal-btn-kicker {
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: #38bdf8;
-  text-transform: uppercase;
-}
-
-.campus-life-portal-btn:hover .portal-btn-kicker {
-  color: #e0f2fe;
-}
-
-.portal-btn-text {
+.feature-text strong {
   font-size: 0.88rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--primary-900);
+  line-height: 1.25;
 }
 
-.portal-btn-arrow {
+.feature-text span {
+  font-size: 0.78rem;
+  color: var(--neutral-600);
+  line-height: 1.4;
+}
+
+/* Action Area & Portal Link */
+.campus-action-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 0.25rem;
+}
+
+.campus-clean-portal-link {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  transition: transform 0.2s ease, background 0.2s ease;
-  flex-shrink: 0;
+  gap: 0.6rem;
+  padding: 0.55rem 1.15rem;
+  background: var(--primary-900);
+  color: #ffffff;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
 }
 
-.campus-life-portal-btn:hover .portal-btn-arrow {
-  transform: translateX(3px);
-  background: rgba(255, 255, 255, 0.25);
+.campus-clean-portal-link:hover {
+  background: #ea580c;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.25);
 }
 
-/* Right Column: Campus Photo Showcase */
-.events-photo-showcase {
-  background: #ffffff;
-  border: 1px solid #fed7aa;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+.campus-link-caption {
+  font-size: 0.72rem;
+  color: var(--neutral-400);
+  font-weight: 500;
+}
+
+/* Right Column: Campus Life Photo Frame */
+.campus-visual-column {
   height: 100%;
-}
-
-.campus-collage-wrapper {
-  position: relative;
-  flex: 1;
-  min-height: 200px;
-  overflow: hidden;
-  background: #0f172a;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.campus-collage-img {
+.campus-visual-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 440px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #0f172a;
+}
+
+.campus-visual-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Scale 1.05 neatly clips the black letterbox sidebars in the source image */
   transform: scale(1.05);
   transform-origin: center center;
   display: block;
 }
 
-.campus-collage-tag {
+.campus-visual-floating-tag {
   position: absolute;
-  top: 0.65rem;
-  left: 0.65rem;
-  background: rgba(15, 23, 42, 0.82);
-  backdrop-filter: blur(6px);
+  top: 0.85rem;
+  left: 0.85rem;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
   color: #ffffff;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 0.22rem 0.65rem;
+  padding: 0.3rem 0.8rem;
   border-radius: var(--radius-pill);
   letter-spacing: 0.03em;
   border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.campus-collage-footer {
-  padding: 0.65rem 0.95rem;
-  background: #ffffff;
-  border-top: 1px solid #f1f5f9;
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.campus-collage-footer strong {
-  font-size: 0.84rem;
-  font-weight: 800;
-  color: var(--primary-900);
-}
-
-.campus-collage-footer span {
-  font-size: 0.74rem;
-  color: var(--neutral-600);
-  line-height: 1.35;
 }
 
 /* =========================================================================
@@ -7443,96 +7406,81 @@ p {
   }
 
   /* -------------------------------------------------------------------------
-     SLIDE 5: CAMPUS LIFE (MOBILE STREAMLINED)
+     SLIDE 5: CAMPUS LIFE (MOBILE MINIMAL - NO BOXES)
      ------------------------------------------------------------------------- */
-  .events-split-showcase {
-    display: grid;
+  .campus-editorial-container {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    gap: 0.45rem;
+    grid-template-rows: 140px 1fr;
+    gap: 0.55rem;
     height: 100%;
   }
 
-  .campus-overview-panel {
+  .campus-visual-column {
+    order: -1;
+    height: 140px;
+  }
+
+  .campus-visual-frame {
+    max-height: 140px;
+    border-radius: 12px;
+  }
+
+  .campus-visual-floating-tag {
+    font-size: 0.58rem;
+    padding: 0.15rem 0.5rem;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
+  .campus-text-column {
     gap: 0.4rem;
+    justify-content: space-between;
   }
 
-  .campus-pillars-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  .campus-intro-block {
+    display: none;
+  }
+
+  .campus-feature-list {
     gap: 0.35rem;
   }
 
-  .campus-pillar-card {
-    padding: 0.4rem 0.55rem;
-    border-radius: 8px;
+  .campus-feature-row {
+    gap: 0.45rem;
   }
 
-  .pillar-header {
-    margin-bottom: 0.15rem;
-    gap: 0.35rem;
-  }
-
-  .pillar-dot {
+  .feature-indicator {
     width: 6px;
     height: 6px;
+    margin-top: 0.25rem;
   }
 
-  .campus-pillar-card h4 {
-    font-size: 0.76rem;
+  .feature-text strong {
+    font-size: 0.78rem;
   }
 
-  .campus-pillar-card p {
-    display: none !important;
-  }
-
-  .campus-life-portal-btn {
-    padding: 0.4rem 0.7rem;
-    border-radius: 8px;
-  }
-
-  .portal-btn-kicker {
-    font-size: 0.54rem;
-  }
-
-  .portal-btn-text {
-    font-size: 0.74rem;
-  }
-
-  .portal-btn-arrow {
-    width: 22px;
-    height: 22px;
-  }
-
-  .events-photo-showcase {
-    border-radius: 8px;
-    height: 100%;
-    min-height: 105px;
-  }
-
-  .campus-collage-wrapper {
-    min-height: 90px;
-  }
-
-  .campus-collage-tag {
-    font-size: 0.58rem;
-    padding: 0.12rem 0.45rem;
-  }
-
-  .campus-collage-footer {
-    padding: 0.3rem 0.55rem;
-  }
-
-  .campus-collage-footer strong {
-    font-size: 0.72rem;
-  }
-
-  .campus-collage-footer span {
-    font-size: 0.62rem;
+  .feature-text span {
+    font-size: 0.66rem;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .campus-action-area {
+    gap: 0.3rem;
+    padding-top: 0;
+  }
+
+  .campus-clean-portal-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.74rem;
+  }
+
+  .campus-link-caption {
+    display: none;
   }
 
   /* -------------------------------------------------------------------------
@@ -7835,35 +7783,48 @@ p {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
-  .layout-events-community .events-split-showcase {
+  .layout-events-community .campus-editorial-container {
     grid-template-columns: 1.15fr 1fr !important;
-    gap: 0.65rem !important;
+    gap: 0.75rem !important;
     height: 100% !important;
   }
 
-  .layout-events-community .campus-overview-panel {
+  .layout-events-community .campus-visual-column {
+    order: 0 !important;
+    height: 100% !important;
+  }
+
+  .layout-events-community .campus-visual-frame {
+    max-height: 100% !important;
+  }
+
+  .layout-events-community .campus-text-column {
     gap: 0.35rem !important;
   }
 
-  .layout-events-community .campus-pillars-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.35rem !important;
+  .layout-events-community .campus-intro-block {
+    display: none !important;
   }
 
-  .layout-events-community .campus-pillar-card {
-    padding: 0.35rem 0.5rem !important;
+  .layout-events-community .campus-feature-list {
+    gap: 0.3rem !important;
   }
 
-  .layout-events-community .campus-pillar-card p {
+  .layout-events-community .feature-text strong {
+    font-size: 0.76rem !important;
+  }
+
+  .layout-events-community .feature-text span {
+    font-size: 0.62rem !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 1 !important;
     -webkit-box-orient: vertical !important;
     overflow: hidden !important;
-    font-size: 0.64rem !important;
   }
 
-  .layout-events-community .campus-life-portal-btn {
-    padding: 0.35rem 0.65rem !important;
+  .layout-events-community .campus-clean-portal-link {
+    padding: 0.32rem 0.65rem !important;
+    font-size: 0.7rem !important;
   }
 
   .layout-origin-story .origin-main-grid {
