@@ -653,10 +653,10 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             </div>
 
             {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
-            {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
             <div 
               className="edu-pillars-strip"
               style={{
+                marginTop: '1.25rem',
                 background: 'linear-gradient(135deg, #071a38 0%, #153a70 100%)',
                 border: '1.5px solid rgba(59, 130, 246, 0.45)',
                 borderRadius: '12px',
