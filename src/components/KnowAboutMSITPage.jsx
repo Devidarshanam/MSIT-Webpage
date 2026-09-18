@@ -1041,7 +1041,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                         width: 'fit-content'
                       }}
                     >
-                      Admissions Opening Soon • Academic Year 2026–27
+                      Admissions Opening Soon • Academic Year 2027
                     </span>
                     <h3 
                       className="cta-banner-heading"
