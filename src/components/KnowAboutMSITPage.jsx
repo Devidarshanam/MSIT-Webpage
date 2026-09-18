@@ -881,7 +881,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                         margin: 0
                       }}
                     >
-                      Experience India’s pioneer studio-learning postgraduate degree with 1-year paid corporate practicum.
+                      Sign in now to start your application, book your evaluation slot, and reserve your studio seat today.
                     </p>
                   </div>
                   <button 
@@ -913,12 +913,12 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   {/* Program Context & Metrics */}
                   <div className="campus-showcase-content">
                     <div className="consortium-header-group">
-                      <span className="consortium-pill">Consortium Master's Degree</span>
+                      <span className="consortium-pill">Master's Degree</span>
                       <span className="consortium-sub">Offered by IIITH</span>
                     </div>
-                    <h3>Offered by IIIT Hyderabad (IIITH)</h3>
+                    <h3>Offered Exclusively by IIIT Hyderabad</h3>
                     <p className="campus-desc">
-                      Offered jointly by CIHL, IIIT Hyderabad, JNTU Hyderabad, Osmania University, SVU, and JNTU Kakinada with a 25+ year legacy of computing excellence (offered by IIITH).
+                      Offered exclusively by IIIT Hyderabad (IIITH) with a 25+ year legacy of computing innovation and academic excellence.
                     </p>
 
                     <div className="campus-metrics-grid">
