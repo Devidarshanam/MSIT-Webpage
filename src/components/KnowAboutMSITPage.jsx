@@ -932,7 +932,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         </nav>
 
         <div className="top-bar-right">
-          <span className="top-bar-active-cat">{slides[currentSlide].category.split(' & ')[0]}</span>
           <button 
             type="button" 
             className="btn btn-primary top-bar-signin-btn"

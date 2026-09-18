@@ -1,0 +1,78 @@
+     SLIDE 5: CAMPUS LIFE (MOBILE MINIMAL - NO BOXES)
+     ------------------------------------------------------------------------- */
+  .campus-editorial-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: 140px 1fr;
+    gap: 0.55rem;
+    height: 100%;
+  }
+
+  .campus-visual-column {
+    order: -1;
+    height: 140px;
+  }
+
+  .campus-visual-frame {
+    max-height: 140px;
+    border-radius: 12px;
+  }
+
+  .campus-visual-floating-tag {
+    font-size: 0.58rem;
+    padding: 0.15rem 0.5rem;
+    top: 0.5rem;
+    left: 0.5rem;
+  }
+
+  .campus-text-column {
+    gap: 0.4rem;
+    justify-content: space-between;
+  }
+
+  .campus-intro-block {
+    display: none;
+  }
+
+  .campus-feature-list {
+    gap: 0.35rem;
+  }
+
+  .campus-feature-row {
+    gap: 0.45rem;
+  }
+
+  .feature-indicator {
+    width: 6px;
+    height: 6px;
+    margin-top: 0.25rem;
+  }
+
+  .feature-text strong {
+    font-size: 0.78rem;
+  }
+
+  .feature-text span {
+    font-size: 0.66rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .campus-action-area {
+    gap: 0.3rem;
+    padding-top: 0;
+  }
+
+  .campus-clean-portal-link {
+    width: 100%;
+    justify-content: center;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.74rem;
+  }
+
+  .campus-link-caption {
+    display: none;
+  }
+
+  /* -------------------------------------------------------------------------
