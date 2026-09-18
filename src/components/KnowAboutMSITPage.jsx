@@ -653,29 +653,178 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             </div>
 
             {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
-            <div className="edu-pillars-strip">
+            {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
+            <div 
+              className="edu-pillars-strip"
+              style={{
+                background: 'linear-gradient(135deg, #071a38 0%, #153a70 100%)',
+                border: '1.5px solid rgba(59, 130, 246, 0.45)',
+                borderRadius: '12px',
+                padding: '0.85rem 1.15rem',
+                boxShadow: '0 6px 20px rgba(7, 26, 56, 0.25)',
+                color: '#ffffff'
+              }}
+            >
               <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">PEDAGOGY SHIFT</span>
-                <strong>Zero Lectures ➔ 100% Studio Learning</strong>
-                <p>Students build, debug, and deploy software daily instead of memorizing slides.</p>
+                <span 
+                  className="pillar-shift-badge"
+                  style={{
+                    color: '#fde047',
+                    fontWeight: 900,
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.06em',
+                    display: 'block',
+                    marginBottom: '0.2rem'
+                  }}
+                >
+                  PEDAGOGY SHIFT
+                </span>
+                <strong 
+                  style={{
+                    color: '#ffffff',
+                    fontWeight: 800,
+                    fontSize: '0.84rem',
+                    display: 'block',
+                    marginBottom: '0.2rem',
+                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
+                  }}
+                >
+                  Zero Lectures ➔ 100% Studio Learning
+                </strong>
+                <p 
+                  style={{
+                    color: '#f1f5f9',
+                    fontSize: '0.74rem',
+                    lineHeight: '1.35',
+                    margin: 0,
+                    fontWeight: 500
+                  }}
+                >
+                  Students build, debug, and deploy software daily instead of memorizing slides.
+                </p>
               </div>
-              <div className="edu-pillar-divider"></div>
+
+              <div className="edu-pillar-divider" style={{ background: 'rgba(255, 255, 255, 0.15)', height: '44px' }}></div>
+
               <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">AI-NATIVE LEARNING</span>
-                <strong>AI Pair Programming & LLM Studios</strong>
-                <p>Prompt engineering, autonomous agents & AI-assisted rapid prototyping.</p>
+                <span 
+                  className="pillar-shift-badge"
+                  style={{
+                    color: '#fde047',
+                    fontWeight: 900,
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.06em',
+                    display: 'block',
+                    marginBottom: '0.2rem'
+                  }}
+                >
+                  AI-NATIVE LEARNING
+                </span>
+                <strong 
+                  style={{
+                    color: '#ffffff',
+                    fontWeight: 800,
+                    fontSize: '0.84rem',
+                    display: 'block',
+                    marginBottom: '0.2rem',
+                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
+                  }}
+                >
+                  AI Pair Programming & LLM Studios
+                </strong>
+                <p 
+                  style={{
+                    color: '#f1f5f9',
+                    fontSize: '0.74rem',
+                    lineHeight: '1.35',
+                    margin: 0,
+                    fontWeight: 500
+                  }}
+                >
+                  Prompt engineering, autonomous agents & AI-assisted rapid prototyping.
+                </p>
               </div>
-              <div className="edu-pillar-divider"></div>
+
+              <div className="edu-pillar-divider" style={{ background: 'rgba(255, 255, 255, 0.15)', height: '44px' }}></div>
+
               <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">THE STANDARD</span>
-                <strong>90%+ Mastery Threshold</strong>
-                <p>No passing with 40%. Time is variable, outcome is constant until production-ready.</p>
+                <span 
+                  className="pillar-shift-badge"
+                  style={{
+                    color: '#fde047',
+                    fontWeight: 900,
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.06em',
+                    display: 'block',
+                    marginBottom: '0.2rem'
+                  }}
+                >
+                  THE STANDARD
+                </span>
+                <strong 
+                  style={{
+                    color: '#ffffff',
+                    fontWeight: 800,
+                    fontSize: '0.84rem',
+                    display: 'block',
+                    marginBottom: '0.2rem',
+                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
+                  }}
+                >
+                  90%+ Mastery Threshold
+                </strong>
+                <p 
+                  style={{
+                    color: '#f1f5f9',
+                    fontSize: '0.74rem',
+                    lineHeight: '1.35',
+                    margin: 0,
+                    fontWeight: 500
+                  }}
+                >
+                  No passing with 40%. Time is variable, outcome is constant until production-ready.
+                </p>
               </div>
-              <div className="edu-pillar-divider"></div>
+
+              <div className="edu-pillar-divider" style={{ background: 'rgba(255, 255, 255, 0.15)', height: '44px' }}></div>
+
               <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">CORPORATE TENURE</span>
-                <strong>50% Real-World Practicum</strong>
-                <p>Real production microservices and projects working alongside CETL.</p>
+                <span 
+                  className="pillar-shift-badge"
+                  style={{
+                    color: '#fde047',
+                    fontWeight: 900,
+                    fontSize: '0.68rem',
+                    letterSpacing: '0.06em',
+                    display: 'block',
+                    marginBottom: '0.2rem'
+                  }}
+                >
+                  CORPORATE TENURE
+                </span>
+                <strong 
+                  style={{
+                    color: '#ffffff',
+                    fontWeight: 800,
+                    fontSize: '0.84rem',
+                    display: 'block',
+                    marginBottom: '0.2rem',
+                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
+                  }}
+                >
+                  50% Real-World Practicum
+                </strong>
+                <p 
+                  style={{
+                    color: '#f1f5f9',
+                    fontSize: '0.74rem',
+                    lineHeight: '1.35',
+                    margin: 0,
+                    fontWeight: 500
+                  }}
+                >
+                  Real production microservices and projects working alongside CETL.
+                </p>
               </div>
             </div>
           </div>
