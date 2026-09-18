@@ -228,10 +228,42 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   </div>
                 </div>
 
-                <div className="origin-quote-box">
-                  <span className="quote-mark">“</span>
-                  <p>In computing, learning is not a spectator sport. You don't learn by watching; you learn by building, breaking, debugging, and deploying.</p>
-                  <span className="quote-author">— Prof. Raj Reddy, Turing Award Laureate & MSIT Founding Chair</span>
+                <div 
+                  className="origin-quote-box"
+                  style={{
+                    background: 'linear-gradient(135deg, #091a38 0%, #17386d 100%)',
+                    border: '1.5px solid rgba(59, 130, 246, 0.45)',
+                    borderRadius: '10px',
+                    padding: '1rem 1.3rem',
+                    color: '#ffffff',
+                    boxShadow: '0 4px 16px rgba(9, 26, 56, 0.25)'
+                  }}
+                >
+                  <p 
+                    className="origin-quote-text"
+                    style={{
+                      color: '#ffffff',
+                      fontWeight: 600,
+                      fontSize: '0.92rem',
+                      lineHeight: '1.5',
+                      margin: '0 0 0.45rem 0',
+                      fontStyle: 'italic',
+                      textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
+                    }}
+                  >
+                    “In computing, learning is not a spectator sport. You don't learn by watching; you learn by building, breaking, debugging, and deploying.”
+                  </p>
+                  <span 
+                    className="quote-author"
+                    style={{
+                      color: '#fde047',
+                      fontWeight: 700,
+                      fontSize: '0.78rem',
+                      display: 'block'
+                    }}
+                  >
+                    — Prof. Raj Reddy, Turing Award Laureate & MSIT Founding Chair
+                  </span>
                 </div>
               </div>
 
