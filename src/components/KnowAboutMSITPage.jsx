@@ -34,6 +34,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       image: '/assets/iiit-campus.jpg',
       imageCaption: '25 Years of Continuous Computing Pedagogy Evolution at IIIT Hyderabad'
     },
+    /*
     {
       id: 'placements',
       number: '03',
@@ -44,6 +45,18 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       lead: 'Graduates consistently secure high-growth engineering roles across artificial intelligence, enterprise cloud, and high-performance computing.',
       image: '/assets/iiit-alumni-network.jpg',
       imageCaption: 'Distinguished MSIT Alumni Leading Global Technology Teams'
+    },
+    */
+    {
+      id: 'ainative',
+      number: '03',
+      category: 'MSIT AT 25: AI NATIVE',
+      themeClass: 'slide-theme-ainative',
+      layoutClass: 'slide-layout-ainative',
+      title: 'A quarter-century of learning by doing enters its AI-native era.',
+      lead: 'Anchored in Professor Raj Reddy’s three principles: Learning to Learn, Learning to Think, Learning to Do.',
+      image: '/assets/msit-25-logo.png',
+      imageCaption: '25 Years of MSIT'
     },
     {
       id: 'backgrounds',
@@ -70,11 +83,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'practicum',
       number: '06',
-      category: 'PAID CORPORATE PRACTICUM',
+      category: 'REAL-WORLD PRACTICUM',
       themeClass: 'slide-theme-practicum',
       layoutClass: 'slide-layout-practicum',
-      title: 'Paid Corporate Practicum: Earn While You Learn',
-      lead: 'Spend ~50% of your postgraduate programme embedded directly inside corporate engineering teams in Hyderabad’s tech corridor, earning monthly stipends while you study.',
+      title: 'Real-World Practicum: 50% Learning, 50% Projects',
+      lead: 'Spend ~50% of your postgraduate programme embedded directly in real-world projects working with CETL and mastering industry-relevant skills.',
       image: '/assets/iiit-coop.jpg',
       imageCaption: 'Corporate Co-op Practicum at Premier Tech Offices in Gachibowli'
     },
@@ -364,6 +377,90 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </div>
         );
 
+      case 'ainative':
+        return (
+          <div className="slide-content-layout layout-ai-native" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', height: '100%', alignItems: 'stretch', backgroundColor: '#ffffff' }}>
+            {/* Left Sidebar */}
+            <div style={{ backgroundColor: '#0b2a6b', color: '#fff', padding: '2.5rem 2.2rem', display: 'flex', flexDirection: 'column' }}>
+              <img src="/assets/msit-25-logo.png" alt="25 Years of MSIT" style={{ width: '110px', marginBottom: '1.5rem', alignSelf: 'flex-start', background: '#fff', borderRadius: '10px', padding: '0.4rem' }} />
+              <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.5rem', lineHeight: 1.15, letterSpacing: '-0.02em' }}>MSIT at 25:<br/><span style={{ color: '#fcd34d' }}>AI Native</span></h2>
+              <p style={{ fontSize: '0.9rem', color: '#cbd5e1', marginBottom: '2rem', lineHeight: 1.5 }}>
+                A quarter-century of learning by doing enters its AI-native era.
+              </p>
+              
+              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative' }}>
+                <div style={{ position: 'absolute', left: '7px', top: '20px', width: '1px', height: 'calc(100% - 30px)', backgroundColor: 'rgba(255,255,255,0.15)' }}></div>
+                
+                <div style={{ position: 'relative', paddingLeft: '2.2rem' }}>
+                  <div style={{ position: 'absolute', left: 0, top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#fcd34d' }}></div>
+                  <strong style={{ display: 'block', fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.2rem' }}>2000 &bull; Founded by Professor Raj Reddy</strong>
+                  <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>A two-year master's program for talented students who had no path to the elite universities.</p>
+                </div>
+                
+                <div style={{ position: 'relative', paddingLeft: '2.2rem' }}>
+                  <div style={{ position: 'absolute', left: 0, top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#fcd34d' }}></div>
+                  <strong style={{ display: 'block', fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.2rem' }}>Two decades &bull; The bold pivot</strong>
+                  <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>Lecture-based teaching minimized; project-based learning by doing, paired with soft skills, at the core.</p>
+                </div>
+                
+                <div style={{ position: 'relative', paddingLeft: '2.2rem' }}>
+                  <div style={{ position: 'absolute', left: 0, top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#ffffff' }}></div>
+                  <strong style={{ display: 'block', fontSize: '0.85rem', color: '#ffffff', marginBottom: '0.2rem' }}>Year 25 &bull; AI Native relaunch</strong>
+                  <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>Ready for a modern world where cognitive technologies like AI are ubiquitous.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Content */}
+            <div style={{ display: 'flex', flexDirection: 'column', padding: '2.5rem 3.5rem 2.5rem 2.2rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '1rem' }}>THE AI-NATIVE PROGRAM</span>
+              
+              <div style={{ backgroundColor: '#fffbeb', borderRadius: '12px', padding: '1.4rem 1.8rem', marginBottom: '1.5rem' }}>
+                <strong style={{ display: 'block', fontSize: '0.95rem', color: '#1e293b', marginBottom: '1rem' }}>Anchored in Professor Raj Reddy's three principles</strong>
+                
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, color: '#1e3a8a', fontSize: '0.95rem' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpenIcon size={16} /></div>
+                    Learning to Learn
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, color: '#1e3a8a', fontSize: '0.95rem' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CpuIcon size={16} /></div>
+                    Learning to Think
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, color: '#1e3a8a', fontSize: '0.95rem' }}>
+                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BriefcaseIcon size={16} /></div>
+                    Learning to Do
+                  </div>
+                </div>
+                
+                <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
+                  Practised with AI tools and technologies, so students stay relevant in the modern world.
+                </p>
+              </div>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
+                <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '1.4rem 1.4rem', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}><BriefcaseIcon size={18} /></div>
+                  <strong style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '0.8rem' }}>Industry Co-op</strong>
+                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Half of the program is spent in industry co-ops, solving real problems under the supervision of practitioners and mentors.</p>
+                </div>
+                
+                <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '1.4rem 1.4rem', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}><SparklesIcon size={18} /></div>
+                  <strong style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '0.8rem' }}>Venture Studio</strong>
+                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Students build to launch a product, working hands-on with early-stage VCs.</p>
+                </div>
+
+                <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '1.4rem 1.4rem', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}><UsersIcon size={18} /></div>
+                  <strong style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '0.8rem' }}>Partnership with CETLS</strong>
+                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Curriculum and methodology co-designed with CETLS. Learning engineering and data-driven evidence continuously improve the program, so it never stays static for long.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
       case 'placements':
         return (
           <div className="slide-content-layout layout-top-placements">
@@ -517,7 +614,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
                   <div className="btech-row outcome">
                     <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Graduated as production-hardened AI software engineers with ~50% paid corporate practicum, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
+                    <p>Graduated as production-hardened AI software engineers with a ~50% real-world practicum with CETL, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
                   </div>
                 </div>
               </div>
@@ -545,8 +642,8 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="edu-pillar-divider"></div>
               <div className="edu-pillar-item">
                 <span className="pillar-shift-badge">CORPORATE TENURE</span>
-                <strong>~50% Paid Corporate Practicum</strong>
-                <p>Real production microservices and stipends in Hyderabad's premier tech corridor.</p>
+                <strong>50% Real-World Practicum</strong>
+                <p>Real production microservices and projects working alongside CETL.</p>
               </div>
             </div>
           </div>
@@ -639,42 +736,28 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           <div className="slide-content-layout layout-coop-practicum">
             <div className="practicum-stats-strip">
               <div className="p-stat-box">
-                <strong className="p-stat-number">~50%</strong>
-                <span className="p-stat-label">Of Programme in Industry</span>
-                <span className="p-stat-detail">Corporate Software Practicum</span>
+                <strong className="p-stat-number">50 / 50</strong>
+                <span className="p-stat-label">Learning & Projects</span>
+                <span className="p-stat-detail">Working with CETL</span>
               </div>
               <div className="p-stat-box highlight">
-                <strong className="p-stat-number">₹25k–₹60k</strong>
-                <span className="p-stat-label">Monthly Corporate Stipend</span>
-                <span className="p-stat-detail">Earn While You Learn</span>
-              </div>
-              <div className="p-stat-box">
-                <strong className="p-stat-number">70%+</strong>
-                <span className="p-stat-label">PPO Conversion Rate</span>
-                <span className="p-stat-detail">Pre-Placement Full-Time Offers</span>
-              </div>
-              <div className="p-stat-box">
-                <strong className="p-stat-number">100+</strong>
-                <span className="p-stat-label">Recruiting Partners</span>
-                <span className="p-stat-detail">Hyderabad Tech Corridor</span>
+                <strong className="p-stat-number">100%</strong>
+                <span className="p-stat-label">Industry Aligned</span>
+                <span className="p-stat-detail">Real-world Problem Solving</span>
               </div>
             </div>
 
             <div className="practicum-details-grid">
               <div className="practicum-text-card">
-                <h4>Why the MSIT Corporate Practicum is Transformative</h4>
+                <h4>Why the MSIT Real-World Practicum is Transformative</h4>
                 <ul className="practicum-benefits-list">
                   <li>
                     <CheckCircleIcon size={18} />
-                    <span><strong>Recover Education Investment Early:</strong> Substantial monthly stipends allow students to offset their living and academic expenses during the master's programme itself.</span>
+                    <span><strong>Industry-Integrated Learning:</strong> Master cutting-edge technologies by working on real-world problems, directly aligning your skills with industry requirements.</span>
                   </li>
                   <li>
                     <CheckCircleIcon size={18} />
-                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems—not toy toy projects or simulated labs.</span>
-                  </li>
-                  <li>
-                    <CheckCircleIcon size={18} />
-                    <span><strong>Direct Absorption into Full-Time Roles:</strong> Because company teams already know your code quality from the practicum, over 70% of students receive full-time PPOs prior to graduation.</span>
+                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems in collaboration with CETL.</span>
                   </li>
                   <li>
                     <CheckCircleIcon size={18} />
@@ -856,8 +939,10 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
           <div className="top-bar-brand">
             <img
-              src="/assets/msit-logo.png"
-              alt="MSIT Logo"
+              src="/assets/msit-25-logo.png"
+              alt="25 Years of MSIT"
+              style={{ objectFit: 'contain', borderRadius: '6px' }}
+
               width="32"
               height="32"
             />
@@ -880,7 +965,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         </nav>
 
         <div className="top-bar-right">
-          <span className="top-bar-active-cat">{slides[currentSlide].category.split(' & ')[0]}</span>
           <button 
             type="button" 
             className="btn btn-primary top-bar-signin-btn"
@@ -912,9 +996,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               className={`fullscreen-slide-item ${slideItem.themeClass} ${idx === currentSlide ? 'is-active-slide' : ''}`}
             >
               {/* Dynamic Slide Stage Container */}
-              <div className="fullscreen-slide-stage">
+              <div 
+                className="fullscreen-slide-stage"
+                style={slideItem.id === 'ainative' ? { padding: 0 } : {}}
+              >
                 {/* Header Meta Row */}
-                <div className="slide-header-meta">
+                {slideItem.id !== 'ainative' && (
+                  <div className="slide-header-meta">
                   <div className="slide-meta-top-row">
                     <span className="fullscreen-category-badge">{slideItem.category}</span>
                     <span className="mobile-desktop-hint-pill">💻 For detailed view & full info, use desktop</span>
@@ -922,6 +1010,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
                   <p className="fullscreen-slide-lead">{slideItem.lead}</p>
                 </div>
+                )}
 
                 {/* Render Bespoke Non-Interactive Slide Content */}
                 <div className="slide-body-container">
@@ -929,7 +1018,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 </div>
 
                 {/* Integrated Controls Bar at bottom of stage */}
-                <div className="fullscreen-controls-bar">
+                <div className="fullscreen-controls-bar" style={slideItem.id === 'ainative' ? { padding: '1rem 3.5rem', margin: 0 } : {}}>
                   <div className="controls-nav-group">
                     <button 
                       type="button" 

@@ -39,9 +39,10 @@ export default function StudentGatewayPage() {
         <div className="gateway-container gateway-header-container">
           <div className="gateway-brand">
             <img
-              src="/assets/msit-logo.png"
-              alt="MSIT Logo"
-              className="gateway-logo"
+              src="/assets/msit-25-logo.png"
+              alt="25 Years of MSIT"
+              className="brand-logo"
+              style={{ objectFit: 'contain' }}
               width="38"
               height="38"
             />
@@ -49,6 +50,7 @@ export default function StudentGatewayPage() {
               <span className="gateway-brand-title">IIIT Hyderabad Consortium</span>
               <span className="gateway-brand-subtitle">MSIT · Master of Science in Information Technology</span>
             </div>
+            
           </div>
           
           <div className="gateway-header-badges">
@@ -97,9 +99,6 @@ export default function StudentGatewayPage() {
                 <p className="simple-card-desc">
                   Learn how MSIT works — our founding legacy under Prof. Raj Reddy, hands-on learning model, and corporate co-op internships.
                 </p>
-                <div className="gateway-mobile-tip">
-                  <span>💻 Tip: For in-depth archives & full details, open on desktop</span>
-                </div>
               </div>
 
               <div className="simple-card-footer">
