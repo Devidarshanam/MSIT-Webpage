@@ -368,13 +368,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="journey-milestone-card card-m2016">
                 <div className="journey-card-top">
                   <span className="journey-year-badge">2015–2018</span>
-                  <span className="journey-era-label">Cloud Systems Era</span>
+                  <span className="journey-era-label">Curriculum Evolution</span>
                 </div>
-                <h4>Cloud & Distributed Systems Modernization</h4>
-                <p>Modernized the curriculum into distributed computing, microservices, containerization, and data engineering pipelines. MSIT alumni footprint expanded significantly across Silicon Valley, Europe, and leading global product engineering centers.</p>
+                <h4>Domain Specializations & Frameworks</h4>
+                <p>Pivoted strongly toward practical software engineering frameworks and intelligent automated learning platforms. Restructured the curriculum to incorporate high-demand tech domains, setting the foundation for specializations in Data Science, Machine Learning, and Full Stack Development.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>Distributed Systems & Cloud-Native Studios</span>
+                  <span>Data Science, ML & Full Stack Domains</span>
                 </div>
               </div>
 
@@ -382,13 +382,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className="journey-milestone-card card-m2020">
                 <div className="journey-card-top">
                   <span className="journey-year-badge">2020–2022</span>
-                  <span className="journey-era-label">Digital Transformation</span>
+                  <span className="journey-era-label">Major Restructuring</span>
                 </div>
-                <h4>Flexible Mastery & Hybrid Restructuring</h4>
-                <p>Restructured in response to global remote learning to introduce personalized, hybrid formats alongside staggered rolling admissions. Enabled self-paced progression and individual mentor code reviews without compromising hands-on rigor.</p>
+                <h4>Hybrid Learning & Flexible Pathways</h4>
+                <p>Restructured the entire program in response to the pandemic, transitioning to online-guided models and sequential web-based batches. Introduced flexible learning pathways for both full-time students and working professionals without compromising hands-on rigor.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>Hybrid Learning & Rolling Admissions</span>
+                  <span>Online-Guided Models & Working Professionals</span>
                 </div>
               </div>
 
