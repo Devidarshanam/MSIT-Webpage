@@ -39,9 +39,10 @@ export default function ProgrammePage() {
         <div className="programme-header-container">
           <a href="/" className="programme-brand" aria-label="Back to home">
             <img
-              src="/assets/msit-logo.png"
-              alt="MSIT Logo"
-              className="gateway-logo"
+              src="/assets/msit-25-logo.png"
+              alt="25 Years of MSIT"
+              className="brand-logo"
+              style={{ objectFit: 'contain' }}
               width="38"
               height="38"
             />
