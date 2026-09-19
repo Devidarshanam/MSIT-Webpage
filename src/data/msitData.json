@@ -1,288 +1,522 @@
 {
-  "navigation": {
-    "brand": {
-      "title": "IIIT Hyderabad",
-      "subtitle": "MSIT",
-      "logo": "/assets/msit-logo.png"
-    },
-    "links": [
-      { "label": "Know About MSIT", "href": "#glance" },
-      { "label": "Why MSIT", "href": "#why-msit" },
-      { "label": "Curriculum", "href": "#curriculum" },
-      { "label": "Careers", "href": "#careers" },
-      { "label": "Admissions & Aid", "href": "#admissions" },
-      { "label": "FAQ", "href": "#faq" }
-    ],
-    "cta": {
-      "label": "Register Interest",
-      "href": "#apply"
-    }
+  "meta": {
+    "programmeName": "Master of Science in Information Technology (MSIT)",
+    "institution": "IIIT Hyderabad Consortium",
+    "targetCohort": "January 2027",
+    "applicationStatus": "Opening Soon",
+    "contactEmail": "query@msit.ac.in",
+    "contactPhone": "+91 (40) 6653 1000",
+    "campusAddress": "IIIT Hyderabad Campus, Gachibowli, Hyderabad, Telangana 500 032, India"
   },
-  "hero": {
-    "badge": "Admissions 2027",
-    "title": "MSIT",
-    "subtitle": "Master of Science in Information Technology",
-    "institution": "IIIT Hyderabad",
-    "nextCohort": "January 2027",
-    "orientation": "AI-Native",
-    "tagline": "An AI-native technology master's programme engineering high-impact software, rigorous problem solving, and immersive industry co-ops.",
-    "subTagline": "The revamped MSIT launches in January 2027. Admissions opening shortly.",
-    "statusLabel": "Admissions Status",
-    "statusValue": "Opening Soon",
-    "primaryCta": {
-      "label": "Explore Programme",
-      "href": "#glance"
-    },
-    "secondaryCta": {
-      "label": "Register Interest",
-      "href": "#apply"
-    },
-    "quickLinks": [
-      { "label": "Why Choose MSIT", "href": "#why-msit" },
-      { "label": "Curriculum", "href": "#curriculum" },
-      { "label": "Admissions & Aid", "href": "#admissions" }
-    ],
-    "snapshot": {
-      "eyebrow": "Programme Snapshot",
-      "stats": [
-        { "value": "AI", "label": "Native" },
-        { "value": "Jan 2027", "label": "Commencement" },
-        { "value": "~50%", "label": "Industry Co-op" }
-      ],
-      "rows": [
-        { "label": "Pedagogy", "value": "Learn · Think · Do" },
-        { "label": "Research Anchor", "value": "CETLS @ IIIT-H" },
-        { "label": "Format", "value": "Full-Time On-Campus" }
-      ]
-    }
-  },
-  "glance": {
-    "sectionId": "glance",
-    "kicker": "At a Glance",
-    "heading": "Programme at a Glance",
-    "description": "Essential operational parameters for prospective students in one 20-second scan.",
-    "items": [
-      { "label": "Degree", "value": "Master of Science in Information Technology (MSIT)" },
-      { "label": "Awarding Institute", "value": "IIIT Hyderabad" },
-      { "label": "Next Cohort Intake", "value": "January 2027" },
-      { "label": "Academic Format", "value": "Full-Time On-Campus" },
-      { "label": "Campus Location", "value": "IIIT Hyderabad, Gachibowli, Hyderabad" },
-      { "label": "Industry Exposure", "value": "Co-op Engagement (~50% of duration)" },
-      { "label": "Instructional Model", "value": "Active Practice & Mentored Studios (Learn · Think · Do)" },
-      { "label": "Technology Focus", "value": "AI Systems, Software Engineering & Distributed Data" }
+  "dashboard": {
+    "welcomeKicker": "Student Information & Decision Dashboard",
+    "welcomeTitle": "MSIT Programme Information",
+    "welcomeSubtitle": "Explore official programme specifications, academic learning structure, admissions criteria, and application preparation for the upcoming cohort.",
+    "cohortBadge": "Target Cohort: January 2027",
+    "statusBadge": "Applications Opening Soon",
+    "nextActionTitle": "Recommended Next Action",
+    "nextActionDesc": "Review the curriculum domains and ensure your academic transcripts and identification records are organized for the upcoming application launch.",
+    "actionChecklist": [
+      {
+        "id": "1",
+        "title": "Review Academic & Learning Structure",
+        "desc": "Familiarize yourself with the 6-stage active learning model and core technology areas.",
+        "done": true
+      },
+      {
+        "id": "2",
+        "title": "Organize Transcripts & Documents",
+        "desc": "Keep your undergraduate grade sheets and degree certificates ready for submission.",
+        "done": false
+      },
+      {
+        "id": "3",
+        "title": "Refresh Computational Fundamentals",
+        "desc": "Brush up on programming fundamentals, algorithmic thinking, and basic discrete mathematics.",
+        "done": false
+      },
+      {
+        "id": "4",
+        "title": "Await Official Admission Circular",
+        "desc": "We will notify you at your registered email address as soon as the application portal opens.",
+        "done": false
+      }
     ]
   },
-  "whyChoose": {
-    "sectionId": "why-msit",
-    "kicker": "Strategic Advantage",
-    "heading": "Why Choose MSIT?",
-    "description": "Four structural advantages that differentiate MSIT from traditional master's degrees.",
-    "legacyQuote": {
-      "quote": "“MSIT was founded to pioneer practical post-graduate computing education that bridges academic depth with real-world execution.”",
-      "author": "Conceived in 2001 by Prof. Raj Reddy",
-      "title": "Turing Award Laureate & Co-Founder of MSIT · 25+ Years Legacy"
-    },
-    "cards": [
+  "overview": {
+    "sectionId": "overview",
+    "kicker": "Programme Overview",
+    "heading": "Essential Programme Parameters",
+    "description": "Concise, verified institutional and operational specifications for prospective students.",
+    "items": [
       {
-        "icon": "💼",
-        "title": "Substantial Industry Tenure",
-        "description": "Spend approximately half your master's working in real corporate engineering environments, graduating with demonstrable production tenure instead of just classroom theory."
+        "label": "Degree Awarded",
+        "value": "Master of Science in Information Technology (MSIT)"
       },
       {
-        "icon": "🏛️",
-        "title": "IIIT Hyderabad Tech Ecosystem",
-        "description": "Learn at one of India's premier computer science institutions, gaining direct access to world-class research centers, computing infrastructure, and academic faculty."
+        "label": "Awarding Institution",
+        "value": "Offered under the consortium of IIIT Hyderabad & State Universities"
       },
       {
-        "icon": "⚡",
-        "title": "Studio Pedagogy (Learn · Think · Do)",
-        "description": "Zero passive lecture halls. Learning methods are guided by the CETLS Living Lab at IIIT-H, instilling cognitive resilience and practical engineering independence."
+        "label": "Next Intake",
+        "value": "January 2027 (Scheduled Commencement)"
       },
       {
-        "icon": "🚀",
-        "title": "Dual Track: Engineer or Builder",
-        "description": "Equally optimized whether you aim for high-impact software engineering leadership in global tech firms or launching ventures through structured incubation."
+        "label": "Academic Format",
+        "value": "Full-Time, On-Campus Postgraduate Programme"
+      },
+      {
+        "label": "Campus Location",
+        "value": "IIIT Hyderabad Campus, Gachibowli, Hyderabad"
+      },
+      {
+        "label": "Core Principles",
+        "value": "Learning to Learn · Learning to Think · Learning to Do"
+      },
+      {
+        "label": "Pedagogy Anchor",
+        "value": "Living Lab for Centre for Educational Technology & Learning Sciences (CETLS)"
+      },
+      {
+        "label": "Technology Focus",
+        "value": "AI Systems, Software Engineering, Modern Data & Systems Architecture"
       }
     ]
   },
   "curriculum": {
     "sectionId": "curriculum",
-    "kicker": "Curriculum Focus",
-    "heading": "What Will You Master?",
-    "description": "Four core competencies engineered for modern software, intelligent systems, and industry leadership.",
-    "tracks": [
+    "kicker": "Curriculum & Pedagogy",
+    "heading": "Curriculum & Learning Structure",
+    "description": "Designed for an AI-native era where cognitive tools are ubiquitous, emphasizing foundational depth alongside independent problem solving.",
+    "learningModel": {
+      "title": "Broad Learning Model",
+      "steps": [
+        { "num": "01", "name": "Learn", "desc": "Grasp fundamental concepts & theories" },
+        { "num": "02", "name": "Think", "desc": "Critically analyze, evaluate & reason" },
+        { "num": "03", "name": "Build", "desc": "Develop systems & write resilient code" },
+        { "num": "04", "name": "Apply", "desc": "Tackle real-world practical challenges" },
+        { "num": "05", "name": "Reflect", "desc": "Assess outcomes, failure modes & feedback" },
+        { "num": "06", "name": "Improve", "desc": "Iterate, optimize & refine knowledge" }
+      ]
+    },
+    "principles": [
       {
-        "title": "Artificial Intelligence & Modern Data",
-        "icon": "🧠",
-        "tag": "LLMs & Intelligent Systems",
-        "description": "Neural network architectures, modern large language models (LLMs), generative agents, and high-throughput data engineering."
+        "title": "Learning to Learn",
+        "desc": "Technologies will continue to change. MSIT develops the capacity to acquire new technical knowledge independently and just in time."
       },
       {
-        "title": "Distributed Computing & Cloud Systems",
-        "icon": "💻",
-        "tag": "Architecture & Scalability",
-        "description": "Advanced systems design, concurrency, cloud-native infrastructure, microservices, and fault-tolerant computing."
+        "title": "Learning to Think",
+        "desc": "Students are encouraged to reason critically, question assumptions, evaluate evidence, and distinguish reliable answers from misleading outputs."
       },
       {
-        "title": "Production Software & Defensive Quality",
-        "icon": "⚙️",
-        "tag": "Reliability & Verification",
-        "description": "Production software architecture, automated testing, CI/CD pipelines, defensive engineering, and human code scrutiny."
-      },
-      {
-        "title": "Corporate Co-op & Venture Incubation",
-        "icon": "🚀",
-        "tag": "~50% Practical Tenure",
-        "description": "Extensive full-time corporate software engineering tenure with practitioner code reviews, or venture incubation for technical founders."
+        "title": "Learning to Do",
+        "desc": "Experiential education where students build, solve real engineering problems, and apply concepts rather than relying primarily on passive lectures."
       }
     ],
-    "progression": [
-      { "step": "01", "name": "Foundations" },
-      { "step": "02", "name": "Advanced Labs" },
-      { "step": "03", "name": "Corporate Co-op (~50%)" },
-      { "step": "04", "name": "Capstone & Launch" }
-    ]
-  },
-  "careerOutcomes": {
-    "sectionId": "careers",
-    "kicker": "Post-Graduation Trajectories",
-    "heading": "Career Pathways & Industry Outcomes",
-    "description": "The technical leadership roles and high-impact trajectories MSIT graduates pursue.",
-    "pillars": [
+    "coreAreas": [
       {
-        "title": "Advanced Engineering Specializations",
+        "title": "Programming & Computational Problem Solving",
+        "tag": "Foundations",
+        "desc": "Algorithmic thinking, data structures, complexity analysis, and rigorous computational logic."
+      },
+      {
+        "title": "Data Science & Machine Learning",
+        "tag": "Data & Modeling",
+        "desc": "Statistical learning, data pipelines, predictive modeling, and applied machine learning frameworks."
+      },
+      {
+        "title": "Artificial Intelligence & Deep Learning",
+        "tag": "Advanced AI",
+        "desc": "Neural networks, deep architectures, computer vision, natural language processing, and cognitive systems."
+      },
+      {
+        "title": "Modern AI Systems & Large Language Models",
+        "tag": "AI-Native",
+        "desc": "LLM toolchains, prompt engineering, generative models, responsible AI deployment, and human judgement."
+      },
+      {
+        "title": "Software & Systems Development",
+        "tag": "Engineering",
+        "desc": "Defensive code quality, modern software architecture, CI/CD, distributed systems, and cloud fundamentals."
+      },
+      {
+        "title": "Applied Projects & Industry Problem Solving",
+        "tag": "Practice",
+        "desc": "Hands-on engineering projects solving genuine industry challenges with practitioner code scrutiny."
+      },
+      {
+        "title": "Venture Building & Product Development",
+        "tag": "Innovation",
+        "desc": "Product ideation, rapid prototyping, technical entrepreneurship, and venture creation methodologies."
+      },
+      {
+        "title": "Communication & Professional Skills",
+        "tag": "Leadership",
+        "desc": "Technical documentation, code walkthroughs, cross-disciplinary collaboration, and engineering ethics."
+      }
+    ],
+    "cetlsAnchor": {
+      "title": "Living Lab for CETLS at IIIT Hyderabad",
+      "desc": "MSIT serves as a living laboratory for the Centre for Educational Technology and Learning Sciences (CETLS). Curriculum design, learning methodologies, assessments, and mentorship interventions are continuously evaluated and improved using data-driven evidence and cognitive learning science."
+    },
+    "note": "Detailed semester-wise course titles, credit allocations, elective tracks, and course sequencing are currently being finalized and will be officially published in the admission brochure."
+  },
+  "eligibility": {
+    "sectionId": "eligibility",
+    "kicker": "Admissions & Requirements",
+    "heading": "Eligibility & Admission Process",
+    "description": "Clear guidelines on qualifying undergraduate backgrounds, application evaluation, and admission milestones.",
+    "criteria": [
+      {
+        "title": "Undergraduate Qualification",
+        "status": "Qualifying Degrees",
+        "desc": "Bachelor's degree in Engineering or Technology (B.Tech / B.E.) or Master's degree in Computer Science, IT, Computer Applications (MCA), or Mathematics from a recognized university."
+      },
+      {
+        "title": "Engineering Disciplines",
+        "status": "All Engineering Branches Considered",
+        "desc": "Graduates from both CS/IT and non-CS engineering branches (such as ECE, EEE, Mechanical, Civil, etc.) are eligible to apply. Foundation tracks are designed to build essential computing fundamentals."
+      },
+      {
+        "title": "Final-Year Students",
+        "status": "Eligible to Apply Provisionally",
+        "desc": "Students appearing in their final semester/year of undergraduate studies are eligible to apply provisionally, subject to completing all graduation requirements before programme commencement."
+      },
+      {
+        "title": "Academic Marks & Cutoffs",
+        "status": "To Be Announced in Notification",
+        "desc": "Official minimum percentage or CGPA cutoff criteria will be formally specified in the upcoming admission circular. No assumptions or speculative cutoffs are enforced."
+      },
+      {
+        "title": "Prerequisites",
+        "status": "Mathematics & Computational Aptitude",
+        "desc": "A sound background in higher secondary/undergraduate mathematics and a genuine aptitude for problem solving and programming are expected."
+      },
+      {
+        "title": "Work Experience",
+        "status": "Optional / Not Mandatory",
+        "desc": "Both fresh graduates and candidates with professional software or engineering experience are welcome to apply."
+      }
+    ],
+    "admissionProcess": [
+      {
+        "step": "01",
+        "title": "Online Application",
+        "desc": "Candidates submit the MSIT application form with required academic credentials, mark sheets, and statement of interest."
+      },
+      {
+        "step": "02",
+        "title": "Screening / Entrance Evaluation",
+        "desc": "Shortlisted candidates undergo the prescribed admission evaluation assessing problem solving, programming logic, and analytical aptitude."
+      },
+      {
+        "step": "03",
+        "title": "Interview / Interaction",
+        "desc": "Candidates may be invited for an interaction to assess preparation, academic mindset, motivation, and suitability for the programme."
+      },
+      {
+        "step": "04",
+        "title": "Admission Offer",
+        "desc": "Selected candidates receive formal admission offers with instructions for fee payment, document verification, and enrolment."
+      }
+    ],
+    "importantDates": [
+      { "activity": "Admission Notification Release", "date": "To be announced shortly" },
+      { "activity": "Online Applications Open", "date": "TBD" },
+      { "activity": "Application Submission Deadline", "date": "TBD" },
+      { "activity": "Admission Evaluation / Test", "date": "TBD" },
+      { "activity": "Interviews / Interactions", "date": "TBD" },
+      { "activity": "Formal Admission Offers", "date": "TBD" },
+      { "activity": "Programme Commencement", "date": "January 2027" }
+    ],
+    "disclaimer": "The admission process, evaluation format, and schedule for the January 2027 cohort will be confirmed in the formal notification. Dates and procedures are subject to institutional approval."
+  },
+  "fees": {
+    "sectionId": "fees",
+    "kicker": "Financial Information",
+    "heading": "Fee Structure & Financial Support",
+    "description": "Transparent breakdown of fee heads and official guidance on educational loan facilitation.",
+    "table": [
+      { "component": "Tuition Fee", "amount": "To be published with admission notification", "period": "Per Semester / Academic Year" },
+      { "component": "Admission / Registration Fee", "amount": "To be published with admission notification", "period": "One-time at admission" },
+      { "component": "Refundable Caution Deposit", "amount": "To be published with admission notification", "period": "Refundable on completion" },
+      { "component": "Hostel & Accommodation Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" },
+      { "component": "Mess / Dining Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" },
+      { "component": "Other Institute Charges", "amount": "To be published with admission notification", "period": "As per institutional circular" }
+    ],
+    "loanGuidance": {
+      "title": "Education Loan & Financial Facilitation",
+      "points": [
+        {
+          "title": "Bank Loan Facilitation",
+          "desc": "Postgraduate degrees offered under premier institutions like IIIT Hyderabad are generally eligible for educational loan schemes from leading nationalized and scheduled commercial banks. Loan sanction is subject to individual bank norms and credit verification."
+        },
+        {
+          "title": "Institutional Documentation Support",
+          "desc": "Upon receiving an admission offer, the MSIT Admissions Office provides official admission letters, fee structure bonafide certificates, and necessary documentation required by banks to process student educational loan requests."
+        },
+        {
+          "title": "Scholarships & Financial Aid",
+          "desc": "Specific institutional scholarships, merit assistance, or fee concessions (if applicable for the January 2027 cohort) will be officially detailed in the admission brochure."
+        }
+      ]
+    },
+    "note": "Exact fee figures, payment schedules, refund policies, and hostel arrangements are currently under institutional review and will be formally published in the admission circular."
+  },
+  "careers": {
+    "sectionId": "careers",
+    "kicker": "Career Pathways",
+    "heading": "Career & Industry Outcomes",
+    "description": "Preparing graduates for technical excellence, engineering leadership, and product innovation in an AI-driven industry.",
+    "pathways": [
+      {
+        "title": "Advanced Engineering Specialization",
         "badge": "Specialist Track",
         "points": [
-          "AI & Machine Learning Engineers deploying intelligent software",
-          "Systems & Distributed Cloud Software Engineers",
-          "Full-Stack Product Engineers mastering AI-native toolchains",
-          "Data Infrastructure & MLOps Specialists"
+          "AI & Machine Learning Engineers designing intelligent, production-grade applications",
+          "Systems & Distributed Cloud Engineers architecting resilient, scalable infrastructure",
+          "Full-Stack Product Engineers mastering modern AI-assisted software toolchains",
+          "Data Infrastructure & MLOps Engineers managing production pipelines and model deployments"
         ]
       },
       {
         "title": "Venture & Product Leadership",
         "badge": "Builder Track",
         "points": [
-          "Technical Founders launching tech-driven startup products",
-          "Early-stage Founding Engineers and Product Architects",
-          "Product Managers with deep technical and architectural literacy",
-          "Innovation leads driving corporate technology initiatives"
+          "Technical Founders launching ventures through the Venture Studio framework",
+          "Early-Stage Founding Engineers shaping technology strategy from ground zero",
+          "Technical Product Managers with deep architectural literacy and execution skills",
+          "Engineering Innovation Leads driving modern software initiatives in tech enterprises"
         ]
       },
       {
-        "title": "Applied Research & Lifelong Growth",
-        "badge": "Research Track",
+        "title": "Applied R&D & Lifelong Growth",
+        "badge": "Research & Growth Track",
         "points": [
-          "Applied R&D engineers bridging academic science and commercial software",
-          "Readiness for specialized doctoral and advanced applied research studies",
-          "Technical agility to pivot across emerging computing paradigms throughout your career"
+          "Applied R&D engineers bridging cutting-edge academic computer science with commercial software",
+          "Readiness for specialized doctoral and advanced applied research studies in computing",
+          "Demonstrated technical agility to continuously learn, adapt, and lead across emerging technologies"
         ]
       }
     ],
-    "integrityNote": "Placement statistics and detailed corporate recruiter lists for the January 2027 cohort will be published alongside official admission notifications. No unverified placement percentages or salary numbers are advertised."
+    "transparencyNote": "Official placement statistics, recruiter participation data, and career reports for MSIT cohorts are published alongside formal notifications. We maintain strict academic integrity and do not advertise unverified placement percentages or fabricated salary metrics."
   },
-  "admissionsCenter": {
-    "sectionId": "admissions",
-    "kicker": "Admissions & Financials",
-    "heading": "Admissions, Eligibility & Financial Support",
-    "description": "Everything you need to evaluate your eligibility, understand the admission steps, and access education loans.",
-    "checker": {
-      "title": "Interactive Profile Fit Checker",
-      "subtitle": "Select your background to view your prospective fit for the January 2027 intake."
+  "practicum": {
+    "sectionId": "practicum",
+    "kicker": "Experiential Learning",
+    "heading": "Real-World Practicum & Venture Studio",
+    "description": "Bridging rigorous academic computing depth with substantive industry execution.",
+    "modelHighlight": {
+      "learningRatio": "~50% Academic & Studio Learning",
+      "practicumRatio": "~50% Practical Industry Co-op Exposure",
+      "summary": "The programme design envisages that students spend approximately half their programme duration engaging in real-world engineering environments and practical co-ops rather than purely classroom lectures."
     },
-    "roadmap": [
-      { "step": "01", "title": "Notification Release", "subtext": "Opening Soon", "desc": "Official circular issued with complete eligibility cutoffs." },
-      { "step": "02", "title": "Online Application", "subtext": "Late 2026", "desc": "Submit academic profile, transcripts, and statement." },
-      { "step": "03", "title": "Admission Assessment", "subtext": "Dates TBA", "desc": "Entrance evaluation assessing programming & computational thinking." },
-      { "step": "04", "title": "Offer & Commencement", "subtext": "January 2027", "desc": "Formal admission letters issued; on-campus orientation begins." }
+    "pillars": [
+      {
+        "title": "Industry Co-op Engagement",
+        "desc": "Students work on authentic industry engineering challenges under the supervision of seasoned industry practitioners and academic mentors, developing production-level discipline."
+      },
+      {
+        "title": "Practitioner Mentorship & Code Reviews",
+        "desc": "Technical progress is guided by active software engineers who evaluate code design, architectural trade-offs, defensive reliability, and problem-solving reasoning."
+      },
+      {
+        "title": "Venture Studio: Problem to Product",
+        "desc": "Provides an opportunity for builder-minded students to move from problem identification to product creation, with exposure to the startup and early-stage investment ecosystem."
+      },
+      {
+        "title": "Mindset Shift",
+        "desc": "Encouraging students to progress beyond simply asking 'How do I get a job?' towards asking 'What problem can I solve? What value can I create?'"
+      }
     ],
-    "financials": {
-      "title": "Fee Structure & Bank Loan Assistance",
-      "feeNotice": "Specific fee breakdowns for tuition and deposits for the January 2027 intake will be released in the formal admission circular.",
-      "loanPillars": [
-        { "title": "Pre-Approved Bank Loans", "desc": "Major nationalized and private banks (SBI, HDFC, Canara Bank) provide educational loans for IIIT Hyderabad master's programs, often without collateral." },
-        { "title": "Co-op Earnings Offset", "desc": "During the extensive corporate co-op phase (~50% of the programme), students typically receive company stipends that offset living and academic expenses." }
-      ]
-    }
+    "note": "Industry engagements, corporate co-op allocations, and project assignments are subject to academic performance, interview evaluations, and host organization requirements."
   },
-  "faq": {
-    "sectionId": "faq",
-    "kicker": "FAQ",
-    "heading": "Frequently Asked Questions",
-    "description": "Direct answers to key prospective-student questions.",
-    "categories": ["All", "Curriculum & AI", "Industry Co-op", "Admissions & Eligibility"],
-    "questions": [
+  "campusLife": {
+    "sectionId": "campus",
+    "kicker": "Environment & Ecosystem",
+    "heading": "Campus & Student Life",
+    "description": "Thrive within the world-class academic, computing, and research environment at IIIT Hyderabad.",
+    "facilities": [
       {
-        "category": "Curriculum & AI",
-        "question": "How does the programme assess student code when AI coding assistants are permitted?",
-        "answer": "Assessments evaluate conceptual understanding, architectural reasoning, and defensive engineering rather than rote syntax. Students are evaluated on their ability to explain system trade-offs, identify edge cases in AI outputs, debug complex failures, and defend architectural choices in code reviews."
+        "title": "Premier Research Ecosystem",
+        "desc": "Direct proximity to premier computing research centers (CVIT, LTRC, Kohli Centre on Intelligent Systems) and renowned faculty."
       },
       {
-        "category": "Curriculum & AI",
-        "question": "What is the role of CETLS in my day-to-day learning?",
-        "answer": "The Centre for Educational Technology & Learning Sciences (CETLS) at IIIT Hyderabad uses learning analytics and educational psychology to continuously refine MSIT's active learning environments, ensuring instructional methods deliver deep conceptual mastery."
+        "title": "Advanced Computing Infrastructure",
+        "desc": "State-of-the-art computing labs, high-throughput network access, dedicated project studios, and collaborative engineering spaces."
       },
       {
-        "category": "Industry Co-op",
-        "question": "How is the industry co-op structured and supervised?",
-        "answer": "Students work inside corporate engineering teams for approximately half the programme. The co-op is jointly supervised by industry engineering mentors and IIIT-H academic advisors, with regular milestones and code evaluations."
+        "title": "Active Academic Community",
+        "desc": "A vibrant community of master's, doctoral, and undergraduate computer science researchers fostering technical exchange, seminars, and hackathons."
       },
       {
-        "category": "Industry Co-op",
-        "question": "Is the industry co-op paid by host companies?",
-        "answer": "Corporate co-op engagements typically offer competitive company stipends based on industry standards, helping offset living and educational expenses during the internship tenure."
+        "title": "Strategic Tech Hub Location",
+        "desc": "Located in Gachibowli, Hyderabad—at the epicenter of India's leading technology parks, global research facilities, and startup incubators."
+      }
+    ],
+    "accommodationNote": "Hostel and residential arrangements for the January 2027 cohort will be announced in accordance with institutional residential policies in the official admission circular."
+  },
+  "documents": {
+    "sectionId": "documents-faq",
+    "kicker": "Resources & FAQ",
+    "heading": "Official Documents & Frequently Asked Questions",
+    "description": "Review official downloadable materials and find answers to common queries regarding the revamped MSIT programme.",
+    "resources": [
+      {
+        "title": "MSIT Programme Information Overview",
+        "type": "Factsheet",
+        "status": "Available Online",
+        "desc": "Comprehensive overview of degree parameters, learning philosophy, and consortium history.",
+        "action": "view-summary"
       },
       {
-        "category": "Admissions & Eligibility",
-        "question": "Can final-year undergraduate students apply for the January 2027 intake?",
-        "answer": "Yes. Students completing their final undergraduate examinations before January 2027 are eligible to apply provisionally, subject to producing degree completion certificates upon joining."
+        "title": "Detailed Curriculum & Syllabus Document",
+        "type": "Academic Guide",
+        "status": "In Finalization",
+        "desc": "Full semester breakdown, course credits, and elective specializations (releasing with circular).",
+        "action": "pending"
       },
       {
-        "category": "Admissions & Eligibility",
-        "question": "Can candidates from non-computer science engineering branches apply?",
-        "answer": "Yes. Candidates with engineering degrees outside CS (e.g., ECE, EEE, Mechanical) are welcome. Phase 01 Foundations provides an intensive bridge to master data structures, systems, and algorithms."
-      },
-      {
-        "category": "Admissions & Eligibility",
-        "question": "How does MSIT differ from a traditional M.Tech degree?",
-        "answer": "Traditional M.Tech programs focus predominantly on classroom lectures and academic research theses. MSIT emphasizes active studio problem-solving, deep modern AI systems, and approximately half the programme spent in corporate industry co-op."
+        "title": "Formal Admission Notification Circular",
+        "type": "Official Circular",
+        "status": "Pending Release",
+        "desc": "Official circular specifying exact dates, eligibility cutoffs, entrance format, and fee structure.",
+        "action": "pending"
       }
     ]
   },
-  "finalCta": {
-    "sectionId": "apply",
-    "badge": "Next Steps",
-    "heading": "Stay Ahead of Admissions",
-    "tagline": "Register below to receive the official circular, entrance syllabus, and application timeline directly in your inbox the moment they are released.",
-    "primaryBtn": {
-      "label": "Get Application & Syllabus Alerts",
-      "href": "#apply"
-    },
-    "quickLinks": [
-      { "label": "Why Choose MSIT", "href": "#why-msit" },
-      { "label": "Curriculum & Cadence", "href": "#curriculum" },
-      { "label": "Admissions & Aid", "href": "#admissions" }
+  "faq": {
+    "categories": ["All", "Programme & AI", "Curriculum & Learning", "Industry Co-op", "Admissions & Eligibility", "Fees & Logistics"],
+    "questions": [
+      {
+        "category": "Programme & AI",
+        "question": "What is MSIT?",
+        "answer": "MSIT is the Master of Science in Information Technology postgraduate programme offered by the Consortium of Higher Learning, anchored at IIIT Hyderabad. Founded over 25 years ago by Turing Award laureate Prof. Raj Reddy, the programme emphasizes hands-on learning, practical engineering, and close mentorship."
+      },
+      {
+        "category": "Programme & AI",
+        "question": "What is different about the revamped MSIT?",
+        "answer": "The revamped MSIT is being designed as an AI-native programme, centred on three principles: Learning to Learn, Learning to Think, and Learning to Do. It combines academic computing education with substantial industry co-op experience, AI-assisted learning, venture building, and continuous learning improvements through CETLS."
+      },
+      {
+        "category": "Programme & AI",
+        "question": "When will the next cohort begin?",
+        "answer": "The next cohort of the revamped MSIT programme is scheduled to begin in January 2027. Official admission announcements will be released shortly."
+      },
+      {
+        "category": "Curriculum & Learning",
+        "question": "Will AI be part of the curriculum?",
+        "answer": "Yes. AI will be both an area of core technical study and an integral tool used across the learning environment. Students will learn how to build AI systems, use modern AI tools effectively, and critically evaluate AI outputs using independent human judgement."
+      },
+      {
+        "category": "Curriculum & Learning",
+        "question": "Is MSIT primarily lecture-based?",
+        "answer": "No. MSIT has historically emphasized experiential learning and learning-by-doing through project studios, active coding, and real problem solving rather than relying primarily on conventional classroom lectures."
+      },
+      {
+        "category": "Curriculum & Learning",
+        "question": "What is the role of CETLS?",
+        "answer": "MSIT serves as a living laboratory for the Centre for Educational Technology and Learning Sciences (CETLS) at IIIT Hyderabad. Curriculum, pedagogy, student assessments, and mentoring interventions are continuously studied and improved using evidence-based cognitive science."
+      },
+      {
+        "category": "Industry Co-op",
+        "question": "What is the industry co-op structure?",
+        "answer": "The redesigned programme plans for students to spend approximately half their programme duration working on genuine corporate engineering problems under the guidance of industry practitioners and faculty mentors."
+      },
+      {
+        "category": "Industry Co-op",
+        "question": "What is the Venture Studio?",
+        "answer": "The Venture Studio provides builder-oriented students an opportunity to take a problem or idea from inception towards a potential product or startup venture, gaining exposure to the startup and early-stage investment ecosystem."
+      },
+      {
+        "category": "Admissions & Eligibility",
+        "question": "What are the eligibility criteria for admissions?",
+        "answer": "Candidates with undergraduate degrees in Engineering/Technology (B.Tech/B.E.) or Master's degrees in computing disciplines (MCA, M.Sc in CS/IT/Maths) are eligible to apply. Specific minimum percentage/CGPA cutoffs will be published in the official admission notification."
+      },
+      {
+        "category": "Admissions & Eligibility",
+        "question": "Can final-year undergraduate students apply?",
+        "answer": "Yes. Students currently completing their final year/semester of undergraduate degree requirements are eligible to apply provisionally, provided they complete all graduation requirements before commencement."
+      },
+      {
+        "category": "Admissions & Eligibility",
+        "question": "Can students from non-computer science engineering branches apply?",
+        "answer": "Yes. Graduates from other engineering disciplines (ECE, EEE, Mechanical, etc.) are considered. Foundational immersion modules are structured into the initial curriculum to establish strong programming and systems fundamentals."
+      },
+      {
+        "category": "Fees & Logistics",
+        "question": "What is the programme fee structure?",
+        "answer": "The detailed fee structure for tuition, registration, caution deposits, and other institutional charges for the January 2027 cohort will be formally published in the official admission circular."
+      },
+      {
+        "category": "Fees & Logistics",
+        "question": "Are education loans available for MSIT?",
+        "answer": "Yes. Admitted students of IIIT Hyderabad master's programmes are typically eligible for education loans through major nationalized and scheduled banks. The institute provides official admission offer documentation and fee estimates to facilitate loan processing."
+      },
+      {
+        "category": "Fees & Logistics",
+        "question": "Is hostel accommodation available?",
+        "answer": "Hostel and residential arrangements for the January 2027 cohort are being finalized in line with institutional capacity and will be confirmed in the formal admission notification."
+      }
+    ]
+  },
+  "nextSteps": {
+    "sectionId": "next-steps",
+    "kicker": "Action Plan",
+    "heading": "Application Status & Next Steps",
+    "description": "What you need to know and how to prepare while official admissions are scheduled to open.",
+    "currentStatus": "Applications Opening Soon",
+    "cohort": "January 2027 Intake",
+    "adviceHeader": "What Should You Do Now?",
+    "steps": [
+      {
+        "step": "1",
+        "title": "Keep Documents Ready",
+        "text": "Organize your undergraduate marksheets, degree certificate or provisional certificate, and valid photo ID."
+      },
+      {
+        "step": "2",
+        "title": "Draft Statement of Motivation",
+        "text": "Reflect on your technical interests, problem-solving journey, and why the AI-native learning model fits your aspirations."
+      },
+      {
+        "step": "3",
+        "title": "Review Computational Basics",
+        "text": "Strengthen your core foundation in programming logic, algorithms, data structures, and mathematical thinking."
+      },
+      {
+        "step": "4",
+        "title": "Stay Tuned to Registered Email",
+        "text": "We will deliver the official admission notification, entrance syllabus, and application link directly to your verified inbox."
+      }
     ],
-    "contactText": "Have an admissions question?",
-    "contactEmail": "query@msit.ac.in"
+    "supportBox": {
+      "title": "Have Questions or Need Guidance?",
+      "text": "Reach out directly to the MSIT Admissions Office at IIIT Hyderabad for official information and prospective student assistance.",
+      "email": "query@msit.ac.in",
+      "phone": "+91 (40) 6653 1000"
+    }
   },
   "footer": {
     "institute": "IIIT Hyderabad",
     "programme": "MSIT — Master of Science in Information Technology",
-    "description": "A pioneering master's programme in information technology, founded in 2001 by Turing Award laureate Prof. Raj Reddy and anchored at IIIT Hyderabad.",
+    "description": "An AI-native technology master's programme engineering high-impact software, rigorous problem solving, and immersive industry co-ops. Offered under the consortium of IIIT Hyderabad and prestigious state universities.",
     "quickLinks": [
-      { "label": "Programme Overview", "href": "#glance" },
-      { "label": "Why MSIT", "href": "#why-msit" },
-      { "label": "Curriculum & Cadence", "href": "#curriculum" },
-      { "label": "Career Pathways", "href": "#careers" },
-      { "label": "Admissions & Aid", "href": "#admissions" },
-      { "label": "Frequently Asked Questions", "href": "#faq" }
+      { "label": "Programme Overview", "href": "#programme-specs" },
+      { "label": "Curriculum", "href": "#curriculum" },
+      { "label": "Eligibility & Admissions", "href": "#eligibility" },
+      { "label": "Fees & Aid", "href": "#fees" },
+      { "label": "Career Outcomes", "href": "#careers" },
+      { "label": "Real-World Practicum", "href": "#practicum" },
+      { "label": "Campus Life", "href": "#campus" },
+      { "label": "Documents & FAQ", "href": "#documents-faq" },
+      { "label": "Next Steps", "href": "#next-steps" }
     ],
     "contact": {
-      "address": "IIIT Hyderabad Campus, Gachibowli, Hyderabad, Telangana 500 032",
+      "address": "IIIT Hyderabad Campus, Gachibowli, Hyderabad, Telangana 500 032, India",
       "email": "query@msit.ac.in",
       "phone": "+91 (40) 6653 1000"
     },
-    "copyright": "© 2026 MSIT, IIIT Hyderabad. All rights reserved."
+    "copyright": "© 2026 MSIT, IIIT Hyderabad Consortium. All rights reserved."
   }
 }
