@@ -5218,16 +5218,17 @@ p {
 }
 
 .programme-header {
-  background: var(--white);
-  border-bottom: 1px solid var(--neutral-200);
+  background: linear-gradient(90deg, #0b2a6b 0%, #113880 60%, #174294 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   position: sticky;
   top: 0;
   z-index: 100;
   padding: 0.75rem 0;
+  box-shadow: 0 2px 10px rgba(11, 42, 107, 0.25);
 }
 
 .programme-header-container {
-  max-width: 1100px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 0 1.5rem;
   display: flex;
@@ -5239,53 +5240,99 @@ p {
   display: flex;
   align-items: center;
   gap: 0.85rem;
+  text-decoration: none;
+}
+
+.programme-header .gateway-brand-title {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.programme-header .gateway-brand-subtitle {
+  color: #bfdbfe;
+  font-size: 0.78rem;
+  display: block;
 }
 
 .programme-header-actions {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
+}
+
+.header-student-profile-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-pill);
+}
+
+.student-avatar-initial {
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  color: #0b2a6b;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .programme-user-email {
   font-size: 0.82rem;
   font-weight: 600;
-  color: var(--neutral-500);
-  background: var(--neutral-100);
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-pill);
+  color: #ffffff;
 }
 
 .programme-apply-btn {
   padding: 0.45rem 1.1rem;
   font-size: 0.85rem;
   gap: 0.4rem;
+  background: #ffffff;
+  color: #0b2a6b;
+  border: 1px solid #ffffff;
+  font-weight: 700;
+}
+
+.programme-apply-btn:hover {
+  background: #eff6ff;
+  color: #0b2a6b;
 }
 
 .programme-apply-placeholder {
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--neutral-500);
-  padding: 0.45rem 0.85rem;
-  background: var(--neutral-100);
-  border-radius: var(--radius-sm);
-  border: 1px dashed var(--neutral-300);
+  color: #fef08a;
+  padding: 0.35rem 0.85rem;
+  background: rgba(251, 191, 36, 0.18);
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(251, 191, 36, 0.45);
 }
 
 .programme-signout-btn {
-  background: none;
-  border: none;
-  color: var(--neutral-500);
-  font-size: 0.85rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  padding: 0;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-pill);
   transition: var(--transition);
 }
 
 .programme-signout-btn:hover {
-  color: #dc2626;
-  text-decoration: underline;
+  background: rgba(239, 68, 68, 0.25);
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #fecaca;
+  text-decoration: none;
 }
 
 .programme-welcome-banner {
@@ -5299,30 +5346,6 @@ p {
 .student-decision-dashboard {
   background: #f8fafc;
   color: var(--neutral-800);
-}
-
-/* Header Enhancements */
-.header-student-profile-chip {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--neutral-100);
-  border: 1px solid var(--neutral-200);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-pill);
-}
-
-.student-avatar-initial {
-  width: 22px;
-  height: 22px;
-  background: var(--primary-700);
-  color: #fff;
-  border-radius: 50%;
-  font-size: 0.75rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Sticky Sub-Navigation */
@@ -5461,14 +5484,15 @@ p {
 
 /* Status Card */
 .application-status-card {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #0b2a6b 0%, #173b8a 50%, #1e40af 100%);
   color: #ffffff;
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(11, 42, 107, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .status-card-header {
@@ -5483,7 +5507,7 @@ p {
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #94a3b8;
+  color: #bfdbfe;
   font-weight: 600;
 }
 
@@ -5491,9 +5515,9 @@ p {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(245, 158, 11, 0.2);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: rgba(251, 191, 36, 0.2);
+  color: #fef08a;
+  border: 1px solid rgba(251, 191, 36, 0.45);
   font-size: 0.75rem;
   font-weight: 600;
   padding: 0.2rem 0.6rem;
@@ -5503,7 +5527,7 @@ p {
 .beacon-dot {
   width: 6px;
   height: 6px;
-  background: #fbbf24;
+  background: #facc15;
   border-radius: 50%;
   animation: pulse-glow 2s infinite;
 }
@@ -5521,7 +5545,7 @@ p {
 
 .status-card-body p {
   font-size: 0.85rem;
-  color: #cbd5e1;
+  color: #dbeafe;
   line-height: 1.45;
   margin-bottom: 1rem;
 }
@@ -5530,28 +5554,28 @@ p {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 0.5rem 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.8rem;
-  color: #e2e8f0;
+  color: #ffffff;
 }
 
 .status-note-box strong {
-  color: #38bdf8;
+  color: #93c5fd;
 }
 
 .status-card-footer {
   margin-top: 1.25rem;
   padding-top: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .status-jump-btn {
   background: none;
   border: none;
-  color: #38bdf8;
+  color: #bfdbfe;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -5563,7 +5587,7 @@ p {
 }
 
 .status-jump-btn:hover {
-  color: #7dd3fc;
+  color: #ffffff;
   transform: translateX(3px);
 }
 
@@ -6838,11 +6862,12 @@ p {
 
 /* Next Steps Section */
 .next-steps-banner-card {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #0b2a6b 0%, #173b8a 50%, #1e40af 100%);
   color: #ffffff;
   border-radius: var(--radius-xl);
   padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.25);
+  box-shadow: 0 10px 30px rgba(11, 42, 107, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .steps-banner-top {
