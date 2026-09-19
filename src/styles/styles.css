@@ -8618,6 +8618,232 @@ p {
 }
 
 /* =========================================================================
+   SLIDE 3: MSIT AT 25 (AI-NATIVE ERA)
+   ========================================================================= */
+.stage-ainative {
+  padding: 0;
+}
+
+.layout-ai-native {
+  display: grid;
+  grid-template-columns: 1.15fr 2fr;
+  min-height: calc(100% + 2.7rem);
+  margin: -1.5rem -3.5rem -1.2rem -3.5rem;
+  align-items: stretch;
+  background-color: #ffffff;
+}
+
+.ai-native-sidebar {
+  background: linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%);
+  color: #ffffff;
+  padding: 3rem 2.2rem 3rem 5.7rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-native-logo {
+  width: 110px;
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0.4rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ai-native-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #ffffff !important;
+}
+
+.ai-native-highlight {
+  color: #fcd34d !important;
+}
+
+.ai-native-lead {
+  font-size: 0.9rem;
+  color: #cbd5e1 !important;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.ai-native-timeline {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.ai-native-timeline-line {
+  position: absolute;
+  left: 7px;
+  top: 20px;
+  width: 1px;
+  height: calc(100% - 30px);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ai-native-timeline-item {
+  position: relative;
+  padding-left: 2.2rem;
+}
+
+.ai-native-dot {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.ai-native-dot.gold { background-color: #fcd34d; }
+.ai-native-dot.white { background-color: #ffffff; }
+
+.ai-native-timeline-heading {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+}
+
+.ai-native-timeline-heading.gold { color: #fcd34d !important; }
+.ai-native-timeline-heading.white { color: #ffffff !important; }
+
+.ai-native-timeline-text {
+  font-size: 0.8rem;
+  color: #cbd5e1 !important;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ai-native-content {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 7rem 3rem 2.2rem;
+  justify-content: center;
+}
+
+.ai-native-kicker {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.ai-native-principles-box {
+  background-color: #fffbeb;
+  border: 1px solid #fef3c7;
+  border-radius: 12px;
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.ai-native-principles-title {
+  display: block;
+  font-size: 0.95rem;
+  color: #1e293b !important;
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.ai-native-principles-pills {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.ai-native-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  font-size: 0.95rem;
+}
+
+.ai-native-pill-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ai-native-principles-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #475569 !important;
+  line-height: 1.5;
+}
+
+.ai-native-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.ai-native-pillar-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+}
+
+.ai-native-pillar-card:hover {
+  transform: translateY(-2px);
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.08);
+}
+
+.ai-native-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #1d4ed8;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+}
+
+.ai-native-card-title {
+  font-size: 1rem;
+  color: #1e293b !important;
+  margin-bottom: 0.8rem;
+  display: block;
+}
+
+.ai-native-card-desc {
+  font-size: 0.8rem;
+  color: #475569 !important;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.controls-ainative {
+  padding: 1rem 3.5rem;
+  margin: 0;
+}
+
+/* =========================================================================
    SLIDE 3: TOP PLACEMENTS (PACKAGES)
    ========================================================================= */
 .layout-top-placements .placements-header-banner {
@@ -9743,43 +9969,6 @@ p {
   }
 }
 
-/* Missing CSS from Remote Merge */
-.back-btn-text-short {
-  display: none;
-}
-
-.mobile-desktop-hint-pill {
-  display: none;
-}
-
-@media (max-width: 980px) {
-  .mobile-desktop-hint-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.63rem;
-    font-weight: 700;
-    color: #1e40af;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-    padding: 0.12rem 0.5rem;
-    border-radius: var(--radius-pill);
-  }
-}
-
-@media (max-width: 640px) {
-  .back-btn-text-full {
-    display: none;
-  }
-  .back-btn-text-short {
-    display: inline;
-  }
-  .mobile-desktop-hint-pill {
-    font-size: 0.56rem;
-    padding: 0.1rem 0.42rem;
-  }
-}
-
 /* =========================================================================
    SLIDE 5: CAMPUS LIFE (CLEAN & MINIMAL EDITORIAL LAYOUT - NO BOXES)
    ========================================================================= */
@@ -9961,352 +10150,762 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@media (max-width: 580px) {
-  /* -------------------------------------------------------------------------
-     SLIDE 5: CAMPUS LIFE (MOBILE MINIMAL - NO BOXES)
-     ------------------------------------------------------------------------- */
-  .campus-editorial-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: 140px 1fr;
-    gap: 0.55rem;
-    height: 100%;
+/* =========================================================================
+   KNOW ABOUT MSIT: FULL-SCREEN SLIDESHOW MOBILE RESPONSIVE (<= 768px)
+   ========================================================================= */
+@media (max-width: 768px) {
+  /* Top Bar */
+  .fullscreen-top-bar {
+    height: 48px;
+    padding: 0 0.85rem;
   }
-
-  .campus-visual-column {
-    order: -1;
-    height: 140px;
+  .top-bar-title {
+    display: none;
   }
-
-  .campus-visual-frame {
-    max-height: 140px;
-    border-radius: 12px;
+  .back-btn-text-full {
+    display: none;
   }
-
-  .campus-visual-floating-tag {
-    font-size: 0.58rem;
-    padding: 0.15rem 0.5rem;
-    top: 0.5rem;
-    left: 0.5rem;
+  .back-btn-text-short {
+    display: inline;
   }
-
-  .campus-text-column {
-    gap: 0.4rem;
-    justify-content: space-between;
+  .top-bar-back-btn {
+    padding: 0.28rem 0.6rem;
+    font-size: 0.74rem;
   }
-
-  .campus-intro-block {
+  .top-bar-signin-btn {
+    font-size: 0.74rem !important;
+    padding: 0.3rem 0.75rem !important;
+  }
+  .top-bar-category-nav {
     display: none;
   }
 
-  .campus-feature-list {
-    gap: 0.35rem;
-  }
-
-  .campus-feature-row {
-    gap: 0.45rem;
-  }
-
-  .feature-indicator {
-    width: 6px;
-    height: 6px;
-    margin-top: 0.25rem;
-  }
-
-  .feature-text strong {
-    font-size: 0.78rem;
-  }
-
-  .feature-text span {
-    font-size: 0.66rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+  /* Stage Viewport & Container */
+  .fullscreen-stage-viewport {
+    height: calc(100vh - 48px);
+    height: calc(100dvh - 48px);
     overflow: hidden;
   }
 
-  .campus-action-area {
-    gap: 0.3rem;
-    padding-top: 0;
+  .fullscreen-slide-stage {
+    justify-content: flex-start !important;
+    padding: 1rem 1rem 3.5rem !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    box-sizing: border-box;
+    height: 100% !important;
   }
 
-  .campus-clean-portal-link {
-    width: 100%;
-    justify-content: center;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.74rem;
+  .stage-ainative {
+    padding: 0.85rem 0.85rem 3.5rem !important;
   }
 
-  .campus-link-caption {
-    display: none;
+  .slide-header-meta {
+    margin-bottom: 0.85rem !important;
+    flex-shrink: 0;
   }
 
-  /* -------------------------------------------------------------------------
-     SLIDE 6: PAID CORPORATE PRACTICUM (BIG NUMBERS + PUNCHY BULLETS)
-     ------------------------------------------------------------------------- */
-  .layout-coop-practicum .practicum-stats-strip {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.45rem;
-    margin-bottom: 0.55rem;
+  .slide-meta-top-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.35rem;
   }
 
-  .p-stat-box {
-    padding: 0.45rem 0.35rem;
-    border-radius: 8px;
+  .fullscreen-category-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.55rem;
+    margin-bottom: 0;
   }
 
-  .p-stat-number {
-    font-size: 1.15rem;
+  .mobile-desktop-hint-pill {
+    display: inline-flex !important;
+    font-size: 0.58rem;
+    padding: 0.12rem 0.45rem;
+    align-items: center;
+    gap: 0.25rem;
   }
 
-  .p-stat-label {
-    font-size: 0.66rem;
-    white-space: nowrap;
+  .fullscreen-slide-title {
+    font-size: clamp(1.2rem, 4.8vw, 1.45rem) !important;
+    line-height: 1.25 !important;
+    margin: 0 0 0.35rem 0 !important;
   }
 
-  .p-stat-detail {
+  .fullscreen-slide-lead {
+    font-size: 0.82rem !important;
+    line-height: 1.45 !important;
+    color: #475569;
+  }
+
+  .slide-body-container {
+    flex: 1 0 auto !important;
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* SLIDE 1: ORIGIN STORY MOBILE */
+  .layout-origin-story .origin-main-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+  }
+  .origin-text-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.65rem !important;
+  }
+  .origin-highlight-card {
+    padding: 0.75rem 0.95rem !important;
+    gap: 0.65rem !important;
+  }
+  .origin-highlight-card h4 {
+    font-size: 0.88rem !important;
+  }
+  .origin-highlight-card p {
+    font-size: 0.78rem !important;
+    line-height: 1.4 !important;
+  }
+  .origin-quote-box {
+    padding: 0.85rem 1rem !important;
+  }
+  .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .origin-quote-box p,
+  .origin-quote-box p,
+  .origin-quote-text {
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+  }
+  .origin-portrait-spotlight {
+    display: flex !important;
+    width: 100% !important;
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.4rem !important;
+    order: -1 !important;
+  }
+  .spotlight-card {
+    width: 100% !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 0.85rem !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .spotlight-img-frame {
+    height: 190px !important;
+    width: 100% !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .spotlight-portrait-img {
+    position: relative !important;
+    z-index: 2 !important;
+    height: 100% !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block !important;
+  }
+  .spotlight-img-backdrop {
+    position: absolute !important;
+    inset: -15px !important;
+    width: calc(100% + 30px) !important;
+    height: calc(100% + 30px) !important;
+    object-fit: cover !important;
+    filter: blur(14px) brightness(0.35) !important;
+    opacity: 0.75 !important;
+    display: block !important;
+    pointer-events: none !important;
+  }
+  .spotlight-meta {
+    padding-top: 0.65rem !important;
+  }
+  .spotlight-badge {
+    font-size: 0.62rem !important;
+    padding: 0.15rem 0.5rem !important;
+    display: inline-block !important;
+  }
+  .spotlight-name {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    margin: 0.25rem 0 0.15rem 0 !important;
+    color: var(--primary-900) !important;
+  }
+  .spotlight-desc {
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+    color: var(--neutral-600) !important;
+    margin: 0 0 0.5rem 0 !important;
+  }
+  .spotlight-stats-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.4rem !important;
+    padding-top: 0.5rem !important;
+    border-top: 1px solid #f1f5f9 !important;
+  }
+  .spot-stat {
+    text-align: center !important;
+  }
+  .spot-stat strong {
+    font-size: 0.95rem !important;
+    color: #1e3a8a !important;
+    display: block !important;
+  }
+  .spot-stat span {
+    font-size: 0.62rem !important;
+    color: var(--neutral-500) !important;
+    display: block !important;
+  }
+
+  /* SLIDE 2: JOURNEY & EVOLUTION (1-COLUMN CARDS) */
+  .layout-journey-evolution .journey-milestones-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+  }
+  .journey-milestone-card {
+    padding: 0.85rem 1rem !important;
+    border-radius: 10px !important;
+  }
+  .journey-milestone-card h4 {
+    font-size: 0.92rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  .journey-milestone-card p {
+    font-size: 0.8rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.55rem !important;
+  }
+  .journey-card-footer {
+    font-size: 0.72rem !important;
+    padding-top: 0.45rem !important;
+  }
+
+  /* SLIDE 3: MSIT AT 25 (AI-NATIVE) MOBILE */
+  .layout-ai-native {
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 !important;
+    min-height: auto !important;
+    gap: 1rem !important;
+    width: 100% !important;
+  }
+  .ai-native-sidebar {
+    padding: 1.25rem 1rem !important;
+    border-radius: 12px !important;
+    background: linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%) !important;
+  }
+  .ai-native-logo {
+    width: 75px !important;
+    margin-bottom: 0.85rem !important;
+  }
+  .ai-native-title {
+    font-size: 1.45rem !important;
+    line-height: 1.2 !important;
+  }
+  .ai-native-lead {
+    font-size: 0.82rem !important;
+    margin-bottom: 1.25rem !important;
+  }
+  .ai-native-timeline {
+    gap: 1rem !important;
+  }
+  .ai-native-timeline-item {
+    padding-left: 1.8rem !important;
+  }
+  .ai-native-timeline-heading {
+    font-size: 0.82rem !important;
+  }
+  .ai-native-timeline-text {
+    font-size: 0.76rem !important;
+    line-height: 1.35 !important;
+  }
+  .ai-native-content {
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+  }
+  .ai-native-kicker {
+    font-size: 0.72rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+  .ai-native-principles-box {
+    padding: 1rem 1.1rem !important;
+    margin-bottom: 0 !important;
+  }
+  .ai-native-principles-title {
+    font-size: 0.88rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+  .ai-native-principles-pills {
+    flex-direction: column !important;
+    gap: 0.45rem !important;
+    margin-bottom: 0.65rem !important;
+  }
+  .ai-native-pill {
+    font-size: 0.85rem !important;
+  }
+  .ai-native-pill-icon {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  .ai-native-principles-desc {
+    font-size: 0.78rem !important;
+  }
+  .ai-native-pillars-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+  .ai-native-pillar-card {
+    padding: 1rem !important;
+  }
+  .ai-native-card-icon {
+    width: 32px !important;
+    height: 32px !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .ai-native-card-title {
+    font-size: 0.94rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .ai-native-card-desc {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+  }
+  .controls-ainative {
+    padding: 0.85rem 0 0 !important;
+    margin-top: 1rem !important;
+  }
+
+  /* SLIDE 4: B.TECH TRANSFORMATION MOBILE */
+  .layout-student-transformations .dual-btech-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+  .dual-btech-card {
+    padding: 0.85rem 1rem !important;
+    border-radius: 12px !important;
+  }
+  .btech-headline {
+    font-size: 0.95rem !important;
+  }
+  .btech-branch-sub {
+    font-size: 0.72rem !important;
+  }
+  .btech-transformation-rows {
+    gap: 0.45rem !important;
+  }
+  .btech-row {
+    padding: 0.45rem 0.65rem !important;
+  }
+  .btech-row p {
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+  }
+  .edu-pillars-strip {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    padding: 0.85rem 1rem !important;
+    border-radius: 12px !important;
+    background: linear-gradient(135deg, #071a38 0%, #153a70 100%) !important;
+    border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
+  }
+  .edu-pillar-divider {
     display: none !important;
   }
-
-  .practicum-details-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.6rem;
-    height: calc(100% - 68px);
+  .edu-pillar-item {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+  .pillar-shift-badge {
+    font-size: 0.65rem !important;
+  }
+  .edu-pillar-item strong {
+    font-size: 0.85rem !important;
+  }
+  .edu-pillar-item p {
+    font-size: 0.75rem !important;
+    line-height: 1.35 !important;
   }
 
-  .practicum-text-card {
-    padding: 0.75rem 0.95rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  /* SLIDE 5: CAMPUS LIFE (EDITORIAL VERTICAL STACK - NO CLAMP) */
+  .layout-events-community .campus-editorial-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .layout-events-community .campus-visual-column {
+    order: -1 !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+  .layout-events-community .campus-visual-frame {
+    max-height: 200px !important;
+    height: 180px !important;
+    border-radius: 12px !important;
+    width: 100% !important;
+  }
+  .layout-events-community .campus-visual-floating-tag {
+    font-size: 0.64rem !important;
+    padding: 0.2rem 0.6rem !important;
+  }
+  .layout-events-community .campus-text-column {
+    gap: 0.85rem !important;
+    height: auto !important;
+  }
+  .layout-events-community .campus-intro-block {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+  }
+  .layout-events-community .campus-lead-heading {
+    font-size: 1.05rem !important;
+    line-height: 1.3 !important;
+  }
+  .layout-events-community .campus-lead-narrative {
+    font-size: 0.78rem !important;
+    line-height: 1.45 !important;
+  }
+  .layout-events-community .campus-feature-list {
+    gap: 0.65rem !important;
+  }
+  .layout-events-community .campus-feature-row {
+    gap: 0.6rem !important;
+  }
+  .layout-events-community .feature-text strong {
+    font-size: 0.84rem !important;
+  }
+  .layout-events-community .feature-text span {
+    font-size: 0.75rem !important;
+    line-height: 1.4 !important;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+    overflow: visible !important;
+  }
+  .layout-events-community .campus-action-area {
+    padding-top: 0.25rem !important;
+  }
+  .layout-events-community .campus-clean-portal-link {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 0.55rem 1rem !important;
+    font-size: 0.78rem !important;
+  }
+  .layout-events-community .campus-link-caption {
+    display: block !important;
+    text-align: center !important;
+    width: 100% !important;
+    font-size: 0.66rem !important;
   }
 
-  .practicum-text-card h4 {
-    font-size: 0.88rem;
-    margin-bottom: 0.45rem;
+  /* SLIDE 6: CORPORATE PRACTICUM MOBILE */
+  .layout-coop-practicum .practicum-stats-strip {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+    margin-bottom: 0.85rem !important;
+  }
+  .layout-coop-practicum .practicum-stats-strip .p-stat-box {
+    padding: 0.55rem 0.5rem !important;
+    border-radius: 8px !important;
+  }
+  .layout-coop-practicum .practicum-stats-strip .p-stat-number {
+    font-size: 1.15rem !important;
+  }
+  .layout-coop-practicum .practicum-stats-strip .p-stat-label {
+    font-size: 0.68rem !important;
+  }
+  .layout-coop-practicum .practicum-stats-strip .p-stat-detail {
+    display: block !important;
+    font-size: 0.62rem !important;
+  }
+  .layout-coop-practicum .practicum-details-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+    height: auto !important;
+  }
+  .layout-coop-practicum .practicum-text-card {
+    padding: 0.85rem 1rem !important;
+    border-radius: 10px !important;
+  }
+  .layout-coop-practicum .practicum-text-card h4 {
+    font-size: 0.92rem !important;
+  }
+  .layout-coop-practicum .practicum-benefits-list {
+    gap: 0.55rem !important;
+  }
+  .layout-coop-practicum .practicum-benefits-list li {
+    font-size: 0.76rem !important;
+    line-height: 1.4 !important;
+  }
+  .layout-coop-practicum .practicum-image-card {
+    display: flex !important;
+    flex-direction: column !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+  }
+  .layout-coop-practicum .practicum-coop-img {
+    height: 150px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+  }
+  .layout-coop-practicum .practicum-img-caption {
+    padding: 0.6rem 0.85rem !important;
+    font-size: 0.7rem !important;
   }
 
-  .practicum-benefits-list {
-    gap: 0.45rem;
-  }
-
-  .practicum-benefits-list li {
-    font-size: 0.74rem;
-    line-height: 1.35;
-    gap: 0.45rem;
-  }
-
-  .practicum-image-card {
-    display: none !important; /* Hide image to keep mobile uncluttered */
-  }
-
-  /* -------------------------------------------------------------------------
-     SLIDE 7: BEGIN YOUR JOURNEY (FOCUSED ENROLLMENT PATHWAY)
-     ------------------------------------------------------------------------- */
+  /* SLIDE 7: ADMISSIONS GATEWAY MOBILE */
   .layout-admissions-gateway .admissions-split-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-    height: 100%;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    height: auto !important;
   }
-
-  .admissions-process-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 0.45rem;
-    height: 100%;
+  .layout-admissions-gateway .admissions-campus-col {
+    display: flex !important;
+    width: 100% !important;
+    order: -1 !important;
+    margin-bottom: 0.25rem !important;
   }
-
+  .layout-admissions-gateway .admissions-process-col {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    gap: 0.65rem !important;
+    height: auto !important;
+    order: 2 !important;
+  }
+  .layout-admissions-gateway .campus-showcase-card {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+  }
+  .campus-full-photo-frame {
+    width: 100% !important;
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
+    position: relative !important;
+    background: #08101e !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+  }
+  .campus-full-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+  .campus-photo-overlay-tag {
+    position: absolute !important;
+    bottom: 0.5rem !important;
+    left: 0.5rem !important;
+    font-size: 0.64rem !important;
+    padding: 0.18rem 0.55rem !important;
+    background: rgba(11, 21, 40, 0.88) !important;
+    color: #ffffff !important;
+    border-radius: var(--radius-pill) !important;
+  }
+  .campus-showcase-content {
+    padding: 0.75rem 0.85rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
+  }
+  .consortium-header-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+  .consortium-pill {
+    font-size: 0.6rem !important;
+    padding: 0.1rem 0.4rem !important;
+  }
+  .consortium-sub {
+    font-size: 0.62rem !important;
+  }
+  .campus-showcase-content h3 {
+    font-size: 0.92rem !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+    color: var(--primary-900) !important;
+  }
+  .campus-showcase-content .campus-desc {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+    color: var(--neutral-600) !important;
+    margin: 0 !important;
+  }
+  .campus-metrics-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.35rem !important;
+    margin-top: 0.35rem !important;
+    padding-top: 0.45rem !important;
+    border-top: 1px solid #f1f5f9 !important;
+  }
+  .campus-metric-box {
+    padding: 0.35rem 0.15rem !important;
+    background: #f8fafc !important;
+    border-radius: 6px !important;
+    text-align: center !important;
+  }
+  .campus-metric-box strong {
+    font-size: 0.85rem !important;
+    color: #1e3a8a !important;
+    display: block !important;
+  }
+  .campus-metric-box span {
+    font-size: 0.58rem !important;
+    color: var(--neutral-600) !important;
+    display: block !important;
+  }
   .admissions-eligibility-card,
   .admissions-steps-card {
-    padding: 0.55rem 0.8rem;
-    border-radius: 10px;
+    padding: 0.65rem 0.85rem !important;
+    border-radius: 10px !important;
   }
-
   .admissions-card-header {
-    margin-bottom: 0.35rem;
-    gap: 0.4rem;
+    margin-bottom: 0.35rem !important;
+    gap: 0.4rem !important;
   }
-
   .admissions-section-tag {
-    font-size: 0.56rem;
-    padding: 0.1rem 0.45rem;
+    font-size: 0.58rem !important;
+    padding: 0.1rem 0.45rem !important;
   }
-
   .admissions-card-header h4 {
-    font-size: 0.82rem;
+    font-size: 0.86rem !important;
   }
-
   .eligibility-points-list {
-    gap: 0.35rem;
+    gap: 0.35rem !important;
   }
-
-  .eligibility-item {
-    gap: 0.45rem;
-  }
-
   .eligibility-check-badge {
-    width: 17px;
-    height: 17px;
-    font-size: 0.64rem;
+    width: 17px !important;
+    height: 17px !important;
+    font-size: 0.62rem !important;
   }
-
   .eligibility-text strong {
-    font-size: 0.74rem;
+    font-size: 0.76rem !important;
   }
-
   .eligibility-text span {
-    font-size: 0.65rem;
-    line-height: 1.25;
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
   }
-
-  .eligibility-bridge-item {
-    padding: 0.25rem 0.45rem;
+  .layout-admissions-gateway .steps-horizontal-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.35rem !important;
   }
-
-  .steps-horizontal-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.4rem;
+  .layout-admissions-gateway .step-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 0.6rem !important;
+    padding: 0.4rem 0.65rem !important;
+    text-align: left !important;
+    border-radius: 8px !important;
   }
-
-  .step-item {
-    padding: 0.4rem 0.5rem;
-    border-radius: 8px;
+  .layout-admissions-gateway .step-num {
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+    width: 20px !important;
+    height: 20px !important;
+    font-size: 0.65rem !important;
   }
-
-  .step-num {
-    width: 20px;
-    height: 20px;
-    font-size: 0.64rem;
-    margin-bottom: 0.15rem;
+  .layout-admissions-gateway .step-item strong {
+    font-size: 0.78rem !important;
+    margin-bottom: 0.05rem !important;
   }
-
-  .step-item strong {
-    font-size: 0.73rem;
-    margin-bottom: 0.05rem;
+  .layout-admissions-gateway .step-item span {
+    font-size: 0.68rem !important;
+    line-height: 1.25 !important;
   }
-
-  .step-item span {
-    font-size: 0.63rem;
-    line-height: 1.2;
-  }
-
   .admissions-cta-banner {
     padding: 0.65rem 0.85rem !important;
-    border-radius: 10px;
-    gap: 0.55rem;
+    border-radius: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    align-items: flex-start !important;
   }
-
   .admissions-cta-banner .cta-status-badge,
   .cta-status-badge {
     font-size: 0.6rem !important;
     padding: 0.12rem 0.45rem !important;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.15rem !important;
   }
-
-  .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner h3,
-  .admissions-cta-banner h3,
   .cta-banner-heading {
     font-size: 0.86rem !important;
-    color: #ffffff !important;
-    margin-bottom: 0.1rem;
+    margin: 0 0 0.1rem 0 !important;
   }
-
-  .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner p,
-  .admissions-cta-banner p,
   .cta-banner-desc {
-    font-size: 0.68rem !important;
-    color: #f1f5f9 !important;
-    line-height: 1.25;
+    font-size: 0.7rem !important;
+    line-height: 1.3 !important;
   }
-
   .admissions-big-cta {
-    font-size: 0.74rem !important;
-    padding: 0.35rem 0.8rem !important;
-  }
-
-  .campus-showcase-card {
-    display: none !important; /* Hide on portrait mobile to keep screen uncluttered */
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   MOBILE PHONE PROFILE (<= 580px)
-   --------------------------------------------------------------------------- */
-@media (max-width: 580px) {
-  .back-btn-text-full {
-    display: none;
-  }
-
-  .back-btn-text-short {
-    display: inline;
-  }
-
-  .fullscreen-top-bar {
-    height: 44px;
-    padding: 0 0.75rem;
-  }
-
-  .top-bar-title {
-    display: none;
-  }
-
-  .top-bar-left {
-    gap: 0.5rem;
-  }
-
-  .top-bar-back-btn {
-    padding: 0.25rem 0.55rem;
-    font-size: 0.72rem;
-  }
-
-  .top-bar-signin-btn {
-    font-size: 0.72rem !important;
-    padding: 0.28rem 0.65rem !important;
-  }
-
-  .fullscreen-stage-viewport {
-    height: calc(100vh - 44px);
-    height: calc(100dvh - 44px);
-  }
-
-  .fullscreen-slide-stage {
-    padding: 0.6rem 0.85rem 0.45rem;
-  }
-
-  .mobile-desktop-hint-pill {
-    font-size: 0.56rem;
-    padding: 0.1rem 0.42rem;
-  }
-
-  .fullscreen-slide-title {
-    font-size: clamp(1rem, 4.6vw, 1.25rem);
-  }
-
-  /* In mobile phone portrait, keep Origin slide clean and uncluttered */
-  .layout-origin-story .origin-main-grid {
-    grid-template-columns: 1fr;
-    gap: 0.55rem;
-  }
-
-  .origin-portrait-spotlight {
     display: none !important;
   }
 
-  .p-stat-box {
-    padding: 0.35rem 0.2rem;
+  /* GLOBAL BOTTOM CONTROLS BAR MOBILE */
+  .fullscreen-controls-bar {
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+    padding-top: 0.85rem !important;
+    padding-bottom: 0.5rem !important;
+    border-top: 1px solid #e2e8f0 !important;
+    gap: 0.65rem !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
   }
 
-  .p-stat-number {
-    font-size: 1rem;
+  .controls-nav-group {
+    width: 100% !important;
+    display: flex !important;
+    gap: 0.5rem !important;
   }
 
-  .p-stat-label {
-    font-size: 0.62rem;
+  .controls-nav-btn {
+    flex: 1 !important;
+    padding: 0.55rem 1rem !important;
+    font-size: 0.82rem !important;
+    justify-content: center !important;
+  }
+
+  .controls-center-group {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .controls-cta-btn {
+    width: 100% !important;
+    padding: 0.65rem 1rem !important;
+    font-size: 0.85rem !important;
+    justify-content: center !important;
   }
 }
 

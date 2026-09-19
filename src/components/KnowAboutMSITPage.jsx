@@ -125,18 +125,35 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
   const nextSlide = useCallback(() => {
     handleUserAction();
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   }, [handleUserAction, totalSlides]);
 
   const prevSlide = useCallback(() => {
     handleUserAction();
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [handleUserAction, totalSlides]);
 
   const goToSlide = useCallback((index) => {
     handleUserAction();
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
     setCurrentSlide(index);
   }, [handleUserAction]);
+
+  // Ensure active slide stage always starts scrolled to the top
+  useEffect(() => {
+    const stages = document.querySelectorAll('.fullscreen-slide-stage');
+    stages.forEach((stage) => {
+      stage.scrollTop = 0;
+    });
+  }, [currentSlide]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -272,25 +289,15 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <div className="spotlight-card">
                   <div className="spotlight-img-frame">
                     <img 
-                      src="https://www.rguktong.ac.in/img/rajreddy.jpg" 
+                      src="/assets/rajreddy.jpg" 
                       alt="" 
                       className="spotlight-img-backdrop"
                       aria-hidden="true"
-                      referrerPolicy="no-referrer"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = '/assets/rajreddy.jpg';
-                      }}
                     />
                     <img 
-                      src="https://www.rguktong.ac.in/img/rajreddy.jpg" 
+                      src="/assets/rajreddy.jpg" 
                       alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
                       className="spotlight-portrait-img"
-                      referrerPolicy="no-referrer"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src = '/assets/rajreddy.jpg';
-                      }}
                     />
                   </div>
                   <div className="spotlight-meta">
@@ -411,82 +418,82 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
       case 'ainative':
         return (
-          <div className="slide-content-layout layout-ai-native" style={{ display: 'grid', gridTemplateColumns: '1.2fr 2fr', minHeight: 'calc(100% + 2.7rem)', margin: '-1.5rem -3.5rem -1.2rem -3.5rem', alignItems: 'stretch', backgroundColor: '#ffffff' }}>
+          <div className="slide-content-layout layout-ai-native">
             {/* Left Sidebar */}
-            <div style={{ background: 'linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%)', color: '#fff', padding: '3rem 2.2rem 3rem 5.7rem', display: 'flex', flexDirection: 'column' }}>
-              <img src="/assets/msit-25-logo.png" alt="25 Years of MSIT" style={{ width: '110px', marginBottom: '1.5rem', alignSelf: 'flex-start', background: '#fff', borderRadius: '10px', padding: '0.4rem', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }} />
-              <h2 style={{ fontSize: '2.2rem', fontWeight: 900, marginBottom: '0.5rem', lineHeight: 1.15, letterSpacing: '-0.02em', color: '#ffffff' }}>MSIT at 25:<br/><span style={{ color: '#fcd34d' }}>AI Native</span></h2>
-              <p style={{ fontSize: '0.9rem', color: '#cbd5e1', marginBottom: '2rem', lineHeight: 1.5 }}>
+            <div className="ai-native-sidebar">
+              <img src="/assets/msit-25-logo.png" alt="25 Years of MSIT" className="ai-native-logo" />
+              <h2 className="ai-native-title">MSIT at 25:<br/><span className="ai-native-highlight">AI Native</span></h2>
+              <p className="ai-native-lead">
                 A quarter-century of learning by doing enters its AI-native era.
               </p>
               
-              <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative' }}>
-                <div style={{ position: 'absolute', left: '7px', top: '20px', width: '1px', height: 'calc(100% - 30px)', backgroundColor: 'rgba(255,255,255,0.15)' }}></div>
+              <div className="ai-native-timeline">
+                <div className="ai-native-timeline-line"></div>
                 
-                <div style={{ position: 'relative', paddingLeft: '2.2rem' }}>
-                  <div style={{ position: 'absolute', left: 0, top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#fcd34d' }}></div>
-                  <strong style={{ display: 'block', fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.2rem' }}>2000 &bull; Founded by Professor Raj Reddy</strong>
-                  <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>A two-year master's program for talented students who had no path to the elite universities.</p>
+                <div className="ai-native-timeline-item">
+                  <div className="ai-native-dot gold"></div>
+                  <strong className="ai-native-timeline-heading gold">2000 &bull; Founded by Professor Raj Reddy</strong>
+                  <p className="ai-native-timeline-text">A two-year master's program for talented students who had no path to the elite universities.</p>
                 </div>
                 
-                <div style={{ position: 'relative', paddingLeft: '2.2rem' }}>
-                  <div style={{ position: 'absolute', left: 0, top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#fcd34d' }}></div>
-                  <strong style={{ display: 'block', fontSize: '0.85rem', color: '#fcd34d', marginBottom: '0.2rem' }}>Two decades &bull; The bold pivot</strong>
-                  <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>Lecture-based teaching minimized; project-based learning by doing, paired with soft skills, at the core.</p>
+                <div className="ai-native-timeline-item">
+                  <div className="ai-native-dot gold"></div>
+                  <strong className="ai-native-timeline-heading gold">Two decades &bull; The bold pivot</strong>
+                  <p className="ai-native-timeline-text">Lecture-based teaching minimized; project-based learning by doing, paired with soft skills, at the core.</p>
                 </div>
                 
-                <div style={{ position: 'relative', paddingLeft: '2.2rem' }}>
-                  <div style={{ position: 'absolute', left: 0, top: '5px', width: '14px', height: '14px', borderRadius: '50%', backgroundColor: '#ffffff' }}></div>
-                  <strong style={{ display: 'block', fontSize: '0.85rem', color: '#ffffff', marginBottom: '0.2rem' }}>Year 25 &bull; AI Native relaunch</strong>
-                  <p style={{ fontSize: '0.8rem', color: '#cbd5e1', margin: 0, lineHeight: 1.4 }}>Ready for a modern world where cognitive technologies like AI are ubiquitous.</p>
+                <div className="ai-native-timeline-item">
+                  <div className="ai-native-dot white"></div>
+                  <strong className="ai-native-timeline-heading white">Year 25 &bull; AI Native relaunch</strong>
+                  <p className="ai-native-timeline-text">Ready for a modern world where cognitive technologies like AI are ubiquitous.</p>
                 </div>
               </div>
             </div>
 
             {/* Right Content */}
-            <div style={{ display: 'flex', flexDirection: 'column', padding: '3rem 7rem 3rem 2.2rem' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.1em', display: 'block', marginBottom: '1rem' }}>THE AI-NATIVE PROGRAM</span>
+            <div className="ai-native-content">
+              <span className="ai-native-kicker">THE AI-NATIVE PROGRAM</span>
               
-              <div style={{ backgroundColor: '#fffbeb', borderRadius: '12px', padding: '1.4rem 1.8rem', marginBottom: '1.5rem' }}>
-                <strong style={{ display: 'block', fontSize: '0.95rem', color: '#1e293b', marginBottom: '1rem' }}>Anchored in Professor Raj Reddy's three principles</strong>
+              <div className="ai-native-principles-box">
+                <strong className="ai-native-principles-title">Anchored in Professor Raj Reddy's three principles</strong>
                 
-                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, color: '#1e3a8a', fontSize: '0.95rem' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BookOpenIcon size={16} /></div>
+                <div className="ai-native-principles-pills">
+                  <div className="ai-native-pill">
+                    <div className="ai-native-pill-icon"><BookOpenIcon size={16} /></div>
                     Learning to Learn
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, color: '#1e3a8a', fontSize: '0.95rem' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><CpuIcon size={16} /></div>
+                  <div className="ai-native-pill">
+                    <div className="ai-native-pill-icon"><CpuIcon size={16} /></div>
                     Learning to Think
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 800, color: '#1e3a8a', fontSize: '0.95rem' }}>
-                    <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><BriefcaseIcon size={16} /></div>
+                  <div className="ai-native-pill">
+                    <div className="ai-native-pill-icon"><BriefcaseIcon size={16} /></div>
                     Learning to Do
                   </div>
                 </div>
                 
-                <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569', lineHeight: 1.5 }}>
+                <p className="ai-native-principles-desc">
                   Practised with AI tools and technologies, so students stay relevant in the modern world.
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '1.4rem 1.4rem', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}><BriefcaseIcon size={18} /></div>
-                  <strong style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '0.8rem' }}>Industry Co-op</strong>
-                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Half of the program is spent in industry co-ops, solving real problems under the supervision of practitioners and mentors.</p>
+              <div className="ai-native-pillars-grid">
+                <div className="ai-native-pillar-card">
+                  <div className="ai-native-card-icon"><BriefcaseIcon size={18} /></div>
+                  <strong className="ai-native-card-title">Industry Co-op</strong>
+                  <p className="ai-native-card-desc">Half of the program is spent in industry co-ops, solving real problems under the supervision of practitioners and mentors.</p>
                 </div>
                 
-                <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '1.4rem 1.4rem', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}><SparklesIcon size={18} /></div>
-                  <strong style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '0.8rem' }}>Venture Studio</strong>
-                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Students build to launch a product, working hands-on with early-stage VCs.</p>
+                <div className="ai-native-pillar-card">
+                  <div className="ai-native-card-icon"><SparklesIcon size={18} /></div>
+                  <strong className="ai-native-card-title">Venture Studio</strong>
+                  <p className="ai-native-card-desc">Students build to launch a product, working hands-on with early-stage VCs.</p>
                 </div>
 
-                <div style={{ backgroundColor: '#f8fafc', borderRadius: '12px', padding: '1.4rem 1.4rem', display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#1d4ed8', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}><UsersIcon size={18} /></div>
-                  <strong style={{ fontSize: '1rem', color: '#1e293b', marginBottom: '0.8rem' }}>Partnership with CETLS</strong>
-                  <p style={{ fontSize: '0.8rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>Curriculum and methodology co-designed with CETLS. Learning engineering and data-driven evidence continuously improve the program, so it never stays static for long.</p>
+                <div className="ai-native-pillar-card">
+                  <div className="ai-native-card-icon"><UsersIcon size={18} /></div>
+                  <strong className="ai-native-card-title">Partnership with CETLS</strong>
+                  <p className="ai-native-card-desc">Curriculum and methodology co-designed with CETLS. Learning engineering and data-driven evidence continuously improve the program, so it never stays static for long.</p>
                 </div>
               </div>
             </div>
@@ -653,18 +660,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             </div>
 
             {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
-            <div 
-              className="edu-pillars-strip"
-              style={{
-                marginTop: '1.25rem',
-                background: 'linear-gradient(135deg, #071a38 0%, #153a70 100%)',
-                border: '1.5px solid rgba(59, 130, 246, 0.45)',
-                borderRadius: '12px',
-                padding: '0.85rem 1.15rem',
-                boxShadow: '0 6px 20px rgba(7, 26, 56, 0.25)',
-                color: '#ffffff'
-              }}
-            >
+            <div className="edu-pillars-strip">
               <div className="edu-pillar-item">
                 <span 
                   className="pillar-shift-badge"
@@ -1018,50 +1014,15 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 </div>
 
                 {/* 3. Action CTA Banner */}
-                <div 
-                  className="admissions-cta-banner"
-                  style={{
-                    background: 'linear-gradient(135deg, #071a38 0%, #17386d 100%)',
-                    border: '1.5px solid #3b82f6',
-                    borderRadius: '12px',
-                    color: '#ffffff',
-                    boxShadow: '0 6px 20px rgba(7, 26, 56, 0.35)'
-                  }}
-                >
+                <div className="admissions-cta-banner">
                   <div className="cta-banner-info">
-                    <span 
-                      className="cta-status-badge"
-                      style={{
-                        background: '#fef08a',
-                        color: '#78350f',
-                        border: '1px solid #fde047',
-                        fontWeight: 900,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        width: 'fit-content'
-                      }}
-                    >
+                    <span className="cta-status-badge">
                       Admissions Opening Soon • Academic Year 2027
                     </span>
-                    <h3 
-                      className="cta-banner-heading"
-                      style={{
-                        color: '#ffffff',
-                        fontWeight: 900,
-                        textShadow: '0 1px 3px rgba(0, 0, 0, 0.5)',
-                        margin: '0.2rem 0'
-                      }}
-                    >
+                    <h3 className="cta-banner-heading">
                       Begin Your Master's in Computing
                     </h3>
-                    <p 
-                      className="cta-banner-desc"
-                      style={{
-                        color: '#f1f5f9',
-                        fontWeight: 500,
-                        margin: 0
-                      }}
-                    >
+                    <p className="cta-banner-desc">
                       Sign in now to register your interest, prepare your application, and reserve your studio seat early.
                     </p>
                   </div>
@@ -1211,10 +1172,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               className={`fullscreen-slide-item ${slideItem.themeClass} ${idx === currentSlide ? 'is-active-slide' : ''}`}
             >
               {/* Dynamic Slide Stage Container */}
-              <div 
-                className="fullscreen-slide-stage"
-                style={slideItem.id === 'ainative' ? { padding: 0 } : {}}
-              >
+              <div className={`fullscreen-slide-stage stage-${slideItem.id}`}>
                 {/* Header Meta Row */}
                 {slideItem.id !== 'ainative' && (
                   <div className="slide-header-meta">
@@ -1233,7 +1191,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 </div>
 
                 {/* Integrated Controls Bar at bottom of stage */}
-                <div className="fullscreen-controls-bar" style={slideItem.id === 'ainative' ? { padding: '1rem 3.5rem', margin: 0 } : {}}>
+                <div className={`fullscreen-controls-bar controls-${slideItem.id}`}>
                   <div className="controls-nav-group">
                     <button 
                       type="button" 
