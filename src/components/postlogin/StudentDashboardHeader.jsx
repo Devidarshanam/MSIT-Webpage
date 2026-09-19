@@ -8,11 +8,11 @@ import {
   BookOpenIcon,
   SparklesIcon
 } from '../Icons';
+import { getStudentDisplayName } from '../../utils/userUtils';
 
 export default function StudentDashboardHeader({ user, data }) {
-  // Extract friendly display name
-  const displayName = user?.user_metadata?.full_name || 
-    (user?.email ? user.email.split('@')[0] : 'Prospective Student');
+  // Extract real student name cleanly
+  const displayName = getStudentDisplayName(user);
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
@@ -44,7 +44,7 @@ export default function StudentDashboardHeader({ user, data }) {
             </div>
 
             <h1 className="welcome-student-title">
-              Welcome back, <span className="highlight-text">{displayName}</span>!
+              Welcome, <span className="highlight-text">{displayName}</span>!
             </h1>
             <p className="welcome-student-desc">
               {data.welcomeSubtitle}

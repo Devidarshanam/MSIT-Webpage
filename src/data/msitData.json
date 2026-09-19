@@ -299,7 +299,23 @@
         ]
       }
     ],
-    "transparencyNote": "Official placement statistics, recruiter participation data, and career reports for MSIT cohorts are published alongside formal notifications. We maintain strict academic integrity and do not advertise unverified placement percentages or fabricated salary metrics."
+    "transparencyNote": "Official placement statistics, recruiter participation data, and career reports for MSIT cohorts are published alongside formal notifications. We maintain strict academic integrity and do not advertise unverified placement percentages or fabricated salary metrics.",
+    "alumni": {
+      "sectionKicker": "Alumni Network & Stories",
+      "heading": "Alumni Network & Career Journeys",
+      "description": "A distinguished network of 3,000+ graduates across 25 continuous batches leading technology architecture, enterprise software, and AI ventures globally.",
+      "networkHighlights": [
+        { "label": "3,000+ Alumni", "detail": "Graduates across 25 continuous batches" },
+        { "label": "Global Reach", "detail": "Leading tech teams across India, US, Europe & Asia" },
+        { "label": "Engineering & Venture Leadership", "detail": "Founders, Principal Engineers & Solution Architects" }
+      ],
+      "updateNotice": {
+        "badge": "Official Compilation in Progress",
+        "title": "Alumni information will be updated soon",
+        "message": "Official alumni career profiles, cohort journey highlights, and verified testimonials for the upcoming admissions cycle are currently being compiled with institutional verification and candidate consent. Verified alumni stories and recruiter highlights will be published alongside the official admission circular."
+      },
+      "profiles": []
+    }
   },
   "practicum": {
     "sectionId": "practicum",

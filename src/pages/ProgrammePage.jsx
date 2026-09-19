@@ -20,12 +20,16 @@ import DocumentsAndFAQSection from '../components/postlogin/DocumentsAndFAQSecti
 import NextStepsAndApplicationSection from '../components/postlogin/NextStepsAndApplicationSection';
 import AcademicSummaryModal from '../components/postlogin/AcademicSummaryModal';
 import Footer from '../components/Footer';
+import { getStudentDisplayName } from '../utils/userUtils';
 
 const APPLICATION_PORTAL_URL = import.meta.env.VITE_APPLICATION_PORTAL_URL;
 
 export default function ProgrammePage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+
+  // Resolved student display name
+  const displayName = getStudentDisplayName(user);
 
   // Factsheet modal state
   const [showFactsheetModal, setShowFactsheetModal] = useState(false);
@@ -64,11 +68,11 @@ export default function ProgrammePage() {
 
             <div className="programme-header-actions">
               {user && (
-                <div className="header-student-profile-chip" title={`Authenticated as ${user.email}`}>
+                <div className="header-student-profile-chip" title={`Authenticated as ${displayName} (${user.email})`}>
                   <span className="student-avatar-initial" aria-hidden="true">
-                    {user.email ? user.email.charAt(0).toUpperCase() : 'S'}
+                    {displayName.charAt(0).toUpperCase()}
                   </span>
-                  <span className="programme-user-email">{user.email}</span>
+                  <span className="programme-user-email">{displayName}</span>
                 </div>
               )}
 
