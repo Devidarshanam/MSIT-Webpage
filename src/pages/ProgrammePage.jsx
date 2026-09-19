@@ -42,67 +42,67 @@ export default function ProgrammePage() {
   return (
     <div className="programme-page-root student-decision-dashboard">
       {/* ============================================================
-          TOP STICKY HEADER (Student Context & Brand)
+          TOP STICKY NAVIGATION GROUP (Header + Subnav pinned together)
           ============================================================ */}
-      <header className="programme-header">
-        <div className="programme-header-container">
-          <a href="#dashboard" className="programme-brand" aria-label="MSIT Dashboard">
-            <img
-              src="/assets/msit-25-logo.png"
-              alt="25 Years of MSIT"
-              className="brand-logo"
-              style={{ objectFit: 'contain' }}
-              width="38"
-              height="38"
-            />
-            <div className="gateway-brand-text">
-              <span className="gateway-brand-title">IIIT Hyderabad Consortium</span>
-              <span className="gateway-brand-subtitle">MSIT Student Decision Dashboard</span>
-            </div>
-          </a>
-
-          <div className="programme-header-actions">
-            {user && (
-              <div className="header-student-profile-chip" title={`Authenticated as ${user.email}`}>
-                <span className="student-avatar-initial" aria-hidden="true">
-                  {user.email ? user.email.charAt(0).toUpperCase() : 'S'}
-                </span>
-                <span className="programme-user-email">{user.email}</span>
+      <div className="programme-sticky-nav-shell">
+        <header className="programme-header">
+          <div className="programme-header-container">
+            <a href="#dashboard" className="programme-brand" aria-label="MSIT Dashboard">
+              <img
+                src="/assets/msit-25-logo.png"
+                alt="25 Years of MSIT"
+                className="brand-logo"
+                style={{ objectFit: 'contain' }}
+                width="38"
+                height="38"
+              />
+              <div className="gateway-brand-text">
+                <span className="gateway-brand-title">IIIT Hyderabad Consortium</span>
+                <span className="gateway-brand-subtitle">MSIT Student Decision Dashboard</span>
               </div>
-            )}
+            </a>
 
-            {APPLICATION_PORTAL_URL ? (
-              <a
-                href={APPLICATION_PORTAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary programme-apply-btn"
+            <div className="programme-header-actions">
+              {user && (
+                <div className="header-student-profile-chip" title={`Authenticated as ${user.email}`}>
+                  <span className="student-avatar-initial" aria-hidden="true">
+                    {user.email ? user.email.charAt(0).toUpperCase() : 'S'}
+                  </span>
+                  <span className="programme-user-email">{user.email}</span>
+                </div>
+              )}
+
+              {APPLICATION_PORTAL_URL ? (
+                <a
+                  href={APPLICATION_PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary programme-apply-btn"
+                >
+                  <span>Apply Now</span>
+                  <ArrowRightIcon size={16} />
+                </a>
+              ) : (
+                <span className="programme-apply-placeholder" title="Applications opening shortly for January 2027">
+                  Applications Opening Soon
+                </span>
+              )}
+
+              <button
+                type="button"
+                className="programme-signout-btn"
+                onClick={handleSignOut}
+                aria-label="Sign out of student account"
               >
-                <span>Apply Now</span>
-                <ArrowRightIcon size={16} />
-              </a>
-            ) : (
-              <span className="programme-apply-placeholder" title="Applications opening shortly for January 2027">
-                Applications Opening Soon
-              </span>
-            )}
-
-            <button
-              type="button"
-              className="programme-signout-btn"
-              onClick={handleSignOut}
-              aria-label="Sign out of student account"
-            >
-              Sign Out
-            </button>
+                Sign Out
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* ============================================================
-          POST-LOGIN STICKY SUB-NAVIGATION
-          ============================================================ */}
-      <DashboardSubNav />
+        {/* POST-LOGIN STICKY SUB-NAVIGATION */}
+        <DashboardSubNav />
+      </div>
 
       {/* ============================================================
           1. STUDENT DASHBOARD / WELCOME & ACTION HUB
