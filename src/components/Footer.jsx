@@ -13,7 +13,7 @@ export default function Footer({ data }) {
         <div className="footer-nav-col">
           <h4>Navigation</h4>
           <div className="footer-nav-grid">
-            {data.quickLinks.map((link, idx) => (
+            {(data?.quickLinks || []).map((link, idx) => (
               <a key={idx} href={link.href}>
                 {link.label}
               </a>

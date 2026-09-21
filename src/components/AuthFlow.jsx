@@ -1,35 +1,58 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
-import { MailIcon, LockIcon, LoaderIcon, ArrowRightIcon, ShieldCheckIcon } from './Icons';
+import { MailIcon, LoaderIcon, ArrowRightIcon, ShieldCheckIcon } from './Icons';
 
-const OTP_LENGTH = 8;
 const RESEND_COOLDOWN_SECONDS = 60;
 
 /**
- * Multi-step authentication flow: Email → OTP → Success → redirect.
- * Renders inside the "Interested in MSIT" card on the landing page.
+ * 100% Pure Magic Link Authentication Flow:
+ * Email Entry ➔ "Check Your Inbox" (Magic Link Sent) ➔ Verification purely via link click ➔ Redirect.
+ * Completely removes OTP code inputs.
  */
 export default function AuthFlow() {
-  const { signInWithOtp, verifyOtp, isConfigured } = useAuth();
+  const { user, signInWithOtp } = useAuth();
   const navigate = useNavigate();
 
-  // Step management
-  const [step, setStep] = useState('email'); // 'email' | 'otp' | 'success'
+  // Step management: 'email' | 'sent' | 'success'
+  const [step, setStep] = useState('email');
 
   // Email step state
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [emailLoading, setEmailLoading] = useState(false);
-
-  // OTP step state
-  const [otp, setOtp] = useState(Array(OTP_LENGTH).fill(''));
-  const [otpError, setOtpError] = useState('');
-  const [otpLoading, setOtpLoading] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
-  const otpInputRefs = useRef([]);
+
+  // Auto-detect when user is authenticated via magic link
+  useEffect(() => {
+    if (user) {
+      setStep('success');
+
+      // Store lead in database
+      const savedName = fullName.trim() || sessionStorage.getItem('msit_auth_fullname') || user.user_metadata?.full_name || '';
+      if (supabase && user.email) {
+        supabase.from('prospective_leads').upsert(
+          {
+            email: user.email.toLowerCase(),
+            full_name: savedName,
+            auth_user_id: user.id,
+            email_verified: true,
+            source: 'Landing',
+            status: 'New',
+            verified_at: new Date().toISOString(),
+          },
+          { onConflict: 'email' }
+        ).catch((err) => console.error('[MSIT] Lead upsert error:', err));
+      }
+
+      const timer = setTimeout(() => {
+        navigate('/programme');
+      }, 1200);
+      return () => clearTimeout(timer);
+    }
+  }, [user, fullName, navigate]);
 
   // Resend cooldown timer
   useEffect(() => {
@@ -40,9 +63,7 @@ export default function AuthFlow() {
     return () => clearInterval(timer);
   }, [resendCooldown]);
 
-  // ------------------------------------------------------------------
-  // Validation
-  // ------------------------------------------------------------------
+  // Form validation
   const validateForm = () => {
     if (!fullName.trim()) return 'Please enter your full name.';
     if (!email.trim()) return 'Please enter your email address.';
@@ -51,9 +72,7 @@ export default function AuthFlow() {
     return '';
   };
 
-  // ------------------------------------------------------------------
-  // Step 1: Submit email → send OTP
-  // ------------------------------------------------------------------
+  // Step 1: Submit email → send Magic Link
   const handleEmailSubmit = async (e) => {
     e.preventDefault();
 
@@ -65,6 +84,12 @@ export default function AuthFlow() {
 
     setEmailError('');
     setEmailLoading(true);
+
+    try {
+      sessionStorage.setItem('msit_auth_fullname', fullName.trim());
+    } catch (e) {
+      // ignore
+    }
 
     const { error } = await signInWithOtp(email.trim(), fullName.trim());
 
@@ -79,158 +104,32 @@ export default function AuthFlow() {
       return;
     }
 
-    // Move to OTP step
-    setOtp(Array(OTP_LENGTH).fill(''));
-    setOtpError('');
+    // Move to "Check Your Inbox" screen
     setResendCooldown(RESEND_COOLDOWN_SECONDS);
-    setStep('otp');
+    setStep('sent');
   };
 
-  // ------------------------------------------------------------------
-  // OTP input handlers
-  // ------------------------------------------------------------------
-  const handleOtpChange = (index, value) => {
-    // Allow only digits
-    const digit = value.replace(/\D/g, '').slice(-1);
-
-    const newOtp = [...otp];
-    newOtp[index] = digit;
-    setOtp(newOtp);
-    setOtpError('');
-
-    // Auto-advance to next input
-    if (digit && index < OTP_LENGTH - 1) {
-      otpInputRefs.current[index + 1]?.focus();
-    }
-  };
-
-  const handleOtpKeyDown = (index, e) => {
-    // Backspace: clear current or move to previous
-    if (e.key === 'Backspace') {
-      if (!otp[index] && index > 0) {
-        const newOtp = [...otp];
-        newOtp[index - 1] = '';
-        setOtp(newOtp);
-        otpInputRefs.current[index - 1]?.focus();
-      }
-    }
-    // Left arrow
-    if (e.key === 'ArrowLeft' && index > 0) {
-      otpInputRefs.current[index - 1]?.focus();
-    }
-    // Right arrow
-    if (e.key === 'ArrowRight' && index < OTP_LENGTH - 1) {
-      otpInputRefs.current[index + 1]?.focus();
-    }
-  };
-
-  const handleOtpPaste = (e) => {
-    e.preventDefault();
-    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, OTP_LENGTH);
-    if (!pasted) return;
-
-    const newOtp = [...otp];
-    for (let i = 0; i < pasted.length; i++) {
-      newOtp[i] = pasted[i];
-    }
-    setOtp(newOtp);
-    setOtpError('');
-
-    // Focus last filled or last box
-    const focusIndex = Math.min(pasted.length, OTP_LENGTH - 1);
-    otpInputRefs.current[focusIndex]?.focus();
-  };
-
-  // ------------------------------------------------------------------
-  // Step 2: Verify OTP
-  // ------------------------------------------------------------------
-  const handleOtpSubmit = async (e) => {
-    e.preventDefault();
-
-    const otpString = otp.join('');
-    if (otpString.length < OTP_LENGTH) {
-      setOtpError('Please enter the complete 8-digit code.');
-      return;
-    }
-
-    setOtpError('');
-    setOtpLoading(true);
-
-    const { data, error } = await verifyOtp(email.trim(), otpString);
-
-    setOtpLoading(false);
-
-    if (error) {
-      const msg = error.message?.toLowerCase() || '';
-      if (msg.includes('expired') || msg.includes('expire')) {
-        setOtpError('Code has expired. Please request a new one.');
-      } else if (msg.includes('invalid') || msg.includes('incorrect')) {
-        setOtpError('Incorrect verification code. Please check and try again.');
-      } else if (msg.includes('rate') || msg.includes('too many')) {
-        setOtpError('Too many attempts. Please request a new code.');
-      } else {
-        setOtpError(error.message || 'Verification failed. Please try again.');
-      }
-      return;
-    }
-
-    // Success — store lead in database
-    try {
-      if (supabase && data?.user) {
-        await supabase.from('prospective_leads').upsert(
-          {
-            email: email.trim().toLowerCase(),
-            full_name: fullName.trim(),
-            auth_user_id: data.user.id,
-            email_verified: true,
-            source: 'Landing',
-            status: 'New',
-            verified_at: new Date().toISOString(),
-          },
-          { onConflict: 'email' }
-        );
-      }
-    } catch (dbErr) {
-      // Lead storage failure should not block the user — log and continue
-      console.error('[MSIT] Failed to store lead:', dbErr);
-    }
-
-    // Show success briefly, then redirect
-    setStep('success');
-    setTimeout(() => {
-      navigate('/programme');
-    }, 1500);
-  };
-
-  // ------------------------------------------------------------------
-  // Resend OTP
-  // ------------------------------------------------------------------
-  const handleResendOtp = async () => {
+  // Resend Magic Link
+  const handleResend = async () => {
     if (resendCooldown > 0) return;
 
-    setOtpError('');
+    setEmailError('');
     setResendCooldown(RESEND_COOLDOWN_SECONDS);
 
     const { error } = await signInWithOtp(email.trim(), fullName.trim());
     if (error) {
-      setOtpError(error.message || 'Failed to resend code. Please try again.');
+      setEmailError(error.message || 'Failed to resend link. Please try again.');
       setResendCooldown(0);
     }
   };
 
-  // ------------------------------------------------------------------
-  // Go back to email step
-  // ------------------------------------------------------------------
+  // Back to email entry
   const handleBackToEmail = () => {
     setStep('email');
-    setOtp(Array(OTP_LENGTH).fill(''));
-    setOtpError('');
+    setEmailError('');
     setResendCooldown(0);
   };
 
-  // ------------------------------------------------------------------
-  // RENDER
-  // ------------------------------------------------------------------
   return (
     <div className="auth-flow-container">
       {/* ============================================================
@@ -248,8 +147,8 @@ export default function AuthFlow() {
           <div className="simple-card-content">
             <h2 className="simple-card-title">Interested in MSIT?</h2>
             <p className="simple-card-desc">
-              Enter your email to access detailed programme information, curriculum,
-              admissions roadmap, and application details.
+              Enter your email to receive an instant sign-in link to access detailed programme
+              curriculum, admissions roadmap, and application details.
             </p>
 
             {emailError && (
@@ -306,11 +205,11 @@ export default function AuthFlow() {
               {emailLoading ? (
                 <>
                   <LoaderIcon size={18} />
-                  <span>Sending Code...</span>
+                  <span>Sending Magic Link...</span>
                 </>
               ) : (
                 <>
-                  <span>Continue</span>
+                  <span>Send Magic Link</span>
                   <ArrowRightIcon size={18} />
                 </>
               )}
@@ -320,89 +219,66 @@ export default function AuthFlow() {
           <div className="auth-privacy-notice">
             <ShieldCheckIcon size={14} />
             <span>
-              We'll send a verification code to your email. No password needed.
+              We'll email you a secure sign-in link. No password or OTP code required.
             </span>
           </div>
         </form>
       )}
 
       {/* ============================================================
-          STEP 2: OTP VERIFICATION
+          STEP 2: CHECK YOUR INBOX (MAGIC LINK SENT)
           ============================================================ */}
-      {step === 'otp' && (
-        <form onSubmit={handleOtpSubmit} className="auth-step" key="otp-step">
+      {step === 'sent' && (
+        <div className="auth-step" key="sent-step">
           <div className="simple-card-top">
-            <span className="simple-mini-badge">VERIFY</span>
+            <span className="auth-magic-pill">MAGIC LINK SENT</span>
             <div className="simple-card-icon student-icon">
-              <LockIcon size={26} />
+              <MailIcon size={26} />
             </div>
           </div>
 
           <div className="simple-card-content">
-            <h2 className="simple-card-title">Verify Your Email</h2>
+            <h2 className="simple-card-title">Check Your Inbox</h2>
             <p className="simple-card-desc">
-              We've sent an 8-digit verification code to
+              We've sent a magic sign-in link to:
             </p>
             <p className="auth-email-display">{email}</p>
 
-            {otpError && (
+            {emailError && (
               <div className="auth-error-banner" role="alert">
-                {otpError}
+                {emailError}
               </div>
             )}
 
-            <div className="otp-input-group" onPaste={handleOtpPaste}>
-              {otp.map((digit, idx) => (
-                <input
-                  key={idx}
-                  ref={(el) => (otpInputRefs.current[idx] = el)}
-                  type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
-                  maxLength={1}
-                  className="otp-digit-input"
-                  value={digit}
-                  onChange={(e) => handleOtpChange(idx, e.target.value)}
-                  onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                  disabled={otpLoading}
-                  autoFocus={idx === 0}
-                  aria-label={`Digit ${idx + 1} of ${OTP_LENGTH}`}
-                />
-              ))}
+            <div className="magic-link-instructions-box">
+              <div className="magic-instruction-item">
+                <span className="magic-instruction-dot">1</span>
+                <span>Open the email sent to your inbox.</span>
+              </div>
+              <div className="magic-instruction-item">
+                <span className="magic-instruction-dot">2</span>
+                <span>Click the <strong>"Sign In to MSIT"</strong> button in the email.</span>
+              </div>
+              <div className="magic-instruction-item">
+                <span className="magic-instruction-dot">3</span>
+                <span>You will be instantly verified and signed in to MSIT.</span>
+              </div>
             </div>
           </div>
 
           <div className="simple-card-footer">
-            <button
-              type="submit"
-              className="btn btn-primary card-arrow-btn full-width"
-              disabled={otpLoading}
-            >
-              {otpLoading ? (
-                <>
-                  <LoaderIcon size={18} />
-                  <span>Verifying...</span>
-                </>
-              ) : (
-                <>
-                  <span>Verify</span>
-                  <ArrowRightIcon size={18} />
-                </>
-              )}
-            </button>
-
-            <div className="auth-resend-row">
+            <div className="auth-resend-row" style={{ marginTop: 0 }}>
               {resendCooldown > 0 ? (
                 <span className="auth-cooldown-text">
-                  Resend code in {resendCooldown}s
+                  Resend link in {resendCooldown}s
                 </span>
               ) : (
                 <button
                   type="button"
                   className="auth-resend-link"
-                  onClick={handleResendOtp}
+                  onClick={handleResend}
                 >
-                  Resend Code
+                  Resend Magic Link
                 </button>
               )}
               <span className="auth-separator">·</span>
@@ -415,16 +291,16 @@ export default function AuthFlow() {
               </button>
             </div>
           </div>
-        </form>
+        </div>
       )}
 
       {/* ============================================================
-          STEP 3: SUCCESS
+          STEP 3: SUCCESS & REDIRECT
           ============================================================ */}
       {step === 'success' && (
         <div className="auth-step auth-success-step" key="success-step">
           <div className="auth-success-icon">✓</div>
-          <h2 className="simple-card-title">Email Verified!</h2>
+          <h2 className="simple-card-title">Signed In Successfully!</h2>
           <p className="simple-card-desc">
             Redirecting to programme information...
           </p>
