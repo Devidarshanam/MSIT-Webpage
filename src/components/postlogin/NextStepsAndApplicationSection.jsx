@@ -42,7 +42,7 @@ export default function NextStepsAndApplicationSection({ data, user, application
                 <div className="email-alert-confirmation">
                   <CheckCircleIcon size={18} />
                   <span>
-                    Official alerts will be dispatched directly to your registered email: <strong>{user?.email}</strong>
+                    Official alerts will be dispatched directly to your registered email: <strong>{user?.email || 'Registered Candidate'}</strong>
                   </span>
                 </div>
               </div>

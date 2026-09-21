@@ -88,7 +88,7 @@ export default function StudentDashboardHeader({ user, data }) {
               </p>
               <div className="status-note-box">
                 <ClockIcon size={16} />
-                <span>Notification alert active for <strong>{user?.email}</strong></span>
+                <span>Notification alert active for <strong>{user?.email || 'Registered Candidate'}</strong></span>
               </div>
             </div>
 

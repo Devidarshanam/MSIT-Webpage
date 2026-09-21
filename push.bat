@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: landing page layout, typography, and convocation visuals"
+git commit -m "fix: ensure high contrast and full text legibility in Application Status section"
 
 echo.
 echo Pushing directly to origin main...
