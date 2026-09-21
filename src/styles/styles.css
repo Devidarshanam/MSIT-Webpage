@@ -49,11 +49,32 @@ section, .section, header, footer, [id] {
   scroll-margin-top: calc(var(--header-height) + 8px);
 }
 
+/* 4K Ultra-Clarity, Crisp Edge Definition & Hardware Acceleration for all images */
 img {
   max-width: 100%;
   height: auto;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
+
+/* 4K Visual Enhancement for Showcase Photos and Feature Visuals */
+.explore-preview-img,
+.spotlight-portrait-img,
+.slide-feature-img,
+.journey-milestone-img,
+.campus-life-card img,
+.academic-modal-thumb img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  filter: contrast(1.03) brightness(1.01);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 
 a {
   color: var(--primary-700);
@@ -8965,27 +8986,27 @@ p {
 }
 
 .spotlight-img-frame {
-  height: 220px;
+  height: 260px;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: linear-gradient(135deg, #091224 0%, #152445 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   margin-bottom: 0.85rem;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .spotlight-img-backdrop {
   position: absolute;
-  inset: -15px;
-  width: calc(100% + 30px);
-  height: calc(100% + 30px);
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
   object-fit: cover;
-  object-position: center center;
-  filter: blur(14px) brightness(0.35);
-  opacity: 0.75;
+  object-position: center top;
+  filter: blur(18px) brightness(0.28);
+  opacity: 0.85;
   pointer-events: none;
   user-select: none;
 }
@@ -8994,13 +9015,21 @@ p {
   position: relative;
   z-index: 2;
   height: 100%;
-  width: auto;
+  width: 100%;
   max-width: 100%;
-  object-fit: contain;
-  object-position: center center;
+  object-fit: cover;
+  object-position: center 12%;
   display: block;
   border-radius: 6px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  filter: contrast(1.05) brightness(1.02);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.spotlight-card:hover .spotlight-portrait-img {
+  transform: scale(1.025);
 }
 
 .spotlight-badge {
