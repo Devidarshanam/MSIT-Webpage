@@ -15,9 +15,21 @@ git -c core.editor=true rebase --continue
 git commit -m "feat: update landing header typography, convocation visual, and resolve merge conflicts" 2>nul
 echo Pushing to GitHub content-changes branch...
 git push -u origin content-changes
+
+echo.
+echo Syncing changes to main branch for Vercel production deployment...
+git checkout main
+git pull origin main
+git merge content-changes -m "merge: update landing header typography and convocation visual"
+git push origin main
+
+echo.
+echo Returning to content-changes branch...
+git checkout content-changes
+
 echo.
 echo ===================================================
-echo Successfully pushed to GitHub content-changes branch!
+echo Successfully pushed to main! Vercel is deploying to production.
 echo ===================================================
 pause
 
