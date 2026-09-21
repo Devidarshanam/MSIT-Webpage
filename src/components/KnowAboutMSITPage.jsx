@@ -22,7 +22,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       layoutClass: 'slide-layout-origin',
       title: 'The Origin Story: 25 Years of Active Learning',
       lead: 'Founded in 2001 under the visionary direction of Turing Laureate Prof. Raj Reddy, MSIT was created to replace passive classroom lectures with immersive, studio-based software engineering.',
-      image: 'https://www.rguktong.ac.in/img/rajreddy.jpg',
+      image: '/assets/rajreddy.jpg',
       imageCaption: 'Prof. Raj Reddy — Turing Award Laureate & Founding Chair'
     },
     {
