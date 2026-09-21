@@ -78,7 +78,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       title: 'Life on Campus at IIIT Hyderabad',
       lead: 'A vibrant 66-acre green research campus offering an enriching student experience with modern sports, technical clubs, and active community life.',
       image: '/assets/iiit-campus-life.jpg',
-      imageCaption: 'Life on Campus — 66-Acre Green Research Campus at IIIT Hyderabad'
+      imageCaption: 'Celebrating Graduation & Vibrant Campus Life at IIIT Hyderabad'
     },
     {
       id: 'practicum',
@@ -224,24 +224,24 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <div className="origin-highlight-card">
                   <div className="origin-icon-box"><AwardIcon size={22} /></div>
                   <div>
-                    <h4>The 2001 Catalyst</h4>
-                    <p>Traditional universities were churning out graduates trained on blackboard memorization who couldn't write 20 lines of production code. Prof. Raj Reddy, then Dean of Computer Science at Carnegie Mellon University (CMU), envisioned a radical experiment: eliminate lectures and teach computing purely through active studio practice.</p>
+                    <h4>The 2001 Vision</h4>
+                    <p>Conceived by Turing Laureate Prof. Raj Reddy (CMU) to eliminate passive lecture halls in favor of 100% active, project-driven software development studios.</p>
                   </div>
                 </div>
 
                 <div className="origin-highlight-card">
                   <div className="origin-icon-box"><CpuIcon size={22} /></div>
                   <div>
-                    <h4>Carnegie Mellon Pedagogy in India</h4>
-                    <p>MSIT adopted the active-learning framework of CMU's Software Engineering Institute: students work 9 AM to 6 PM in teams, building production-grade software under dedicated industry mentors.</p>
+                    <h4>Carnegie Mellon Pedagogy</h4>
+                    <p>Pioneered CMU's active-learning model in India: collaborative teams building production systems under dedicated industry mentors.</p>
                   </div>
                 </div>
 
                 <div className="origin-highlight-card">
                   <div className="origin-icon-box"><BuildingIcon size={22} /></div>
                   <div>
-                    <h4>The CIHL University Consortium</h4>
-                    <p>Instituted under the Consortium of Institutions of Higher Learning (CIHL) with IIIT Hyderabad alongside premier state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and Sri Venkateswara University.</p>
+                    <h4>University Consortium</h4>
+                    <p>Anchored at IIIT Hyderabad under CIHL alongside state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and SVU.</p>
                   </div>
                 </div>
 
@@ -335,11 +335,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2001</span>
                   <span className="journey-era-label">Consortium Inception</span>
                 </div>
-                <h4>Launched by CIHL & CMU Collaboration</h4>
-                <p>Created under the Consortium of Institutions of Higher Learning (CIHL) at IIIT Hyderabad under the guidance of Turing Laureate Prof. Raj Reddy. Developed with researchers from Carnegie Mellon University (CMU) to replace passive blackboard lectures with project-centered computing.</p>
+                <h4>CIHL & CMU Collaboration</h4>
+                <p>Founded at IIIT Hyderabad with Carnegie Mellon University (CMU) researchers under Prof. Raj Reddy, replacing blackboard lectures with active software studios.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>CIHL & Carnegie Mellon Course Framework</span>
+                  <span>CIHL & Carnegie Mellon Framework</span>
                 </div>
               </div>
 
@@ -349,11 +349,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2002–2005</span>
                   <span className="journey-era-label">Pedagogy Breakthrough</span>
                 </div>
-                <h4>The "Mastery Learning" Paradigm</h4>
-                <p>Pioneered the "Time-Variable, Outcome-Constant" model: students must demonstrate 90%+ mastery ('A' grade) before advancing. Instituted 100% full-time 9 AM to 6 PM collaborative coding studios with a dedicated 1:10 personal mentor ratio.</p>
+                <h4>The "Mastery Learning" Model</h4>
+                <p>Pioneered 90%+ mastery thresholds ('A' grade required) and full-time collaborative coding studios with a dedicated 1:10 mentor ratio.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>90%+ Mastery Threshold & Studio Model</span>
+                  <span>90%+ Mastery & Studio Model</span>
                 </div>
               </div>
 
@@ -363,11 +363,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2008</span>
                   <span className="journey-era-label">Industry Integration</span>
                 </div>
-                <h4>Pioneering the Real-World Practicum</h4>
-                <p>Introduced an immersive practicum model where students spend nearly half their master's working directly on real-world engineering sprints and production-grade software projects alongside industry experts and CETLS.</p>
+                <h4>Pioneering the Practicum</h4>
+                <p>Introduced ~50% programme tenure in live engineering sprints and production-grade software projects alongside CETLS and industry partners.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>~50% Tenure in Real-World Projects</span>
+                  <span>~50% Tenure in Real Projects</span>
                 </div>
               </div>
 
@@ -377,11 +377,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2015–2018</span>
                   <span className="journey-era-label">Curriculum Evolution</span>
                 </div>
-                <h4>Domain Specializations & Frameworks</h4>
-                <p>Pivoted strongly toward practical software engineering frameworks and intelligent automated learning platforms. Restructured the curriculum to incorporate high-demand tech domains, setting the foundation for specializations in Data Science, Machine Learning, and Full Stack Development.</p>
+                <h4>Domain Specializations</h4>
+                <p>Expanded into high-demand tracks: Data Science, Machine Learning, and Cloud Full Stack engineering on modern production stacks.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>Data Science, ML & Full Stack Domains</span>
+                  <span>Data Science, ML & Full Stack</span>
                 </div>
               </div>
 
@@ -391,11 +391,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2020–2022</span>
                   <span className="journey-era-label">Major Restructuring</span>
                 </div>
-                <h4>Hybrid Learning & Flexible Pathways</h4>
-                <p>Restructured the entire program in response to the pandemic, transitioning to online-guided models and sequential web-based batches. Introduced flexible learning pathways for both full-time students and working professionals without compromising hands-on rigor.</p>
+                <h4>Hybrid Rigor & Pathways</h4>
+                <p>Adapted to sequential online-guided batches and flexible learning pathways for students and working professionals without sacrificing rigor.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>Online-Guided Models & Working Professionals</span>
+                  <span>Online-Guided & Professional Tracks</span>
                 </div>
               </div>
 
@@ -405,11 +405,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <span className="journey-year-badge">2024–2026</span>
                   <span className="journey-era-label">AI-Native Era</span>
                 </div>
-                <h4>Generative AI & 25-Year Excellence Legacy</h4>
-                <p>Completing 25 continuous batches with over 3,000 global alumni. Full-scale curriculum expansion into Large Language Models (LLMs), autonomous AI agents, GPU clusters, and high-performance computing architectures.</p>
+                <h4>GenAI Studios & 25-Year Legacy</h4>
+                <p>25 batches and 3,000+ global alumni, entering the AI-native era with LLMs, autonomous agents, and production GPU architectures.</p>
                 <div className="journey-card-footer">
                   <CheckCircleIcon size={14} />
-                  <span>GenAI Studios & 3,000+ Global Alumni</span>
+                  <span>GenAI Studios & 3,000+ Alumni</span>
                 </div>
               </div>
             </div>
@@ -432,20 +432,20 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 
                 <div className="ai-native-timeline-item">
                   <div className="ai-native-dot gold"></div>
-                  <strong className="ai-native-timeline-heading gold">2000 &bull; Founded by Professor Raj Reddy</strong>
-                  <p className="ai-native-timeline-text">A two-year master's program for talented students who had no path to the elite universities.</p>
+                  <strong className="ai-native-timeline-heading gold">2000 &bull; Founded by Prof. Raj Reddy</strong>
+                  <p className="ai-native-timeline-text">A rigorous master's opening pathways for ambitious engineering graduates.</p>
                 </div>
                 
                 <div className="ai-native-timeline-item">
                   <div className="ai-native-dot gold"></div>
                   <strong className="ai-native-timeline-heading gold">Two decades &bull; The bold pivot</strong>
-                  <p className="ai-native-timeline-text">Lecture-based teaching minimized; project-based learning by doing, paired with soft skills, at the core.</p>
+                  <p className="ai-native-timeline-text">Eliminated passive lectures in favor of collaborative learning by doing.</p>
                 </div>
                 
                 <div className="ai-native-timeline-item">
                   <div className="ai-native-dot white"></div>
                   <strong className="ai-native-timeline-heading white">Year 25 &bull; AI Native relaunch</strong>
-                  <p className="ai-native-timeline-text">Ready for a modern world where cognitive technologies like AI are ubiquitous.</p>
+                  <p className="ai-native-timeline-text">Re-engineered for an AI-native era of intelligent software and LLMs.</p>
                 </div>
               </div>
             </div>
@@ -481,19 +481,19 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <div className="ai-native-pillar-card">
                   <div className="ai-native-card-icon"><BriefcaseIcon size={18} /></div>
                   <strong className="ai-native-card-title">Industry Co-op</strong>
-                  <p className="ai-native-card-desc">Half of the program is spent in industry co-ops, solving real problems under the supervision of practitioners and mentors.</p>
+                  <p className="ai-native-card-desc">~50% tenure solving real corporate engineering problems under the guidance of tech leaders.</p>
                 </div>
                 
                 <div className="ai-native-pillar-card">
                   <div className="ai-native-card-icon"><SparklesIcon size={18} /></div>
                   <strong className="ai-native-card-title">Venture Studio</strong>
-                  <p className="ai-native-card-desc">Students build to launch a product, working hands-on with early-stage VCs.</p>
+                  <p className="ai-native-card-desc">Hands-on product building and system prototyping alongside early-stage venture mentors.</p>
                 </div>
 
                 <div className="ai-native-pillar-card">
                   <div className="ai-native-card-icon"><UsersIcon size={18} /></div>
                   <strong className="ai-native-card-title">Partnership with CETLS</strong>
-                  <p className="ai-native-card-desc">Curriculum and methodology co-designed with CETLS. Learning engineering and data-driven evidence continuously improve the program, so it never stays static for long.</p>
+                  <p className="ai-native-card-desc">Curriculum co-designed with CETLS at IIIT-H using learning science to continuously optimize studios.</p>
                 </div>
               </div>
             </div>

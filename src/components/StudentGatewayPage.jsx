@@ -18,6 +18,13 @@ export default function StudentGatewayPage() {
   // Exploration modal for 1-page summary
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
+  // If user is already authenticated and lands on gateway, smoothly redirect to programme dashboard
+  React.useEffect(() => {
+    if (user && view === 'gateway') {
+      navigate('/programme', { replace: true });
+    }
+  }, [user, view, navigate]);
+
   // If user navigated to "Know About MSIT" slideshow page
   if (view === 'about-msit') {
     return (
@@ -32,43 +39,33 @@ export default function StudentGatewayPage() {
       />
     );
   }
+
   return (
     <div className="gateway-root minimal-gateway-root">
-      {/* Top Header - Ultra Clean & Minimal */}
-      <header className="gateway-header minimal-header">
-        <div className="gateway-container gateway-header-container">
-          <div className="gateway-brand">
-            <img
-              src="/assets/msit-25-logo.png"
-              alt="25 Years of MSIT"
-              className="brand-logo"
-              style={{ objectFit: 'contain' }}
-              width="38"
-              height="38"
-            />
-            <div className="gateway-brand-text">
-              <span className="gateway-brand-title">IIIT Hyderabad Consortium</span>
-              <span className="gateway-brand-subtitle">MSIT · Master of Science in Information Technology</span>
-            </div>
-            
-          </div>
-          
-          <div className="gateway-header-badges">
-            <span className="gateway-cohort-pill">
-              <span className="gateway-pulse-dot" aria-hidden="true"></span>
-              Batch: January 2027
-            </span>
-          </div>
-        </div>
-      </header>
-
       {/* Main 2-Section Clean Gateway */}
-      <main className="gateway-main minimal-main">
+      <main className="gateway-main minimal-main" style={{ paddingTop: 'clamp(1.5rem, 3.5vh, 2.5rem)' }}>
         <div className="gateway-container">
           
-          {/* MSIT Heading & General Description */}
+          {/* MSIT Heading & Unified Identity Area */}
           <div className="gateway-hero-header">
-            <h1 className="gateway-main-title">Master of Science in Information Technology (MSIT)</h1>
+            <div className="gateway-identity-group">
+              <img
+                src="/assets/msit-logo.png"
+                alt="25 Years of MSIT Logo"
+                className="gateway-hero-logo"
+                width="115"
+                height="115"
+              />
+              <div className="gateway-title-group">
+                <h1 className="gateway-main-title">
+                  <div className="title-top-lockup">
+                    <span className="title-line-1">Master of Science</span>
+                    <span className="title-line-in">in</span>
+                  </div>
+                  <span className="title-line-2">Information Technology</span>
+                </h1>
+              </div>
+            </div>
             <p className="gateway-main-desc">
               A specialized postgraduate master's degree in advanced computing and software engineering, offered under the consortium of IIIT Hyderabad and prestigious state universities.
             </p>
@@ -88,17 +85,36 @@ export default function StudentGatewayPage() {
               aria-label="Explore and know about MSIT"
             >
               <div className="simple-card-top">
-                <span className="simple-mini-badge">EXPLORE</span>
+                <span className="simple-mini-badge">EXPLORE PROGRAMME</span>
                 <div className="simple-card-icon">
-                  <BookOpenIcon size={26} />
+                  <BookOpenIcon size={24} />
                 </div>
               </div>
 
               <div className="simple-card-content">
                 <h2 className="simple-card-title">Know About MSIT</h2>
                 <p className="simple-card-desc">
-                  Learn how MSIT works — our founding legacy under Prof. Raj Reddy, hands-on learning model, and corporate co-op internships.
+                  Explore our 25+ year founding legacy under Turing Laureate Prof. Raj Reddy, the zero-lecture studio learning model, and 50% real-world practicum.
                 </p>
+                <div className="explore-highlights-row">
+                  <span className="explore-chip">25+ Yrs Legacy</span>
+                  <span className="explore-chip">Zero Lectures</span>
+                  <span className="explore-chip">50% Practicum</span>
+                </div>
+              </div>
+
+              {/* Meaningful Visual: Studio & Campus Life Preview Placed AFTER Information */}
+              <div className="explore-preview-frame">
+                <img 
+                  src="/assets/iiit-campus-life.jpg" 
+                  alt="MSIT Convocation Celebration and Campus Life" 
+                  className="explore-preview-img"
+                  loading="eager"
+                />
+                <div className="explore-preview-overlay">
+                  <span className="explore-slide-count">7 Interactive Slides</span>
+                  <span className="explore-play-indicator">Tap to View Overview ➔</span>
+                </div>
               </div>
 
               <div className="simple-card-footer">
@@ -110,14 +126,14 @@ export default function StudentGatewayPage() {
                     setView('about-msit');
                   }}
                 >
-                  <span>Explore MSIT</span>
+                  <span>Explore 7-Slide Overview</span>
                   <ArrowRightIcon size={18} />
                 </button>
               </div>
             </div>
 
             {/* =========================================================================
-                RIGHT SIDE: INTERESTED IN MSIT
+                RIGHT SIDE: INTERESTED IN MSIT / ADMISSION PORTAL
                 ========================================================================= */}
             <div className="simple-action-card signin-box">
               {!user ? (
@@ -151,7 +167,7 @@ export default function StudentGatewayPage() {
                       className="btn btn-primary card-arrow-btn full-width"
                       onClick={() => navigate('/programme')}
                     >
-                      <span>View Programme Details</span>
+                      <span>Open Programme Dashboard</span>
                       <ArrowRightIcon size={18} />
                     </button>
                   </div>

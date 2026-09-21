@@ -20,6 +20,10 @@ export default function DashboardSubNav() {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (window.scrollY < 180) {
+        setActiveSection('#overview');
+        return;
+      }
       const offset = window.innerWidth <= 640 ? 100 : 130;
       const scrollPosition = window.scrollY + offset;
       for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
@@ -58,6 +62,11 @@ export default function DashboardSubNav() {
   }, [isDrawerOpen]);
 
   const scrollToSection = (href) => {
+    if (href === '#overview') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setActiveSection('#overview');
+      return;
+    }
     const el = document.querySelector(href);
     if (el) {
       const yOffset = window.innerWidth <= 640 ? -90 : -115;
