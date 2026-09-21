@@ -111,9 +111,6 @@ export default function StudentGatewayPage() {
                   className="explore-preview-img"
                   loading="eager"
                 />
-                <div className="explore-preview-overlay">
-                  <span className="explore-slide-count">MSIT Convocation Ceremony</span>
-                </div>
               </div>
 
               <div className="simple-card-footer">

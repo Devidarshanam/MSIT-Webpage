@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "fix: update explore card photo caption to MSIT Convocation Ceremony"
+git commit -m "fix: remove all text overlays from explore card image"
 
 echo.
 echo Pushing directly to origin main...
