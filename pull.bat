@@ -1,17 +1,15 @@
 @echo off
 cd /d "%~dp0"
 echo ===================================================
-echo Completing merge and pulling latest remote changes...
+echo Fetching and pulling all changes from remote repo...
 echo ===================================================
 echo.
 
-git add .
-git commit -m "merge: resolve merge conflicts with origin/main"
+git fetch --all --prune
 git pull origin main
 
 echo.
 echo ===================================================
-echo All remote changes are successfully pulled and merged!
+echo All remote changes successfully pulled!
 echo ===================================================
-echo.
 pause

@@ -24,7 +24,8 @@ export default function StudentDashboardHeader({ user, data }) {
   };
 
   return (
-    <section className="student-dashboard-hero" id="dashboard">
+    <section className="student-dashboard-hero" id="overview">
+      <div id="dashboard" style={{ position: 'absolute', top: 0 }} />
       <div className="container">
         {/* Top Identification & Welcome Row */}
         <div className="dashboard-welcome-card">
