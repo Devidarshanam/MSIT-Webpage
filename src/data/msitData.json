@@ -109,9 +109,9 @@
         "desc": "The capacity to master new programming languages, tools, and AI frameworks independently without waiting for a classroom lecture.",
         "meaning": "Self-directed learning: discovering how to read official documentation, inspect open-source code, debug errors systematically, and acquire technical skills on demand.",
         "whyItMatters": "Technologies and frameworks change every 6 to 18 months. Engineers who learn independently remain future-proof and agile throughout their careers.",
-        "studioPractice": "Daily problem immersion where students dissect API specs, RFCs, and source repositories to build working prototypes without lecture slides.",
+        "studioPractice": "Daily problem immersion where students dissect API specs, technical standards, and source repositories to build working prototypes without lecture slides.",
         "competencies": [
-          "Technical Documentation & RFC Comprehension",
+          "Technical Documentation & Technical Standards",
           "Rapid Tech Stack Onboarding in 48 Hours",
           "Systematic Root-Cause Debugging & Trace Analysis",
           "Generative AI as an Active Inquiry Partner"
@@ -123,8 +123,8 @@
         "slug": "learning-to-think",
         "path": "/curriculum/learning-to-think",
         "title": "Learning to Think",
-        "tagline": "First-Principles Computational Reasoning & AI Discernment",
-        "desc": "Reasoning from first principles, questioning assumptions, evaluating trade-offs, and validating AI-generated code with independent human discernment.",
+        "tagline": "First-Principles Computational Reasoning & AI Literacy",
+        "desc": "Reasoning from first principles, questioning assumptions, evaluating trade-offs, and validating AI-generated code with independent human judgement.",
         "meaning": "Analytical reasoning: breaking down complex problems into clear algorithmic logic, invariant states, and resilient distributed system architectures.",
         "whyItMatters": "AI copilots can produce syntax in seconds, but only engineers with deep first-principles intuition can judge security, race conditions, and architectural scalability.",
         "studioPractice": "Architecture whiteboarding, complexity trade-off modeling, and adversarial peer code reviews where every design choice must be defended.",

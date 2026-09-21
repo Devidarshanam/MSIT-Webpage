@@ -74,7 +74,7 @@ export default function CurriculumPillarPage() {
         <div className="container pillar-hero-container">
           <div className="pillar-hero-badge-wrap">
             <span className="pillar-hero-kicker">{currentPillar.kicker}</span>
-            <span className="pillar-number-badge">0{currentPillar.number.slice(-1)}</span>
+            <span className="pillar-number-badge">{currentPillar.number}</span>
           </div>
 
           <div className="pillar-hero-title-group">

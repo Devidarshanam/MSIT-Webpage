@@ -38,8 +38,13 @@ export const LEARNING_PILLARS = {
     // Why it matters (Simple career rationale)
     whyItMatters: [
       {
+<<<<<<< HEAD
         title: 'Technology Changes Rapidly',
         description: 'Software tools and coding languages change every few years. Instead of just memorizing old textbooks, you build the skill to pick up new tools quickly on your own.'
+=======
+        title: 'Technologies Evolve Fast',
+        description: 'Frameworks and tools go outdated quickly. Engineers who rely on rote college syllabi get left behind, while self-directed learners stay ahead.'
+>>>>>>> 131f395 (feat: add curriculum section, pillar pages, and associated data files)
       },
       {
         title: 'High Career Adaptability',
@@ -47,7 +52,11 @@ export const LEARNING_PILLARS = {
       },
       {
         title: 'AI as a Learning Partner',
+<<<<<<< HEAD
         description: 'You learn to use modern AI tools to understand complex concepts and solve problems faster, rather than just blindly copying and pasting code.'
+=======
+        description: 'You use modern AI tools to ask questions and clarify concepts, without complete dependence on them.'
+>>>>>>> 131f395 (feat: add curriculum section, pillar pages, and associated data files)
       }
     ],
 
@@ -72,20 +81,27 @@ export const LEARNING_PILLARS = {
 
     // Key skills gained (6 balanced, student-friendly cards)
     keySkills: [
+<<<<<<< HEAD
       'Reading and understanding official API documentation and technical specs',
       'Rapidly learning and adopting new programming languages and frameworks',
       'Systematic debugging and isolating errors using logs and debuggers',
       'Using AI tools to explain unfamiliar codebases and clarify difficult concepts',
       'Generating automated test cases and edge-case scenarios using AI',
       'Critically auditing AI-generated code to catch bugs and verify correctness'
+=======
+      'Reading and understanding official API documentation and Technical Standards',
+      'Rapidly learning and adopting new programming languages and frameworks',
+      'Systematic debugging and isolating errors using logs and debuggers',
+      'Using generative AI as an active research thinking partner'
+>>>>>>> 131f395 (feat: add curriculum section, pillar pages, and associated data files)
     ],
 
     // Real-world practical example
     realWorldExample: {
-      title: 'Real-World Example: Adopting a New Vector Database SDK',
-      situation: 'A team needs to add semantic search to an application using a newly released vector database SDK that has no online tutorials.',
-      solution: 'Applying Learning-to-Learn, the student reads the SDK’s GitHub documentation, runs sample test scripts, and builds a working microservice in two days.',
-      outcome: 'The service is tested, containerized, and deployed to cloud staging ahead of schedule.'
+      title: 'Practical Scenario: Learning a New Database Tool',
+      situation: 'A team needs to add smart search to an application using a new database tool that has no tutorials.',
+      solution: 'Applying Learning-to-Learn, the student reads the official documentation, tests sample code, and builds a working prototype in two days.',
+      outcome: 'The feature is tested and launched smoothly ahead of schedule.'
     }
   },
 
@@ -95,7 +111,7 @@ export const LEARNING_PILLARS = {
     title: 'Learning to Think',
     shortTitle: 'Learn to Think',
     kicker: 'CORE PEDAGOGY PILLAR 02',
-    tagline: 'First-Principles Computational Reasoning, System Architecture & AI Judgement',
+    tagline: 'First-Principles Computational Reasoning, AI Literacy & Human Judgement',
     icon: 'CpuIcon',
     accentColor: '#0284c7',
     bgGradient: 'linear-gradient(135deg, #091e42 0%, #0369a1 50%, #0284c7 100%)',
@@ -112,8 +128,8 @@ export const LEARNING_PILLARS = {
         description: 'Breaking down complex, confusing problems into simple step-by-step logic, clear math, and efficient data structures.'
       },
       {
-        title: 'Architectural Discernment',
-        description: 'Understanding trade-offs: when to use SQL vs. NoSQL, sync vs. async APIs, and how to design systems that do not crash under high load.'
+        title: 'AI Literacy & Architecture',
+        description: 'Understanding trade-offs and AI capabilities: knowing when to use SQL vs. NoSQL, sync vs. async APIs, and designing systems that do not crash under high load.'
       },
       {
         title: 'Critical Human Judgement',

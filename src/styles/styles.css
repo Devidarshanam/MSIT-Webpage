@@ -6425,11 +6425,13 @@ p {
 }
 
 .principle-number {
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 900;
   color: var(--primary-700);
   line-height: 1;
   letter-spacing: -0.02em;
+  display: inline-block;
+  opacity: 1;
 }
 
 .principle-card-pillar-1 .principle-number {

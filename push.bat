@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: reduce and streamline B.Tech Transformation slide content"
+git commit -m "feat: update curriculum terminology and remove broad learning model & core areas"
 
 echo.
 echo Pulling latest remote changes with rebase...

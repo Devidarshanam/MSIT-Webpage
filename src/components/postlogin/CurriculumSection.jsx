@@ -2,9 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   CpuIcon, 
-  TerminalIcon, 
-  SparklesIcon, 
-  TargetIcon, 
   BuildingIcon, 
   BookOpenIcon, 
   BriefcaseIcon,
@@ -92,49 +89,7 @@ export default function CurriculumSection({ data }) {
           })}
         </div>
 
-        {/* 2. Broad Learning Model: Learn -> Think -> Build -> Apply -> Reflect -> Improve */}
-        <div className="learning-cycle-card">
-          <div className="cycle-header">
-            <span className="cycle-kicker">PEDAGOGICAL FRAMEWORK</span>
-            <h3>{data?.learningModel?.title}</h3>
-            <p>A continuous cycle: learn core concepts, reason through problem statements, build real systems, and iterate with code reviews.</p>
-          </div>
-
-          <div className="cycle-steps-grid">
-            {(data?.learningModel?.steps || []).map((step, idx, arr) => (
-              <React.Fragment key={idx}>
-                <div className="cycle-step-box">
-                  <span className="cycle-step-num">{step.num}</span>
-                  <strong className="cycle-step-name">{step.name}</strong>
-                  <span className="cycle-step-desc">{step.desc}</span>
-                </div>
-                {idx < arr.length - 1 && (
-                  <div className="cycle-connector" aria-hidden="true">→</div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* 3. Core Competency Domains */}
-        <div className="curriculum-core-heading">
-          <h3>Core Areas of Study & Competencies</h3>
-          <p>Key technical domains engineered for high-impact software, intelligent systems, and scalable infrastructure.</p>
-        </div>
-
-        <div className="competencies-grid">
-          {(data?.coreAreas || []).map((area, idx) => (
-            <div key={idx} className="competency-card">
-              <div className="competency-header">
-                <span className="competency-tag">{area.tag}</span>
-              </div>
-              <h4>{area.title}</h4>
-              <p>{area.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* 4. Living Lab Anchor (CETLS) */}
+        {/* 2. Living Lab Anchor (CETLS) */}
         <div className="cetls-feature-box">
           <div className="cetls-icon-wrap" aria-hidden="true">
             <BuildingIcon size={24} />
