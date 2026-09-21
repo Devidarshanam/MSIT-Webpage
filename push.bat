@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: use new high quality portrait for explore slide 1"
+git commit -m "feat: fit portrait image edge-to-edge and enhance spotlight portrait info"
 
 echo.
 echo Pulling latest remote changes with rebase...

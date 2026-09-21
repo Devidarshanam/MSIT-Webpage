@@ -292,20 +292,18 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <div className="spotlight-img-frame">
                     <img 
                       src="/assets/rajreddy.jpg" 
-                      alt="" 
-                      className="spotlight-img-backdrop"
-                      aria-hidden="true"
-                    />
-                    <img 
-                      src="/assets/rajreddy.jpg" 
                       alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
                       className="spotlight-portrait-img"
                     />
                   </div>
                   <div className="spotlight-meta">
-                    <span className="spotlight-badge">Academic Visionary</span>
+                    <div className="spotlight-badge-row">
+                      <span className="spotlight-badge">Academic Visionary</span>
+                      <span className="spotlight-award-tag">Turing Laureate 1994</span>
+                    </div>
                     <h3 className="spotlight-name">Prof. Raj Reddy</h3>
-                    <p className="spotlight-desc">Turing Award Laureate in AI (1994), Former Dean of School of Computer Science at Carnegie Mellon University, and Founding Father of MSIT.</p>
+                    <p className="spotlight-role-title">Founding Chair, MSIT • Former Dean, School of Computer Science, Carnegie Mellon University</p>
+                    <p className="spotlight-desc">Conceived MSIT in 2001 to replace passive lecture classrooms with 100% active, studio-based software engineering.</p>
                     <div className="spotlight-stats-row">
                       <div className="spot-stat">
                         <strong>25+</strong>
