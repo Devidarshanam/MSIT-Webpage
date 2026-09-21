@@ -8,6 +8,7 @@
   --neutral-900: #0f172a;
   --neutral-800: #1e293b;
   --neutral-700: #334155;
+  --neutral-600: #475569;
   --neutral-500: #64748b;
   --neutral-300: #dfeaf7;
   --neutral-200: #edf2fb;
@@ -6003,17 +6004,19 @@ p {
   gap: 0.85rem;
 }
 
-/* Status Card - High Contrast & Guaranteed Visibility */
+/* ==========================================================================
+   APPLICATION STATUS CARD (HEADER) - HIGH CONTRAST & GUARANTEED LEGIBILITY
+   ========================================================================== */
 .application-status-card {
-  background: linear-gradient(135deg, #091e42 0%, #0f2d6b 50%, #163e8c 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #091e42 0%, #0f2d6b 50%, #163e8c 100%) !important;
+  color: #ffffff !important;
   border-radius: var(--radius-lg);
   padding: 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 12px 28px -4px rgba(9, 30, 66, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .status-card-header {
@@ -6025,23 +6028,23 @@ p {
 }
 
 .status-kicker {
-  font-size: 0.76rem;
-  letter-spacing: 0.1em;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffffff;
-  font-weight: 800;
-  opacity: 0.95;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  opacity: 1 !important;
 }
 
 .status-beacon-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: #fef3c7;
-  color: #78350f;
-  border: 1px solid #fde68a;
-  font-size: 0.78rem;
-  font-weight: 800;
+  background: #fef3c7 !important;
+  color: #78350f !important;
+  border: 1.5px solid #fde68a !important;
+  font-size: 0.78rem !important;
+  font-weight: 800 !important;
   padding: 0.3rem 0.75rem;
   border-radius: var(--radius-pill);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
@@ -6062,70 +6065,88 @@ p {
 }
 
 .status-card-body h3 {
-  color: #ffffff;
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: 0.55rem;
+  color: #ffffff !important;
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 0.6rem;
   letter-spacing: -0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
 .status-card-body p {
-  font-size: 0.92rem;
-  color: #f8fafc;
-  line-height: 1.6;
+  font-size: 0.95rem !important;
+  color: #ffffff !important;
+  line-height: 1.6 !important;
   margin-bottom: 1.15rem;
-  font-weight: 450;
+  font-weight: 450 !important;
+  opacity: 1 !important;
 }
 
 .status-note-box {
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 0.65rem 0.95rem;
+  background: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  font-size: 0.86rem;
-  color: #ffffff;
+  font-size: 0.88rem !important;
+  color: #ffffff !important;
+}
+
+.status-note-box span {
+  color: #ffffff !important;
+  font-weight: 500 !important;
 }
 
 .status-note-box svg {
-  color: #93c5fa;
+  color: #60a5fa !important;
   flex-shrink: 0;
 }
 
 .status-note-box strong {
-  color: #93c5fa;
-  font-weight: 700;
+  color: #93c5fd !important;
+  font-weight: 800 !important;
 }
 
 .status-card-footer {
   margin-top: 1.35rem;
   padding-top: 0.95rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .status-jump-btn {
-  background: rgba(255, 255, 255, 0.14);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-  font-size: 0.88rem;
-  font-weight: 700;
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #091e42 !important;
+  font-size: 0.9rem !important;
+  font-weight: 800 !important;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0.65rem 1rem;
+  padding: 0.75rem 1.1rem !important;
   border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
   transition: all 0.2s ease;
 }
 
+.status-jump-btn span {
+  color: #091e42 !important;
+  font-weight: 800 !important;
+}
+
+.status-jump-btn svg {
+  color: #091e42 !important;
+}
+
 .status-jump-btn:hover {
-  background: #ffffff;
-  color: #091e42;
-  border-color: #ffffff;
+  background: #f0f7ff !important;
+  color: #0b2a6b !important;
+  border-color: #93c5fd !important;
   transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
 }
 
 /* Decision Prep / Checklist Area */
@@ -7766,14 +7787,16 @@ p {
   margin: 0;
 }
 
-/* Next Steps & Application Status Section */
+/* ==========================================================================
+   NEXT STEPS & APPLICATION STATUS SECTION - GUARANTEED MAXIMUM LEGIBILITY
+   ========================================================================== */
 .next-steps-banner-card {
-  background: linear-gradient(135deg, #091e42 0%, #0f2d6b 50%, #163e8c 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #091e42 0%, #0f2d6b 50%, #163e8c 100%) !important;
+  color: #ffffff !important;
   border-radius: var(--radius-xl);
   padding: 2.5rem;
   box-shadow: 0 14px 36px rgba(9, 30, 66, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.25);
 }
 
 .steps-banner-top {
@@ -7781,36 +7804,40 @@ p {
 }
 
 .steps-banner-top .kicker-light {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background: rgba(255, 255, 255, 0.22) !important;
   color: #ffffff !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
   font-weight: 800 !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.08em !important;
 }
 
 .steps-banner-top h2 {
-  color: #ffffff;
-  font-size: clamp(1.7rem, 2.7vw, 2.3rem);
-  font-weight: 800;
+  color: #ffffff !important;
+  font-size: clamp(1.75rem, 2.7vw, 2.35rem) !important;
+  font-weight: 800 !important;
   margin: 0.45rem 0 0.6rem;
   letter-spacing: -0.015em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 .banner-subtext {
-  color: #f8fafc;
-  font-size: 1.02rem;
-  font-weight: 450;
-  line-height: 1.6;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  line-height: 1.65 !important;
   margin: 0;
   max-width: 680px;
+  opacity: 1 !important;
 }
 
 .portal-action-box {
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(8, 20, 48, 0.8) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
   border-radius: var(--radius-lg);
   padding: 1.75rem 2rem;
   margin-bottom: 2.25rem;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3) !important;
 }
 
 .portal-status-group {
@@ -7823,33 +7850,33 @@ p {
 }
 
 .portal-badge-cohort {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #091e42;
-  background: #ffffff;
-  border: 1px solid #ffffff;
-  padding: 0.32rem 0.95rem;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  color: #091e42 !important;
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  padding: 0.35rem 1rem !important;
   border-radius: var(--radius-pill);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 .portal-live-indicator {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  background: #fef3c7;
-  color: #78350f;
-  border: 1px solid #fde68a;
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 0.32rem 0.95rem;
+  background: #fef3c7 !important;
+  color: #78350f !important;
+  border: 1.5px solid #fde68a !important;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  padding: 0.35rem 1rem !important;
   border-radius: var(--radius-pill);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 .portal-live-indicator strong {
-  color: #78350f;
-  font-weight: 800;
+  color: #78350f !important;
+  font-weight: 800 !important;
 }
 
 .live-dot {
@@ -7871,57 +7898,58 @@ p {
 
 .portal-active-view p {
   margin: 0;
-  color: #ffffff;
-  font-size: 1.05rem;
-  font-weight: 500;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
 }
 
 .portal-cta-btn {
-  padding: 0.7rem 1.6rem;
-  font-size: 0.95rem;
-  font-weight: 700;
+  padding: 0.75rem 1.75rem !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
 }
 
 .portal-opening-soon-view p {
-  color: #ffffff;
-  font-size: 1.05rem;
-  margin: 0 0 1.2rem;
-  line-height: 1.65;
-  font-weight: 450;
+  color: #ffffff !important;
+  font-size: 1.05rem !important;
+  margin: 0 0 1.25rem;
+  line-height: 1.65 !important;
+  font-weight: 450 !important;
 }
 
 .portal-opening-soon-view p strong {
-  color: #fde047;
-  font-weight: 700;
+  color: #fde047 !important;
+  font-weight: 800 !important;
 }
 
 .email-alert-confirmation {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: rgba(6, 78, 59, 0.65);
-  border: 1px solid #34d399;
-  color: #ffffff;
-  padding: 0.85rem 1.25rem;
+  background: rgba(6, 78, 59, 0.85) !important;
+  border: 1.5px solid #34d399 !important;
+  color: #ffffff !important;
+  padding: 0.95rem 1.35rem !important;
   border-radius: var(--radius-md);
-  font-size: 0.92rem;
-  line-height: 1.5;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  font-size: 0.94rem !important;
+  line-height: 1.55;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
 .email-alert-confirmation svg {
-  color: #34d399;
+  color: #34d399 !important;
   flex-shrink: 0;
 }
 
 .email-alert-confirmation span {
-  color: #f8fafc;
+  color: #ffffff !important;
+  font-weight: 500 !important;
 }
 
 .email-alert-confirmation strong {
-  color: #6ee7b7;
-  font-weight: 700;
-  text-decoration: underline dotted rgba(110, 231, 183, 0.5);
+  color: #a7f3d0 !important;
+  font-weight: 800 !important;
+  text-decoration: underline dotted rgba(167, 243, 208, 0.7);
 }
 
 .applicant-prep-checklist-wrap {
@@ -7929,9 +7957,9 @@ p {
 }
 
 .applicant-prep-checklist-wrap h3 {
-  color: #ffffff;
-  font-size: 1.3rem;
-  font-weight: 800;
+  color: #ffffff !important;
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
   margin-bottom: 1.25rem;
   letter-spacing: -0.01em;
 }
@@ -7943,49 +7971,52 @@ p {
 }
 
 .prep-step-card {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.14) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
   border-radius: var(--radius-lg);
   padding: 1.4rem;
   position: relative;
   transition: transform 0.2s ease, background 0.2s ease;
+  backdrop-filter: blur(4px);
 }
 
 .prep-step-card:hover {
-  background: rgba(255, 255, 255, 0.17);
+  background: rgba(255, 255, 255, 0.2) !important;
   transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.45) !important;
 }
 
 .step-circle {
   width: 32px;
   height: 32px;
-  background: #ffffff;
-  border: 2px solid #bfdbfe;
-  color: #091e42;
+  background: #ffffff !important;
+  border: 2px solid #bfdbfe !important;
+  color: #091e42 !important;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.92rem;
-  font-weight: 800;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
   margin-bottom: 0.85rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .prep-step-card h4 {
-  color: #ffffff;
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 0.45rem;
+  color: #ffffff !important;
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
 .prep-step-card p {
-  color: #f1f5f9;
-  font-size: 0.9rem;
-  line-height: 1.55;
+  color: #ffffff !important;
+  font-size: 0.92rem !important;
+  line-height: 1.6 !important;
   margin: 0;
-  font-weight: 450;
+  font-weight: 450 !important;
+  opacity: 1 !important;
 }
 
 .admissions-support-card {
@@ -7994,26 +8025,27 @@ p {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1.25rem;
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(8, 20, 48, 0.8) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
   border-radius: var(--radius-lg);
   padding: 1.5rem 1.8rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .support-info h4 {
-  color: #ffffff;
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-bottom: 0.35rem;
+  color: #ffffff !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 0.4rem;
 }
 
 .support-info p {
-  color: #f1f5f9;
-  font-size: 0.92rem;
-  line-height: 1.55;
-  font-weight: 450;
+  color: #ffffff !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+  font-weight: 450 !important;
   margin: 0;
+  opacity: 1 !important;
 }
 
 .support-contacts {
@@ -8026,29 +8058,40 @@ p {
 .contact-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: #ffffff;
-  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #091e42 !important;
+  padding: 0.55rem 1.1rem;
   border-radius: var(--radius-pill);
-  font-size: 0.86rem;
-  font-weight: 600;
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
   text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
   transition: all 0.2s ease;
 }
 
+.contact-chip span {
+  color: #091e42 !important;
+  font-weight: 800 !important;
+}
+
+.contact-chip svg {
+  color: #091e42 !important;
+}
+
 .contact-chip:hover {
-  background: #ffffff;
-  color: #091e42;
-  border-color: #ffffff;
+  background: #f0f7ff !important;
+  color: #0b2a6b !important;
+  border-color: #93c5fd !important;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
 }
 
 .contact-chip.phone-chip {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #091e42 !important;
+  background: #ffffff !important;
+  border: 1px solid #ffffff !important;
 }
 
 /* Modal Enhancements */

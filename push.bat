@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "update: landing page main description copy"
+git commit -m "fix: font color and visibility in post-login application status sections"
 
 echo.
 echo Pushing directly to origin main...

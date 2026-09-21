@@ -74,7 +74,7 @@ export default function StudentDashboardHeader({ user, data }) {
           {/* Current Application Status Box */}
           <div className="application-status-card">
             <div className="status-card-header">
-              <span className="status-kicker">ADMISSION STATUS</span>
+              <span className="status-kicker">APPLICATION STATUS</span>
               <span className="status-beacon-pill">
                 <span className="beacon-dot"></span>
                 {data.statusBadge}
