@@ -6426,9 +6426,21 @@ p {
 .principle-number {
   font-size: 2rem;
   font-weight: 900;
-  color: var(--neutral-200);
+  color: var(--primary-700);
   line-height: 1;
   letter-spacing: -0.02em;
+}
+
+.principle-card-pillar-1 .principle-number {
+  color: #1d4ed8;
+}
+
+.principle-card-pillar-2 .principle-number {
+  color: #0284c7;
+}
+
+.principle-card-pillar-3 .principle-number {
+  color: #16a34a;
 }
 
 .principle-title {
@@ -7614,9 +7626,9 @@ p {
 }
 
 .pillar-index {
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: var(--neutral-400);
+  font-size: 0.88rem;
+  font-weight: 900;
+  color: var(--primary-700);
 }
 
 .practicum-pillar-card h4 {
@@ -11930,11 +11942,17 @@ p {
 }
 
 .foundation-card-num {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 900;
-  color: var(--neutral-300);
-  margin-bottom: 0.35rem;
+  color: var(--primary-700);
+  margin-bottom: 0.45rem;
   line-height: 1;
+  letter-spacing: -0.03em;
+  display: block;
+}
+
+.foundation-card:hover .foundation-card-num {
+  color: var(--primary-900);
 }
 
 .foundation-card h3 {

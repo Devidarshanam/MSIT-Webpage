@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "refactor: simplify curriculum cards and pillar pages with focused content"
+git commit -m "fix: make pillar numbers 01, 02, 03 high contrast and fully visible"
 
 echo.
 echo Pulling latest remote changes with rebase...
