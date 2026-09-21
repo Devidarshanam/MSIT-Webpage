@@ -38,8 +38,8 @@ export const LEARNING_PILLARS = {
     // Why it matters (Simple career rationale)
     whyItMatters: [
       {
-        title: 'Technologies Evolve Fast',
-        description: 'Frameworks and tools go obsolete quickly. Engineers who rely on rote college syllabi get left behind, while self-directed learners stay ahead.'
+        title: 'Technology Changes Rapidly',
+        description: 'Software tools and coding languages change every few years. Instead of just memorizing old textbooks, you build the skill to pick up new tools quickly on your own.'
       },
       {
         title: 'High Career Adaptability',
@@ -47,7 +47,7 @@ export const LEARNING_PILLARS = {
       },
       {
         title: 'AI as a Learning Partner',
-        description: 'You use modern AI tools to ask questions and clarify concepts, without relying on them as a blind crutch.'
+        description: 'You learn to use modern AI tools to understand complex concepts and solve problems faster, rather than just blindly copying and pasting code.'
       }
     ],
 
@@ -70,12 +70,14 @@ export const LEARNING_PILLARS = {
       }
     ],
 
-    // Key skills gained (4 clean bullets)
+    // Key skills gained (6 balanced, student-friendly cards)
     keySkills: [
-      'Reading and understanding official API documentation and RFC specs',
+      'Reading and understanding official API documentation and technical specs',
       'Rapidly learning and adopting new programming languages and frameworks',
       'Systematic debugging and isolating errors using logs and debuggers',
-      'Using generative AI as an active research sparring partner'
+      'Using AI tools to explain unfamiliar codebases and clarify difficult concepts',
+      'Generating automated test cases and edge-case scenarios using AI',
+      'Critically auditing AI-generated code to catch bugs and verify correctness'
     ],
 
     // Real-world practical example
@@ -107,7 +109,7 @@ export const LEARNING_PILLARS = {
     whatIsIt: [
       {
         title: 'First-Principles Thinking',
-        description: 'Breaking down large, ambiguous problems into simple mathematical logic, data structures, and algorithmic efficiency.'
+        description: 'Breaking down complex, confusing problems into simple step-by-step logic, clear math, and efficient data structures.'
       },
       {
         title: 'Architectural Discernment',
@@ -115,30 +117,30 @@ export const LEARNING_PILLARS = {
       },
       {
         title: 'Critical Human Judgement',
-        description: 'Questioning assumptions and critically auditing code suggested by AI assistants for security holes, edge cases, and hidden bugs.'
+        description: 'Verifying code suggested by AI tools to catch security holes, edge cases, and hidden bugs that automated tools miss.'
       }
     ],
 
     whyItMatters: [
       {
-        title: 'Beyond Copy-Paste Syntax',
-        description: 'Writing simple code is automated today. Companies hire engineers for system design, security, and algorithmic problem-solving.'
+        title: 'Beyond Just Writing Code',
+        description: 'Writing basic code can be automated by AI. Top tech companies hire engineers who understand how systems work deeply and can solve real-world problems.'
       },
       {
         title: 'Building Scalable Systems',
         description: 'Understanding memory limits, database indexing, and network latency ensures systems handle millions of users seamlessly.'
       },
       {
-        title: 'Defensive Engineering Mindset',
-        description: 'Anticipating what can break—such as network partitions, race conditions, or bad user inputs—before code goes to production.'
+        title: 'Building Code That Never Crashes',
+        description: 'You learn to predict what could go wrong—such as server overload, network lag, or unexpected inputs—so your applications stay fast and reliable.'
       }
     ],
 
     dailyPractice: [
       {
         step: '1',
-        time: 'Architecture Design',
-        action: 'Before writing code, you draw system diagrams, choose data models, and define API contracts.'
+        time: 'System Planning & Design',
+        action: 'Before writing code, you draw system diagrams, sketch data flows, and plan how the components connect.'
       },
       {
         step: '2',
@@ -147,16 +149,18 @@ export const LEARNING_PILLARS = {
       },
       {
         step: '3',
-        time: 'Adversarial Code Review',
-        action: 'Peers and mentors challenge your design with edge cases and stress simulations to test its resilience.'
+        time: 'Interactive Code Review',
+        action: 'Mentors and peers test your code with tricky edge cases and heavy traffic simulations to ensure it never crashes.'
       }
     ],
 
     keySkills: [
-      'Algorithmic complexity analysis and runtime performance optimization',
+      'Writing fast, memory-efficient code and optimizing performance',
       'System design: database choices, caching layers, and microservices',
-      'Auditing AI code for security vulnerabilities and subtle race conditions',
-      'Clear technical communication and defending architectural decisions'
+      'Testing AI-generated code for security flaws and hidden bugs',
+      'Breaking down complex, messy problems into clean step-by-step logic',
+      'Designing backend systems that scale smoothly for thousands of users',
+      'Explaining and defending technical architectural decisions with confidence'
     ],
 
     realWorldExample: {
@@ -236,7 +240,9 @@ export const LEARNING_PILLARS = {
       'Building production CI/CD automation pipelines and cloud deployments',
       'Test-driven development (TDD) and writing reliable unit test suites',
       'Designing modern REST and microservice APIs with clean contracts',
-      'Professional git collaboration, branching models, and code reviews'
+      'Professional git collaboration, branching models, and code reviews',
+      'Containerizing full-stack applications using Docker and cloud services',
+      'Working directly on live corporate codebases during real-world practicum'
     ],
 
     realWorldExample: {

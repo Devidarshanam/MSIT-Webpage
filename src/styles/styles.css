@@ -12017,9 +12017,10 @@ p {
 
 .timeline-step-marker {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 0.55rem;
   margin-bottom: 0.65rem;
+  min-height: 2.4rem;
 }
 
 .marker-dot {
@@ -12028,6 +12029,7 @@ p {
   border-radius: 50%;
   background: var(--primary-600);
   flex-shrink: 0;
+  margin-top: 0.26rem;
 }
 
 .marker-time {
@@ -12036,6 +12038,7 @@ p {
   color: var(--primary-800);
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  line-height: 1.35;
 }
 
 .timeline-step-action {
