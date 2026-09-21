@@ -6,7 +6,7 @@ const NAV_ITEMS = [
   { num: '02', label: 'Programme', href: '#programme-specs', desc: 'Degree specs, learning model & duration' },
   { num: '03', label: 'Curriculum', href: '#curriculum', desc: 'Full syllabus, 6 learning stages & domains' },
   { num: '04', label: 'Eligibility & Admissions', href: '#eligibility', desc: 'Academic criteria, intake timeline & test structure' },
-  { num: '05', label: 'Fees & Aid', href: '#fees', desc: 'Verified fee schedule, installment plan & loan banks' },
+  { num: '05', label: 'Fees & Loans', href: '#fees', desc: 'Verified fee schedule, installment plan & loan facilitation' },
   { num: '06', label: 'Career Outcomes', href: '#careers', desc: 'Pathways, placement outcomes & alumni stories' },
   { num: '07', label: 'Practicum', href: '#practicum', desc: 'Industry project sprints & production systems' },
   { num: '08', label: 'Campus Life', href: '#campus', desc: 'IIIT-H campus ecosystem, labs & student facilities' },

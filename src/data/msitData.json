@@ -287,7 +287,7 @@
       { "component": "Other Institute Charges", "amount": "To be published with admission notification", "period": "As per institutional circular" }
     ],
     "loanGuidance": {
-      "title": "Education Loan & Financial Facilitation",
+      "title": "Education Loan Facilitation",
       "points": [
         {
           "title": "Bank Loan Facilitation",
@@ -296,10 +296,6 @@
         {
           "title": "Institutional Documentation Support",
           "desc": "Upon receiving an admission offer, the MSIT Admissions Office provides official admission letters, fee structure bonafide certificates, and necessary documentation required by banks to process student educational loan requests."
-        },
-        {
-          "title": "Scholarships & Financial Aid",
-          "desc": "Specific institutional scholarships, merit assistance, or fee concessions (if applicable for the January 2027 cohort) will be officially detailed in the admission brochure."
         }
       ]
     },
@@ -563,7 +559,7 @@
       { "label": "Programme Overview", "href": "#programme-specs" },
       { "label": "Curriculum", "href": "#curriculum" },
       { "label": "Eligibility & Admissions", "href": "#eligibility" },
-      { "label": "Fees & Aid", "href": "#fees" },
+      { "label": "Fees & Loans", "href": "#fees" },
       { "label": "Career Outcomes", "href": "#careers" },
       { "label": "Real-World Practicum", "href": "#practicum" },
       { "label": "Campus Life", "href": "#campus" },
