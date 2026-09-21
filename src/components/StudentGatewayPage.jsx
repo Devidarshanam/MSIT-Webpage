@@ -85,7 +85,7 @@ export default function StudentGatewayPage() {
               aria-label="Explore and know about MSIT"
             >
               <div className="simple-card-top">
-                <span className="simple-mini-badge">EXPLORE PROGRAMME</span>
+                <span className="simple-mini-badge">ABOUT MSIT</span>
                 <div className="simple-card-icon">
                   <BookOpenIcon size={24} />
                 </div>
@@ -94,7 +94,7 @@ export default function StudentGatewayPage() {
               <div className="simple-card-content">
                 <h2 className="simple-card-title">Know About MSIT</h2>
                 <p className="simple-card-desc">
-                  Explore our 25+ year founding legacy under Turing Laureate Prof. Raj Reddy, the zero-lecture studio learning model, and 50% real-world practicum.
+                  Discover our 25+ year founding legacy under Turing Laureate Prof. Raj Reddy, the zero-lecture studio learning model, and 50% real-world practicum.
                 </p>
                 <div className="explore-highlights-row">
                   <span className="explore-chip">25+ Yrs Legacy</span>
@@ -107,13 +107,12 @@ export default function StudentGatewayPage() {
               <div className="explore-preview-frame">
                 <img 
                   src="/assets/msit-convocation.jpg" 
-                  alt="Know About MSIT" 
+                  alt="MSIT Convocation and Campus Life" 
                   className="explore-preview-img"
                   loading="eager"
                 />
                 <div className="explore-preview-overlay">
-                  <span className="explore-slide-count">7 Interactive Slides</span>
-                  <span className="explore-play-indicator">Tap to View Overview ➔</span>
+                  <span className="explore-slide-count">Campus Life & Community</span>
                 </div>
               </div>
 

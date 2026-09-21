@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "fix: ensure high contrast and full text legibility in Application Status section"
+git commit -m "fix: remove repeated wordings in Know About MSIT explore card"
 
 echo.
 echo Pushing directly to origin main...

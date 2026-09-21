@@ -4865,10 +4865,16 @@ p {
 }
 
 .explore-slide-count {
-  background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(4px);
-  padding: 0.15rem 0.55rem;
+  background: rgba(10, 25, 60, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.25rem 0.75rem;
   border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
 }
 
 .explore-play-indicator {
