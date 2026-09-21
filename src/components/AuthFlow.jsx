@@ -96,8 +96,11 @@ export default function AuthFlow() {
     setEmailLoading(false);
 
     if (error) {
-      if (error.message?.toLowerCase().includes('rate') || error.status === 429) {
+      const msg = error.message?.toLowerCase() || '';
+      if (msg.includes('rate') || error.status === 429) {
         setEmailError('Too many requests. Please wait a moment before trying again.');
+      } else if (msg.includes('failed to fetch') || msg.includes('network') || msg.includes('unable to connect')) {
+        setEmailError('Connection error. Please check your internet connection, turn off ad-blockers (or Brave Shields), and try again.');
       } else {
         setEmailError(error.message || 'Something went wrong. Please try again.');
       }
