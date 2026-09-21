@@ -15,13 +15,18 @@ powershell -Command "Copy-Item -Path 'C:\Users\darshanam devi\.gemini\antigravit
 cmd /c copy /y "C:\Users\darshanam devi\.gemini\antigravity-ide\brain\643b31bb-7176-49cc-9348-74991d740586\.user_uploaded\media_1789974235999.png" "public\assets\msit-convocation.jpg"
 powershell -Command "Copy-Item -Path 'C:\Users\darshanam devi\.gemini\antigravity-ide\brain\643b31bb-7176-49cc-9348-74991d740586\.user_uploaded\media_1789974235999.png' -Destination 'public\assets\msit-convocation.jpg' -Force"
 
+cmd /c copy /y "C:\Users\darshanam devi\.gemini\antigravity-ide\brain\643b31bb-7176-49cc-9348-74991d740586\.user_uploaded\media_1789987594064.png" "public\assets\rajreddy.jpg"
+powershell -Command "Copy-Item -Path 'C:\Users\darshanam devi\.gemini\antigravity-ide\brain\643b31bb-7176-49cc-9348-74991d740586\.user_uploaded\media_1789987594064.png' -Destination 'public\assets\rajreddy.jpg' -Force"
+cmd /c copy /y "C:\Users\darshanam devi\.gemini\antigravity-ide\brain\643b31bb-7176-49cc-9348-74991d740586\.user_uploaded\media_1789987594064.png" "public\assets\rajreddy.png"
+powershell -Command "Copy-Item -Path 'C:\Users\darshanam devi\.gemini\antigravity-ide\brain\643b31bb-7176-49cc-9348-74991d740586\.user_uploaded\media_1789987594064.png' -Destination 'public\assets\rajreddy.png' -Force"
+
 echo.
 echo Staging files...
 git add .
 
 echo.
 echo Committing changes...
-git commit -m "revert: image changes for explore slide 1 and global styles"
+git commit -m "feat: use new high quality portrait for explore slide 1"
 
 echo.
 echo Pulling latest remote changes with rebase...
