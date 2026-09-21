@@ -26,6 +26,8 @@ git add .
 
 echo.
 echo Committing changes...
+set GIT_EDITOR=true
+git rebase --continue >nul 2>&1
 git commit -m "feat: update curriculum terminology and remove broad learning model & core areas"
 
 echo.
