@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "fix: make pillar numbers 01, 02, 03 high contrast and fully visible"
+git commit -m "fix: pillar numbers visibility, studio workflow title MSIT, and clean header/footer"
 
 echo.
 echo Pulling latest remote changes with rebase...

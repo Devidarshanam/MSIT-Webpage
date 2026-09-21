@@ -4,7 +4,6 @@ import {
   BookOpenIcon, 
   CpuIcon, 
   BriefcaseIcon, 
-  ArrowRightIcon, 
   CheckCircleIcon 
 } from '../components/Icons';
 import { LEARNING_PILLARS } from '../data/learningPillarsData';
@@ -66,10 +65,6 @@ export default function CurriculumPillarPage() {
               <span className="crumb-sep">/</span>
               <span className="crumb-current">{currentPillar.title}</span>
             </div>
-          </div>
-
-          <div className="pillar-nav-right">
-            <span className="institute-tag">IIIT Hyderabad Consortium</span>
           </div>
         </div>
       </header>
@@ -155,7 +150,7 @@ export default function CurriculumPillarPage() {
           <section className="pillar-section-block">
             <div className="pillar-section-header">
               <span className="block-kicker">STUDIO WORKFLOW</span>
-              <h2>How it is practiced daily at IIIT Hyderabad</h2>
+              <h2>How it is practiced daily at MSIT</h2>
               <p className="block-lead">
                 A typical day cultivating this discipline in the MSIT studio:
               </p>
@@ -224,27 +219,6 @@ export default function CurriculumPillarPage() {
               </div>
             </div>
           </section>
-
-          {/* Section 6: Simple Back Navigation Footer CTA */}
-          <section className="pillar-cta-banner">
-            <div className="pillar-cta-content">
-              <h2>Curriculum & Learning Structure</h2>
-              <p>
-                Ready to review the rest of the curriculum or check your admission eligibility?
-              </p>
-              <div className="pillar-cta-actions">
-                <button
-                  type="button"
-                  className="btn btn-primary cta-btn-white"
-                  onClick={handleBackToCurriculum}
-                >
-                  <span>Return to Full Curriculum</span>
-                  <ArrowRightIcon size={16} />
-                </button>
-              </div>
-            </div>
-          </section>
-
         </div>
       </main>
     </div>
