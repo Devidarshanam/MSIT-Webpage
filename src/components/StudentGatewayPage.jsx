@@ -67,7 +67,7 @@ export default function StudentGatewayPage() {
               </div>
             </div>
             <p className="gateway-main-desc">
-              A specialized postgraduate master's degree in advanced computing and software engineering, offered under the consortium of IIIT Hyderabad and prestigious state universities.
+              A postgraduate/master’s program designed to build expertise in computing and software engineering, offered through IIIT Hyderabad and leading state universities.
             </p>
           </div>
 

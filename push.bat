@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "fix: remove all text overlays from explore card image"
+git commit -m "update: landing page main description copy"
 
 echo.
 echo Pushing directly to origin main...
