@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   CpuIcon, 
@@ -6,14 +6,12 @@ import {
   SparklesIcon, 
   TargetIcon, 
   BuildingIcon, 
-  BookOpenIcon,
+  BookOpenIcon, 
   BriefcaseIcon,
-  CheckCircleIcon,
   ArrowRightIcon
 } from '../Icons';
 
 export default function CurriculumSection({ data }) {
-  const [expandedPrinciple, setExpandedPrinciple] = useState(null);
   const navigate = useNavigate();
 
   // Map icons to respective pillar index
@@ -45,17 +43,22 @@ export default function CurriculumSection({ data }) {
           <p>{data.description}</p>
         </div>
 
-        {/* 1. The Three Core Principles with Rich Interactive Expandable Details */}
+        {/* 1. The Three Core Principles Cards */}
         <div className="principles-row">
           {(data?.principles || []).map((principle, idx) => {
-            const isExpanded = expandedPrinciple === idx;
             const slug = getPillarSlug(principle, idx);
             const targetPath = principle.path || `/curriculum/${slug}`;
 
             return (
               <div 
                 key={idx} 
-                className={`principle-card principle-card-pillar-${idx + 1} ${isExpanded ? 'is-expanded' : ''}`}
+                className={`principle-card principle-card-pillar-${idx + 1}`}
+                onClick={() => navigate(targetPath)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => { if (e.key === 'Enter') navigate(targetPath); }}
+                style={{ cursor: 'pointer' }}
+                aria-label={`View detailed guide for ${principle.title}`}
               >
                 <div className="principle-top-row">
                   <div className="principle-icon-badge">
@@ -70,86 +73,20 @@ export default function CurriculumSection({ data }) {
                 )}
                 <p className="principle-main-desc">{principle.desc}</p>
 
-                {/* Primary Action Buttons: Expand Details + Direct Dedicated Page Link */}
                 <div className="principle-card-actions">
                   <button
                     type="button"
-                    className="principle-toggle-btn"
-                    onClick={() => setExpandedPrinciple(isExpanded ? null : idx)}
-                    aria-expanded={isExpanded}
-                    aria-label={`${isExpanded ? 'Collapse' : 'Expand'} details for ${principle.title}`}
-                  >
-                    <span>{isExpanded ? 'Collapse Details' : 'Expand Details'}</span>
-                    <span className="toggle-arrow">{isExpanded ? '▴' : '▾'}</span>
-                  </button>
-
-                  <button
-                    type="button"
                     className="principle-deep-dive-link"
-                    onClick={() => navigate(targetPath)}
-                    aria-label={`Open full guide for ${principle.title}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(targetPath);
+                    }}
+                    aria-label={`Open detailed page for ${principle.title}`}
                   >
-                    <span>Full Detailed Page</span>
+                    <span>Explore {principle.title}</span>
                     <ArrowRightIcon size={14} />
                   </button>
                 </div>
-
-                {/* Rich Progressive Disclosure Drawer */}
-                {isExpanded && (
-                  <div className="principle-drawer-content">
-                    <div className="principle-drawer-block">
-                      <strong className="drawer-label">Core Meaning & Approach</strong>
-                      <p>{principle.meaning}</p>
-                    </div>
-
-                    <div className="principle-drawer-block">
-                      <strong className="drawer-label">Why It Matters in Industry</strong>
-                      <p>{principle.whyItMatters}</p>
-                    </div>
-
-                    {principle.studioPractice && (
-                      <div className="principle-drawer-block practice-block">
-                        <strong className="drawer-label">Daily Studio Practice at IIIT Hyderabad</strong>
-                        <p>{principle.studioPractice}</p>
-                      </div>
-                    )}
-
-                    {principle.competencies && principle.competencies.length > 0 && (
-                      <div className="principle-drawer-block competencies-block">
-                        <strong className="drawer-label">Verified Competencies Developed</strong>
-                        <ul className="drawer-competencies-list">
-                          {principle.competencies.map((comp, cIdx) => (
-                            <li key={cIdx}>
-                              <span className="bullet-check">✓</span>
-                              <span>{comp}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    <div className="principle-drawer-block example-block">
-                      <strong className="drawer-label">Real-World Engineering Example</strong>
-                      <p>{principle.example}</p>
-                    </div>
-
-                    {/* Dedicated Page Callout Bar */}
-                    <div className="principle-drawer-cta-banner">
-                      <div className="drawer-cta-text">
-                        <strong>Want the complete pedagogical deep dive?</strong>
-                        <span>Read research foundations, a day in the studio, and evaluation rubrics.</span>
-                      </div>
-                      <button
-                        type="button"
-                        className="btn btn-primary drawer-open-page-btn"
-                        onClick={() => navigate(targetPath)}
-                      >
-                        <span>Open {principle.title} Page</span>
-                        <ArrowRightIcon size={15} />
-                      </button>
-                    </div>
-                  </div>
-                )}
               </div>
             );
           })}

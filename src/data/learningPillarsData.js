@@ -1,5 +1,5 @@
-// Detailed pedagogical and curriculum content for MSIT's Three Core Learning Pillars
-// Anchored in Prof. Raj Reddy's founding vision and CETLS at IIIT Hyderabad
+// Simplified, high-clarity curriculum details for MSIT's Three Core Learning Pillars
+// Clean, detailed, and easily digestible without unnecessary cognitive overload.
 
 export const LEARNING_PILLARS = {
   'learning-to-learn': {
@@ -8,123 +8,83 @@ export const LEARNING_PILLARS = {
     title: 'Learning to Learn',
     shortTitle: 'Learn to Learn',
     kicker: 'CORE PEDAGOGY PILLAR 01',
-    tagline: 'Autonomous Knowledge Mastery in an Ever-Evolving Technological Landscape',
+    tagline: 'Master Any New Technology Independently Without Waiting for Lectures',
     icon: 'BookOpenIcon',
     accentColor: '#1d4ed8',
     bgGradient: 'linear-gradient(135deg, #091e42 0%, #1e3a8a 50%, #1d4ed8 100%)',
-    summary: 'The capacity to independently explore, deconstruct, and master emerging programming languages, cloud frameworks, and AI foundation models without waiting for traditional classroom lectures.',
+    summary: 'The ability to self-direct your learning: reading official documentation, inspecting code, and mastering new AI tools, programming languages, and cloud frameworks on demand.',
     quote: {
-      text: 'In the information age, the most critical skill an engineer can possess is not the memorization of existing syntax, but the cognitive agility to master any new tool overnight.',
+      text: 'In the technology world, tools change every year. The true superpower is knowing how to learn anything independently overnight.',
       author: 'Prof. Raj Reddy',
       role: 'Turing Award Laureate & Founding Chair of MSIT'
     },
-    overview: `At MSIT, "Learning to Learn" is not a vague aspiration—it is an engineered educational methodology developed in collaboration with the Centre for Educational Technology and Learning Sciences (CETLS) at IIIT Hyderabad. Instead of delivering pre-digested lecture slides, the curriculum plunges students into problem-first challenges where reading technical documentation, dissecting open-source code repositories, and experimenting with software frameworks are daily requirements.`,
-    
-    foundations: [
+
+    // What it is (Clean 3-point breakdown)
+    whatIsIt: [
       {
-        title: 'Bloom’s 2-Sigma Mastery Model',
-        description: 'Students advance only upon demonstrating 100% conceptual mastery of foundational modules through personalized pacing and continuous feedback, rather than time-bound memorization.'
+        title: 'Self-Directed Discovery',
+        description: 'Instead of memorizing slides from classroom lectures, you learn by exploring official docs, API specs, and open-source code repositories directly.'
       },
       {
-        title: 'Cognitive Scaffolding by CETLS',
-        description: 'Learning pathways are structured with intentional cognitive supports that progressively recede as students develop self-regulation, documentation fluency, and independent debugging tenacity.'
+        title: 'Zero Waiting for Updates',
+        description: 'When a new language, library, or foundation model is released, you can adopt it and build a working application within 48 to 72 hours.'
       },
       {
-        title: 'Active Technical Literacy',
-        description: 'Engineers learn to read formal RFCs, standard specifications, API contracts, and source code repositories directly, eliminating reliance on secondary tutorials.'
+        title: 'Problem-First Immersion',
+        description: 'You start with a real engineering problem and discover the concepts and tools needed to solve it step by step.'
       }
     ],
 
-    dailyStudioPractice: {
-      title: 'A Day in the Studio: Practicing Autonomous Learning',
-      description: 'How MSIT students cultivate independent learning habits every single day on campus:',
-      steps: [
-        {
-          time: '09:00 AM — Problem Immersion',
-          action: 'A real-world engineering challenge is released with technical specifications and unit test suites—no lecture slides provided.'
-        },
-        {
-          time: '10:30 AM — Self-Directed Inquiry',
-          action: 'Students analyze official language specifications, cloud documentation, and library source code to formulate implementation strategies.'
-        },
-        {
-          time: '02:00 PM — Pair Discovery & Experimentation',
-          action: 'Students test hypotheses in sandbox environments, utilizing AI tools as active inquiry partners to clarify documentation nuances.'
-        },
-        {
-          time: '04:30 PM — Mentor Scrutiny & Viva',
-          action: 'Domain mentors conduct rigorous code walkthroughs, probing the "why" behind design decisions rather than just checking if the code compiles.'
-        }
-      ]
-    },
-
-    comparisonTable: {
-      title: 'Traditional Engineering College vs. MSIT Learning-to-Learn',
-      rows: [
-        {
-          aspect: 'Knowledge Acquisition',
-          traditional: 'Passive listening to 50-minute blackboard/slide lectures',
-          msit: 'Active documentation analysis, RFC exploration & problem-first building'
-        },
-        {
-          aspect: 'New Framework Adoption',
-          traditional: 'Wait for curriculum revision committee (often 3–5 year lag)',
-          msit: 'Sprint-based adoption of newly released libraries/models in 48 hours'
-        },
-        {
-          aspect: 'Error Handling',
-          traditional: 'Copy solutions from forums or ask teaching assistants for answers',
-          msit: 'Systematic stack-trace analysis, debugging harnesses & root-cause isolation'
-        },
-        {
-          aspect: 'Role of AI Tools',
-          traditional: 'Prohibited or used blindly for automated plagiarism',
-          msit: 'Integrated as conversational research copilots with rigorous human validation'
-        }
-      ]
-    },
-
-    coreCompetencies: [
+    // Why it matters (Simple career rationale)
+    whyItMatters: [
       {
-        title: 'Documentation & RFC Comprehension',
-        description: 'Mastery in extracting architecture patterns, edge cases, and API contracts directly from authoritative technical documentation.'
+        title: 'Technologies Evolve Fast',
+        description: 'Frameworks and tools go obsolete quickly. Engineers who rely on rote college syllabi get left behind, while self-directed learners stay ahead.'
       },
       {
-        title: 'Rapid Tech Stack Onboarding',
-        description: 'Proven capability to transition into completely unfamiliar languages, frameworks, or cloud SDKs and build working prototypes within 48–72 hours.'
+        title: 'High Career Adaptability',
+        description: 'Top technology companies look for engineers who can jump into an unfamiliar tech stack on day one and be productive immediately.'
       },
       {
-        title: 'Root-Cause Debugging Tenacity',
-        description: 'Deep investigative skills using profilers, log parsers, and debuggers to isolate complex concurrency and memory issues independently.'
-      },
-      {
-        title: 'Prompt-Assisted Deep Research',
-        description: 'Using large language models as intelligent sparring partners to explore alternative algorithms while independently validating outputs.'
+        title: 'AI as a Learning Partner',
+        description: 'You use modern AI tools to ask questions and clarify concepts, without relying on them as a blind crutch.'
       }
     ],
 
-    realWorldCaseStudy: {
-      title: 'Real-World Scenario: Mastering a Newly Released Foundation Model SDK in 48 Hours',
-      context: 'During an intensive cloud practicum sprint, an enterprise partner updated their API specification to require an unfamiliar multimodal vector database and streaming inference protocol.',
-      challenge: 'No textbook, tutorial, or course lecture existed for the updated SDK. The team had 48 hours to refactor an indexing pipeline and ship a resilient microservice.',
-      execution: 'Applying "Learning to Learn" principles, the MSIT student engineers dissected the open-source client library, ran automated smoke tests against endpoint schemas, and built an end-to-end integration harness.',
-      outcome: 'The refactored microservice passed 100% of latency and regression benchmarks and was deployed to staging within the 48-hour deadline.'
-    },
-
-    evaluationRubric: [
+    // Daily studio practice (A simple 3-step day)
+    dailyPractice: [
       {
-        criterion: 'Technical Self-Reliance',
-        detail: 'Ability to overcome blockers and find verified solutions using primary documentation without escalating routine questions.'
+        step: '1',
+        time: 'Morning Challenge',
+        action: 'You receive a real-world problem statement with test cases—no pre-made lecture slides.'
       },
       {
-        criterion: 'Conceptual Depth in Viva',
-        detail: 'Demonstrated clarity during mentor code defense, explaining underlying runtime mechanics, memory models, and trade-offs.'
+        step: '2',
+        time: 'Self-Guided Research',
+        action: 'You read the official documentation, experiment with code in your studio workstation, and build your solution.'
       },
       {
-        criterion: 'Adaptability Velocity',
-        detail: 'Speed and precision when tasked with switching languages (e.g., Python to Rust or Go) to solve performance bottlenecks.'
+        step: '3',
+        time: 'Mentor Walkthrough',
+        action: 'Faculty mentors conduct interactive code reviews to test your understanding of how and why your solution works.'
       }
-    ]
+    ],
+
+    // Key skills gained (4 clean bullets)
+    keySkills: [
+      'Reading and understanding official API documentation and RFC specs',
+      'Rapidly learning and adopting new programming languages and frameworks',
+      'Systematic debugging and isolating errors using logs and debuggers',
+      'Using generative AI as an active research sparring partner'
+    ],
+
+    // Real-world practical example
+    realWorldExample: {
+      title: 'Real-World Example: Adopting a New Vector Database SDK',
+      situation: 'A team needs to add semantic search to an application using a newly released vector database SDK that has no online tutorials.',
+      solution: 'Applying Learning-to-Learn, the student reads the SDK’s GitHub documentation, runs sample test scripts, and builds a working microservice in two days.',
+      outcome: 'The service is tested, containerized, and deployed to cloud staging ahead of schedule.'
+    }
   },
 
   'learning-to-think': {
@@ -133,123 +93,78 @@ export const LEARNING_PILLARS = {
     title: 'Learning to Think',
     shortTitle: 'Learn to Think',
     kicker: 'CORE PEDAGOGY PILLAR 02',
-    tagline: 'First-Principles Computational Reasoning, Systems Architecture & AI Discernment',
+    tagline: 'First-Principles Computational Reasoning, System Architecture & AI Judgement',
     icon: 'CpuIcon',
     accentColor: '#0284c7',
     bgGradient: 'linear-gradient(135deg, #091e42 0%, #0369a1 50%, #0284c7 100%)',
-    summary: 'Reasoning from fundamental mathematical and computational principles, questioning assumptions, evaluating architectural trade-offs, and auditing AI-generated code with rigorous human discernment.',
+    summary: 'Reasoning from first principles: breaking down complex problems, designing resilient architectures, evaluating trade-offs, and verifying AI-generated code with human judgement.',
     quote: {
-      text: 'Anyone can generate code with modern AI, but only an engineer who understands first principles can determine whether that code is secure, scalable, and correct.',
+      text: 'AI can write syntax in seconds, but only an engineer who understands first principles can tell whether that code is secure, scalable, and correct.',
       author: 'MSIT Academic Council',
       role: 'IIIT Hyderabad Consortium'
     },
-    overview: `In an era where automated copilots generate boilerplate syntax in milliseconds, the value of a software engineer has fundamentally shifted from typing code to architectural discernment. "Learning to Think" trains students to dissect complex real-world ambiguity into precise mathematical logic, algorithm complexity bounds, and fault-tolerant distributed system architectures.`,
 
-    foundations: [
+    whatIsIt: [
       {
-        title: 'First-Principles Computational Thinking',
-        description: 'Deconstructing massive enterprise problems down to fundamental invariants: data structures, time/space complexity, cache locality, and state consistency.'
+        title: 'First-Principles Thinking',
+        description: 'Breaking down large, ambiguous problems into simple mathematical logic, data structures, and algorithmic efficiency.'
       },
       {
-        title: 'Adversarial Code & Architecture Review',
-        description: 'Daily peer and mentor interrogation where every line of code, database index, and network call must be defended against scale and security edge cases.'
+        title: 'Architectural Discernment',
+        description: 'Understanding trade-offs: when to use SQL vs. NoSQL, sync vs. async APIs, and how to design systems that do not crash under high load.'
       },
       {
-        title: 'Human Judgement in an AI-Native Era',
-        description: 'Treating AI suggestions as unverified hypotheses. Students are trained to actively hunt for subtle race conditions, hallucinated dependencies, and token-cost leaks.'
+        title: 'Critical Human Judgement',
+        description: 'Questioning assumptions and critically auditing code suggested by AI assistants for security holes, edge cases, and hidden bugs.'
       }
     ],
 
-    dailyStudioPractice: {
-      title: 'A Day in the Studio: Cultivating Critical Thinking',
-      description: 'How MSIT engineers train their analytical and architectural instincts:',
-      steps: [
-        {
-          time: '10:00 AM — Architecture Whiteboarding',
-          action: 'Before writing any code, students diagram domain entities, transaction boundaries, CAP theorem choices, and failure domains.'
-        },
-        {
-          time: '11:30 AM — Complexity & Trade-Off Matrix',
-          action: 'Teams evaluate alternative data models and database engines, benchmarking latency versus operational complexity.'
-        },
-        {
-          time: '03:00 PM — AI Output Verification Drill',
-          action: 'Students audit AI-generated code snippets for security vulnerabilities (e.g., SQL injections, memory leaks, concurrency locks).'
-        },
-        {
-          time: '05:00 PM — Socratic Defense Session',
-          action: 'Mentors challenge architectural assumptions with catastrophic simulation prompts (e.g., "What happens when network partition occurs?").'
-        }
-      ]
-    },
-
-    comparisonTable: {
-      title: 'Rote Coding vs. MSIT First-Principles Thinking',
-      rows: [
-        {
-          aspect: 'Problem Solving Approach',
-          traditional: 'Memorizing specific algorithm templates for exams',
-          msit: 'First-principles reasoning from mathematical axioms, constraints & invariants'
-        },
-        {
-          aspect: 'Code Generation Mindset',
-          traditional: 'If the test passes on happy path, code is deemed complete',
-          msit: 'Adversarial testing: stress tests, chaos engineering, edge-case boundary checks'
-        },
-        {
-          aspect: 'AI Copilot Integration',
-          traditional: 'Passive acceptance of AI auto-completes without deep inspection',
-          msit: 'Critical audit: verifying security, memory usage, algorithm bounds & license compliance'
-        },
-        {
-          aspect: 'System Design',
-          traditional: 'Monolithic assignments with single-threaded assumptions',
-          msit: 'Distributed systems: eventual consistency, idempotency, backpressure & fault isolation'
-        }
-      ]
-    },
-
-    coreCompetencies: [
+    whyItMatters: [
       {
-        title: 'Algorithmic Complexity & Optimization',
-        description: 'Rigorous asymptotic analysis (Big-O, Big-Theta) to eliminate algorithmic bottlenecks before code reaches production.'
+        title: 'Beyond Copy-Paste Syntax',
+        description: 'Writing simple code is automated today. Companies hire engineers for system design, security, and algorithmic problem-solving.'
       },
       {
-        title: 'Distributed Systems & Trade-Off Analysis',
-        description: 'Practical application of CAP theorem, consensus protocols, idempotency, caching tiers, and event-driven microservices.'
+        title: 'Building Scalable Systems',
+        description: 'Understanding memory limits, database indexing, and network latency ensures systems handle millions of users seamlessly.'
       },
       {
-        title: 'Adversarial Security Auditing',
-        description: 'Instinctive identification of race conditions, memory leaks, unauthorized state mutations, and common CVE vectors.'
-      },
-      {
-        title: 'AI Code Verification & Guardrails',
-        description: 'Designing deterministic verification test harnesses to rigorously validate outputs from probabilistic generative models.'
+        title: 'Defensive Engineering Mindset',
+        description: 'Anticipating what can break—such as network partitions, race conditions, or bad user inputs—before code goes to production.'
       }
     ],
 
-    realWorldCaseStudy: {
-      title: 'Real-World Scenario: Catching a Subtle Distributed Deadlock in AI-Generated Code',
-      context: 'In an applied fintech practicum sprint, an AI code assistant generated an asynchronous order-matching algorithm that successfully passed all unit tests with 100% code coverage.',
-      challenge: 'Under high-concurrency simulation (10,000 concurrent websocket trades), the engine intermittently froze due to an inverted lock acquisition order across distributed worker nodes.',
-      execution: 'Applying "Learning to Think" disciplines, MSIT students drew lock graph dependency diagrams, analyzed database deadlock traces, and redesigned the subsystem using lock-free ring buffers and optimistic concurrency control.',
-      outcome: 'System throughput surged from 1,200 to 18,500 operations per second with zero deadlocks under sustained stress testing.'
-    },
-
-    evaluationRubric: [
+    dailyPractice: [
       {
-        criterion: 'Architectural Justification',
-        detail: 'Quality of reasoning behind database selection, API schema design, and asynchronous communication patterns.'
+        step: '1',
+        time: 'Architecture Design',
+        action: 'Before writing code, you draw system diagrams, choose data models, and define API contracts.'
       },
       {
-        criterion: 'Edge-Case Thoroughness',
-        detail: 'Demonstrated resilience against network drops, corrupt payloads, thread starvations, and scale spikes.'
+        step: '2',
+        time: 'Trade-off Analysis',
+        action: 'You evaluate speed vs. complexity, analyzing time (Big-O) and memory requirements for your solution.'
       },
       {
-        criterion: 'Socratic Defense Precision',
-        detail: 'Clarity and composure when defending system trade-offs against probing faculty and industry practitioner critique.'
+        step: '3',
+        time: 'Adversarial Code Review',
+        action: 'Peers and mentors challenge your design with edge cases and stress simulations to test its resilience.'
       }
-    ]
+    ],
+
+    keySkills: [
+      'Algorithmic complexity analysis and runtime performance optimization',
+      'System design: database choices, caching layers, and microservices',
+      'Auditing AI code for security vulnerabilities and subtle race conditions',
+      'Clear technical communication and defending architectural decisions'
+    ],
+
+    realWorldExample: {
+      title: 'Real-World Example: Finding a Hidden Bug in AI Code',
+      situation: 'An AI assistant generates an order-processing routine that passes normal tests, but locks up under 5,000 concurrent user requests.',
+      solution: 'The engineer analyzes the lock acquisition sequence, spots a distributed deadlock, and rewires the code using an asynchronous queue.',
+      outcome: 'Throughput increases by 10x with zero crashes under heavy user traffic.'
+    }
   },
 
   'learning-to-do': {
@@ -258,122 +173,77 @@ export const LEARNING_PILLARS = {
     title: 'Learning to Do',
     shortTitle: 'Learn to Do',
     kicker: 'CORE PEDAGOGY PILLAR 03',
-    tagline: 'Immersive Studio Engineering, Production Craftsmanship & Paid Co-op Practicum',
+    tagline: '100% Studio-Based Software Engineering & Real Industry Practicum',
     icon: 'BriefcaseIcon',
     accentColor: '#16a34a',
     bgGradient: 'linear-gradient(135deg, #091e42 0%, #166534 50%, #16a34a 100%)',
-    summary: 'Experiential software engineering where students write, test, debug, and deploy production-grade software daily in high-spec studios, spending ~50% of their program in real industry co-ops.',
+    summary: 'Building, testing, debugging, and shipping production-grade software daily in collaborative studios, with ~50% of the program spent in real corporate industry co-ops.',
     quote: {
-      text: 'You cannot learn to swim by reading about water in a library. You learn to build world-class software by writing, breaking, and shipping real systems every single day.',
+      text: 'You cannot learn to swim by reading books in a library. You become a world-class engineer by building, breaking, and shipping real systems every day.',
       author: 'Prof. Raj Reddy',
       role: 'Founding Vision of MSIT'
     },
-    overview: `MSIT eliminates passive lecture halls entirely. In their place stands an immersive 100% studio learning environment where students sit in collaborative software development pods equipped with multi-monitor workstations, automated CI/CD build servers, and enterprise development tooling. Real software engineering intuition is forged through hands-on craftsmanship.`,
 
-    foundations: [
+    whatIsIt: [
       {
-        title: 'Studio-Based Learning Environment',
-        description: 'Physical and virtual studio pods designed after modern high-growth tech engineering bays, fostering constant peer programming, code reviews, and pair debugging.'
+        title: 'Active Studio Culture',
+        description: 'No boring classroom lectures. You spend your day in modern computing studios collaborating, coding, and building software.'
       },
       {
         title: '6-Stage Active Learning Cycle',
-        description: 'Every technical domain follows a tight pedagogical loop: Learn fundamental concepts, Think through architectures, Build working code, Apply to practical scenarios, Reflect on metrics, and Improve via code reviews.'
+        description: 'A continuous rhythm: Learn concepts, Think through logic, Build code, Apply to real problems, Reflect on feedback, and Improve.'
       },
       {
-        title: 'Real-World Practicum (~50% Tenure)',
-        description: 'Substantial program duration dedicated to corporate industry co-ops and living labs, solving genuine enterprise engineering challenges under senior tech leadership.'
+        title: 'Corporate Practicum (~50% Tenure)',
+        description: 'Around half of your postgraduate program is spent embedded directly inside tech companies working on genuine corporate projects.'
       }
     ],
 
-    dailyStudioPractice: {
-      title: 'A Day in the Studio: Living the Builder’s Rhythm',
-      description: 'The immersive daily cadence of an MSIT software engineer:',
-      steps: [
-        {
-          time: '09:00 AM — Morning Standup & Sprint Planning',
-          action: 'Teams assemble to review Kanban boards, assign feature tasks, and commit to daily deployment goals.'
-        },
-        {
-          time: '10:00 AM — Deep Coding & System Implementation',
-          action: 'Intensive engineering sprints writing production code, crafting unit/integration tests, and building Docker containers.'
-        },
-        {
-          time: '02:30 PM — Automated CI/CD & Security Scans',
-          action: 'Commits trigger automated pipelines running static analysis, linting, security audits, and regression test suites.'
-        },
-        {
-          time: '04:30 PM — Peer Pull Request (PR) Reviews',
-          action: 'Every piece of student code undergoes strict peer review with mentor sign-off before merging into the main branch.'
-        }
-      ]
-    },
-
-    comparisonTable: {
-      title: 'Traditional Lab Exercises vs. MSIT Production Studio',
-      rows: [
-        {
-          aspect: 'Coding Environment',
-          traditional: 'Isolated 2-hour weekly lab writing toy programs from printouts',
-          msit: 'Full-time daily studio workspace modeled on enterprise engineering bays'
-        },
-        {
-          aspect: 'Project Scope',
-          traditional: 'Trivial single-file academic exercises with throwaway code',
-          msit: 'Multi-tiered microservices, live database clusters & real production pipelines'
-        },
-        {
-          aspect: 'Deployment Standards',
-          traditional: 'Code is demonstrated on student laptops and immediately discarded',
-          msit: 'Production deployment via CI/CD, Kubernetes clusters & monitored cloud infrastructure'
-        },
-        {
-          aspect: 'Industry Exposure',
-          traditional: 'Optional short summer training with minimal engineering responsibility',
-          msit: 'Intensive ~50% tenure corporate practicum embedded directly in industry engineering teams'
-        }
-      ]
-    },
-
-    coreCompetencies: [
+    whyItMatters: [
       {
-        title: 'Production CI/CD & Cloud Orchestration',
-        description: 'Building automated GitHub Actions pipelines, Docker container workflows, and cloud deployments on AWS/GCP.'
+        title: 'Industry-Ready on Day One',
+        description: 'You graduate having already worked with professional git workflows, CI/CD pipelines, automated testing, and team code reviews.'
       },
       {
-        title: 'Test-Driven Development (TDD)',
-        description: 'Writing robust unit, integration, and end-to-end test suites to guarantee regression-proof software delivery.'
+        title: 'Real Portfolio, Not Just Grades',
+        description: 'You show prospective employers working production systems, deployed applications, and verified co-op experience.'
       },
       {
-        title: 'API & Microservice Engineering',
-        description: 'Designing high-performance REST, GraphQL, and gRPC service contracts with comprehensive swagger documentation and rate limiting.'
-      },
-      {
-        title: 'Collaborative Git & Trunk-Based Development',
-        description: 'Professional git workflows, semantic versioning, feature flags, and constructive peer code review practices.'
+        title: 'Paid Corporate Experience',
+        description: 'Gain real workplace exposure, mentorship from engineering directors, and direct pathways to top placement packages.'
       }
     ],
 
-    realWorldCaseStudy: {
-      title: 'Real-World Scenario: Building an Enterprise RAG Pipeline in Industry Co-op',
-      context: 'An enterprise healthcare partner required an intelligent document retrieval and HIPAA-compliant search engine across hundreds of thousands of clinical research publications.',
-      challenge: 'The system demanded sub-200ms semantic search latency, strict role-based data isolation, zero data leaks to public APIs, and 99.9% service availability.',
-      execution: 'MSIT students architected a hybrid dense/sparse vector retrieval service using Qdrant, deployed on private cloud Kubernetes, integrated asynchronous Redis queues for batch ingestion, and established an automated evaluation harness measuring retrieval recall.',
-      outcome: 'The service was successfully accepted into production, reducing clinical staff research time by 64% and serving over 50,000 queries daily.'
-    },
-
-    evaluationRubric: [
+    dailyPractice: [
       {
-        criterion: 'Production Code Quality',
-        detail: 'Adherence to defensive coding patterns, zero lint warnings, modular architecture, and comprehensive test coverage (>80%).'
+        step: '1',
+        time: 'Morning Sprint Standup',
+        action: 'Teams review project boards, prioritize daily tasks, and set feature delivery goals.'
       },
       {
-        criterion: 'Operational Reliability',
-        detail: 'Resilience of deployed systems under simulated chaos testing, memory leak audits, and peak load benchmarks.'
+        step: '2',
+        time: 'Studio Development & Testing',
+        action: 'Writing modular code, setting up automated unit tests, and building Docker containers.'
       },
       {
-        criterion: 'Practicum Mentor Appraisal',
-        detail: 'Formal performance evaluations from corporate engineering managers regarding initiative, velocity, and craftsmanship.'
+        step: '3',
+        time: 'Pull Request & Deployment',
+        action: 'Submitting pull requests for peer reviews, running CI/CD checks, and deploying to cloud servers.'
       }
-    ]
+    ],
+
+    keySkills: [
+      'Building production CI/CD automation pipelines and cloud deployments',
+      'Test-driven development (TDD) and writing reliable unit test suites',
+      'Designing modern REST and microservice APIs with clean contracts',
+      'Professional git collaboration, branching models, and code reviews'
+    ],
+
+    realWorldExample: {
+      title: 'Real-World Example: Shipping an Enterprise Cloud Service',
+      situation: 'An industry partner needs an internal search service across 50,000 documents with fast responses and high reliability.',
+      solution: 'Students build the backend API, integrate a cloud vector database, set up automated GitHub Actions tests, and deploy via Docker.',
+      outcome: 'The service is successfully launched into daily company operations, cutting research time for employees by over 60%.'
+    }
   }
 };

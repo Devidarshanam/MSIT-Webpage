@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: curriculum expandable details and dedicated pillar pages for learning to learn, think, and do"
+git commit -m "refactor: simplify curriculum cards and pillar pages with focused content"
 
 echo.
 echo Pulling latest remote changes with rebase...
