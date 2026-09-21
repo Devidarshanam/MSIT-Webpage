@@ -943,7 +943,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <span className="p-stat-label">Learning & Projects</span>
                 <span className="p-stat-detail">Working with CETLS</span>
               </div>
-              <div className="p-stat-box highlight">
+              <div className="p-stat-box">
                 <strong className="p-stat-number">100%</strong>
                 <span className="p-stat-label">Industry Aligned</span>
                 <span className="p-stat-detail">Real-world Problem Solving</span>
