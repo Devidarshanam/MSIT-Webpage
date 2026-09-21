@@ -104,6 +104,35 @@ export function AuthProvider({ children }) {
 
       return result;
     } catch (err) {
+      const errMsg = err?.message || '';
+      if (errMsg.toLowerCase().includes('failed to fetch') || errMsg.toLowerCase().includes('network')) {
+        // Automatic retry once in case of a temporary network blip
+        try {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          const retryResult = await supabase.auth.signInWithOtp({
+            email,
+            options: {
+              emailRedirectTo: typeof window !== 'undefined' ? window.location.origin : undefined,
+              data: {
+                full_name: fullName
+              }
+            }
+          });
+          if (retryResult && !retryResult.error) {
+            return retryResult;
+          }
+        } catch (retryErr) {
+          // fall through to error return below
+        }
+
+        return {
+          data: null,
+          error: {
+            message: 'Unable to connect to authentication service. Please check your internet connection or disable ad-blockers and try again.'
+          }
+        };
+      }
+
       return { data: null, error: { message: err.message || 'An unexpected error occurred.' } };
     }
   };
