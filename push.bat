@@ -21,7 +21,11 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "fix: font color and visibility in post-login application status sections"
+git commit -m "feat: curriculum expandable details and dedicated pillar pages for learning to learn, think, and do"
+
+echo.
+echo Pulling latest remote changes with rebase...
+git pull --rebase origin main
 
 echo.
 echo Pushing directly to origin main...

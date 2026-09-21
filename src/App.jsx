@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext';
 import StudentGatewayPage from './components/StudentGatewayPage';
 import KnowAboutMSITPage from './components/KnowAboutMSITPage';
 import ProgrammePage from './pages/ProgrammePage';
+import CurriculumPillarPage from './pages/CurriculumPillarPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function KnowAboutMSITRoute() {
@@ -31,6 +32,11 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          {/* Dedicated Core Pedagogy Pillar Pages */}
+          <Route path="/curriculum/:pillarId" element={<CurriculumPillarPage />} />
+          <Route path="/learning-to-learn" element={<Navigate to="/curriculum/learning-to-learn" replace />} />
+          <Route path="/learning-to-think" element={<Navigate to="/curriculum/learning-to-think" replace />} />
+          <Route path="/learning-to-do" element={<Navigate to="/curriculum/learning-to-do" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>

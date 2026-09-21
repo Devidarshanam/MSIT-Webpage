@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   CpuIcon, 
   TerminalIcon, 
@@ -6,11 +7,34 @@ import {
   TargetIcon, 
   BuildingIcon, 
   BookOpenIcon,
-  CheckCircleIcon
+  BriefcaseIcon,
+  CheckCircleIcon,
+  ArrowRightIcon
 } from '../Icons';
 
 export default function CurriculumSection({ data }) {
   const [expandedPrinciple, setExpandedPrinciple] = useState(null);
+  const navigate = useNavigate();
+
+  // Map icons to respective pillar index
+  const getPillarIcon = (idx) => {
+    switch (idx) {
+      case 0:
+        return <BookOpenIcon size={24} />;
+      case 1:
+        return <CpuIcon size={24} />;
+      case 2:
+      default:
+        return <BriefcaseIcon size={24} />;
+    }
+  };
+
+  const getPillarSlug = (principle, idx) => {
+    if (principle.slug) return principle.slug;
+    if (idx === 0) return 'learning-to-learn';
+    if (idx === 1) return 'learning-to-think';
+    return 'learning-to-do';
+  };
 
   return (
     <section className="section curriculum-section" id="curriculum">
@@ -21,39 +45,108 @@ export default function CurriculumSection({ data }) {
           <p>{data.description}</p>
         </div>
 
-        {/* 1. The Three Core Principles with Interactive Progressive Disclosure */}
+        {/* 1. The Three Core Principles with Rich Interactive Expandable Details */}
         <div className="principles-row">
           {(data?.principles || []).map((principle, idx) => {
             const isExpanded = expandedPrinciple === idx;
+            const slug = getPillarSlug(principle, idx);
+            const targetPath = principle.path || `/curriculum/${slug}`;
+
             return (
-              <div key={idx} className={`principle-card ${isExpanded ? 'is-expanded' : ''}`}>
-                <div className="principle-number">0{idx + 1}</div>
-                <h3>{principle.title}</h3>
+              <div 
+                key={idx} 
+                className={`principle-card principle-card-pillar-${idx + 1} ${isExpanded ? 'is-expanded' : ''}`}
+              >
+                <div className="principle-top-row">
+                  <div className="principle-icon-badge">
+                    {getPillarIcon(idx)}
+                  </div>
+                  <div className="principle-number">0{idx + 1}</div>
+                </div>
+
+                <h3 className="principle-title">{principle.title}</h3>
+                {principle.tagline && (
+                  <p className="principle-tagline">{principle.tagline}</p>
+                )}
                 <p className="principle-main-desc">{principle.desc}</p>
 
-                <button
-                  type="button"
-                  className="principle-toggle-btn"
-                  onClick={() => setExpandedPrinciple(isExpanded ? null : idx)}
-                  aria-expanded={isExpanded}
-                >
-                  <span>{isExpanded ? 'Hide Deep Dive' : 'Explore: Meaning & Example'}</span>
-                  <span className="toggle-arrow">{isExpanded ? '▴' : '▾'}</span>
-                </button>
+                {/* Primary Action Buttons: Expand Details + Direct Dedicated Page Link */}
+                <div className="principle-card-actions">
+                  <button
+                    type="button"
+                    className="principle-toggle-btn"
+                    onClick={() => setExpandedPrinciple(isExpanded ? null : idx)}
+                    aria-expanded={isExpanded}
+                    aria-label={`${isExpanded ? 'Collapse' : 'Expand'} details for ${principle.title}`}
+                  >
+                    <span>{isExpanded ? 'Collapse Details' : 'Expand Details'}</span>
+                    <span className="toggle-arrow">{isExpanded ? '▴' : '▾'}</span>
+                  </button>
 
+                  <button
+                    type="button"
+                    className="principle-deep-dive-link"
+                    onClick={() => navigate(targetPath)}
+                    aria-label={`Open full guide for ${principle.title}`}
+                  >
+                    <span>Full Detailed Page</span>
+                    <ArrowRightIcon size={14} />
+                  </button>
+                </div>
+
+                {/* Rich Progressive Disclosure Drawer */}
                 {isExpanded && (
                   <div className="principle-drawer-content">
                     <div className="principle-drawer-block">
-                      <strong className="drawer-label">What does this mean?</strong>
+                      <strong className="drawer-label">Core Meaning & Approach</strong>
                       <p>{principle.meaning}</p>
                     </div>
+
                     <div className="principle-drawer-block">
-                      <strong className="drawer-label">Why does it matter?</strong>
+                      <strong className="drawer-label">Why It Matters in Industry</strong>
                       <p>{principle.whyItMatters}</p>
                     </div>
+
+                    {principle.studioPractice && (
+                      <div className="principle-drawer-block practice-block">
+                        <strong className="drawer-label">Daily Studio Practice at IIIT Hyderabad</strong>
+                        <p>{principle.studioPractice}</p>
+                      </div>
+                    )}
+
+                    {principle.competencies && principle.competencies.length > 0 && (
+                      <div className="principle-drawer-block competencies-block">
+                        <strong className="drawer-label">Verified Competencies Developed</strong>
+                        <ul className="drawer-competencies-list">
+                          {principle.competencies.map((comp, cIdx) => (
+                            <li key={cIdx}>
+                              <span className="bullet-check">✓</span>
+                              <span>{comp}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
                     <div className="principle-drawer-block example-block">
-                      <strong className="drawer-label">Real-World Example</strong>
+                      <strong className="drawer-label">Real-World Engineering Example</strong>
                       <p>{principle.example}</p>
+                    </div>
+
+                    {/* Dedicated Page Callout Bar */}
+                    <div className="principle-drawer-cta-banner">
+                      <div className="drawer-cta-text">
+                        <strong>Want the complete pedagogical deep dive?</strong>
+                        <span>Read research foundations, a day in the studio, and evaluation rubrics.</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="btn btn-primary drawer-open-page-btn"
+                        onClick={() => navigate(targetPath)}
+                      >
+                        <span>Open {principle.title} Page</span>
+                        <ArrowRightIcon size={15} />
+                      </button>
                     </div>
                   </div>
                 )}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon,
@@ -6,6 +7,7 @@ import {
 } from './Icons';
 
 export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
+  const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [timerResetKey, setTimerResetKey] = useState(0);
   const timerRef = useRef(null);
@@ -458,17 +460,41 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 <strong className="ai-native-principles-title">Anchored in Professor Raj Reddy's three principles</strong>
                 
                 <div className="ai-native-principles-pills">
-                  <div className="ai-native-pill">
+                  <div 
+                    className="ai-native-pill"
+                    onClick={() => navigate('/curriculum/learning-to-learn')}
+                    style={{ cursor: 'pointer' }}
+                    title="Click to explore detailed Learning to Learn guide"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') navigate('/curriculum/learning-to-learn'); }}
+                  >
                     <div className="ai-native-pill-icon"><BookOpenIcon size={16} /></div>
-                    Learning to Learn
+                    Learning to Learn ↗
                   </div>
-                  <div className="ai-native-pill">
+                  <div 
+                    className="ai-native-pill"
+                    onClick={() => navigate('/curriculum/learning-to-think')}
+                    style={{ cursor: 'pointer' }}
+                    title="Click to explore detailed Learning to Think guide"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') navigate('/curriculum/learning-to-think'); }}
+                  >
                     <div className="ai-native-pill-icon"><CpuIcon size={16} /></div>
-                    Learning to Think
+                    Learning to Think ↗
                   </div>
-                  <div className="ai-native-pill">
+                  <div 
+                    className="ai-native-pill"
+                    onClick={() => navigate('/curriculum/learning-to-do')}
+                    style={{ cursor: 'pointer' }}
+                    title="Click to explore detailed Learning to Do guide"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === 'Enter') navigate('/curriculum/learning-to-do'); }}
+                  >
                     <div className="ai-native-pill-icon"><BriefcaseIcon size={16} /></div>
-                    Learning to Do
+                    Learning to Do ↗
                   </div>
                 </div>
                 
