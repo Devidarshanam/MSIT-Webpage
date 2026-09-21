@@ -63,11 +63,11 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     {
       id: 'backgrounds',
       number: '04',
-      category: 'B.TECH TRANSFORMATION & AI PEDAGOGY',
+      category: 'B.TECH TRANSFORMATION',
       themeClass: 'slide-theme-backgrounds',
       layoutClass: 'slide-layout-backgrounds',
-      title: 'How B.Tech Graduates Transform into AI-Native Engineers',
-      lead: 'Engineered exclusively for B.Tech engineers. Discover how AI-assisted studio learning, copilot pair programming, and paid corporate co-ops bridge the gap to elite software and AI roles.',
+      title: 'B.Tech Transformation Into AI-Native Engineers',
+      lead: 'Bridging the gap from college theory to production engineering through hands-on AI studios.',
       image: '/assets/iiit-ai-lab.jpg',
       imageCaption: 'The MSIT Studio Learning Environment at IIIT Hyderabad'
     },
@@ -633,218 +633,76 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               {/* Panel 1: Non-CS B.Tech Graduates */}
               <div className="dual-btech-card card-non-cs">
                 <div className="btech-card-header">
-                  <span className="btech-badge non-cs">Non-CS B.Tech Graduates</span>
-                  <h3 className="btech-headline">Bridging the Non-Software Divide with AI</h3>
-                  <span className="btech-branch-sub">Mechanical, Civil, Chemical, Electrical & Allied Branches</span>
+                  <span className="btech-badge non-cs">Non-CS Graduates</span>
+                  <h3 className="btech-headline">ECE, EEE, Mechanical & Allied Branches</h3>
                 </div>
 
                 <div className="btech-transformation-rows">
                   <div className="btech-row past">
-                    <span className="phase-pill past-pill">The Past Education:</span>
-                    <p>4 years of non-software formulas, blackboard lectures, and exam cramming. Zero production coding experience and anxiety around data structures and algorithms.</p>
+                    <span className="phase-pill past-pill">Before MSIT</span>
+                    <p>Theory-heavy curriculum with zero production coding or systems experience.</p>
                   </div>
 
                   <div className="btech-row msit">
-                    <span className="phase-pill msit-pill">The AI Studio Shift:</span>
-                    <p>Immersive 9-to-6 coding studios paired with personalized AI tutoring. AI copilots break down complex algorithmic logic into intuitive first principles, accelerating learning speed 5x.</p>
+                    <span className="phase-pill msit-pill">At MSIT</span>
+                    <p>Foundational immersion in programming, data structures, and AI tutoring.</p>
                   </div>
 
                   <div className="btech-row outcome">
-                    <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Completely eliminated the "CS vs Non-CS" divide; built real systems muscle memory across full-stack microservices, modern AI workflows, and production deployments.</p>
+                    <span className="phase-pill outcome-pill">Outcome</span>
+                    <p>Production full-stack capability, completely erasing the non-CS divide.</p>
                   </div>
                 </div>
               </div>
 
-              {/* Panel 2: B.Tech Freshers */}
+              {/* Panel 2: CS & IT Freshers */}
               <div className="dual-btech-card card-freshers">
                 <div className="btech-card-header">
-                  <span className="btech-badge freshers">B.Tech Freshers</span>
-                  <h3 className="btech-headline">From Classroom Theory to AI-Native Engineering</h3>
-                  <span className="btech-branch-sub">Computer Science, IT & All Engineering Streams</span>
+                  <span className="btech-badge freshers">CS & IT Freshers</span>
+                  <h3 className="btech-headline">Computer Science & IT Graduates</h3>
                 </div>
 
                 <div className="btech-transformation-rows">
                   <div className="btech-row past">
-                    <span className="phase-pill past-pill">The Past Education:</span>
-                    <p>High GPA earned through rote memorization and semester exams, but zero git commits, production deployment tenure, or practical familiarity with modern AI copilots.</p>
+                    <span className="phase-pill past-pill">Before MSIT</span>
+                    <p>Classroom exams without real-world deployments or team git workflows.</p>
                   </div>
 
                   <div className="btech-row msit">
-                    <span className="phase-pill msit-pill">The AI Studio Shift:</span>
-                    <p>Students build with AI copilots, autonomous agent workflows, and LLM microservices. Learning shifts from routine syntax recall to system architecture, prompt engineering, and cloud scalability.</p>
+                    <span className="phase-pill msit-pill">At MSIT</span>
+                    <p>Daily studio sprints building microservices alongside AI copilots.</p>
                   </div>
 
                   <div className="btech-row outcome">
-                    <span className="phase-pill outcome-pill">The Transformation:</span>
-                    <p>Graduated as production-hardened AI software engineers with a ~50% real-world practicum with CETLS, eliminating the "fresher ramp-up gap" and commanding top product roles.</p>
+                    <span className="phase-pill outcome-pill">Outcome</span>
+                    <p>Job-ready AI software engineers commanding top-tier product roles.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Bottom 4-Pillar Pedagogical & AI Shift Strip */}
+            {/* Bottom 3 Core Shifts */}
             <div className="edu-pillars-strip">
               <div className="edu-pillar-item">
-                <span 
-                  className="pillar-shift-badge"
-                  style={{
-                    color: '#fde047',
-                    fontWeight: 900,
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.06em',
-                    display: 'block',
-                    marginBottom: '0.2rem'
-                  }}
-                >
-                  PEDAGOGY SHIFT
-                </span>
-                <strong 
-                  style={{
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.84rem',
-                    display: 'block',
-                    marginBottom: '0.2rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
-                  }}
-                >
-                  Zero Lectures ➔ 100% Studio Learning
-                </strong>
-                <p 
-                  style={{
-                    color: '#f1f5f9',
-                    fontSize: '0.74rem',
-                    lineHeight: '1.35',
-                    margin: 0,
-                    fontWeight: 500
-                  }}
-                >
-                  Students build, debug, and deploy software daily instead of memorizing slides.
-                </p>
+                <span className="pillar-shift-badge">PEDAGOGY</span>
+                <strong>Zero Lectures</strong>
+                <p>100% active studio software development</p>
               </div>
 
-              <div className="edu-pillar-divider" style={{ background: 'rgba(255, 255, 255, 0.15)', height: '44px' }}></div>
+              <div className="edu-pillar-divider"></div>
 
               <div className="edu-pillar-item">
-                <span 
-                  className="pillar-shift-badge"
-                  style={{
-                    color: '#fde047',
-                    fontWeight: 900,
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.06em',
-                    display: 'block',
-                    marginBottom: '0.2rem'
-                  }}
-                >
-                  AI-NATIVE LEARNING
-                </span>
-                <strong 
-                  style={{
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.84rem',
-                    display: 'block',
-                    marginBottom: '0.2rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
-                  }}
-                >
-                  AI Pair Programming & LLM Studios
-                </strong>
-                <p 
-                  style={{
-                    color: '#f1f5f9',
-                    fontSize: '0.74rem',
-                    lineHeight: '1.35',
-                    margin: 0,
-                    fontWeight: 500
-                  }}
-                >
-                  Prompt engineering, autonomous agents & AI-assisted rapid prototyping.
-                </p>
+                <span className="pillar-shift-badge">AI NATIVE</span>
+                <strong>Copilot Studios</strong>
+                <p>Real-world LLM & agent pair programming</p>
               </div>
 
-              <div className="edu-pillar-divider" style={{ background: 'rgba(255, 255, 255, 0.15)', height: '44px' }}></div>
+              <div className="edu-pillar-divider"></div>
 
               <div className="edu-pillar-item">
-                <span 
-                  className="pillar-shift-badge"
-                  style={{
-                    color: '#fde047',
-                    fontWeight: 900,
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.06em',
-                    display: 'block',
-                    marginBottom: '0.2rem'
-                  }}
-                >
-                  THE STANDARD
-                </span>
-                <strong 
-                  style={{
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.84rem',
-                    display: 'block',
-                    marginBottom: '0.2rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
-                  }}
-                >
-                  90%+ Mastery Threshold
-                </strong>
-                <p 
-                  style={{
-                    color: '#f1f5f9',
-                    fontSize: '0.74rem',
-                    lineHeight: '1.35',
-                    margin: 0,
-                    fontWeight: 500
-                  }}
-                >
-                  No passing with 40%. Time is variable, outcome is constant until production-ready.
-                </p>
-              </div>
-
-              <div className="edu-pillar-divider" style={{ background: 'rgba(255, 255, 255, 0.15)', height: '44px' }}></div>
-
-              <div className="edu-pillar-item">
-                <span 
-                  className="pillar-shift-badge"
-                  style={{
-                    color: '#fde047',
-                    fontWeight: 900,
-                    fontSize: '0.68rem',
-                    letterSpacing: '0.06em',
-                    display: 'block',
-                    marginBottom: '0.2rem'
-                  }}
-                >
-                  CORPORATE TENURE
-                </span>
-                <strong 
-                  style={{
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '0.84rem',
-                    display: 'block',
-                    marginBottom: '0.2rem',
-                    textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
-                  }}
-                >
-                  50% Real-World Practicum
-                </strong>
-                <p 
-                  style={{
-                    color: '#f1f5f9',
-                    fontSize: '0.74rem',
-                    lineHeight: '1.35',
-                    margin: 0,
-                    fontWeight: 500
-                  }}
-                >
-                  Real production microservices and projects working alongside CETLS.
-                </p>
+                <span className="pillar-shift-badge">EXPERIENCE</span>
+                <strong>50% Practicum</strong>
+                <p>Extended corporate tenure with industry mentors</p>
               </div>
             </div>
           </div>
