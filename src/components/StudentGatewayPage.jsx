@@ -112,7 +112,7 @@ export default function StudentGatewayPage() {
                   loading="eager"
                 />
                 <div className="explore-preview-overlay">
-                  <span className="explore-slide-count">Campus Life & Community</span>
+                  <span className="explore-slide-count">MSIT Convocation Ceremony</span>
                 </div>
               </div>
 

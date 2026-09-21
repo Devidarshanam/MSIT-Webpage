@@ -21,7 +21,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "fix: remove repeated wordings in Know About MSIT explore card"
+git commit -m "fix: update explore card photo caption to MSIT Convocation Ceremony"
 
 echo.
 echo Pushing directly to origin main...
