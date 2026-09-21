@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   CpuIcon, 
   TerminalIcon, 
@@ -10,6 +10,8 @@ import {
 } from '../Icons';
 
 export default function CurriculumSection({ data }) {
+  const [expandedPrinciple, setExpandedPrinciple] = useState(null);
+
   return (
     <section className="section curriculum-section" id="curriculum">
       <div className="container">
@@ -19,15 +21,45 @@ export default function CurriculumSection({ data }) {
           <p>{data.description}</p>
         </div>
 
-        {/* 1. The Three Core Principles */}
+        {/* 1. The Three Core Principles with Interactive Progressive Disclosure */}
         <div className="principles-row">
-          {(data?.principles || []).map((principle, idx) => (
-            <div key={idx} className="principle-card">
-              <div className="principle-number">0{idx + 1}</div>
-              <h3>{principle.title}</h3>
-              <p>{principle.desc}</p>
-            </div>
-          ))}
+          {(data?.principles || []).map((principle, idx) => {
+            const isExpanded = expandedPrinciple === idx;
+            return (
+              <div key={idx} className={`principle-card ${isExpanded ? 'is-expanded' : ''}`}>
+                <div className="principle-number">0{idx + 1}</div>
+                <h3>{principle.title}</h3>
+                <p className="principle-main-desc">{principle.desc}</p>
+
+                <button
+                  type="button"
+                  className="principle-toggle-btn"
+                  onClick={() => setExpandedPrinciple(isExpanded ? null : idx)}
+                  aria-expanded={isExpanded}
+                >
+                  <span>{isExpanded ? 'Hide Deep Dive' : 'Explore: Meaning & Example'}</span>
+                  <span className="toggle-arrow">{isExpanded ? '▴' : '▾'}</span>
+                </button>
+
+                {isExpanded && (
+                  <div className="principle-drawer-content">
+                    <div className="principle-drawer-block">
+                      <strong className="drawer-label">What does this mean?</strong>
+                      <p>{principle.meaning}</p>
+                    </div>
+                    <div className="principle-drawer-block">
+                      <strong className="drawer-label">Why does it matter?</strong>
+                      <p>{principle.whyItMatters}</p>
+                    </div>
+                    <div className="principle-drawer-block example-block">
+                      <strong className="drawer-label">Real-World Example</strong>
+                      <p>{principle.example}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* 2. Broad Learning Model: Learn -> Think -> Build -> Apply -> Reflect -> Improve */}
@@ -35,7 +67,7 @@ export default function CurriculumSection({ data }) {
           <div className="cycle-header">
             <span className="cycle-kicker">PEDAGOGICAL FRAMEWORK</span>
             <h3>{data?.learningModel?.title}</h3>
-            <p>A continuous loop of conceptual mastery, independent building, and iterative refinement.</p>
+            <p>A continuous cycle: learn core concepts, reason through problem statements, build real systems, and iterate with code reviews.</p>
           </div>
 
           <div className="cycle-steps-grid">

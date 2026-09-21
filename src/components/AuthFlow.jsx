@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
-import { MailIcon, LoaderIcon, ArrowRightIcon, ShieldCheckIcon } from './Icons';
+import { MailIcon, LoaderIcon, ArrowRightIcon, ShieldCheckIcon, GraduationCapIcon } from './Icons';
 
 const RESEND_COOLDOWN_SECONDS = 60;
 
@@ -138,14 +138,14 @@ export default function AuthFlow() {
       {step === 'email' && (
         <form onSubmit={handleEmailSubmit} className="auth-step" key="email-step">
           <div className="simple-card-top">
-            <span className="simple-mini-badge">GET STARTED</span>
-            <div className="simple-card-icon student-icon">
-              <MailIcon size={26} />
+            <span className="simple-mini-badge">STUDENT PORTAL</span>
+            <div className="simple-card-icon student-portal-icon">
+              <GraduationCapIcon size={26} />
             </div>
           </div>
 
           <div className="simple-card-content">
-            <h2 className="simple-card-title">Interested in MSIT?</h2>
+            <h2 className="simple-card-title">Apply & Register Interest</h2>
             <p className="simple-card-desc">
               Enter your email to receive an instant sign-in link to access detailed programme
               curriculum, admissions roadmap, and application details.
