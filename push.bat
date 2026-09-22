@@ -28,7 +28,7 @@ echo.
 echo Committing changes...
 set GIT_EDITOR=true
 git rebase --continue >nul 2>&1
-git commit -m "revert: restore blue accent line on FAQ gateway card"
+git commit -m "fix: remove blue line from left side of FAQ card"
 
 echo.
 echo Pulling latest remote changes with rebase...
