@@ -5,9 +5,10 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
   const [activeCategory, setActiveCategory] = useState('All');
   const [openIndex, setOpenIndex] = useState(0);
 
-  const filteredQuestions = activeCategory === 'All'
-    ? faqData.questions
-    : faqData.questions.filter(q => q.category === activeCategory);
+  const hasCategories = Boolean(faqData?.categories && faqData.categories.length > 1);
+  const filteredQuestions = (!hasCategories || activeCategory === 'All')
+    ? (faqData?.questions || [])
+    : (faqData?.questions || []).filter(q => q.category === activeCategory);
 
   const toggleAccordion = (idx) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -57,31 +58,33 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
           ))}
         </div>
 
-        {/* 2. Categorized FAQ Accordion */}
+        {/* 2. FAQ Accordion */}
         <div className="faq-wrapper-card">
           <div className="faq-inner-header">
             <h3>Frequently Asked Questions</h3>
-            <p>Direct, verified answers to common questions about MSIT, pedagogy, admissions, and financial support.</p>
+            <p>Direct, practical answers to common doubts and questions prospective students have before applying to MSIT.</p>
           </div>
 
-          {/* Category Filter Chips */}
-          <div className="faq-filter-chips" role="tablist" aria-label="FAQ categories">
-            {(faqData?.categories || []).map((cat, idx) => (
-              <button
-                key={idx}
-                type="button"
-                className={`faq-chip ${activeCategory === cat ? 'active' : ''}`}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setOpenIndex(0);
-                }}
-                role="tab"
-                aria-selected={activeCategory === cat}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          {/* Category Filter Chips (Rendered only if multiple categories exist) */}
+          {hasCategories && (
+            <div className="faq-filter-chips" role="tablist" aria-label="FAQ categories">
+              {faqData.categories.map((cat, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`faq-chip ${activeCategory === cat ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    setOpenIndex(0);
+                  }}
+                  role="tab"
+                  aria-selected={activeCategory === cat}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Collapsible Accordion List */}
           <div className="accordion-list">

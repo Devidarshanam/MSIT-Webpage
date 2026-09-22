@@ -440,77 +440,72 @@
     ]
   },
   "faq": {
-    "categories": ["All", "Programme & AI", "Curriculum & Learning", "Industry Co-op", "Admissions & Eligibility", "Fees & Logistics"],
+    "categories": [],
     "questions": [
       {
-        "category": "Programme & AI",
-        "question": "What is MSIT?",
-        "answer": "MSIT is the Master of Science in Information Technology postgraduate programme offered by the Consortium of Higher Learning, anchored at IIIT Hyderabad. Founded over 25 years ago by Turing Award laureate Prof. Raj Reddy, the programme emphasizes hands-on learning, practical engineering, and close mentorship."
+        "id": "faq-1",
+        "question": "I come from a non-CS branch (like ECE, EEE, or Mechanical). Will I be able to keep up?",
+        "answer": "Yes. MSIT is intentionally designed to bridge the non-CS divide. The program begins with foundational computing, programming logic, and hands-on mentor support so that students from all engineering backgrounds become confident full-stack engineers."
       },
       {
-        "category": "Programme & AI",
-        "question": "What is different about the revamped MSIT?",
-        "answer": "The revamped MSIT is being designed as an AI-native programme, centred on three principles: Learning to Learn, Learning to Think, and Learning to Do. It combines academic computing education with substantial industry co-op experience, AI-assisted learning, venture building, and continuous learning improvements through CETLS."
+        "id": "faq-2",
+        "question": "Since there are no traditional lectures, who guides me when I get stuck?",
+        "answer": "You are never left alone. Full-time faculty, domain mentors, and teaching associates work alongside you inside the studio every day. Whenever you hit a roadblock, mentors conduct one-on-one walkthroughs and guide your problem-solving process."
       },
       {
-        "category": "Programme & AI",
-        "question": "When will the next cohort begin?",
-        "answer": "The next cohort of the revamped MSIT programme is scheduled to begin in January 2027. Official admission announcements will be released shortly."
+        "id": "faq-3",
+        "question": "How is MSIT fundamentally different from a regular M.Tech in Computer Science?",
+        "answer": "A traditional M.Tech is theory- and exam-driven with an academic thesis. MSIT replaces passive lectures with 100% active software development in studios, dedicating ~50% of the program tenure to real corporate industry practicum to build job-ready software engineers."
       },
       {
-        "category": "Curriculum & Learning",
-        "question": "Will AI be part of the curriculum?",
-        "answer": "Yes. AI will be both an area of core technical study and an integral tool used across the learning environment. Students will learn how to build AI systems, use modern AI tools effectively, and critically evaluate AI outputs using independent human judgement."
+        "id": "faq-4",
+        "question": "Do I need to prepare or master any programming language before Day 1?",
+        "answer": "No advanced preparation is required. However, spending some time brushing up on basic logic, problem-solving, and elementary coding in any language (like Python or C) will help you feel more confident during the initial weeks."
       },
       {
-        "category": "Curriculum & Learning",
-        "question": "Is MSIT primarily lecture-based?",
-        "answer": "No. MSIT has historically emphasized experiential learning and learning-by-doing through project studios, active coding, and real problem solving rather than relying primarily on conventional classroom lectures."
+        "id": "faq-5",
+        "question": "Are there assessments, and what are the scoring criteria to pass?",
+        "answer": "Yes, MSIT has a structured assessment system with clear scoring benchmarks to pass each module. Rather than traditional pen-and-paper theory exams, evaluation is conducted through rigorous practical coding assessments, module tests, technical vivas, and project deliverables. Students must meet defined performance criteria demonstrating both conceptual clarity and hands-on execution to successfully clear each course."
       },
       {
-        "category": "Curriculum & Learning",
-        "question": "What is the role of CETLS?",
-        "answer": "MSIT serves as a living laboratory for the Centre for Educational Technology and Learning Sciences (CETLS) at IIIT Hyderabad. Curriculum, pedagogy, student assessments, and mentoring interventions are continuously studied and improved using evidence-based cognitive science."
+        "id": "faq-6",
+        "question": "I have a 1–2 year gap after graduation or non-tech work experience. Will that hurt my chances?",
+        "answer": "Not at all. MSIT values your problem-solving mindset, curiosity, and eagerness to build real software far more than gaps in your resume."
       },
       {
-        "category": "Industry Co-op",
-        "question": "What is the industry co-op structure?",
-        "answer": "The redesigned programme plans for students to spend approximately half their programme duration working on genuine corporate engineering problems under the guidance of industry practitioners and faculty mentors."
+        "id": "faq-7",
+        "question": "Is daily on-campus studio attendance mandatory, or can this be done online/hybrid?",
+        "answer": "Daily on-campus presence is mandatory. The MSIT pedagogy is built entirely around in-person collaborative studio pods, peer programming, daily standups, and face-to-face mentor reviews."
       },
       {
-        "category": "Industry Co-op",
-        "question": "What is the Venture Studio?",
-        "answer": "The Venture Studio provides builder-oriented students an opportunity to take a problem or idea from inception towards a potential product or startup venture, gaining exposure to the startup and early-stage investment ecosystem."
+        "id": "faq-8",
+        "question": "Can I pursue MSIT while working at a full-time or part-time job?",
+        "answer": "No. MSIT is an intensive, full-time master's program that mirrors real corporate engineering workplace hours. It requires your complete, undivided focus."
       },
       {
-        "category": "Admissions & Eligibility",
-        "question": "What are the eligibility criteria for admissions?",
-        "answer": "Candidates with undergraduate degrees in Engineering/Technology (B.Tech/B.E.) or Master's degrees in computing disciplines (MCA, M.Sc in CS/IT/Maths) are eligible to apply. Specific minimum percentage/CGPA cutoffs will be published in the official admission notification."
+        "id": "faq-9",
+        "question": "Do I need to purchase an expensive high-end laptop before joining?",
+        "answer": "No. Studios are equipped with computing workstations, high-speed networks, and access to cloud development environments. A standard personal laptop for note-taking and basic study is more than sufficient."
       },
       {
-        "category": "Admissions & Eligibility",
-        "question": "Can final-year undergraduate students apply?",
-        "answer": "Yes. Students currently completing their final year/semester of undergraduate degree requirements are eligible to apply provisionally, provided they complete all graduation requirements before commencement."
+        "id": "faq-10",
+        "question": "Is the MSIT degree recognized for government examinations and higher studies (Ph.D.) abroad?",
+        "answer": "Yes. MSIT is a recognized master’s degree offered through a consortium of leading state universities and IIIT Hyderabad, making graduates eligible for public sector opportunities, government examinations, and doctoral programs abroad."
       },
       {
-        "category": "Admissions & Eligibility",
-        "question": "Can students from non-computer science engineering branches apply?",
-        "answer": "Yes. Graduates from other engineering disciplines (ECE, EEE, Mechanical, etc.) are considered. Foundational immersion modules are structured into the initial curriculum to establish strong programming and systems fundamentals."
+        "id": "faq-11",
+        "question": "Do students work alone or in collaborative teams?",
+        "answer": "Both. Core conceptual understanding is verified individually to ensure personal mastery, while large system architectures, studio sprints, and practicum projects are built collaboratively in pods using professional Git workflows."
       },
       {
-        "category": "Fees & Logistics",
-        "question": "What is the programme fee structure?",
-        "answer": "The detailed fee structure for tuition, registration, caution deposits, and other institutional charges for the January 2027 cohort will be formally published in the official admission circular."
+        "id": "faq-12",
+        "question": "What support is available if I struggle with a particular topic or module?",
+        "answer": "Because MSIT follows a mastery-based learning model, students advance only when concepts are clear. Mentors offer personalized guidance, extra code reviews, and peer tutoring sessions to help you overcome difficult topics."
       },
       {
-        "category": "Fees & Logistics",
-        "question": "Are education loans available for MSIT?",
-        "answer": "Yes. Admitted students of IIIT Hyderabad master's programmes are typically eligible for education loans through major nationalized and scheduled banks. The institute provides official admission offer documentation and fee estimates to facilitate loan processing."
-      },
-      {
-        "category": "Fees & Logistics",
-        "question": "Is hostel accommodation available?",
-        "answer": "Hostel and residential arrangements for the January 2027 cohort are being finalized in line with institutional capacity and will be confirmed in the formal admission notification."
+        "id": "faq-13",
+        "question": "Can prospective students connect with current students or alumni before applying?",
+        "answer": "Yes, absolutely. You are strongly encouraged to reach out directly to current MSIT students and alumni on LinkedIn or other professional networks to get firsthand, unfiltered information about their studio experience, daily learning, and career outcomes."
       }
     ]
   },

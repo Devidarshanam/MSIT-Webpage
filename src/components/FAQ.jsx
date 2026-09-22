@@ -4,9 +4,10 @@ export default function FAQ({ data }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [openIndex, setOpenIndex] = useState(0);
 
-  const filteredQuestions = activeCategory === 'All'
-    ? data.questions
-    : data.questions.filter(q => q.category === activeCategory);
+  const hasCategories = Boolean(data?.categories && data.categories.length > 1);
+  const filteredQuestions = (!hasCategories || activeCategory === 'All')
+    ? (data?.questions || [])
+    : (data?.questions || []).filter(q => q.category === activeCategory);
 
   const toggleAccordion = (idx) => {
     setOpenIndex(openIndex === idx ? null : idx);
@@ -21,22 +22,24 @@ export default function FAQ({ data }) {
           <p>{data.description}</p>
         </div>
 
-        <div className="faq-filter-chips" role="tablist" aria-label="FAQ categories">
-          {data.categories.map((cat, idx) => (
-            <button
-              key={idx}
-              className={`faq-chip ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => {
-                setActiveCategory(cat);
-                setOpenIndex(0);
-              }}
-              role="tab"
-              aria-selected={activeCategory === cat}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        {hasCategories && (
+          <div className="faq-filter-chips" role="tablist" aria-label="FAQ categories">
+            {data.categories.map((cat, idx) => (
+              <button
+                key={idx}
+                className={`faq-chip ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveCategory(cat);
+                  setOpenIndex(0);
+                }}
+                role="tab"
+                aria-selected={activeCategory === cat}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
 
         <div className="accordion-list">
           {filteredQuestions.map((item, idx) => {
