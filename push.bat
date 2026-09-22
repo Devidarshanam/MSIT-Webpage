@@ -28,7 +28,7 @@ echo.
 echo Committing changes...
 set GIT_EDITOR=true
 git rebase --continue >nul 2>&1
-git commit -m "fix: generalize FAQ card and page wording without specific count"
+git commit -m "fix: remove blue accent line and border from FAQ gateway card"
 
 echo.
 echo Pulling latest remote changes with rebase...

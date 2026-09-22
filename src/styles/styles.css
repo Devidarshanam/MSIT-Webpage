@@ -12442,34 +12442,24 @@ p {
    FAQ GATEWAY CARD (STREAMLINED IN-PAGE BANNER)
    ========================================================================== */
 .faq-gateway-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
-  border: 1px solid #bfdbfe;
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
   border-radius: var(--radius-xl);
   padding: 2.25rem 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2.5rem;
-  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.07);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin-top: 1.5rem;
   position: relative;
   overflow: hidden;
 }
 
-.faq-gateway-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background: linear-gradient(180deg, #2563eb 0%, #3b82f6 100%);
-}
-
 .faq-gateway-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.12);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
 }
 
 .faq-gateway-content {
