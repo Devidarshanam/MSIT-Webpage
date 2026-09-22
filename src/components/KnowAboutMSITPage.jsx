@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon,
-  SparklesIcon, UsersIcon, CheckCircleIcon, CalendarIcon, TargetIcon, RocketIcon
+  SparklesIcon, UsersIcon, CheckCircleIcon, CalendarIcon
 } from './Icons';
 
 export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
@@ -12,7 +12,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const [timerResetKey, setTimerResetKey] = useState(0);
   const timerRef = useRef(null);
 
-  // 8 Slides Definition with Theme Color Palettes and Bespoke Layouts
+  // 7 Slides Definition with Theme Color Palettes and Bespoke Layouts
   const slides = [
     {
       id: 'origin',
@@ -72,19 +72,8 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       imageCaption: 'The MSIT Studio Learning Environment at IIIT Hyderabad'
     },
     {
-      id: 'outcomes',
-      number: '05',
-      category: 'ALUMNI STATISTICS',
-      themeClass: 'slide-theme-outcomes',
-      layoutClass: 'slide-layout-outcomes',
-      title: 'Alumni Statistics: 2021–23 Batch',
-      lead: 'Placement benchmarks, recorded outcome rates, and verified compensation metrics for the 2021–23 graduating cohort.',
-      image: '/assets/iiit-campus.jpg',
-      imageCaption: 'MSIT 2021–23 Cohort Alumni Statistics'
-    },
-    {
       id: 'events',
-      number: '06',
+      number: '05',
       category: 'CAMPUS LIFE',
       themeClass: 'slide-theme-events',
       layoutClass: 'slide-layout-events',
@@ -95,7 +84,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     },
     {
       id: 'practicum',
-      number: '07',
+      number: '06',
       category: 'REAL-WORLD PRACTICUM',
       themeClass: 'slide-theme-practicum',
       layoutClass: 'slide-layout-practicum',
@@ -106,7 +95,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     },
     {
       id: 'admissions',
-      number: '08',
+      number: '07',
       category: 'BEGIN YOUR JOURNEY',
       themeClass: 'slide-theme-admissions',
       layoutClass: 'slide-layout-admissions',
@@ -719,118 +708,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </div>
         );
 
-      case 'outcomes': {
-        const topStats = [
-          {
-            value: '90%',
-            label: 'Placement / Recorded Outcome Rate',
-            category: 'Recorded Outcome Rate',
-            theme: 'emerald',
-            icon: <TargetIcon size={20} />
-          },
-          {
-            value: '₹22 LPA',
-            label: 'Highest Package',
-            category: 'Highest Package',
-            theme: 'amber',
-            icon: <AwardIcon size={20} />
-          },
-          {
-            value: '₹8.27 LPA',
-            label: 'Average Package',
-            category: 'Average Package',
-            theme: 'indigo',
-            icon: <RocketIcon size={20} />
-          }
-        ];
-
-        return (
-          <div className="slide-content-layout layout-alumni-statistics">
-            {/* Top 3 Statistics Cards */}
-            <div className="alumni-stats-hero-grid trio-grid">
-              {topStats.map((st, sIdx) => (
-                <div key={sIdx} className={`alumni-stat-card card-theme-${st.theme}`}>
-                  <div className="stat-card-top-row">
-                    <span className="stat-card-category-pill">{st.category}</span>
-                    <div className="stat-icon-wrapper" aria-hidden="true">
-                      {st.icon}
-                    </div>
-                  </div>
-                  <div className="stat-card-main-data">
-                    <span className="stat-card-number">{st.value}</span>
-                    <span className="stat-card-name">{st.label}</span>
-                  </div>
-                  <div className="stat-card-bottom-line" aria-hidden="true"></div>
-                </div>
-              ))}
-            </div>
-
-            {/* Lower Section: Alumni Career Journey Visual */}
-            <div className="alumni-journey-card-container">
-              <div className="journey-card-header">
-                <div className="journey-header-left">
-                  <span className="journey-kicker">Alumni Career Journey</span>
-                  <h3 className="journey-headline">
-                    <span className="journey-node">MSIT</span>
-                    <span className="journey-arrow" aria-hidden="true">→</span>
-                    <span className="journey-node">Internship</span>
-                    <span className="journey-arrow" aria-hidden="true">→</span>
-                    <span className="journey-node">Full-Time Opportunity</span>
-                  </h3>
-                </div>
-                <div className="journey-header-right">
-                  <span className="journey-batch-pill">2021–23 Batch</span>
-                </div>
-              </div>
-
-              <div className="journey-stepped-pipeline">
-                <div className="pipeline-stage-item stage-foundation">
-                  <div className="stage-top-meta">
-                    <span className="stage-step-badge">Stage 01</span>
-                    <GraduationCapIcon size={18} />
-                  </div>
-                  <h4>MSIT Studio Pedagogy</h4>
-                  <p>100% active studio computing, intensive team projects, and mentor-guided engineering practice with zero passive lectures.</p>
-                  <div className="stage-footer-tag">Active Pedagogy</div>
-                </div>
-
-                <div className="pipeline-connector-block" aria-hidden="true">
-                  <div className="connector-track">
-                    <span className="connector-arrow">➔</span>
-                  </div>
-                </div>
-
-                <div className="pipeline-stage-item stage-practicum">
-                  <div className="stage-top-meta">
-                    <span className="stage-step-badge">Stage 02</span>
-                    <BriefcaseIcon size={18} />
-                  </div>
-                  <h4>Industry Internship</h4>
-                  <p>Hands-on corporate practicum embedded directly within leading engineering teams solving production problems.</p>
-                  <div className="stage-footer-tag">Industry Practicum</div>
-                </div>
-
-                <div className="pipeline-connector-block" aria-hidden="true">
-                  <div className="connector-track">
-                    <span className="connector-arrow">➔</span>
-                  </div>
-                </div>
-
-                <div className="pipeline-stage-item stage-placement">
-                  <div className="stage-top-meta">
-                    <span className="stage-step-badge">Stage 03</span>
-                    <CheckCircleIcon size={18} />
-                  </div>
-                  <h4>Full-Time Opportunity</h4>
-                  <p>Structured transition and conversion into full-time technology roles, systems engineering, and product teams.</p>
-                  <div className="stage-footer-tag">Career Launch</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      }
-
       case 'events':
         return (
           <div className="slide-content-layout layout-events-community">
@@ -1181,13 +1058,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 {/* Header Meta Row */}
                 {slideItem.id !== 'ainative' && (
                   <div className="slide-header-meta">
-                    <div className="slide-meta-top-row">
-                      <span className="fullscreen-category-badge">{slideItem.category}</span>
-                      <span className="mobile-desktop-hint-pill">💻 For detailed view & full info, use desktop</span>
-                    </div>
-                    <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
-                    <p className="fullscreen-slide-lead">{slideItem.lead}</p>
+                  <div className="slide-meta-top-row">
+                    <span className="fullscreen-category-badge">{slideItem.category}</span>
+                    <span className="mobile-desktop-hint-pill">💻 For detailed view & full info, use desktop</span>
                   </div>
+                  <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
+                  <p className="fullscreen-slide-lead">{slideItem.lead}</p>
+                </div>
                 )}
 
                 {/* Render Bespoke Non-Interactive Slide Content */}
