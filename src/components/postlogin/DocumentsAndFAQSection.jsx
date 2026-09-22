@@ -58,7 +58,7 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
             </div>
             <h3>Frequently Asked Questions</h3>
             <p>
-              Got questions before applying? We have compiled direct, practical answers to the 13 most common doubts asked by prospective candidates — covering non-CS branch transition, daily mentorship in studios, assessments and scoring criteria, laptop requirements, and connecting with alumni.
+              Got questions before applying? We have compiled direct, practical answers to common doubts and questions prospective candidates have — covering non-CS branch transition, daily mentorship in studios, assessments and scoring criteria, laptop requirements, and connecting with alumni.
             </p>
             <div className="faq-gateway-tags">
               <span className="faq-tag-chip">Non-CS Background</span>
@@ -66,7 +66,7 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
               <span className="faq-tag-chip">Assessments & Pass Criteria</span>
               <span className="faq-tag-chip">Studio vs Lectures</span>
               <span className="faq-tag-chip">Alumni & LinkedIn</span>
-              <span className="faq-tag-chip">+8 More</span>
+              <span className="faq-tag-chip">Degree Recognition</span>
             </div>
           </div>
           <div className="faq-gateway-action-col">
@@ -76,7 +76,7 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
               onClick={() => navigate('/faq')}
               id="view-faqs-page-btn"
             >
-              <span>Explore All 13 FAQs</span>
+              <span>Explore All FAQs</span>
               <ArrowRightIcon size={18} />
             </button>
             <span className="faq-gateway-hint">Opens dedicated FAQ page with instant search</span>

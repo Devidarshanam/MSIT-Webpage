@@ -12,7 +12,7 @@ import {
 import msitData from '../data/msitData.json';
 
 const QUICK_TAGS = [
-  { label: 'All (13)', query: '' },
+  { label: 'All Questions', query: '' },
   { label: 'Non-CS Branch', query: 'non-CS' },
   { label: 'Mentorship', query: 'mentor' },
   { label: 'Assessments', query: 'assessment' },
@@ -91,7 +91,7 @@ export default function FAQPage() {
           <div className="faq-nav-right">
             <span className="faq-count-pill">
               <CheckCircleIcon size={14} />
-              <span>{allQuestions.length} Verified Questions</span>
+              <span>Verified Answers</span>
             </span>
           </div>
         </div>
@@ -166,9 +166,10 @@ export default function FAQPage() {
           {/* Results Counter / Filter Status */}
           <div className="faq-results-bar">
             <span>
-              Showing <strong>{filteredQuestions.length}</strong> of {allQuestions.length} FAQs
-              {searchQuery && (
-                <span className="faq-query-indicator"> matching &ldquo;{searchQuery}&rdquo;</span>
+              {searchQuery ? (
+                <>Showing <strong>{filteredQuestions.length}</strong> matching questions <span className="faq-query-indicator">for &ldquo;{searchQuery}&rdquo;</span></>
+              ) : (
+                <>Browse Frequently Asked Questions</>
               )}
             </span>
             {searchQuery && (
@@ -243,7 +244,7 @@ export default function FAQPage() {
                   setActiveTag('');
                 }}
               >
-                Clear Search & View All 13 FAQs
+                Clear Search & View All FAQs
               </button>
             </div>
           )}
