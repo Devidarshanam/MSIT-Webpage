@@ -122,7 +122,7 @@ export default function StudentGatewayPage() {
                     setView('about-msit');
                   }}
                 >
-                  <span>Explore 7-Slide Overview</span>
+                  <span>Explore 8-Slide Overview</span>
                   <ArrowRightIcon size={18} />
                 </button>
               </div>
