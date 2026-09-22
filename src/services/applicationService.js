@@ -23,8 +23,12 @@ export async function submitStudentApplication(applicationData, authUser = null)
   const appId = applicationData.applicationId || generateApplicationId();
   const now = new Date().toISOString();
 
+  const generatedId = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
+    ? crypto.randomUUID()
+    : '00000000-0000-4000-8000-' + Math.random().toString(16).substring(2, 14).padEnd(12, '0');
+
   const record = {
-    id: applicationData.id || ('app_' + Math.random().toString(36).substring(2, 12)),
+    id: applicationData.id || generatedId,
     application_id: appId,
     user_id: authUser?.id || null,
     email: (applicationData.email || authUser?.email || '').trim().toLowerCase(),
@@ -66,14 +70,15 @@ export async function submitStudentApplication(applicationData, authUser = null)
   // 2. Persist to Supabase if configured and table exists
   if (isSupabaseConfigured() && supabase) {
     try {
+      const { isMock: _mockFlag, ...dbRecord } = record;
       const { data, error } = await supabase
         .from('applications')
-        .insert([record])
+        .insert([dbRecord])
         .select()
         .single();
 
       if (!error && data) {
-        return { data, error: null };
+        return { data: { ...data, isMock: false }, error: null };
       }
       // If table doesn't exist yet, we still return success with local record
       console.warn('[MSIT] Supabase insert warning (schema may be pending):', error?.message);
