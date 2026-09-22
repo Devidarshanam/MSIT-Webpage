@@ -58,7 +58,7 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
             </div>
             <h3>Frequently Asked Questions</h3>
             <p>
-              Got questions before applying? We have compiled direct, practical answers to common doubts and questions prospective candidates have — covering non-CS branch transition, daily mentorship in studios, assessments and scoring criteria, laptop requirements, and connecting with alumni.
+              Curious about life and learning at MSIT? We have compiled direct, practical answers to help guide your journey — covering non-CS branch transition, daily mentorship in studios, assessments and scoring criteria, laptop requirements, and connecting with alumni.
             </p>
             <div className="faq-gateway-tags">
               <span className="faq-tag-chip">Non-CS Background</span>

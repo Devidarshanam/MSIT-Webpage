@@ -28,7 +28,7 @@ echo.
 echo Committing changes...
 set GIT_EDITOR=true
 git rebase --continue >nul 2>&1
-git commit -m "fix: remove verified answers badge from FAQ page"
+git commit -m "fix: update FAQ subtitles with positive and welcoming tone"
 
 echo.
 echo Pulling latest remote changes with rebase...

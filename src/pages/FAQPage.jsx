@@ -99,7 +99,7 @@ export default function FAQPage() {
 
           <h1 className="faq-hero-title">Frequently Asked Questions</h1>
           <p className="faq-hero-subtitle">
-            Direct, practical answers to general doubts and queries prospective students have before deciding to apply to MSIT.
+            Direct, practical answers to general queries to help you prepare and embark on your transformative journey with MSIT.
           </p>
 
           {/* Search Box */}
