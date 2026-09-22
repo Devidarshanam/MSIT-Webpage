@@ -1,7 +1,7 @@
 -- ====================================================================
 -- MSIT WEBSITE: ADMIN DASHBOARD & STUDENT APPLICATION SCHEMA
 -- ====================================================================
--- Run this script in the Supabase SQL Editor (https://supabase.com/dashboard/project/dnfelpetggcoqrubpbzp/sql)
+-- Run this script in the Supabase SQL Editor (https://supabase.com/dashboard/project/oknaeingqybfxpfpuocy/sql)
 --
 -- Tables created:
 -- 1. admin_users               : Authorized administrator directory
