@@ -28,7 +28,7 @@ echo.
 echo Committing changes...
 set GIT_EDITOR=true
 git rebase --continue >nul 2>&1
-git commit -m "fix: remove square focus box outline from search bar"
+git commit -m "fix: remove verified answers badge from FAQ page"
 
 echo.
 echo Pulling latest remote changes with rebase...

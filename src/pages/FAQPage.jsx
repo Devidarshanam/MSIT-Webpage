@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { 
   ArrowRightIcon, 
-  CheckCircleIcon, 
   BookOpenIcon, 
   ClockIcon, 
   UsersIcon, 
@@ -86,13 +85,6 @@ export default function FAQPage() {
               <span className="crumb-sep">/</span>
               <span className="crumb-current">All FAQs</span>
             </nav>
-          </div>
-
-          <div className="faq-nav-right">
-            <span className="faq-count-pill">
-              <CheckCircleIcon size={14} />
-              <span>Verified Answers</span>
-            </span>
           </div>
         </div>
       </header>
