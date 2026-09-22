@@ -8868,8 +8868,128 @@ p {
 }
 
 /* =========================================================================
-   SLIDE 1: HOW IT STARTED (ORIGIN STORY)
+   SLIDE 1: HOW IT STARTED (ORIGIN STORY) — NO-SCROLL & VIEWPORT-CONSISTENT FOOTER
    ========================================================================= */
+@media (min-width: 901px) {
+  .stage-origin {
+    overflow-y: hidden !important;
+    padding: 1.5rem 3.5rem 1.2rem !important;
+  }
+
+  .stage-origin .slide-header-meta {
+    margin-bottom: clamp(0.45rem, 1.1vh, 0.85rem) !important;
+  }
+
+  .stage-origin .fullscreen-slide-title {
+    font-size: clamp(1.35rem, 2.1vw, 2.2rem) !important;
+    margin: 0 0 0.25rem 0 !important;
+  }
+
+  .stage-origin .fullscreen-slide-lead {
+    font-size: clamp(0.8rem, 0.95vw, 0.9rem) !important;
+    line-height: 1.42 !important;
+  }
+
+  .stage-origin .slide-body-container {
+    flex: 1 !important;
+    margin-bottom: 0.45rem !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+
+  .stage-origin .origin-main-grid {
+    gap: clamp(0.75rem, 1.6vw, 1.5rem) !important;
+    align-items: stretch !important;
+  }
+
+  .stage-origin .origin-text-cards {
+    gap: clamp(0.3rem, 0.75vh, 0.55rem) !important;
+    justify-content: space-between !important;
+  }
+
+  .stage-origin .origin-highlight-card {
+    padding: clamp(0.38rem, 0.8vh, 0.65rem) clamp(0.6rem, 1vw, 0.95rem) !important;
+    gap: 0.65rem !important;
+  }
+
+  .stage-origin .origin-icon-box {
+    width: clamp(26px, 2vw, 32px) !important;
+    height: clamp(26px, 2vw, 32px) !important;
+  }
+
+  .stage-origin .origin-highlight-card h4 {
+    font-size: clamp(0.8rem, 0.95vw, 0.86rem) !important;
+    margin: 0 0 0.12rem 0 !important;
+  }
+
+  .stage-origin .origin-highlight-card p {
+    font-size: clamp(0.7rem, 0.82vw, 0.76rem) !important;
+    line-height: 1.32 !important;
+  }
+
+  .stage-origin .origin-quote-box {
+    padding: clamp(0.4rem, 0.9vh, 0.7rem) clamp(0.65rem, 1vw, 1.05rem) !important;
+  }
+
+  .stage-origin .origin-quote-box p,
+  .stage-origin .origin-quote-text {
+    font-size: clamp(0.74rem, 0.88vw, 0.84rem) !important;
+    line-height: 1.35 !important;
+    margin: 0 0 0.2rem 0 !important;
+  }
+
+  .stage-origin .origin-quote-box .quote-author {
+    font-size: clamp(0.66rem, 0.78vw, 0.72rem) !important;
+  }
+
+  .stage-origin .origin-portrait-spotlight .spotlight-card {
+    padding: clamp(0.6rem, 1.1vh, 0.95rem) !important;
+  }
+
+  .stage-origin .spotlight-img-frame {
+    height: clamp(110px, 16vh, 195px) !important;
+    margin-bottom: clamp(0.3rem, 0.7vh, 0.55rem) !important;
+  }
+
+  .stage-origin .spotlight-name {
+    font-size: clamp(1rem, 1.3vw, 1.2rem) !important;
+    margin: 0 0 0.12rem 0 !important;
+  }
+
+  .stage-origin .spotlight-role-title {
+    font-size: clamp(0.68rem, 0.78vw, 0.74rem) !important;
+    margin: 0 0 0.2rem 0 !important;
+    line-height: 1.22 !important;
+  }
+
+  .stage-origin .spotlight-desc {
+    font-size: clamp(0.7rem, 0.82vw, 0.76rem) !important;
+    line-height: 1.32 !important;
+    margin: 0 0 clamp(0.3rem, 0.7vh, 0.55rem) 0 !important;
+  }
+
+  .stage-origin .spotlight-stats-row {
+    padding: clamp(0.3rem, 0.6vh, 0.45rem) 0.3rem !important;
+  }
+
+  .stage-origin .spot-stat strong {
+    font-size: clamp(0.92rem, 1.15vw, 1.05rem) !important;
+  }
+
+  .stage-origin .spot-stat span {
+    font-size: clamp(0.56rem, 0.68vw, 0.62rem) !important;
+  }
+
+  .stage-origin .fullscreen-controls-bar {
+    padding-top: 0.95rem !important;
+    margin-top: auto !important;
+    flex-shrink: 0 !important;
+    border-top: 1px solid var(--neutral-200) !important;
+  }
+}
+
 .layout-origin-story .origin-main-grid {
   display: grid;
   grid-template-columns: 1.35fr 0.95fr;
