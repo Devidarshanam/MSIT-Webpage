@@ -8873,26 +8873,28 @@ p {
 @media (min-width: 901px) {
   .stage-origin {
     overflow-y: hidden !important;
-    padding: clamp(1rem, 2vh, 1.4rem) 3.5rem clamp(0.75rem, 1.8vh, 1rem) !important;
+    padding: clamp(0.85rem, 1.8vh, 1.25rem) 3.5rem clamp(0.65rem, 1.5vh, 0.95rem) !important;
   }
 
   .stage-origin .slide-header-meta {
-    margin-bottom: clamp(0.4rem, 1vh, 0.75rem) !important;
+    margin-bottom: clamp(0.35rem, 0.8vh, 0.65rem) !important;
   }
 
   .stage-origin .fullscreen-slide-title {
-    font-size: clamp(1.4rem, 2.2vw, 2.1rem) !important;
-    margin: 0 0 0.2rem 0 !important;
+    font-size: clamp(1.35rem, 2.1vw, 2rem) !important;
+    margin: 0 0 0.15rem 0 !important;
   }
 
   .stage-origin .fullscreen-slide-lead {
-    font-size: clamp(0.8rem, 0.95vw, 0.88rem) !important;
-    line-height: 1.38 !important;
+    font-size: clamp(0.78rem, 0.9vw, 0.86rem) !important;
+    line-height: 1.35 !important;
+    display: block !important;
+    width: 100% !important;
   }
 
   .stage-origin .slide-body-container {
     flex: 1 !important;
-    margin-bottom: clamp(0.35rem, 0.8vh, 0.6rem) !important;
+    margin-bottom: clamp(0.3rem, 0.7vh, 0.5rem) !important;
     min-height: 0 !important;
     display: flex !important;
     flex-direction: column !important;
@@ -8905,12 +8907,12 @@ p {
   }
 
   .stage-origin .origin-text-cards {
-    gap: clamp(0.3rem, 0.75vh, 0.55rem) !important;
+    gap: clamp(0.28rem, 0.7vh, 0.5rem) !important;
     justify-content: space-between !important;
   }
 
   .stage-origin .origin-highlight-card {
-    padding: clamp(0.38rem, 0.8vh, 0.65rem) clamp(0.6rem, 1vw, 0.95rem) !important;
+    padding: clamp(0.35rem, 0.75vh, 0.6rem) clamp(0.6rem, 1vw, 0.95rem) !important;
     gap: 0.65rem !important;
   }
 
@@ -8930,14 +8932,14 @@ p {
   }
 
   .stage-origin .origin-quote-box {
-    padding: clamp(0.4rem, 0.9vh, 0.7rem) clamp(0.65rem, 1vw, 1.05rem) !important;
+    padding: clamp(0.38rem, 0.85vh, 0.65rem) clamp(0.65rem, 1vw, 1.05rem) !important;
   }
 
   .stage-origin .origin-quote-box p,
   .stage-origin .origin-quote-text {
     font-size: clamp(0.74rem, 0.88vw, 0.84rem) !important;
     line-height: 1.35 !important;
-    margin: 0 0 0.2rem 0 !important;
+    margin: 0 0 0.18rem 0 !important;
   }
 
   .stage-origin .origin-quote-box .quote-author {
@@ -8945,7 +8947,7 @@ p {
   }
 
   .stage-origin .origin-portrait-spotlight .spotlight-card {
-    padding: clamp(0.65rem, 1.2vh, 0.95rem) clamp(0.75rem, 1.2vw, 1.1rem) !important;
+    padding: clamp(0.55rem, 1vh, 0.85rem) clamp(0.7rem, 1.1vw, 1rem) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
@@ -8953,12 +8955,12 @@ p {
   }
 
   .stage-origin .spotlight-img-frame {
-    height: clamp(175px, 24vh, 230px) !important;
+    height: clamp(210px, 28vh, 275px) !important;
     border-radius: var(--radius-sm);
     overflow: hidden;
     background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
     position: relative;
-    margin-bottom: clamp(0.35rem, 0.8vh, 0.55rem) !important;
+    margin-bottom: clamp(0.3rem, 0.7vh, 0.5rem) !important;
     border: 1px solid #cbd5e1;
     box-shadow: 0 4px 16px rgba(11, 42, 107, 0.08);
     display: flex !important;
@@ -8976,29 +8978,34 @@ p {
   }
 
   .stage-origin .spotlight-badge-row {
-    margin-bottom: clamp(0.15rem, 0.4vh, 0.25rem) !important;
+    margin-bottom: clamp(0.12rem, 0.35vh, 0.22rem) !important;
     gap: 0.35rem !important;
   }
 
   .stage-origin .spotlight-name {
     font-size: clamp(1.05rem, 1.35vw, 1.22rem) !important;
-    margin: 0 0 0.12rem 0 !important;
+    margin: 0 0 0.1rem 0 !important;
   }
 
   .stage-origin .spotlight-role-title {
-    font-size: clamp(0.68rem, 0.78vw, 0.74rem) !important;
-    margin: 0 0 0.18rem 0 !important;
-    line-height: 1.22 !important;
+    font-size: clamp(0.66rem, 0.76vw, 0.72rem) !important;
+    margin: 0 0 0.15rem 0 !important;
+    line-height: 1.2 !important;
+    display: block !important;
+    width: 100% !important;
   }
 
   .stage-origin .spotlight-desc {
-    font-size: clamp(0.7rem, 0.82vw, 0.76rem) !important;
+    font-size: clamp(0.68rem, 0.78vw, 0.74rem) !important;
     line-height: 1.32 !important;
-    margin: 0 0 clamp(0.3rem, 0.7vh, 0.5rem) 0 !important;
+    margin: 0 0 clamp(0.25rem, 0.6vh, 0.45rem) 0 !important;
+    display: block !important;
+    width: 100% !important;
+    clear: both !important;
   }
 
   .stage-origin .spotlight-stats-row {
-    padding: clamp(0.3rem, 0.6vh, 0.45rem) 0.35rem !important;
+    padding: clamp(0.25rem, 0.5vh, 0.38rem) 0.35rem !important;
     gap: 0.35rem !important;
   }
 
