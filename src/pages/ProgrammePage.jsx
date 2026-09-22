@@ -21,8 +21,11 @@ import NextStepsAndApplicationSection from '../components/postlogin/NextStepsAnd
 import AcademicSummaryModal from '../components/postlogin/AcademicSummaryModal';
 import Footer from '../components/Footer';
 import { getStudentDisplayName } from '../utils/userUtils';
+import { APPLICATION_CONFIG } from '../data/applicationConfig';
 
-const APPLICATION_PORTAL_URL = import.meta.env.VITE_APPLICATION_PORTAL_URL;
+const APPLICATION_PORTAL_URL = APPLICATION_CONFIG?.isApplicationOpen
+  ? APPLICATION_CONFIG.standbyRoute
+  : import.meta.env.VITE_APPLICATION_PORTAL_URL;
 
 export default function ProgrammePage() {
   const { user, signOut } = useAuth();
@@ -76,21 +79,14 @@ export default function ProgrammePage() {
                 </div>
               )}
 
-              {APPLICATION_PORTAL_URL ? (
-                <a
-                  href={APPLICATION_PORTAL_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary programme-apply-btn"
-                >
-                  <span>Apply Now</span>
-                  <ArrowRightIcon size={16} />
-                </a>
-              ) : (
-                <span className="programme-apply-placeholder" title="Applications opening shortly for January 2027">
-                  Applications Opening Soon
-                </span>
-              )}
+              <button
+                type="button"
+                className="btn btn-primary programme-apply-btn"
+                onClick={() => navigate('/apply')}
+              >
+                <span>Apply Now</span>
+                <ArrowRightIcon size={16} />
+              </button>
 
               <button
                 type="button"
@@ -111,7 +107,11 @@ export default function ProgrammePage() {
       {/* ============================================================
           1. STUDENT DASHBOARD / WELCOME & ACTION HUB
           ============================================================ */}
-      <StudentDashboardHeader user={user} data={msitData.dashboard} />
+      <StudentDashboardHeader 
+        user={user} 
+        data={msitData.dashboard} 
+        onApply={() => navigate('/apply')} 
+      />
 
       {/* ============================================================
           2. PROGRAMME OVERVIEW (Specifications & Academic Anchor)

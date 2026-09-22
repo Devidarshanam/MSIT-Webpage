@@ -157,10 +157,18 @@ export default function StudentGatewayPage() {
                     </p>
                   </div>
 
-                  <div className="simple-card-footer">
+                  <div className="simple-card-footer" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                     <button
                       type="button"
                       className="btn btn-primary card-arrow-btn full-width"
+                      onClick={() => navigate('/apply')}
+                    >
+                      <span>Apply Now (January 2027)</span>
+                      <ArrowRightIcon size={18} />
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary card-arrow-btn full-width"
                       onClick={() => navigate('/programme')}
                     >
                       <span>Open Programme Dashboard</span>

@@ -898,22 +898,22 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 {/* 3. Action CTA Banner */}
                 <div className="admissions-cta-banner">
                   <div className="cta-banner-info">
-                    <span className="cta-status-badge">
-                      Admissions Opening Soon • Academic Year 2027
+                    <span className="cta-status-badge" style={{ background: '#ecfdf5', color: '#065f46', borderColor: '#a7f3d0' }}>
+                      Admissions Open Now • Academic Year 2027
                     </span>
                     <h3 className="cta-banner-heading">
                       Begin Your Master's in Computing
                     </h3>
                     <p className="cta-banner-desc">
-                      Sign in now to register your interest, prepare your application, and reserve your studio seat early.
+                      Applications are now live. Submit your details online to reserve your studio seat early.
                     </p>
                   </div>
                   <button 
                     type="button" 
                     className="btn btn-primary admissions-big-cta"
-                    onClick={onGoToSignIn}
+                    onClick={() => navigate('/apply')}
                   >
-                    <span>Student Portal / Apply Now ➔</span>
+                    <span>Apply Now — Online Application Portal ➔</span>
                   </button>
                 </div>
               </div>

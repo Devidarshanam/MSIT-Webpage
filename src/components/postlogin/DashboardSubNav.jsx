@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { num: '07', label: 'Practicum', href: '#practicum', desc: 'Industry project sprints & production systems' },
   { num: '08', label: 'Campus Life', href: '#campus', desc: 'IIIT-H campus ecosystem, labs & student facilities' },
   { num: '09', label: 'Documents & FAQ', href: '#documents-faq', desc: 'Circular downloads, FAQs & helpdesk channels' },
-  { num: '10', label: 'Application Status', href: '#next-steps', desc: 'Application status, preparation checklist & admissions support' },
+  { num: '10', label: 'Apply Now', href: '#next-steps', desc: 'Online application portal & admissions submission' },
 ];
 
 export default function DashboardSubNav() {

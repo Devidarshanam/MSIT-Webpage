@@ -26,9 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-set GIT_EDITOR=true
-git rebase --continue >nul 2>&1
-git commit -m "fix: update FAQ subtitles with positive and welcoming tone"
+git commit -m "feat: activate live Apply Now buttons and link application portal across MSIT webpage"
 
 echo.
 echo Pulling latest remote changes with rebase...

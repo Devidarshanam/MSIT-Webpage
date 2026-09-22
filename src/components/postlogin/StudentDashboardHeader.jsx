@@ -10,7 +10,7 @@ import {
 } from '../Icons';
 import { getStudentDisplayName } from '../../utils/userUtils';
 
-export default function StudentDashboardHeader({ user, data }) {
+export default function StudentDashboardHeader({ user, data, onApply }) {
   // Extract real student name cleanly
   const displayName = getStudentDisplayName(user);
 
@@ -55,9 +55,9 @@ export default function StudentDashboardHeader({ user, data }) {
               <button 
                 type="button" 
                 className="btn btn-primary"
-                onClick={() => scrollToSection('next-steps')}
+                onClick={() => onApply ? onApply() : scrollToSection('next-steps')}
               >
-                <span>View Application Timeline</span>
+                <span>Apply Now (Jan 2027)</span>
                 <ArrowRightIcon size={16} />
               </button>
               <button 
@@ -75,8 +75,8 @@ export default function StudentDashboardHeader({ user, data }) {
           <div className="application-status-card">
             <div className="status-card-header">
               <span className="status-kicker">APPLICATION STATUS</span>
-              <span className="status-beacon-pill">
-                <span className="beacon-dot"></span>
+              <span className="status-beacon-pill" style={{ background: '#ecfdf5', color: '#065f46', borderColor: '#a7f3d0' }}>
+                <span className="beacon-dot" style={{ background: '#10b981' }}></span>
                 {data.statusBadge}
               </span>
             </div>
@@ -84,15 +84,24 @@ export default function StudentDashboardHeader({ user, data }) {
             <div className="status-card-body">
               <h3>Next Cohort: January 2027</h3>
               <p>
-                Official admission circular, online registration portal, and entrance syllabus are scheduled for announcement shortly.
+                Applications for the January 2027 intake are now live. Submit your details online to register for the upcoming cohort.
               </p>
-              <div className="status-note-box">
-                <ClockIcon size={16} />
-                <span>Notification alert active for <strong>{user?.email || 'Registered Candidate'}</strong></span>
+              <div className="status-note-box" style={{ background: '#ecfdf5', borderColor: '#a7f3d0', color: '#065f46' }}>
+                <CheckCircleIcon size={16} />
+                <span>Online application portal is now active</span>
               </div>
             </div>
 
-            <div className="status-card-footer">
+            <div className="status-card-footer" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              <button 
+                type="button" 
+                className="btn btn-primary btn-sm full-width"
+                style={{ justifyContent: 'center', width: '100%' }}
+                onClick={() => onApply ? onApply() : scrollToSection('next-steps')}
+              >
+                <span>Apply Now</span>
+                <ArrowRightIcon size={14} />
+              </button>
               <button 
                 type="button" 
                 className="status-jump-btn"

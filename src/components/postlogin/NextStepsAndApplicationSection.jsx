@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRightIcon, CheckCircleIcon, ClockIcon, MailIcon, BuildingIcon } from '../Icons';
 
 export default function NextStepsAndApplicationSection({ data, user, applicationPortalUrl }) {
+  const navigate = useNavigate();
   return (
     <section className="section next-steps-section" id="next-steps">
       <div className="container">
@@ -24,15 +26,14 @@ export default function NextStepsAndApplicationSection({ data, user, application
             {applicationPortalUrl ? (
               <div className="portal-active-view">
                 <p>Applications for the upcoming cohort are now officially open.</p>
-                <a
-                  href={applicationPortalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => navigate('/apply')}
                   className="btn btn-primary portal-cta-btn"
                 >
-                  <span>Launch Official Application Portal</span>
+                  <span>Apply Now — Online Application Form</span>
                   <ArrowRightIcon size={16} />
-                </a>
+                </button>
               </div>
             ) : (
               <div className="portal-opening-soon-view">

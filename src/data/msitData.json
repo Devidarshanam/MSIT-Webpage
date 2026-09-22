@@ -3,7 +3,7 @@
     "programmeName": "Master of Science in Information Technology (MSIT)",
     "institution": "IIIT Hyderabad Consortium",
     "targetCohort": "January 2027",
-    "applicationStatus": "Opening Soon",
+    "applicationStatus": "Open Now",
     "contactEmail": "query@msit.ac.in",
     "contactPhone": "+91 (40) 6653 1000",
     "campusAddress": "IIIT Hyderabad Campus, Gachibowli, Hyderabad, Telangana 500 032, India"
@@ -13,7 +13,7 @@
     "welcomeTitle": "MSIT Programme Information",
     "welcomeSubtitle": "Explore official programme specifications, academic learning structure, admissions criteria, and application preparation for the upcoming cohort.",
     "cohortBadge": "Target Cohort: January 2027",
-    "statusBadge": "Applications Opening Soon",
+    "statusBadge": "Applications Open Now",
     "nextActionTitle": "Recommended Next Action",
     "nextActionDesc": "Review the curriculum domains and ensure your academic transcripts and identification records are organized for the upcoming application launch.",
     "actionChecklist": [
@@ -513,8 +513,8 @@
     "sectionId": "next-steps",
     "kicker": "Application Status",
     "heading": "Application Status & Next Steps",
-    "description": "What you need to know and how to prepare while official admissions are scheduled to open.",
-    "currentStatus": "Applications Opening Soon",
+    "description": "Applications are now live for the upcoming intake. Complete your submission early to reserve your studio seat.",
+    "currentStatus": "Applications Open Now",
     "cohort": "January 2027 Intake",
     "adviceHeader": "What Should You Do Now?",
     "steps": [

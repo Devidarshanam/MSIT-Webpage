@@ -6,6 +6,7 @@ import KnowAboutMSITPage from './components/KnowAboutMSITPage';
 import ProgrammePage from './pages/ProgrammePage';
 import CurriculumPillarPage from './pages/CurriculumPillarPage';
 import FAQPage from './pages/FAQPage';
+import ApplicationPortalPage from './pages/ApplicationPortalPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function KnowAboutMSITRoute() {
@@ -40,6 +41,9 @@ export default function App() {
           <Route path="/learning-to-do" element={<Navigate to="/curriculum/learning-to-do" replace />} />
           {/* Dedicated FAQ Page */}
           <Route path="/faq" element={<FAQPage />} />
+          {/* Standby Application Portal Template */}
+          <Route path="/apply" element={<ApplicationPortalPage />} />
+          <Route path="/application-template" element={<Navigate to="/apply" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
