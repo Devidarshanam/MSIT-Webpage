@@ -28,7 +28,7 @@ echo.
 echo Committing changes...
 set GIT_EDITOR=true
 git rebase --continue >nul 2>&1
-git commit -m "feat: update FAQ section with top 13 prospective student questions"
+git commit -m "feat: create dedicated FAQ page and streamline main programme page"
 
 echo.
 echo Pulling latest remote changes with rebase...

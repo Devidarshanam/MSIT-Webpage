@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
-import { DownloadIcon, BookOpenIcon, ClockIcon, CheckCircleIcon, ArrowRightIcon } from '../Icons';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { DownloadIcon, BookOpenIcon, ClockIcon, CheckCircleIcon, ArrowRightIcon, HelpCircleIcon } from '../Icons';
 
 export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenSummaryModal }) {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [openIndex, setOpenIndex] = useState(0);
-
-  const hasCategories = Boolean(faqData?.categories && faqData.categories.length > 1);
-  const filteredQuestions = (!hasCategories || activeCategory === 'All')
-    ? (faqData?.questions || [])
-    : (faqData?.questions || []).filter(q => q.category === activeCategory);
-
-  const toggleAccordion = (idx) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
+  const navigate = useNavigate();
 
   return (
     <section className="section documents-faq-section" id="documents-faq">
@@ -58,67 +49,37 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
           ))}
         </div>
 
-        {/* 2. FAQ Accordion */}
-        <div className="faq-wrapper-card">
-          <div className="faq-inner-header">
-            <h3>Frequently Asked Questions</h3>
-            <p>Direct, practical answers to common doubts and questions prospective students have before applying to MSIT.</p>
-          </div>
-
-          {/* Category Filter Chips (Rendered only if multiple categories exist) */}
-          {hasCategories && (
-            <div className="faq-filter-chips" role="tablist" aria-label="FAQ categories">
-              {faqData.categories.map((cat, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  className={`faq-chip ${activeCategory === cat ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveCategory(cat);
-                    setOpenIndex(0);
-                  }}
-                  role="tab"
-                  aria-selected={activeCategory === cat}
-                >
-                  {cat}
-                </button>
-              ))}
+        {/* 2. FAQ Gateway Card (Replaces heavy in-page accordion) */}
+        <div className="faq-gateway-card">
+          <div className="faq-gateway-content">
+            <div className="faq-gateway-badge">
+              <HelpCircleIcon size={16} />
+              <span>Prospective Student Q&A</span>
             </div>
-          )}
-
-          {/* Collapsible Accordion List */}
-          <div className="accordion-list">
-            {(filteredQuestions || []).map((item, idx) => {
-              const isOpen = openIndex === idx;
-              const panelId = `postlogin-faq-panel-${idx}`;
-              const triggerId = `postlogin-faq-trigger-${idx}`;
-
-              return (
-                <div key={idx} className={`accordion-item ${isOpen ? 'open' : ''}`}>
-                  <button
-                    id={triggerId}
-                    className="accordion-trigger"
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={panelId}
-                    onClick={() => toggleAccordion(idx)}
-                  >
-                    <span>{item.question}</span>
-                    <span className="accordion-icon" aria-hidden="true">
-                      {isOpen ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div
-                    id={panelId}
-                    className="accordion-panel"
-                    role="region"
-                    aria-labelledby={triggerId}
-                  >
-                    <p>{item.answer}</p>
-                  </div>
-                </div>
-              );
-            })}
+            <h3>Frequently Asked Questions</h3>
+            <p>
+              Got questions before applying? We have compiled direct, practical answers to the 13 most common doubts asked by prospective candidates — covering non-CS branch transition, daily mentorship in studios, assessments and scoring criteria, laptop requirements, and connecting with alumni.
+            </p>
+            <div className="faq-gateway-tags">
+              <span className="faq-tag-chip">Non-CS Background</span>
+              <span className="faq-tag-chip">Daily Mentorship</span>
+              <span className="faq-tag-chip">Assessments & Pass Criteria</span>
+              <span className="faq-tag-chip">Studio vs Lectures</span>
+              <span className="faq-tag-chip">Alumni & LinkedIn</span>
+              <span className="faq-tag-chip">+8 More</span>
+            </div>
+          </div>
+          <div className="faq-gateway-action-col">
+            <button
+              type="button"
+              className="btn btn-primary faq-explore-cta-btn"
+              onClick={() => navigate('/faq')}
+              id="view-faqs-page-btn"
+            >
+              <span>Explore All 13 FAQs</span>
+              <ArrowRightIcon size={18} />
+            </button>
+            <span className="faq-gateway-hint">Opens dedicated FAQ page with instant search</span>
           </div>
         </div>
       </div>
