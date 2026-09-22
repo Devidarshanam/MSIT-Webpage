@@ -300,6 +300,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               {/* Right Column: Hero Portrait Spotlight Card */}
               <div className="origin-portrait-spotlight">
                 <div className="spotlight-card">
+                  <div className="spotlight-img-frame">
+                    <img 
+                      src="/assets/rajreddy.jpg" 
+                      alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
+                      className="spotlight-portrait-img"
+                    />
+                  </div>
                   <div className="spotlight-meta">
                     <div className="spotlight-badge-row">
                       <span className="spotlight-badge">Academic Visionary</span>
@@ -1173,31 +1180,13 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               <div className={`fullscreen-slide-stage stage-${slideItem.id}`}>
                 {/* Header Meta Row */}
                 {slideItem.id !== 'ainative' && (
-                  <div className={`slide-header-meta ${slideItem.id === 'origin' ? 'slide-header-meta-origin' : ''}`}>
+                  <div className="slide-header-meta">
                     <div className="slide-meta-top-row">
                       <span className="fullscreen-category-badge">{slideItem.category}</span>
                       <span className="mobile-desktop-hint-pill">💻 For detailed view & full info, use desktop</span>
                     </div>
-                    {slideItem.id === 'origin' ? (
-                      <div className="origin-header-content-wrapper">
-                        <div className="origin-header-title-portrait-row">
-                          <h1 className="fullscreen-slide-title origin-header-title">{slideItem.title}</h1>
-                          <div className="origin-header-portrait-frame">
-                            <img 
-                              src="/assets/rajreddy.jpg" 
-                              alt="Prof. Raj Reddy — Turing Award Laureate & MSIT Founding Chair"
-                              className="origin-header-portrait-img"
-                            />
-                          </div>
-                        </div>
-                        <p className="fullscreen-slide-lead origin-header-lead">{slideItem.lead}</p>
-                      </div>
-                    ) : (
-                      <>
-                        <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
-                        <p className="fullscreen-slide-lead">{slideItem.lead}</p>
-                      </>
-                    )}
+                    <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
+                    <p className="fullscreen-slide-lead">{slideItem.lead}</p>
                   </div>
                 )}
 
