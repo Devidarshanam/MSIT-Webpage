@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabase';
+import { isAuthorizedAdminEmail } from '../context/AdminAuthContext';
 import { MailIcon, LoaderIcon, ArrowRightIcon, ShieldCheckIcon, GraduationCapIcon } from './Icons';
 
 const RESEND_COOLDOWN_SECONDS = 60;
@@ -48,7 +49,14 @@ export default function AuthFlow() {
       }
 
       const timer = setTimeout(() => {
-        navigate('/programme');
+        const authIntent = localStorage.getItem('msit_auth_intent') || sessionStorage.getItem('msit_auth_intent');
+        if (authIntent === 'admin' || isAuthorizedAdminEmail(user.email)) {
+          localStorage.removeItem('msit_auth_intent');
+          sessionStorage.removeItem('msit_auth_intent');
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/programme');
+        }
       }, 1200);
       return () => clearTimeout(timer);
     }

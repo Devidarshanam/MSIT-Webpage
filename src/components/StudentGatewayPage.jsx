@@ -6,6 +6,7 @@ import {
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon
 } from './Icons';
+import { isAuthorizedAdminEmail } from '../context/AdminAuthContext';
 import KnowAboutMSITPage from './KnowAboutMSITPage';
 
 export default function StudentGatewayPage() {
@@ -18,9 +19,18 @@ export default function StudentGatewayPage() {
   // Exploration modal for 1-page summary
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
-  // If user is already authenticated and lands on gateway, smoothly redirect to programme dashboard
+  // If user is already authenticated and lands on gateway, route based on role & intent
   React.useEffect(() => {
     if (user && view === 'gateway') {
+      const authIntent = localStorage.getItem('msit_auth_intent') || sessionStorage.getItem('msit_auth_intent');
+      const isAdmin = user.email && isAuthorizedAdminEmail(user.email);
+
+      if (authIntent === 'admin' || isAdmin) {
+        localStorage.removeItem('msit_auth_intent');
+        sessionStorage.removeItem('msit_auth_intent');
+        navigate('/admin/dashboard', { replace: true });
+        return;
+      }
       navigate('/programme', { replace: true });
     }
   }, [user, view, navigate]);

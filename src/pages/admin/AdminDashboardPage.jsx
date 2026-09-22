@@ -1,0 +1,892 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AdminTopNav from '../../components/admin/AdminTopNav';
+import AdminSidebar from '../../components/admin/AdminSidebar';
+import { StatusBadge, TestDataBadge } from '../../components/admin/StatusBadge';
+import ApplicationDetailModal from '../../components/admin/ApplicationDetailModal';
+import { 
+  fetchAllApplications, 
+  calculateDashboardMetrics, 
+  resetMockData 
+} from '../../services/adminService';
+import { useAdminAuth } from '../../context/AdminAuthContext';
+import { 
+  BuildingIcon, 
+  UsersIcon, 
+  BookOpenIcon, 
+  CheckCircleIcon, 
+  ClockIcon, 
+  ArrowRightIcon, 
+  AwardIcon, 
+  DownloadIcon, 
+  TerminalIcon, 
+  ShieldCheckIcon,
+  HelpCircleIcon
+} from '../../components/Icons';
+
+export default function AdminDashboardPage({ activeTab: initialTab = 'overview' }) {
+  const navigate = useNavigate();
+  const { adminSignOut, isDevAdmin, testAccountEmail } = useAdminAuth();
+
+  const [activeTab, setActiveTab] = useState(initialTab);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [applications, setApplications] = useState([]);
+  const [isSupabaseLive, setIsSupabaseLive] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Selected application for detail modal
+  const [selectedApp, setSelectedApp] = useState(null);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
+
+  // Filters & Search State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState('ALL');
+  const [docFilter, setDocFilter] = useState('ALL');
+  const [sortBy, setSortBy] = useState('newest');
+
+  // Copy SQL state
+  const [sqlCopied, setSqlCopied] = useState(false);
+
+  // Load applications
+  const loadApplications = async () => {
+    setLoading(true);
+    try {
+      const res = await fetchAllApplications();
+      setApplications(res.applications);
+      setIsSupabaseLive(res.isSupabaseLive);
+    } catch (err) {
+      console.error('Failed to load applications:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadApplications();
+  }, []);
+
+  // Calculate Metrics dynamically
+  const metrics = useMemo(() => calculateDashboardMetrics(applications), [applications]);
+
+  // Filtered and Sorted Applications
+  const filteredApplications = useMemo(() => {
+    return applications
+      .filter((app) => {
+        // Search query
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase().trim();
+          const matchesName = (app.full_name || '').toLowerCase().includes(q);
+          const matchesEmail = (app.email || '').toLowerCase().includes(q);
+          const matchesId = (app.application_id || '').toLowerCase().includes(q);
+          if (!matchesName && !matchesEmail && !matchesId) return false;
+        }
+
+        // Application status filter
+        if (statusFilter !== 'ALL') {
+          if (app.status !== statusFilter) return false;
+        }
+
+        // Document status filter
+        if (docFilter !== 'ALL') {
+          if (app.document_status !== docFilter) return false;
+        }
+
+        return true;
+      })
+      .sort((a, b) => {
+        if (sortBy === 'newest') {
+          return new Date(b.submitted_at) - new Date(a.submitted_at);
+        }
+        if (sortBy === 'oldest') {
+          return new Date(a.submitted_at) - new Date(b.submitted_at);
+        }
+        if (sortBy === 'name') {
+          return (a.full_name || '').localeCompare(b.full_name || '');
+        }
+        if (sortBy === 'cgpa') {
+          const cgpaA = parseFloat(a.cgpa) || 0;
+          const cgpaB = parseFloat(b.cgpa) || 0;
+          return cgpaB - cgpaA;
+        }
+        return 0;
+      });
+  }, [applications, searchQuery, statusFilter, docFilter, sortBy]);
+
+  const handleOpenDetail = (app) => {
+    setSelectedApp(app);
+    setDetailModalOpen(true);
+  };
+
+  const handleApplicationUpdated = (updatedApp) => {
+    setApplications(prev => prev.map(a => a.application_id === updatedApp.application_id ? updatedApp : a));
+    setSelectedApp(updatedApp);
+  };
+
+  const handleCardClick = (status) => {
+    setStatusFilter(status);
+    setActiveTab('applications');
+  };
+
+  const handleCopySql = () => {
+    const sqlContent = `-- Run this in Supabase SQL Editor\nCREATE TABLE IF NOT EXISTS public.admin_users (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    auth_user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,\n    email TEXT UNIQUE NOT NULL,\n    full_name TEXT,\n    role TEXT NOT NULL DEFAULT 'admin',\n    created_at TIMESTAMPTZ DEFAULT TIMEZONE('utc'::TEXT, NOW()) NOT NULL\n);\n\nCREATE TABLE IF NOT EXISTS public.applications (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    application_id TEXT UNIQUE NOT NULL,\n    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,\n    email TEXT NOT NULL,\n    full_name TEXT NOT NULL,\n    phone TEXT,\n    dob DATE,\n    address TEXT,\n    parent_relationship TEXT DEFAULT 'Father',\n    parent_name TEXT,\n    alt_phone TEXT,\n    ug_degree TEXT,\n    department TEXT,\n    cgpa TEXT,\n    passing_year TEXT,\n    has_experience TEXT DEFAULT 'No',\n    experience_details TEXT,\n    purpose_to_join TEXT,\n    status TEXT NOT NULL DEFAULT 'New',\n    document_status TEXT NOT NULL DEFAULT 'Pending Review',\n    cohort TEXT DEFAULT 'January 2027 Intake',\n    decision_reason TEXT,\n    decided_by TEXT,\n    decided_at TIMESTAMPTZ,\n    submitted_at TIMESTAMPTZ DEFAULT TIMEZONE('utc'::TEXT, NOW()) NOT NULL,\n    updated_at TIMESTAMPTZ DEFAULT TIMEZONE('utc'::TEXT, NOW()) NOT NULL\n);`;
+    navigator.clipboard.writeText(sqlContent);
+    setSqlCopied(true);
+    setTimeout(() => setSqlCopied(false), 3000);
+  };
+
+  const handleResetData = () => {
+    if (window.confirm('Reset all demo/test applications back to initial sample state?')) {
+      resetMockData();
+      loadApplications();
+    }
+  };
+
+  return (
+    <div className="admin-layout">
+      {/* Top Navigation */}
+      <AdminTopNav
+        isSupabaseLive={isSupabaseLive}
+        onToggleSidebar={() => setSidebarOpen(prev => !prev)}
+      />
+
+      <div className="admin-body-container">
+        {/* Left Sidebar */}
+        <AdminSidebar
+          activeTab={activeTab}
+          onSelectTab={setActiveTab}
+          metrics={metrics}
+          isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          onSignOut={adminSignOut}
+        />
+
+        {/* Main Content Area */}
+        <main className="admin-main-content">
+
+          {/* ========================================================= */}
+          {/* TAB 1: OVERVIEW / DASHBOARD                               */}
+          {/* ========================================================= */}
+          {activeTab === 'overview' && (
+            <div className="admin-tab-pane">
+              
+              {/* Hero Banner */}
+              <div className="admin-hero-banner">
+                <div className="banner-text">
+                  <span className="banner-kicker">ADMISSIONS CONSOLE</span>
+                  <h2>Admissions Overview & Application Metrics</h2>
+                  <p>
+                    Track candidate submissions, review documents, and manage admissions decisions for the <strong>January 2027 Intake</strong>.
+                  </p>
+                </div>
+                <div className="banner-actions">
+                  <button
+                    type="button"
+                    className="btn btn-primary btn-sm"
+                    onClick={() => {
+                      setStatusFilter('New');
+                      setActiveTab('applications');
+                    }}
+                  >
+                    Review New Submissions ({metrics.newCount})
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                    onClick={loadApplications}
+                  >
+                    Refresh Data
+                  </button>
+                </div>
+              </div>
+
+              {/* 6 Core Metric Cards */}
+              <div className="admin-metrics-grid">
+                
+                {/* 1. Total Applications */}
+                <div 
+                  className="metric-card clickable"
+                  onClick={() => handleCardClick('ALL')}
+                  title="Click to view all applications"
+                >
+                  <div className="metric-header">
+                    <span className="metric-label">Total Applications</span>
+                    <span className="metric-icon-wrap primary">
+                      <UsersIcon size={20} />
+                    </span>
+                  </div>
+                  <strong className="metric-value">{metrics.total}</strong>
+                  <span className="metric-sub">Total candidate submissions</span>
+                </div>
+
+                {/* 2. New / Pending */}
+                <div 
+                  className="metric-card clickable border-info"
+                  onClick={() => handleCardClick('New')}
+                  title="Click to filter New applications"
+                >
+                  <div className="metric-header">
+                    <span className="metric-label">New Submissions</span>
+                    <span className="metric-icon-wrap info">
+                      <ClockIcon size={20} />
+                    </span>
+                  </div>
+                  <strong className="metric-value text-info">{metrics.newCount}</strong>
+                  <span className="metric-sub">Awaiting initial evaluation</span>
+                </div>
+
+                {/* 3. Under Review */}
+                <div 
+                  className="metric-card clickable border-warning"
+                  onClick={() => handleCardClick('Under Review')}
+                  title="Click to filter applications Under Review"
+                >
+                  <div className="metric-header">
+                    <span className="metric-label">Under Review</span>
+                    <span className="metric-icon-wrap warning">
+                      <BookOpenIcon size={20} />
+                    </span>
+                  </div>
+                  <strong className="metric-value text-warning">{metrics.underReview}</strong>
+                  <span className="metric-sub">Active committee review</span>
+                </div>
+
+                {/* 4. Documents Review Required */}
+                <div 
+                  className="metric-card clickable border-purple"
+                  onClick={() => {
+                    setDocFilter('Pending Review');
+                    setActiveTab('documents');
+                  }}
+                  title="Click to view Document Queue"
+                >
+                  <div className="metric-header">
+                    <span className="metric-label">Document Review</span>
+                    <span className="metric-icon-wrap purple">
+                      <BookOpenIcon size={20} />
+                    </span>
+                  </div>
+                  <strong className="metric-value text-purple">{metrics.documentsPending}</strong>
+                  <span className="metric-sub">Pending verification / corrections</span>
+                </div>
+
+                {/* 5. Accepted Applications */}
+                <div 
+                  className="metric-card clickable border-success"
+                  onClick={() => handleCardClick('Accepted')}
+                  title="Click to filter Accepted applications"
+                >
+                  <div className="metric-header">
+                    <span className="metric-label">Accepted</span>
+                    <span className="metric-icon-wrap success">
+                      <CheckCircleIcon size={20} />
+                    </span>
+                  </div>
+                  <strong className="metric-value text-success">{metrics.accepted}</strong>
+                  <span className="metric-sub">Offers confirmed by committee</span>
+                </div>
+
+                {/* 6. Declined Applications */}
+                <div 
+                  className="metric-card clickable border-danger"
+                  onClick={() => handleCardClick('Declined')}
+                  title="Click to filter Declined applications"
+                >
+                  <div className="metric-header">
+                    <span className="metric-label">Declined</span>
+                    <span className="metric-icon-wrap danger">
+                      <ShieldCheckIcon size={20} />
+                    </span>
+                  </div>
+                  <strong className="metric-value text-danger">{metrics.declined}</strong>
+                  <span className="metric-sub">With documented rejection reasons</span>
+                </div>
+
+              </div>
+
+              {/* Quick Jump & Pending Alerts */}
+              <div className="overview-subsections-grid">
+                
+                {/* Recent Submissions */}
+                <div className="admin-content-card">
+                  <div className="content-card-header">
+                    <h3>Recent Candidate Submissions</h3>
+                    <button
+                      type="button"
+                      className="link-action-btn"
+                      onClick={() => setActiveTab('applications')}
+                    >
+                      <span>View All ({applications.length})</span>
+                      <ArrowRightIcon size={14} />
+                    </button>
+                  </div>
+
+                  <div className="table-wrapper">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Applicant Name</th>
+                          <th>Application ID</th>
+                          <th>UG Degree / CGPA</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {applications.slice(0, 5).map(app => (
+                          <tr key={app.id}>
+                            <td>
+                              <div className="applicant-cell">
+                                <strong>{app.full_name}</strong>
+                                <span className="cell-sub">{app.email}</span>
+                                {app.isMock && <TestDataBadge />}
+                              </div>
+                            </td>
+                            <td><code>{app.application_id}</code></td>
+                            <td>
+                              <span>{app.ug_degree}</span>
+                              <span className="cell-sub font-bold">{app.cgpa}</span>
+                            </td>
+                            <td>
+                              <StatusBadge status={app.status} type="application" />
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                                onClick={() => handleOpenDetail(app)}
+                              >
+                                View Details
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Intake Status & Governance Card */}
+                <div className="admin-content-card side-summary-card">
+                  <div className="content-card-header">
+                    <h3>Admissions Cycle Information</h3>
+                  </div>
+                  
+                  <div className="cycle-info-list">
+                    <div className="cycle-info-item">
+                      <span className="info-label">Active Cohort:</span>
+                      <strong>January 2027 Intake</strong>
+                    </div>
+                    <div className="cycle-info-item">
+                      <span className="info-label">Portal Status:</span>
+                      <span className="text-success font-bold">Applications Live</span>
+                    </div>
+                    <div className="cycle-info-item">
+                      <span className="info-label">Acceptance Rate:</span>
+                      <strong>
+                        {metrics.total > 0 ? `${Math.round((metrics.accepted / metrics.total) * 100)}%` : '0%'}
+                      </strong>
+                    </div>
+                    <div className="cycle-info-item">
+                      <span className="info-label">Backend Database:</span>
+                      <span>{isSupabaseLive ? 'Supabase PostgreSQL (Connected)' : 'Local Storage Fallback'}</span>
+                    </div>
+                  </div>
+
+                  <div className="workflow-reminder-box">
+                    <strong>Standard Workflow (Pending Confirmation):</strong>
+                    <p className="workflow-steps">
+                      New ➔ Under Review ➔ Documents Pending ➔ Documents Verified ➔ Accepted / Declined
+                    </p>
+                    <span className="clarification-tag">
+                      PENDING — REQUIRES CONFIRMATION: Business rules, email templates, and acceptance criteria are subject to final committee approval.
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAB 2: APPLICATIONS (TABLE, SEARCH & FILTERS)             */}
+          {/* ========================================================= */}
+          {activeTab === 'applications' && (
+            <div className="admin-tab-pane">
+              
+              <div className="pane-header-row">
+                <div>
+                  <h2>Application Management</h2>
+                  <p className="pane-sub">
+                    Filter, search, review, and update statuses of all submitted candidate applications.
+                  </p>
+                </div>
+                <div className="pane-header-actions">
+                  <span className="count-pill">{filteredApplications.length} of {applications.length} Applications</span>
+                </div>
+              </div>
+
+              {/* Search & Filter Controls Bar */}
+              <div className="filter-controls-card">
+                
+                {/* Search Input */}
+                <div className="search-bar-group">
+                  <input
+                    type="text"
+                    className="form-input-control search-input"
+                    placeholder="Search by candidate name, email, or Application ID..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                  />
+                  {searchQuery && (
+                    <button
+                      type="button"
+                      className="clear-search-btn"
+                      onClick={() => setSearchQuery('')}
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* Filters Row */}
+                <div className="filters-row">
+                  
+                  {/* Status filter */}
+                  <div className="filter-item">
+                    <label htmlFor="statusFilterSelect">Application Status:</label>
+                    <select
+                      id="statusFilterSelect"
+                      className="form-select-control"
+                      value={statusFilter}
+                      onChange={e => setStatusFilter(e.target.value)}
+                    >
+                      <option value="ALL">All Statuses</option>
+                      <option value="New">New</option>
+                      <option value="Under Review">Under Review</option>
+                      <option value="Documents Pending">Documents Pending</option>
+                      <option value="Documents Verified">Documents Verified</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Declined">Declined</option>
+                    </select>
+                  </div>
+
+                  {/* Document filter */}
+                  <div className="filter-item">
+                    <label htmlFor="docFilterSelect">Document Status:</label>
+                    <select
+                      id="docFilterSelect"
+                      className="form-select-control"
+                      value={docFilter}
+                      onChange={e => setDocFilter(e.target.value)}
+                    >
+                      <option value="ALL">All Document States</option>
+                      <option value="Pending Review">Pending Review</option>
+                      <option value="Partially Verified">Partially Verified</option>
+                      <option value="Verified">Verified</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
+                  </div>
+
+                  {/* Sort By */}
+                  <div className="filter-item">
+                    <label htmlFor="sortBySelect">Sort By:</label>
+                    <select
+                      id="sortBySelect"
+                      className="form-select-control"
+                      value={sortBy}
+                      onChange={e => setSortBy(e.target.value)}
+                    >
+                      <option value="newest">Submission Date (Newest First)</option>
+                      <option value="oldest">Submission Date (Oldest First)</option>
+                      <option value="cgpa">CGPA (Highest First)</option>
+                      <option value="name">Applicant Name (A-Z)</option>
+                    </select>
+                  </div>
+
+                  {/* Reset Filters */}
+                  {(searchQuery || statusFilter !== 'ALL' || docFilter !== 'ALL') && (
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm reset-filter-btn"
+                      onClick={() => {
+                        setSearchQuery('');
+                        setStatusFilter('ALL');
+                        setDocFilter('ALL');
+                      }}
+                    >
+                      Clear Filters
+                    </button>
+                  )}
+
+                </div>
+              </div>
+
+              {/* Applications Data Table */}
+              <div className="admin-content-card table-card">
+                {filteredApplications.length === 0 ? (
+                  <div className="empty-state-box">
+                    <UsersIcon size={44} />
+                    <h3>No Applications Match Your Filters</h3>
+                    <p>Try clearing your search query or adjusting your status and document filters.</p>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      onClick={() => {
+                        setSearchQuery('');
+                        setStatusFilter('ALL');
+                        setDocFilter('ALL');
+                      }}
+                    >
+                      Reset All Filters
+                    </button>
+                  </div>
+                ) : (
+                  <div className="table-wrapper">
+                    <table className="admin-table">
+                      <thead>
+                        <tr>
+                          <th>Applicant Name & Email</th>
+                          <th>Application ID</th>
+                          <th>Application Date</th>
+                          <th>Academic Profile</th>
+                          <th>Application Status</th>
+                          <th>Document Status</th>
+                          <th>Last Updated</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {filteredApplications.map(app => (
+                          <tr key={app.id}>
+                            <td>
+                              <div className="applicant-cell">
+                                <strong className="applicant-name">{app.full_name}</strong>
+                                <span className="cell-sub">{app.email}</span>
+                                {app.isMock && <TestDataBadge />}
+                              </div>
+                            </td>
+                            <td>
+                              <code className="app-id-tag">{app.application_id}</code>
+                            </td>
+                            <td>
+                              <span className="date-main">
+                                {new Date(app.submitted_at).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}
+                              </span>
+                              <span className="cell-sub">
+                                {new Date(app.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                              </span>
+                            </td>
+                            <td>
+                              <div className="academic-cell">
+                                <span>{app.ug_degree}</span>
+                                <span className="cell-sub">{app.department}</span>
+                                <span className="cgpa-pill">{app.cgpa}</span>
+                              </div>
+                            </td>
+                            <td>
+                              <StatusBadge status={app.status} type="application" />
+                            </td>
+                            <td>
+                              <StatusBadge status={app.document_status} type="document" />
+                            </td>
+                            <td>
+                              <span className="cell-sub">
+                                {new Date(app.updated_at || app.submitted_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                              </span>
+                            </td>
+                            <td>
+                              <div className="row-actions">
+                                <button
+                                  type="button"
+                                  className="btn btn-primary btn-sm"
+                                  onClick={() => handleOpenDetail(app)}
+                                >
+                                  View
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAB 3: DOCUMENTS REVIEW QUEUE                             */}
+          {/* ========================================================= */}
+          {activeTab === 'documents' && (
+            <div className="admin-tab-pane">
+              <div className="pane-header-row">
+                <div>
+                  <h2>Document Verification Queue</h2>
+                  <p className="pane-sub">
+                    Direct access to verify undergraduate transcripts, degree certificates, and identification proof.
+                  </p>
+                </div>
+              </div>
+
+              <div className="admin-content-card">
+                <div className="doc-queue-banner">
+                  <p>
+                    Candidates requiring document verification: <strong>{metrics.documentsPending}</strong>.
+                    Click "Inspect & Verify" on any candidate to review their individual uploaded files.
+                  </p>
+                </div>
+
+                <div className="table-wrapper">
+                  <table className="admin-table">
+                    <thead>
+                      <tr>
+                        <th>Candidate Name</th>
+                        <th>Application ID</th>
+                        <th>Degree / Department</th>
+                        <th>Document Verification State</th>
+                        <th>Documents Attached</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {applications.map(app => {
+                        const docs = app.documents || [];
+                        const verifiedCount = docs.filter(d => d.status === 'Verified').length;
+                        return (
+                          <tr key={app.id}>
+                            <td>
+                              <div className="applicant-cell">
+                                <strong>{app.full_name}</strong>
+                                <span className="cell-sub">{app.email}</span>
+                                {app.isMock && <TestDataBadge />}
+                              </div>
+                            </td>
+                            <td><code>{app.application_id}</code></td>
+                            <td>
+                              <span>{app.ug_degree}</span>
+                              <span className="cell-sub">{app.department}</span>
+                            </td>
+                            <td>
+                              <StatusBadge status={app.document_status} type="document" />
+                            </td>
+                            <td>
+                              <span className="doc-count-pill">
+                                {verifiedCount} / {docs.length} Verified
+                              </span>
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                                onClick={() => handleOpenDetail(app)}
+                              >
+                                Inspect & Verify
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAB 4: REPORTS / ANALYTICS                                */}
+          {/* ========================================================= */}
+          {activeTab === 'reports' && (
+            <div className="admin-tab-pane">
+              <div className="pane-header-row">
+                <div>
+                  <h2>Admissions Analytics & Demographics</h2>
+                  <p className="pane-sub">
+                    High-level aggregate statistics across applicants for the January 2027 Cohort.
+                  </p>
+                </div>
+              </div>
+
+              <div className="analytics-grid">
+                
+                {/* Degree distribution */}
+                <div className="admin-content-card">
+                  <h3>Undergraduate Degree Distribution</h3>
+                  <div className="stat-bars-list">
+                    {['B.Tech / B.E.', 'MCA', 'BCA / B.Sc', 'M.Sc (CS / IT / Maths)'].map((deg) => {
+                      const count = applications.filter(a => a.ug_degree === deg).length;
+                      const pct = applications.length > 0 ? Math.round((count / applications.length) * 100) : 0;
+                      return (
+                        <div key={deg} className="stat-bar-item">
+                          <div className="bar-labels">
+                            <span>{deg}</span>
+                            <strong>{count} ({pct}%)</strong>
+                          </div>
+                          <div className="progress-track">
+                            <div className="progress-fill primary" style={{ width: `${pct}%` }} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Application Funnel Status */}
+                <div className="admin-content-card">
+                  <h3>Admissions Status Funnel</h3>
+                  <div className="stat-bars-list">
+                    {[
+                      { label: 'New Submissions', count: metrics.newCount, color: 'info' },
+                      { label: 'Under Review', count: metrics.underReview, color: 'warning' },
+                      { label: 'Accepted', count: metrics.accepted, color: 'success' },
+                      { label: 'Declined', count: metrics.declined, color: 'danger' }
+                    ].map(st => {
+                      const pct = applications.length > 0 ? Math.round((st.count / applications.length) * 100) : 0;
+                      return (
+                        <div key={st.label} className="stat-bar-item">
+                          <div className="bar-labels">
+                            <span>{st.label}</span>
+                            <strong>{st.count} ({pct}%)</strong>
+                          </div>
+                          <div className="progress-track">
+                            <div className={`progress-fill ${st.color}`} style={{ width: `${pct}%` }} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Work Experience breakdown */}
+                <div className="admin-content-card">
+                  <h3>Work Experience Breakdown</h3>
+                  <div className="experience-stat-row">
+                    <div className="exp-stat-box">
+                      <span className="exp-num">
+                        {applications.filter(a => a.has_experience === 'No').length}
+                      </span>
+                      <span className="exp-label">Fresh Graduates (Fresher)</span>
+                    </div>
+                    <div className="exp-stat-box">
+                      <span className="exp-num text-primary">
+                        {applications.filter(a => a.has_experience === 'Yes').length}
+                      </span>
+                      <span className="exp-label">Experienced Professionals</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Clarification reminder */}
+                <div className="admin-content-card">
+                  <h3>Governance & Reporting Notice</h3>
+                  <p className="sop-text" style={{ fontSize: '0.9rem' }}>
+                    Aggregate statistics are calculated live from active candidate applications.
+                  </p>
+                  <span className="clarification-tag">
+                    PENDING — REQUIRES CONFIRMATION: Official reports formatting and automated export criteria are subject to committee requirements.
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* ========================================================= */}
+          {/* TAB 5: SETTINGS & DATABASE SETUP                          */}
+          {/* ========================================================= */}
+          {activeTab === 'settings' && (
+            <div className="admin-tab-pane">
+              <div className="pane-header-row">
+                <div>
+                  <h2>Admin Settings & Supabase Setup</h2>
+                  <p className="pane-sub">
+                    Database schema helper, authorized test accounts, and development controls.
+                  </p>
+                </div>
+              </div>
+
+              <div className="settings-grid">
+                
+                {/* Supabase Schema Box */}
+                <div className="admin-content-card">
+                  <div className="content-card-header">
+                    <h3>Supabase Schema Setup Script</h3>
+                    <button
+                      type="button"
+                      className="btn btn-primary btn-sm"
+                      onClick={handleCopySql}
+                    >
+                      {sqlCopied ? 'Copied to Clipboard!' : 'Copy SQL Script'}
+                    </button>
+                  </div>
+                  <p>
+                    Run the SQL migration script in your Supabase SQL Editor to establish tables (<code>applications</code>, <code>admin_users</code>, <code>application_documents</code>, <code>application_notes</code>, <code>application_status_history</code>) with full Row Level Security.
+                  </p>
+                  <div className="code-snippet-box">
+                    <pre>
+{`-- Full script available in src/lib/adminSchema.sql
+CREATE TABLE IF NOT EXISTS public.admin_users (...);
+CREATE TABLE IF NOT EXISTS public.applications (...);
+CREATE TABLE IF NOT EXISTS public.application_documents (...);
+CREATE TABLE IF NOT EXISTS public.application_notes (...);
+CREATE TABLE IF NOT EXISTS public.application_status_history (...);`}
+                    </pre>
+                  </div>
+                </div>
+
+                {/* Dev Mode & Test Accounts */}
+                <div className="admin-content-card">
+                  <h3>Development & Testing Authorization</h3>
+                  <div className="dev-account-details">
+                    <div className="detail-line">
+                      <span>Authorization Mode:</span>
+                      <strong className="text-warning">TEMPORARY — DEV / TESTING ONLY</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>Authorized Domain:</span>
+                      <code>@getskills.io</code>
+                    </div>
+                    <div className="detail-line">
+                      <span>Primary Test Account:</span>
+                      <code>{testAccountEmail}</code>
+                    </div>
+                    <div className="detail-line">
+                      <span>Authentication Method:</span>
+                      <strong>Supabase Magic Link Only</strong>
+                    </div>
+                  </div>
+
+                  <div className="settings-actions-box">
+                    <h4>Demo Data Management</h4>
+                    <p>Reset mock test applications back to the initial sample state for demonstration:</p>
+                    <button
+                      type="button"
+                      className="btn btn-secondary btn-sm"
+                      onClick={handleResetData}
+                    >
+                      Reset Mock Test Data
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+        </main>
+      </div>
+
+      {/* Application Detail Modal */}
+      <ApplicationDetailModal
+        isOpen={detailModalOpen}
+        onClose={() => setDetailModalOpen(false)}
+        application={selectedApp}
+        onApplicationUpdated={handleApplicationUpdated}
+      />
+
+    </div>
+  );
+}

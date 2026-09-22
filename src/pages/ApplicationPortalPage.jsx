@@ -15,6 +15,7 @@ import {
   DEPARTMENT_OPTIONS, 
   PASSING_YEAR_OPTIONS 
 } from '../data/applicationConfig';
+import { submitStudentApplication } from '../services/applicationService';
 
 export default function ApplicationPortalPage() {
   const navigate = useNavigate();
@@ -119,6 +120,9 @@ export default function ApplicationPortalPage() {
 
     setFormData(submissionData);
     saveDraft(submissionData);
+    submitStudentApplication(submissionData, user).catch(err => {
+      console.warn('[MSIT] Application submit sync warning:', err);
+    });
   };
 
   const handleResetForm = () => {
