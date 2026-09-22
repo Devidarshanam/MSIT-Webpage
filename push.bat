@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: activate live Apply Now buttons and link application portal across MSIT webpage"
+git commit -m "feat: dynamically label parent mobile number based on selected relationship"
 
 echo.
 echo Pulling latest remote changes with rebase...

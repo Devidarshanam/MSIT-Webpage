@@ -85,7 +85,7 @@ export default function ApplicationPortalPage() {
     if (!formData.dob) newErrors.dob = 'Date of Birth (DOB) is required';
     if (!formData.address.trim()) newErrors.address = 'Address is required';
     if (!formData.parentName.trim()) newErrors.parentName = `${formData.parentRelationship || 'Parent'} name is required`;
-    if (!formData.altPhone.trim()) newErrors.altPhone = 'Alternative mobile number is required';
+    if (!formData.altPhone.trim()) newErrors.altPhone = `${formData.parentRelationship || 'Parent'} mobile number is required`;
     if (!formData.ugDegree) newErrors.ugDegree = 'UG Qualification degree is required';
     if (!formData.department) newErrors.department = 'Department is required';
     if (!formData.cgpa.trim()) newErrors.cgpa = 'CGPA or Percentage is required';
@@ -203,11 +203,11 @@ export default function ApplicationPortalPage() {
                 <span className="col-val">{formData.address}</span>
               </div>
               <div className="table-row">
-                <span className="col-label">Parent / Guardian:</span>
-                <span className="col-val">{formData.parentRelationship} — {formData.parentName}</span>
+                <span className="col-label">{formData.parentRelationship || 'Parent'} Name:</span>
+                <span className="col-val">{formData.parentName}</span>
               </div>
               <div className="table-row">
-                <span className="col-label">Alternative Mobile Number:</span>
+                <span className="col-label">{formData.parentRelationship || 'Parent'} Mobile Number:</span>
                 <span className="col-val">{formData.altPhone}</span>
               </div>
               <div className="table-row">
@@ -447,14 +447,16 @@ export default function ApplicationPortalPage() {
                   {errors.parentName && <span className="field-err-msg">{errors.parentName}</span>}
                 </div>
 
-                {/* Alternative Mobile Number */}
+                {/* Parent / Guardian Mobile Number */}
                 <div className="form-field-group full-row">
-                  <label htmlFor="altPhone">Alternative Mobile Number <span className="req">*</span></label>
+                  <label htmlFor="altPhone">
+                    {formData.parentRelationship || 'Parent'} Mobile Number <span className="req">*</span>
+                  </label>
                   <input
                     id="altPhone"
                     type="tel"
                     className={`form-input-control ${errors.altPhone ? 'has-error' : ''}`}
-                    placeholder="e.g. +91 98765 43210 (Parent / Guardian Mobile Number)"
+                    placeholder="e.g. +91 98765 43210"
                     value={formData.altPhone}
                     onChange={(e) => handleInputChange('altPhone', e.target.value)}
                   />
