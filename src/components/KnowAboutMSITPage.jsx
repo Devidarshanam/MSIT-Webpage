@@ -633,13 +633,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                         <span>Open to graduates from CSE, ECE, EEE, Mechanical, Civil, IT & all allied engineering streams.</span>
                       </div>
                     </div>
-                    <div className="eligibility-item">
-                      <span className="eligibility-check-badge">✓</span>
-                      <div className="eligibility-text">
-                        <strong>Final-Year Engineering Students</strong>
-                        <span>Students graduating in 2026 or 2027 can apply and secure advance admission prior to final semester results.</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -653,12 +646,12 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                     <div className="step-item">
                       <span className="step-num">01</span>
                       <strong>Online Registration</strong>
-                      <span>Fill the quick online form and upload academic records.</span>
+                      <span>Apply for the programme first by providing your details.</span>
                     </div>
                     <div className="step-item">
                       <span className="step-num">02</span>
                       <strong>Aptitude Evaluation</strong>
-                      <span>Qualify via GAT (Graduate Aptitude Test) or national GATE score.</span>
+                      <span>Qualify through GRE, GATE, or MSIT's own exam.</span>
                     </div>
                     <div className="step-item">
                       <span className="step-num">03</span>

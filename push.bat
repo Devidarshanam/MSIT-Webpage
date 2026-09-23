@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: position Play Slideshow toggle button beside Next button in slide controls"
+git commit -m "feat: update admissions slide eligibility and entrance criteria"
 
 echo.
 echo Pulling latest remote changes with rebase...
