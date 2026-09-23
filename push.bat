@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: streamline Know About MSIT to 4 slides (removed B.Tech Transformation, Campus Life, and Practicum)"
+git commit -m "feat: position Play Slideshow toggle button beside Next button in slide controls"
 
 echo.
 echo Pulling latest remote changes with rebase...

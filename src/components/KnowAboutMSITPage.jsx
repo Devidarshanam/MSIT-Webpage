@@ -9,6 +9,7 @@ import {
 export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isSlideshowActive, setIsSlideshowActive] = useState(false);
   const [timerResetKey, setTimerResetKey] = useState(0);
   const timerRef = useRef(null);
 
@@ -75,22 +76,37 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
   const totalSlides = slides.length;
 
-  // Schedules the 10-second auto-advance timeout
+  // Schedules auto-advance ONLY when slideshow mode is enabled
   const startTimer = useCallback(() => {
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
+    if (!isSlideshowActive) return;
+
     timerRef.current = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % totalSlides);
-    }, 10000);
-  }, [totalSlides]);
+    }, 8500);
+  }, [isSlideshowActive, totalSlides]);
 
-  // Handler for ANY user action or click in the slide:
-  // Pauses current timer and continues after 10 seconds if no action is rendered after that click
-  const handleUserAction = useCallback(() => {
+  // Toggle automated slideshow on / off
+  const toggleSlideshow = useCallback(() => {
+    setIsSlideshowActive((prev) => {
+      const next = !prev;
+      if (!next && timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      return next;
+    });
     setTimerResetKey((prev) => prev + 1);
-    startTimer();
-  }, [startTimer]);
+  }, []);
+
+  // Handler for user interaction: if slideshow is running, reset the timer for the active slide
+  const handleUserAction = useCallback(() => {
+    if (isSlideshowActive) {
+      setTimerResetKey((prev) => prev + 1);
+      startTimer();
+    }
+  }, [isSlideshowActive, startTimer]);
 
   const nextSlide = useCallback(() => {
     handleUserAction();
@@ -171,15 +187,19 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     touchStartY.current = null;
   };
 
-  // Slideshow timer lifecycle: on slide change, start the 10-second timer
+  // Slideshow timer lifecycle: on slide change or slideshow activation
   useEffect(() => {
-    startTimer();
+    if (isSlideshowActive) {
+      startTimer();
+    } else if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
     };
-  }, [currentSlide, startTimer]);
+  }, [currentSlide, isSlideshowActive, startTimer]);
 
   // Helper to render static, rich, non-interactive content for each slide
   const renderSlideContent = (slide) => {
@@ -778,6 +798,17 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         <div className="top-bar-right">
           <button 
             type="button" 
+            className={`top-bar-slideshow-toggle ${isSlideshowActive ? 'active' : ''}`}
+            onClick={toggleSlideshow}
+            title={isSlideshowActive ? "Pause automated slideshow" : "Start automated slideshow"}
+            aria-label={isSlideshowActive ? "Pause automated slideshow" : "Start automated slideshow"}
+          >
+            <span className="slideshow-btn-icon">{isSlideshowActive ? '⏸' : '▶'}</span>
+            <span>{isSlideshowActive ? 'Pause Slideshow' : 'Slideshow'}</span>
+          </button>
+
+          <button 
+            type="button" 
             className="btn btn-primary top-bar-signin-btn"
             onClick={onGoToSignIn}
           >
@@ -792,10 +823,12 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Visual 10-Second Auto-Advance Progress Bar */}
-        <div className="fullscreen-timer-bar" key={`${currentSlide}-${timerResetKey}`}>
-          <div className="fullscreen-timer-fill"></div>
-        </div>
+        {/* Visual Progress Bar (ONLY rendered when slideshow mode is playing) */}
+        {isSlideshowActive && (
+          <div className="fullscreen-timer-bar" key={`${currentSlide}-${timerResetKey}`}>
+            <div className="fullscreen-timer-fill"></div>
+          </div>
+        )}
 
         <div 
           className="fullscreen-slides-track"
@@ -843,6 +876,15 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                       aria-label="Next Slide"
                     >
                       Next ❯
+                    </button>
+                    <button
+                      type="button"
+                      className={`controls-nav-btn controls-slideshow-btn ${isSlideshowActive ? 'active' : ''}`}
+                      onClick={toggleSlideshow}
+                      aria-label={isSlideshowActive ? "Pause automated slideshow" : "Start automated slideshow"}
+                    >
+                      <span className="slideshow-icon">{isSlideshowActive ? '⏸' : '▶'}</span>
+                      <span>{isSlideshowActive ? 'Pause Slideshow' : 'Play Slideshow'}</span>
                     </button>
                   </div>
 

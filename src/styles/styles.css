@@ -8724,6 +8724,80 @@ p {
   flex-shrink: 0;
 }
 
+.top-bar-slideshow-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  padding: 0.38rem 0.95rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.top-bar-slideshow-toggle:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-1px);
+}
+
+.top-bar-slideshow-toggle.active {
+  background: #059669;
+  border-color: #34d399;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.top-bar-slideshow-toggle .slideshow-btn-icon,
+.controls-slideshow-btn .slideshow-icon {
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.controls-slideshow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  color: #15803d;
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 4px rgba(22, 163, 74, 0.12);
+  white-space: nowrap;
+}
+
+.controls-slideshow-btn:hover {
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+}
+
+.controls-slideshow-btn.active {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+}
+
+.controls-slideshow-btn.active:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+}
+
 .top-bar-signin-btn {
   font-size: 0.8rem !important;
   padding: 0.4rem 1rem !important;
@@ -8756,7 +8830,7 @@ p {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #ff6b35, #0ea5e9);
-  animation: timerFill 10s linear forwards;
+  animation: timerFill 8.5s linear forwards;
 }
 
 @keyframes timerFill {
@@ -8766,7 +8840,7 @@ p {
 
 .fullscreen-slides-track {
   display: flex;
-  width: 700vw;
+  width: 400vw;
   height: 100%;
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
@@ -10726,6 +10800,10 @@ p {
   }
   .top-bar-category-nav {
     display: none;
+  }
+  .top-bar-slideshow-toggle {
+    font-size: 0.72rem !important;
+    padding: 0.28rem 0.65rem !important;
   }
 
   /* Stage Viewport & Container */
