@@ -109,9 +109,9 @@ export default function StudentGatewayPage() {
                   type="button" 
                   className="btn btn-secondary card-arrow-btn"
                   onClick={() => setView('about-msit')}
-                  aria-label="Explore 7 Slides"
+                  aria-label="Explore Slides"
                 >
-                  <span>Explore 7 Slides</span>
+                  <span>Explore Slides</span>
                   <ArrowRightIcon size={18} />
                 </button>
               </div>
