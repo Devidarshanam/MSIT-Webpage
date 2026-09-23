@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: landing page title update, slide interaction fix, admission portal badge, and MSIT branding alignment"
+git commit -m "style: update Know About MSIT icon to universal Info icon"
 
 echo.
 echo Pulling latest remote changes with rebase...

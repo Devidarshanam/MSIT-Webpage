@@ -5,7 +5,7 @@ import AuthFlow from './AuthFlow';
 import { 
   BuildingIcon, DownloadIcon, ArrowRightIcon,
   GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon,
-  PresentationIcon
+  InfoIcon
 } from './Icons';
 import KnowAboutMSITPage from './KnowAboutMSITPage';
 
@@ -78,7 +78,7 @@ export default function StudentGatewayPage() {
               <div className="simple-card-top">
                 <span className="simple-mini-badge">ABOUT MSIT</span>
                 <div className="simple-card-icon">
-                  <PresentationIcon size={24} />
+                  <InfoIcon size={24} />
                 </div>
               </div>
 
