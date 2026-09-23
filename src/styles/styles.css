@@ -10610,40 +10610,52 @@ p {
   }
 
   .fullscreen-stage-viewport {
-    flex: 1 !important;
-    height: calc(100dvh - 54px) !important;
-    max-height: calc(100dvh - 54px) !important;
+    flex: 1 1 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: 100% !important;
     overflow: hidden !important;
     width: 100vw !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .fullscreen-slides-track {
+    flex: 1 1 0 !important;
     height: 100% !important;
-    max-height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    width: 300vw !important;
   }
 
   .fullscreen-slide-item {
+    width: 100vw !important;
     height: 100% !important;
-    max-height: 100% !important;
+    min-height: 0 !important;
     overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .fullscreen-slide-stage {
+    flex: 1 1 0 !important;
     height: 100% !important;
-    max-height: 100% !important;
+    min-height: 0 !important;
     overflow: hidden !important;
     overflow-y: hidden !important;
     overflow-x: hidden !important;
-    padding: clamp(0.35rem, 1vh, 0.65rem) clamp(0.6rem, 2vw, 0.95rem) clamp(0.25rem, 0.8vh, 0.45rem) !important;
+    padding: clamp(0.2rem, 0.6vh, 0.4rem) clamp(0.5rem, 1.8vw, 0.85rem) 0 !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     box-sizing: border-box !important;
+    position: relative !important;
   }
 
   /* Slide Header Meta */
   .slide-header-meta {
-    margin-bottom: clamp(0.18rem, 0.5vh, 0.32rem) !important;
+    margin-bottom: clamp(0.12rem, 0.4vh, 0.22rem) !important;
     flex-shrink: 0 !important;
   }
 
@@ -10651,25 +10663,25 @@ p {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    margin-bottom: 0.1rem !important;
+    margin-bottom: 0.06rem !important;
   }
 
   .fullscreen-category-badge {
-    font-size: 0.54rem !important;
-    padding: 0.1rem 0.38rem !important;
+    font-size: 0.52rem !important;
+    padding: 0.08rem 0.35rem !important;
     margin-bottom: 0 !important;
   }
 
   .fullscreen-slide-title {
-    font-size: clamp(0.92rem, 3.2vw, 1.15rem) !important;
-    line-height: 1.18 !important;
-    margin: 0 0 0.1rem 0 !important;
+    font-size: clamp(0.82rem, 2.6vw, 0.98rem) !important;
+    line-height: 1.15 !important;
+    margin: 0 0 0.05rem 0 !important;
     letter-spacing: -0.01em !important;
   }
 
   .fullscreen-slide-lead {
-    font-size: clamp(0.64rem, 2vw, 0.72rem) !important;
-    line-height: 1.24 !important;
+    font-size: clamp(0.56rem, 1.6vw, 0.64rem) !important;
+    line-height: 1.18 !important;
     margin: 0 !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
@@ -10678,18 +10690,21 @@ p {
   }
 
   .slide-body-container {
-    flex: 1 !important;
+    flex: 1 1 0 !important;
     min-height: 0 !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    margin-bottom: 0.2rem !important;
+    justify-content: space-between !important;
+    margin-bottom: 0.15rem !important;
   }
 
-  /* Single-Row Compact Bottom Controls Bar (Zero Vertical Bloat) */
+  /* Single-Row Compact Bottom Controls Bar (Guaranteed Anchored & Visible) */
   .fullscreen-controls-bar {
-    padding-top: 0.35rem !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    padding: 0.18rem 0 !important;
     margin-top: auto !important;
     border-top: 1px solid var(--neutral-200) !important;
     flex-shrink: 0 !important;
@@ -10699,6 +10714,35 @@ p {
     justify-content: space-between !important;
     gap: 0.35rem !important;
     flex-wrap: nowrap !important;
+    background: #ffffff !important;
+    z-index: 40 !important;
+    box-sizing: border-box !important;
+  }
+
+  .stage-origin .fullscreen-controls-bar {
+    background: #fffdf9 !important;
+    border-top: 1px solid rgba(217, 119, 6, 0.2) !important;
+  }
+
+  .stage-ainative .fullscreen-controls-bar {
+    background: #091a38 !important;
+    border-top: 1px solid rgba(59, 130, 246, 0.25) !important;
+  }
+
+  .stage-ainative .controls-nav-btn {
+    background: rgba(255, 255, 255, 0.12) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    color: #ffffff !important;
+  }
+
+  .stage-ainative .slide-counter-badge {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+  }
+
+  .stage-admissions .fullscreen-controls-bar {
+    background: #fffefb !important;
+    border-top: 1px solid rgba(15, 23, 42, 0.1) !important;
   }
 
   .controls-nav-group {
@@ -10710,15 +10754,20 @@ p {
   }
 
   .controls-nav-btn {
-    padding: 0.26rem 0.52rem !important;
-    font-size: 0.7rem !important;
+    padding: 0.22rem 0.55rem !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
     border-radius: var(--radius-pill) !important;
     flex: none !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    cursor: pointer !important;
   }
 
   .controls-slideshow-btn {
-    padding: 0.26rem 0.52rem !important;
-    font-size: 0.7rem !important;
+    padding: 0.22rem 0.5rem !important;
+    font-size: 0.68rem !important;
   }
 
   .controls-center-group {
@@ -10730,8 +10779,12 @@ p {
   }
 
   .slide-counter-badge {
-    font-size: 0.65rem !important;
-    padding: 0.12rem 0.42rem !important;
+    font-size: 0.68rem !important;
+    font-weight: 800 !important;
+    padding: 0.12rem 0.45rem !important;
+    border-radius: var(--radius-pill) !important;
+    background: var(--neutral-100) !important;
+    color: var(--primary-900) !important;
   }
 
   .controls-keyboard-hint {
@@ -10739,10 +10792,12 @@ p {
   }
 
   .controls-cta-btn {
-    padding: 0.26rem 0.6rem !important;
+    padding: 0.24rem 0.65rem !important;
     font-size: 0.7rem !important;
+    font-weight: 700 !important;
     width: auto !important;
     flex-shrink: 0 !important;
+    border-radius: var(--radius-pill) !important;
   }
 
   /* =========================================================================
@@ -10751,71 +10806,75 @@ p {
   .origin-merged-grid {
     display: flex !important;
     flex-direction: column !important;
+    flex: 1 1 0 !important;
     height: 100% !important;
     min-height: 0 !important;
     justify-content: space-between !important;
-    gap: clamp(0.22rem, 0.6vh, 0.4rem) !important;
+    gap: clamp(0.15rem, 0.4vh, 0.28rem) !important;
   }
 
   .origin-anchor-col {
     display: flex !important;
     flex-direction: column !important;
-    gap: clamp(0.18rem, 0.5vh, 0.3rem) !important;
+    gap: 0.15rem !important;
     flex-shrink: 0 !important;
     height: auto !important;
   }
 
   .origin-merged-spotlight {
-    padding: clamp(0.32rem, 0.7vh, 0.5rem) clamp(0.45rem, 1.5vw, 0.7rem) !important;
-    border-radius: 8px !important;
+    padding: clamp(0.24rem, 0.5vh, 0.38rem) clamp(0.35rem, 1.2vw, 0.55rem) !important;
+    border-radius: 7px !important;
     flex: none !important;
     height: auto !important;
   }
 
   .spotlight-profile-layout {
     display: grid !important;
-    grid-template-columns: 50px 1fr !important;
-    gap: 0.5rem !important;
+    grid-template-columns: 42px 1fr !important;
+    gap: 0.45rem !important;
     align-items: center !important;
     text-align: left !important;
-    margin-bottom: 0.15rem !important;
+    margin-bottom: 0.08rem !important;
   }
 
   .origin-merged-spotlight .spotlight-img-frame {
-    width: 50px !important;
-    height: 54px !important;
-    min-height: 54px !important;
-    border-radius: 6px !important;
+    width: 42px !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    border-radius: 5px !important;
     margin: 0 !important;
   }
 
   .origin-merged-spotlight .spotlight-badge-row {
     gap: 0.2rem !important;
-    margin-bottom: 0.1rem !important;
+    margin-bottom: 0.06rem !important;
+    display: flex !important;
     justify-content: flex-start !important;
   }
 
   .origin-merged-spotlight .spotlight-badge,
   .origin-merged-spotlight .spotlight-award-tag {
-    font-size: 0.54rem !important;
-    padding: 0.06rem 0.32rem !important;
+    font-size: 0.5rem !important;
+    padding: 0.04rem 0.26rem !important;
   }
 
   .origin-merged-spotlight .spotlight-name {
-    font-size: 0.86rem !important;
+    font-size: 0.78rem !important;
+    margin: 0 0 0.02rem 0 !important;
+    line-height: 1.15 !important;
+    font-weight: 800 !important;
+  }
+
+  .origin-merged-spotlight .spotlight-role-title {
+    font-size: 0.52rem !important;
     margin: 0 0 0.04rem 0 !important;
     line-height: 1.15 !important;
   }
 
-  .origin-merged-spotlight .spotlight-role-title {
-    font-size: 0.58rem !important;
-    margin: 0 0 0.06rem 0 !important;
-    line-height: 1.18 !important;
-  }
-
   .origin-merged-spotlight .spotlight-desc {
-    font-size: 0.58rem !important;
-    line-height: 1.2 !important;
+    font-size: 0.52rem !important;
+    line-height: 1.16 !important;
     margin: 0 !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
@@ -10826,104 +10885,108 @@ p {
   .origin-merged-spotlight .spotlight-stats-row {
     display: grid !important;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.2rem !important;
-    padding: 0.16rem 0.28rem !important;
-    margin-top: 0.18rem !important;
+    gap: 0.18rem !important;
+    padding: 0.12rem 0.22rem !important;
+    margin-top: 0.12rem !important;
   }
 
   .origin-merged-spotlight .spot-stat strong {
-    font-size: 0.8rem !important;
+    font-size: 0.74rem !important;
     line-height: 1.1 !important;
   }
 
   .origin-merged-spotlight .spot-stat span {
-    font-size: 0.5rem !important;
+    font-size: 0.46rem !important;
   }
 
   .origin-quote-merged {
-    padding: 0.3rem 0.55rem !important;
+    padding: 0.2rem 0.45rem !important;
     border-radius: 6px !important;
   }
 
   .origin-quote-merged .origin-quote-text {
-    font-size: clamp(0.6rem, 1.8vw, 0.68rem) !important;
-    line-height: 1.22 !important;
-    margin: 0 0 0.08rem 0 !important;
+    font-size: clamp(0.54rem, 1.6vw, 0.6rem) !important;
+    line-height: 1.18 !important;
+    margin: 0 0 0.04rem 0 !important;
   }
 
   .origin-quote-merged .quote-author {
-    font-size: 0.54rem !important;
+    font-size: 0.48rem !important;
   }
 
   .journey-rail-col {
     display: flex !important;
     flex-direction: column !important;
-    flex: 1 !important;
+    flex: 1 1 0 !important;
     min-height: 0 !important;
     justify-content: space-between !important;
     height: auto !important;
+    gap: 0.12rem !important;
   }
 
   .journey-rail-header {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    margin-bottom: 0.15rem !important;
+    margin-bottom: 0.08rem !important;
     padding: 0 !important;
   }
 
   .journey-rail-pill {
-    font-size: 0.54rem !important;
-    padding: 0.06rem 0.3rem !important;
+    font-size: 0.5rem !important;
+    padding: 0.04rem 0.28rem !important;
   }
 
   .journey-rail-sub {
-    font-size: 0.58rem !important;
+    font-size: 0.52rem !important;
   }
 
   .journey-rail-note {
-    font-size: 0.52rem !important;
-    padding: 0.06rem 0.3rem !important;
+    font-size: 0.46rem !important;
+    padding: 0.04rem 0.25rem !important;
   }
 
   .journey-eras-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
     grid-template-rows: repeat(2, 1fr) !important;
-    gap: clamp(0.22rem, 0.5vh, 0.35rem) !important;
-    flex: 1 !important;
+    gap: clamp(0.18rem, 0.4vh, 0.28rem) !important;
+    flex: 1 1 0 !important;
     min-height: 0 !important;
   }
 
   .journey-era-card {
-    padding: clamp(0.26rem, 0.5vh, 0.42rem) clamp(0.32rem, 1vw, 0.5rem) !important;
+    padding: clamp(0.2rem, 0.4vh, 0.35rem) clamp(0.28rem, 0.8vw, 0.42rem) !important;
     border-radius: 6px !important;
+    display: flex !important;
+    flex-direction: column !important;
     justify-content: space-between !important;
   }
 
   .journey-era-card .journey-card-top {
-    margin-bottom: 0.1rem !important;
+    margin-bottom: 0.06rem !important;
   }
 
   .journey-era-card .journey-year-badge {
-    font-size: 0.54rem !important;
-    padding: 0.06rem 0.3rem !important;
+    font-size: 0.5rem !important;
+    padding: 0.04rem 0.26rem !important;
   }
 
   .journey-era-card .journey-era-label {
-    font-size: 0.48rem !important;
+    font-size: 0.44rem !important;
   }
 
   .journey-era-card h4 {
-    font-size: 0.67rem !important;
-    margin: 0.06rem 0 !important;
-    line-height: 1.18 !important;
+    font-size: 0.62rem !important;
+    margin: 0.04rem 0 !important;
+    line-height: 1.15 !important;
+    font-weight: 800 !important;
   }
 
   .journey-era-card p {
-    font-size: 0.57rem !important;
-    line-height: 1.18 !important;
-    margin: 0 0 0.1rem 0 !important;
+    font-size: 0.52rem !important;
+    line-height: 1.16 !important;
+    margin: 0 0 0.06rem 0 !important;
     display: -webkit-box !important;
     -webkit-line-clamp: 2 !important;
     -webkit-box-orient: vertical !important;
@@ -10931,14 +10994,14 @@ p {
   }
 
   .journey-era-card .journey-card-footer {
-    font-size: 0.52rem !important;
-    padding-top: 0.12rem !important;
-    gap: 0.22rem !important;
+    font-size: 0.48rem !important;
+    padding-top: 0.06rem !important;
+    gap: 0.2rem !important;
   }
 
   .journey-era-card .journey-card-footer svg {
-    width: 10px !important;
-    height: 10px !important;
+    width: 9px !important;
+    height: 9px !important;
   }
 
   /* =========================================================================
@@ -11607,912 +11670,6 @@ p {
   border-radius: var(--radius-pill);
   letter-spacing: 0.03em;
   border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* =========================================================================
-   KNOW ABOUT MSIT: FULL-SCREEN SLIDESHOW MOBILE RESPONSIVE (<= 768px)
-   ========================================================================= */
-@media (max-width: 768px) {
-  /* Top Bar */
-  .fullscreen-top-bar {
-    height: 48px;
-    padding: 0 0.85rem;
-  }
-  .top-bar-title {
-    display: none;
-  }
-  .back-btn-text-full {
-    display: none;
-  }
-  .back-btn-text-short {
-    display: inline;
-  }
-  .top-bar-back-btn {
-    padding: 0.28rem 0.6rem;
-    font-size: 0.74rem;
-  }
-  .top-bar-signin-btn {
-    font-size: 0.74rem !important;
-    padding: 0.3rem 0.75rem !important;
-  }
-  .top-bar-category-nav {
-    display: none;
-  }
-  .top-bar-slideshow-toggle {
-    font-size: 0.72rem !important;
-    padding: 0.28rem 0.65rem !important;
-  }
-
-  /* Stage Viewport & Container */
-  .fullscreen-stage-viewport {
-    height: calc(100vh - 48px);
-    height: calc(100dvh - 48px);
-    overflow: hidden;
-  }
-
-  .fullscreen-slide-stage {
-    justify-content: flex-start !important;
-    padding: 1rem 1rem 3.5rem !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    box-sizing: border-box;
-    height: 100% !important;
-  }
-
-  .stage-ainative {
-    padding: 0.85rem 0.85rem 3.5rem !important;
-  }
-
-  .slide-header-meta {
-    margin-bottom: 0.85rem !important;
-    flex-shrink: 0;
-  }
-
-  .slide-meta-top-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    margin-bottom: 0.35rem;
-  }
-
-  .fullscreen-category-badge {
-    font-size: 0.65rem;
-    padding: 0.2rem 0.55rem;
-    margin-bottom: 0;
-  }
-
-  .mobile-desktop-hint-pill {
-    display: inline-flex !important;
-    font-size: 0.58rem;
-    padding: 0.12rem 0.45rem;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
-  .fullscreen-slide-title {
-    font-size: clamp(1.2rem, 4.8vw, 1.45rem) !important;
-    line-height: 1.25 !important;
-    margin: 0 0 0.35rem 0 !important;
-  }
-
-  .fullscreen-slide-lead {
-    font-size: 0.82rem !important;
-    line-height: 1.45 !important;
-    color: #475569;
-  }
-
-  .slide-body-container {
-    flex: 1 0 auto !important;
-    margin-bottom: 1.25rem !important;
-  }
-
-  /* SLIDE 1: ORIGIN STORY MOBILE */
-  .layout-origin-story .origin-main-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.85rem !important;
-  }
-  .origin-text-cards {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.65rem !important;
-  }
-  .origin-highlight-card {
-    padding: 0.75rem 0.95rem !important;
-    gap: 0.65rem !important;
-  }
-  .origin-highlight-card h4 {
-    font-size: 0.88rem !important;
-  }
-  .origin-highlight-card p {
-    font-size: 0.78rem !important;
-    line-height: 1.4 !important;
-  }
-  .origin-quote-box {
-    padding: 0.85rem 1rem !important;
-  }
-  .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .origin-quote-box p,
-  .origin-quote-box p,
-  .origin-quote-text {
-    font-size: 0.84rem !important;
-    line-height: 1.45 !important;
-  }
-  .origin-portrait-spotlight {
-    display: flex !important;
-    width: 100% !important;
-    margin-top: 0.25rem !important;
-    margin-bottom: 0.4rem !important;
-    order: -1 !important;
-  }
-  .spotlight-card {
-    width: 100% !important;
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 12px !important;
-    padding: 0.85rem !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .spotlight-img-frame {
-    height: 220px !important;
-    width: 100% !important;
-    border-radius: 8px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    display: block !important;
-    background: #0f172a !important;
-  }
-  .spotlight-portrait-img {
-    position: relative !important;
-    z-index: 2 !important;
-    height: 100% !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    object-fit: cover !important;
-    object-position: center 6% !important;
-    display: block !important;
-  }
-  .spotlight-img-backdrop {
-    position: absolute !important;
-    inset: -15px !important;
-    width: calc(100% + 30px) !important;
-    height: calc(100% + 30px) !important;
-    object-fit: cover !important;
-    filter: blur(14px) brightness(0.35) !important;
-    opacity: 0.75 !important;
-    display: block !important;
-    pointer-events: none !important;
-  }
-  .spotlight-meta {
-    padding-top: 0.65rem !important;
-  }
-  .spotlight-badge {
-    font-size: 0.62rem !important;
-    padding: 0.15rem 0.5rem !important;
-    display: inline-block !important;
-  }
-  .spotlight-name {
-    font-size: 1.05rem !important;
-    font-weight: 800 !important;
-    margin: 0.25rem 0 0.15rem 0 !important;
-    color: var(--primary-900) !important;
-  }
-  .spotlight-desc {
-    font-size: 0.76rem !important;
-    line-height: 1.4 !important;
-    color: var(--neutral-600) !important;
-    margin: 0 0 0.5rem 0 !important;
-  }
-  .spotlight-stats-row {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.4rem !important;
-    padding-top: 0.5rem !important;
-    border-top: 1px solid #f1f5f9 !important;
-  }
-  .spot-stat {
-    text-align: center !important;
-  }
-  .spot-stat strong {
-    font-size: 0.95rem !important;
-    color: #1e3a8a !important;
-    display: block !important;
-  }
-  .spot-stat span {
-    font-size: 0.62rem !important;
-    color: var(--neutral-500) !important;
-    display: block !important;
-  }
-
-  /* SLIDE 2: JOURNEY & EVOLUTION (1-COLUMN CARDS) */
-  .layout-journey-evolution .journey-milestones-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
-  }
-  .journey-milestone-card {
-    padding: 0.85rem 1rem !important;
-    border-radius: 10px !important;
-  }
-  .journey-milestone-card h4 {
-    font-size: 0.92rem !important;
-    margin-bottom: 0.35rem !important;
-  }
-  .journey-milestone-card p {
-    font-size: 0.8rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: 0.55rem !important;
-  }
-  .journey-card-footer {
-    font-size: 0.72rem !important;
-    padding-top: 0.45rem !important;
-  }
-
-  /* SLIDE 3: MSIT AT 25 (AI-NATIVE) MOBILE */
-  .layout-ai-native {
-    display: flex !important;
-    flex-direction: column !important;
-    margin: 0 !important;
-    min-height: auto !important;
-    gap: 1rem !important;
-    width: 100% !important;
-  }
-  .ai-native-sidebar {
-    padding: 1.25rem 1rem !important;
-    border-radius: 12px !important;
-    background: linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%) !important;
-  }
-  .ai-native-logo {
-    width: 75px !important;
-    margin-bottom: 0.85rem !important;
-  }
-  .ai-native-title {
-    font-size: 1.45rem !important;
-    line-height: 1.2 !important;
-  }
-  .ai-native-lead {
-    font-size: 0.82rem !important;
-    margin-bottom: 1.25rem !important;
-  }
-  .ai-native-timeline {
-    gap: 1rem !important;
-  }
-  .ai-native-timeline-item {
-    padding-left: 1.8rem !important;
-  }
-  .ai-native-timeline-heading {
-    font-size: 0.82rem !important;
-  }
-  .ai-native-timeline-text {
-    font-size: 0.76rem !important;
-    line-height: 1.35 !important;
-  }
-  .ai-native-content {
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.85rem !important;
-  }
-  .ai-native-kicker {
-    font-size: 0.72rem !important;
-    margin-bottom: 0.35rem !important;
-  }
-  .ai-native-principles-box {
-    padding: 1rem 1.1rem !important;
-    margin-bottom: 0 !important;
-  }
-  .ai-native-principles-title {
-    font-size: 0.88rem !important;
-    margin-bottom: 0.65rem !important;
-  }
-  .ai-native-principles-pills {
-    flex-direction: column !important;
-    gap: 0.45rem !important;
-    margin-bottom: 0.65rem !important;
-  }
-  .ai-native-pill {
-    font-size: 0.85rem !important;
-  }
-  .ai-native-pill-icon {
-    width: 28px !important;
-    height: 28px !important;
-  }
-  .ai-native-principles-desc {
-    font-size: 0.78rem !important;
-  }
-  .ai-native-pillars-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-  }
-  .ai-native-pillar-card {
-    padding: 1rem !important;
-  }
-  .ai-native-card-icon {
-    width: 32px !important;
-    height: 32px !important;
-    margin-bottom: 0.5rem !important;
-  }
-  .ai-native-card-title {
-    font-size: 0.94rem !important;
-    margin-bottom: 0.4rem !important;
-  }
-  .ai-native-card-desc {
-    font-size: 0.78rem !important;
-    line-height: 1.45 !important;
-  }
-  .controls-ainative {
-    padding: 0.85rem 0 0 !important;
-    margin-top: 1rem !important;
-  }
-
-  /* SLIDE 4: B.TECH TRANSFORMATION MOBILE */
-  .layout-student-transformations .dual-btech-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.85rem !important;
-    margin-bottom: 0.85rem !important;
-  }
-  .dual-btech-card {
-    padding: 0.85rem 1rem !important;
-    border-radius: 12px !important;
-  }
-  .btech-headline {
-    font-size: 0.95rem !important;
-  }
-  .btech-branch-sub {
-    font-size: 0.72rem !important;
-  }
-  .btech-transformation-rows {
-    gap: 0.45rem !important;
-  }
-  .btech-row {
-    padding: 0.45rem 0.65rem !important;
-  }
-  .btech-row p {
-    font-size: 0.76rem !important;
-    line-height: 1.4 !important;
-  }
-  .edu-pillars-strip {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    padding: 0.85rem 1rem !important;
-    border-radius: 12px !important;
-    background: linear-gradient(135deg, #071a38 0%, #153a70 100%) !important;
-    border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
-  }
-  .edu-pillar-divider {
-    display: none !important;
-  }
-  .edu-pillar-item {
-    padding: 0 !important;
-    width: 100% !important;
-  }
-  .pillar-shift-badge {
-    font-size: 0.65rem !important;
-  }
-  .edu-pillar-item strong {
-    font-size: 0.85rem !important;
-  }
-  .edu-pillar-item p {
-    font-size: 0.75rem !important;
-    line-height: 1.35 !important;
-  }
-
-  /* SLIDE 5: CAMPUS LIFE (EDITORIAL VERTICAL STACK - NO CLAMP) */
-  .layout-events-community .campus-editorial-container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1rem !important;
-    height: auto !important;
-    min-height: 0 !important;
-  }
-  .layout-events-community .campus-visual-column {
-    order: -1 !important;
-    height: auto !important;
-    width: 100% !important;
-  }
-  .layout-events-community .campus-visual-frame {
-    max-height: 200px !important;
-    height: 180px !important;
-    border-radius: 12px !important;
-    width: 100% !important;
-  }
-  .layout-events-community .campus-visual-floating-tag {
-    font-size: 0.64rem !important;
-    padding: 0.2rem 0.6rem !important;
-  }
-  .layout-events-community .campus-text-column {
-    gap: 0.85rem !important;
-    height: auto !important;
-  }
-  .layout-events-community .campus-intro-block {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.25rem !important;
-  }
-  .layout-events-community .campus-lead-heading {
-    font-size: 1.05rem !important;
-    line-height: 1.3 !important;
-  }
-  .layout-events-community .campus-lead-narrative {
-    font-size: 0.78rem !important;
-    line-height: 1.45 !important;
-  }
-  .layout-events-community .campus-feature-list {
-    gap: 0.65rem !important;
-  }
-  .layout-events-community .campus-feature-row {
-    gap: 0.6rem !important;
-  }
-  .layout-events-community .feature-text strong {
-    font-size: 0.84rem !important;
-  }
-  .layout-events-community .feature-text span {
-    font-size: 0.75rem !important;
-    line-height: 1.4 !important;
-    display: block !important;
-    -webkit-line-clamp: unset !important;
-    -webkit-box-orient: unset !important;
-    overflow: visible !important;
-  }
-  .layout-events-community .campus-action-area {
-    padding-top: 0.25rem !important;
-  }
-  .layout-events-community .campus-clean-portal-link {
-    width: 100% !important;
-    justify-content: center !important;
-    padding: 0.55rem 1rem !important;
-    font-size: 0.78rem !important;
-  }
-  .layout-events-community .campus-link-caption {
-    display: block !important;
-    text-align: center !important;
-    width: 100% !important;
-    font-size: 0.66rem !important;
-  }
-
-  /* SLIDE 6: CORPORATE PRACTICUM MOBILE */
-  .layout-coop-practicum .practicum-stats-strip {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.65rem !important;
-    margin-bottom: 0.85rem !important;
-  }
-  .layout-coop-practicum .practicum-stats-strip .p-stat-box {
-    padding: 0.55rem 0.5rem !important;
-    border-radius: 8px !important;
-  }
-  .layout-coop-practicum .practicum-stats-strip .p-stat-number {
-    font-size: 1.15rem !important;
-  }
-  .layout-coop-practicum .practicum-stats-strip .p-stat-label {
-    font-size: 0.68rem !important;
-  }
-  .layout-coop-practicum .practicum-stats-strip .p-stat-detail {
-    display: block !important;
-    font-size: 0.62rem !important;
-  }
-  .layout-coop-practicum .practicum-details-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.85rem !important;
-    height: auto !important;
-  }
-  .layout-coop-practicum .practicum-text-card {
-    padding: 0.85rem 1rem !important;
-    border-radius: 10px !important;
-  }
-  .layout-coop-practicum .practicum-text-card h4 {
-    font-size: 0.92rem !important;
-  }
-  .layout-coop-practicum .practicum-benefits-list {
-    gap: 0.55rem !important;
-  }
-  .layout-coop-practicum .practicum-benefits-list li {
-    font-size: 0.76rem !important;
-    line-height: 1.4 !important;
-  }
-  .layout-coop-practicum .practicum-image-card {
-    display: flex !important;
-    flex-direction: column !important;
-    border-radius: 10px !important;
-    overflow: hidden !important;
-  }
-  .layout-coop-practicum .practicum-coop-img {
-    height: 150px !important;
-    width: 100% !important;
-    object-fit: cover !important;
-  }
-  .layout-coop-practicum .practicum-img-caption {
-    padding: 0.6rem 0.85rem !important;
-    font-size: 0.7rem !important;
-  }
-
-  /* SLIDE 7: ADMISSIONS GATEWAY MOBILE */
-  .layout-admissions-gateway .admissions-split-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    height: auto !important;
-  }
-  .layout-admissions-gateway .admissions-campus-col {
-    display: flex !important;
-    width: 100% !important;
-    order: -1 !important;
-    margin-bottom: 0.25rem !important;
-  }
-  .layout-admissions-gateway .admissions-process-col {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
-    gap: 0.65rem !important;
-    height: auto !important;
-    order: 2 !important;
-  }
-  .layout-admissions-gateway .campus-showcase-card {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
-  }
-  .campus-full-photo-frame {
-    width: 100% !important;
-    height: 180px !important;
-    min-height: 180px !important;
-    max-height: 180px !important;
-    position: relative !important;
-    background: #08101e !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-  }
-  .campus-full-img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
-  }
-  .campus-photo-overlay-tag {
-    position: absolute !important;
-    bottom: 0.5rem !important;
-    left: 0.5rem !important;
-    font-size: 0.64rem !important;
-    padding: 0.18rem 0.55rem !important;
-    background: rgba(11, 21, 40, 0.88) !important;
-    color: #ffffff !important;
-    border-radius: var(--radius-pill) !important;
-  }
-  .campus-showcase-content {
-    padding: 0.75rem 0.85rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.35rem !important;
-  }
-  .consortium-header-group {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.4rem !important;
-    margin-bottom: 0.15rem !important;
-  }
-  .consortium-pill {
-    font-size: 0.6rem !important;
-    padding: 0.1rem 0.4rem !important;
-  }
-  .consortium-sub {
-    font-size: 0.62rem !important;
-  }
-  .campus-showcase-content h3 {
-    font-size: 0.92rem !important;
-    font-weight: 800 !important;
-    margin: 0 !important;
-    color: var(--primary-900) !important;
-  }
-  .campus-showcase-content .campus-desc {
-    font-size: 0.72rem !important;
-    line-height: 1.35 !important;
-    color: var(--neutral-600) !important;
-    margin: 0 !important;
-  }
-  .campus-metrics-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 0.35rem !important;
-    margin-top: 0.35rem !important;
-    padding-top: 0.45rem !important;
-    border-top: 1px solid #f1f5f9 !important;
-  }
-  .campus-metric-box {
-    padding: 0.35rem 0.15rem !important;
-    background: #f8fafc !important;
-    border-radius: 6px !important;
-    text-align: center !important;
-  }
-  .campus-metric-box strong {
-    font-size: 0.85rem !important;
-    color: #1e3a8a !important;
-    display: block !important;
-  }
-  .campus-metric-box span {
-    font-size: 0.58rem !important;
-    color: var(--neutral-600) !important;
-    display: block !important;
-  }
-  .admissions-eligibility-card,
-  .admissions-steps-card {
-    padding: 0.65rem 0.85rem !important;
-    border-radius: 10px !important;
-  }
-  .admissions-card-header {
-    margin-bottom: 0.35rem !important;
-    gap: 0.4rem !important;
-  }
-  .admissions-section-tag {
-    font-size: 0.58rem !important;
-    padding: 0.1rem 0.45rem !important;
-  }
-  .admissions-card-header h4 {
-    font-size: 0.86rem !important;
-  }
-  .eligibility-points-list {
-    gap: 0.35rem !important;
-  }
-  .eligibility-check-badge {
-    width: 17px !important;
-    height: 17px !important;
-    font-size: 0.62rem !important;
-  }
-  .eligibility-text strong {
-    font-size: 0.76rem !important;
-  }
-  .eligibility-text span {
-    font-size: 0.7rem !important;
-    line-height: 1.3 !important;
-  }
-  .layout-admissions-gateway .steps-horizontal-list {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.35rem !important;
-  }
-  .layout-admissions-gateway .step-item {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-start !important;
-    gap: 0.6rem !important;
-    padding: 0.4rem 0.65rem !important;
-    text-align: left !important;
-    border-radius: 8px !important;
-  }
-  .layout-admissions-gateway .step-num {
-    margin-bottom: 0 !important;
-    flex-shrink: 0 !important;
-    width: 20px !important;
-    height: 20px !important;
-    font-size: 0.65rem !important;
-  }
-  .layout-admissions-gateway .step-item strong {
-    font-size: 0.78rem !important;
-    margin-bottom: 0.05rem !important;
-  }
-  .layout-admissions-gateway .step-item span {
-    font-size: 0.68rem !important;
-    line-height: 1.25 !important;
-  }
-  .admissions-cta-banner {
-    padding: 0.65rem 0.85rem !important;
-    border-radius: 10px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.25rem !important;
-    align-items: flex-start !important;
-  }
-  .admissions-cta-banner .cta-status-badge,
-  .cta-status-badge {
-    font-size: 0.6rem !important;
-    padding: 0.12rem 0.45rem !important;
-    margin-bottom: 0.15rem !important;
-  }
-  .cta-banner-heading {
-    font-size: 0.86rem !important;
-    margin: 0 0 0.1rem 0 !important;
-  }
-  .cta-banner-desc {
-    font-size: 0.7rem !important;
-    line-height: 1.3 !important;
-  }
-  .admissions-big-cta {
-    display: none !important;
-  }
-
-  /* GLOBAL BOTTOM CONTROLS BAR MOBILE */
-  .fullscreen-controls-bar {
-    margin-top: auto !important;
-    flex-shrink: 0 !important;
-    padding-top: 0.85rem !important;
-    padding-bottom: 0.5rem !important;
-    border-top: 1px solid #e2e8f0 !important;
-    gap: 0.65rem !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-
-  .controls-nav-group {
-    width: 100% !important;
-    display: flex !important;
-    gap: 0.5rem !important;
-  }
-
-  .controls-nav-btn {
-    flex: 1 !important;
-    padding: 0.55rem 1rem !important;
-    font-size: 0.82rem !important;
-    justify-content: center !important;
-  }
-
-  .controls-center-group {
-    width: 100% !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
-
-  .controls-cta-btn {
-    width: 100% !important;
-    padding: 0.65rem 1rem !important;
-    font-size: 0.85rem !important;
-    justify-content: center !important;
-  }
-}
-
-/* ---------------------------------------------------------------------------
-   LANDSCAPE PHONE WIDESCREEN ORIENTATION (Auto 16:9 Slide Presentation)
-   --------------------------------------------------------------------------- */
-@media (orientation: landscape) and (max-height: 550px) {
-  .fullscreen-top-bar {
-    height: 38px;
-    padding: 0 1rem;
-  }
-
-  .top-bar-brand img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .fullscreen-stage-viewport {
-    height: calc(100vh - 38px);
-    height: calc(100dvh - 38px);
-  }
-
-  .fullscreen-slide-stage {
-    padding: 0.4rem 1.4rem 0.3rem;
-  }
-
-  .slide-header-meta {
-    margin-bottom: 0.25rem;
-  }
-
-  .fullscreen-slide-title {
-    font-size: 1.05rem;
-    margin-bottom: 0.05rem;
-  }
-
-  .fullscreen-controls-bar {
-    height: 32px !important;
-  }
-
-  .controls-nav-btn {
-    height: 26px !important;
-    min-height: 26px !important;
-    font-size: 0.68rem !important;
-  }
-
-  .controls-cta-btn {
-    height: 26px !important;
-    min-height: 26px !important;
-    font-size: 0.68rem !important;
-  }
-
-  /* Expand all cards across horizontal width in landscape */
-  .layout-journey-evolution .journey-milestones-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    grid-template-rows: repeat(2, 1fr) !important;
-  }
-
-  .placements-grid-showcase {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-
-  .placement-package-card.card-tier-highest {
-    grid-column: span 2 !important;
-  }
-
-  .layout-student-transformations .dual-btech-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
-  .layout-events-community .campus-editorial-container {
-    grid-template-columns: 1.15fr 1fr !important;
-    gap: 0.75rem !important;
-    height: 100% !important;
-  }
-
-  .layout-events-community .campus-visual-column {
-    order: 0 !important;
-    height: 100% !important;
-  }
-
-  .layout-events-community .campus-visual-frame {
-    max-height: 100% !important;
-  }
-
-  .layout-events-community .campus-text-column {
-    gap: 0.35rem !important;
-  }
-
-  .layout-events-community .campus-intro-block {
-    display: none !important;
-  }
-
-  .layout-events-community .campus-feature-list {
-    gap: 0.3rem !important;
-  }
-
-  .layout-events-community .feature-text strong {
-    font-size: 0.76rem !important;
-  }
-
-  .layout-events-community .feature-text span {
-    font-size: 0.62rem !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 1 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-
-  .layout-events-community .campus-clean-portal-link {
-    padding: 0.32rem 0.65rem !important;
-    font-size: 0.7rem !important;
-  }
-
-  .layout-origin-story .origin-main-grid {
-    grid-template-columns: 1.25fr 0.75fr !important;
-  }
-
-  .origin-portrait-spotlight {
-    display: block !important;
-  }
-
-  .practicum-details-grid {
-    grid-template-columns: 1.2fr 0.8fr !important;
-  }
-
-  .practicum-image-card {
-    display: flex !important;
-  }
-
-  .layout-admissions-gateway .admissions-split-grid {
-    grid-template-columns: 1.15fr 0.85fr !important;
-  }
-
-  .campus-showcase-card {
-    display: flex !important;
-  }
-
-  .campus-full-photo-frame {
-    min-height: 120px !important;
-    max-height: 140px !important;
-  }
-
-  .campus-full-img {
-    max-height: 140px !important;
-    object-fit: contain !important;
-  }
 }
 
 /* ==========================================================================
