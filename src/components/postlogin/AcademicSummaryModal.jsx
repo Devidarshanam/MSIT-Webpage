@@ -73,8 +73,10 @@ export default function AcademicSummaryModal({ isOpen, onClose }) {
               </div>
               <ul className="summary-list compact">
                 <li><strong>Structure:</strong> ~50% Academic Learning + ~50% Industry Practicum / Venture Studio.</li>
-                <li><strong>Target Cohort:</strong> Scheduled Commencement in January 2027.</li>
-                <li><strong>Eligibility:</strong> Bachelor's in Engineering/Technology or Master's in Computing.</li>
+                <li><strong>Batch Commencement:</strong> January 2, 2027.</li>
+                <li><strong>Application Dates:</strong> October 1, 2026 to November 30, 2026.</li>
+                <li><strong>Admission Modes:</strong> GRE, GATE, or MSIT's own entrance exam.</li>
+                <li><strong>Interview & Counselling:</strong> Process & dates To Be Confirmed (TBD).</li>
               </ul>
             </div>
           </div>

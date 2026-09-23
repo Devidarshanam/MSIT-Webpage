@@ -6931,6 +6931,20 @@ p {
   border: 1px solid var(--primary-300);
 }
 
+.date-badge-confirmed {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+  font-weight: 700;
+}
+
+.date-badge-tbd {
+  background: #fffbeb;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  font-weight: 700;
+}
+
 .dates-disclaimer-row {
   display: flex;
   align-items: center;

@@ -82,9 +82,9 @@ export default function StudentDashboardHeader({ user, data, onApply }) {
             </div>
 
             <div className="status-card-body">
-              <h3>Next Cohort: January 2027</h3>
+              <h3>Next Cohort: January 2, 2027</h3>
               <p>
-                Applications for the January 2027 intake are now live. Submit your details online to register for the upcoming cohort.
+                Applications for the January 2, 2027 intake are now live. Submit your details online to register for the upcoming cohort.
               </p>
               <div className="status-note-box" style={{ background: '#ecfdf5', borderColor: '#a7f3d0', color: '#065f46' }}>
                 <CheckCircleIcon size={16} />

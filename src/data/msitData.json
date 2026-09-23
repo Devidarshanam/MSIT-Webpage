@@ -2,8 +2,11 @@
   "meta": {
     "programmeName": "Master of Science in Information Technology (MSIT)",
     "institution": "MSIT",
-    "targetCohort": "January 2027",
-    "applicationStatus": "Open Now",
+    "targetCohort": "January 2, 2027",
+    "commencementDate": "January 2, 2027",
+    "applicationDates": "October 1, 2026 to November 30, 2026",
+    "admissionModes": "GRE, GATE, and MSIT's own entrance exam",
+    "applicationStatus": "Open Oct 1 – Nov 30, 2026",
     "contactEmail": "query@msit.ac.in",
     "contactPhone": "+91 (40) 6653 1000",
     "campusAddress": "IIIT Hyderabad Campus, Gachibowli, Hyderabad, Telangana 500 032, India"
@@ -12,33 +15,33 @@
     "welcomeKicker": "Student Information & Decision Dashboard",
     "welcomeTitle": "MSIT Programme Information",
     "welcomeSubtitle": "Explore official programme specifications, academic learning structure, admissions criteria, and application preparation for the upcoming cohort.",
-    "cohortBadge": "Target Cohort: January 2027",
+    "cohortBadge": "Batch Commencement: January 2, 2027",
     "statusBadge": "Applications Open Now",
     "nextActionTitle": "Recommended Next Action",
-    "nextActionDesc": "Review the curriculum domains and ensure your academic transcripts and identification records are organized for the upcoming application launch.",
+    "nextActionDesc": "Submit your application through the portal between October 1, 2026 and November 30, 2026. Prepare for evaluation via GRE, GATE, or MSIT's entrance exam.",
     "actionChecklist": [
       {
         "id": "1",
-        "title": "Review Academic & Learning Structure",
-        "desc": "Familiarize yourself with the 6-stage active learning model and core technology areas.",
+        "title": "Apply Through Admission Portal",
+        "desc": "Fill the online application form with personal and academic details between October 1, 2026 and November 30, 2026.",
         "done": true
       },
       {
         "id": "2",
-        "title": "Organize Transcripts & Documents",
-        "desc": "Keep your undergraduate grade sheets and degree certificates ready for submission.",
+        "title": "Select Admission Mode (GRE, GATE, or MSIT Exam)",
+        "desc": "Confirm your evaluation mode: submit valid GRE/GATE scorecards or register for MSIT's own entrance exam.",
         "done": false
       },
       {
         "id": "3",
-        "title": "Refresh Computational Fundamentals",
-        "desc": "Brush up on programming fundamentals, algorithmic thinking, and basic discrete mathematics.",
+        "title": "Prepare for Technical Interview & Counselling",
+        "desc": "Brush up on computational logic and problem-solving for the technical interaction (Interview & counselling dates: TBD).",
         "done": false
       },
       {
         "id": "4",
-        "title": "Await Official Admission Circular",
-        "desc": "We will notify you at your registered email address as soon as the application portal opens.",
+        "title": "Batch Commencement Onboarding",
+        "desc": "Confirmed batch commencement date is January 2, 2027 at IIIT Hyderabad.",
         "done": false
       }
     ]
@@ -58,8 +61,20 @@
         "value": "Offered under the consortium of IIIT Hyderabad & State Universities"
       },
       {
-        "label": "Next Intake",
-        "value": "January 2027 (Scheduled Commencement)"
+        "label": "Batch Commencement",
+        "value": "January 2, 2027"
+      },
+      {
+        "label": "Application Window",
+        "value": "October 1, 2026 to November 30, 2026"
+      },
+      {
+        "label": "Admission Modes",
+        "value": "GRE, GATE, or MSIT's Own Entrance Exam"
+      },
+      {
+        "label": "Interview & Counselling",
+        "value": "Process & Schedule To Be Confirmed (TBD)"
       },
       {
         "label": "Academic Format",
@@ -76,10 +91,6 @@
       {
         "label": "Pedagogy Anchor",
         "value": "Living Lab for Centre for Educational Technology & Learning Sciences (CETLS)"
-      },
-      {
-        "label": "Technology Focus",
-        "value": "AI Systems, Software Engineering, Modern Data & Systems Architecture"
       }
     ]
   },
@@ -212,66 +223,66 @@
       {
         "title": "Undergraduate Qualification",
         "status": "Qualifying Degrees",
-        "desc": "Bachelor's degree in Engineering or Technology (B.Tech / B.E.) or Master's degree in Computer Science, IT, Computer Applications (MCA), or Mathematics from a recognized university."
+        "desc": "Bachelor's degree in Engineering or Technology (B.Tech / B.E. in any discipline) or Master's degree in Computer Science, IT, Computer Applications (MCA), or Mathematics from a recognized university."
+      },
+      {
+        "title": "Confirmed Admission Modes",
+        "status": "GRE · GATE · MSIT Exam",
+        "desc": "Applicants can qualify via three confirmed admission pathways: a valid GRE score, a valid national GATE score, or appearing for MSIT's own entrance examination."
+      },
+      {
+        "title": "Application Timeline",
+        "status": "Oct 1 – Nov 30, 2026",
+        "desc": "The application window is confirmed from October 1, 2026 to November 30, 2026. Candidates must register and provide details through the official admission portal."
+      },
+      {
+        "title": "Batch Commencement",
+        "status": "January 2, 2027",
+        "desc": "The official batch commencement date is confirmed for January 2, 2027 at the IIIT Hyderabad campus."
       },
       {
         "title": "Engineering Disciplines",
-        "status": "All Engineering Branches Considered",
-        "desc": "Graduates from both CS/IT and non-CS engineering branches (such as ECE, EEE, Mechanical, Civil, etc.) are eligible to apply. Foundation tracks are designed to build essential computing fundamentals."
+        "status": "All Engineering Branches Eligible",
+        "desc": "Graduates from both CS/IT and non-CS engineering branches (such as ECE, EEE, Mechanical, Civil, etc.) are eligible. Foundation tracks are designed to build essential computing fundamentals."
       },
       {
-        "title": "Final-Year Students",
-        "status": "Eligible to Apply Provisionally",
-        "desc": "Students appearing in their final semester/year of undergraduate studies are eligible to apply provisionally, subject to completing all graduation requirements before programme commencement."
-      },
-      {
-        "title": "Academic Marks & Cutoffs",
-        "status": "To Be Announced in Notification",
-        "desc": "Official minimum percentage or CGPA cutoff criteria will be formally specified in the upcoming admission circular. No assumptions or speculative cutoffs are enforced."
-      },
-      {
-        "title": "Prerequisites",
-        "status": "Mathematics & Computational Aptitude",
-        "desc": "A sound background in higher secondary/undergraduate mathematics and a genuine aptitude for problem solving and programming are expected."
-      },
-      {
-        "title": "Work Experience",
-        "status": "Optional / Not Mandatory",
-        "desc": "Both fresh graduates and candidates with professional software or engineering experience are welcome to apply."
+        "title": "Interview & Counselling",
+        "status": "Dates To Be Confirmed (TBD)",
+        "desc": "Shortlisted candidates will be invited for an interactive technical interview and counselling session. The detailed schedule will be notified to registered applicants."
       }
     ],
     "admissionProcess": [
       {
         "step": "01",
-        "title": "Online Application",
-        "desc": "Candidates submit the MSIT application form with required academic credentials, mark sheets, and statement of interest."
+        "title": "Apply Online",
+        "desc": "Submit your application through the portal with personal and academic details."
       },
       {
         "step": "02",
-        "title": "Screening / Entrance Evaluation",
-        "desc": "Shortlisted candidates undergo the prescribed admission evaluation assessing problem solving, programming logic, and analytical aptitude."
+        "title": "Aptitude Evaluation",
+        "desc": "Qualify through GRE, GATE, or MSIT's own entrance exam."
       },
       {
         "step": "03",
-        "title": "Interview / Interaction",
-        "desc": "Candidates may be invited for an interaction to assess preparation, academic mindset, motivation, and suitability for the programme."
+        "title": "Technical Interview",
+        "desc": "Interview and counselling to assess problem solving and studio fit (Dates TBD)."
       },
       {
         "step": "04",
         "title": "Admission Offer",
-        "desc": "Selected candidates receive formal admission offers with instructions for fee payment, document verification, and enrolment."
+        "desc": "Receive formal admission offer and join the batch on January 2, 2027."
       }
     ],
     "importantDates": [
-      { "activity": "Admission Notification Release", "date": "To be announced shortly" },
-      { "activity": "Online Applications Open", "date": "TBD" },
-      { "activity": "Application Submission Deadline", "date": "TBD" },
-      { "activity": "Admission Evaluation / Test", "date": "TBD" },
-      { "activity": "Interviews / Interactions", "date": "TBD" },
-      { "activity": "Formal Admission Offers", "date": "TBD" },
-      { "activity": "Programme Commencement", "date": "January 2027" }
+      { "activity": "Online Applications Open", "date": "October 1, 2026" },
+      { "activity": "Application Submission Deadline", "date": "November 30, 2026" },
+      { "activity": "Accepted Admission Modes", "date": "GRE, GATE, or MSIT Exam" },
+      { "activity": "Batch Commencement Date", "date": "January 2, 2027" },
+      { "activity": "Admission Evaluation / MSIT Exam", "date": "To be confirmed (TBD)" },
+      { "activity": "Technical Interview & Counselling", "date": "To be confirmed (TBD)" },
+      { "activity": "Formal Admission Offers", "date": "To be confirmed (TBD)" }
     ],
-    "disclaimer": "The admission process, evaluation format, and schedule for the January 2027 cohort will be confirmed in the formal notification. Dates and procedures are subject to institutional approval."
+    "disclaimer": "Application window: October 1 to November 30, 2026. Accepted admission modes: GRE, GATE, and MSIT's own entrance exam. Batch commences January 2, 2027. Technical interview and counselling schedule will be announced (TBD)."
   },
   "fees": {
     "sectionId": "fees",
@@ -506,6 +517,26 @@
         "id": "faq-13",
         "question": "Can prospective students connect with current students or alumni to learn about MSIT?",
         "answer": "Yes, absolutely. You are strongly encouraged to reach out directly to current MSIT students and alumni on LinkedIn or other professional networks to get firsthand, unfiltered information about their studio experience, daily learning, and career outcomes."
+      },
+      {
+        "id": "faq-dates-1",
+        "question": "When does the upcoming MSIT batch commence?",
+        "answer": "The batch commencement date is confirmed for January 2, 2027 at the IIIT Hyderabad campus."
+      },
+      {
+        "id": "faq-dates-2",
+        "question": "What are the confirmed application dates for MSIT admission?",
+        "answer": "The online application window is confirmed from October 1, 2026 to November 30, 2026. All prospective candidates must apply through the official admission portal by providing their details before November 30, 2026."
+      },
+      {
+        "id": "faq-modes-3",
+        "question": "What are the accepted admission modes and exam scores for MSIT?",
+        "answer": "MSIT has three confirmed admission modes: applicants can qualify through a valid GRE score, a valid national GATE score, or by taking MSIT’s own entrance examination evaluating analytical logic, programming foundation, and computational mathematics."
+      },
+      {
+        "id": "faq-interview-4",
+        "question": "What is the interview and counselling process, and when will the dates be announced?",
+        "answer": "The admission process includes three core steps: (1) Apply through the admission portal, (2) Aptitude evaluation via GRE, GATE, or MSIT's own entrance exam, and (3) Technical interview and counselling. The interview assesses problem-solving intuition, computational thinking, and readiness for studio-based active learning. The exact interview and counselling process and dates are To Be Confirmed (TBD) and will be officially notified to registered applicants."
       }
     ]
   },
@@ -513,30 +544,30 @@
     "sectionId": "next-steps",
     "kicker": "Application Status",
     "heading": "Application Status & Next Steps",
-    "description": "Applications are now live for the upcoming intake. Complete your submission early to reserve your studio seat.",
-    "currentStatus": "Applications Open Now",
-    "cohort": "January 2027 Intake",
-    "adviceHeader": "What Should You Do Now?",
+    "description": "Applications open from October 1, 2026 to November 30, 2026 for the January 2, 2027 batch. Accepted modes: GRE, GATE, and MSIT's own entrance exam.",
+    "currentStatus": "Applications: Oct 1 – Nov 30, 2026",
+    "cohort": "Batch Commencement: January 2, 2027",
+    "adviceHeader": "3-Step Admission Progression",
     "steps": [
       {
         "step": "1",
-        "title": "Keep Documents Ready",
-        "text": "Organize your undergraduate marksheets, degree certificate or provisional certificate, and valid photo ID."
+        "title": "Apply Through Admission Portal",
+        "text": "Submit your online application through the official portal between October 1, 2026 and November 30, 2026 by providing personal and academic details."
       },
       {
         "step": "2",
-        "title": "Draft Statement of Motivation",
-        "text": "Reflect on your technical interests, problem-solving journey, and why the AI-native learning model fits your aspirations."
+        "title": "Select Admission Mode (GRE / GATE / MSIT Exam)",
+        "text": "Qualify via your choice of three confirmed admission modes: valid GRE score, valid national GATE score, or by taking MSIT’s own entrance examination."
       },
       {
         "step": "3",
-        "title": "Review Computational Basics",
-        "text": "Strengthen your core foundation in programming logic, algorithms, data structures, and mathematical thinking."
+        "title": "Technical Interview & Counselling",
+        "text": "Shortlisted applicants participate in an interactive technical interview and counselling session to assess problem-solving mindset and studio readiness. (Interview & counselling dates: TBD)."
       },
       {
         "step": "4",
-        "title": "Stay Tuned to Registered Email",
-        "text": "We will deliver the official admission notification, entrance syllabus, and application link directly to your verified inbox."
+        "title": "Batch Commencement on January 2, 2027",
+        "text": "Complete studio seat allotment, formal document verification, and join the cohort for confirmed batch commencement on January 2, 2027."
       }
     ],
     "supportBox": {

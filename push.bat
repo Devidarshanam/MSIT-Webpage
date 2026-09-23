@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: update admissions slide eligibility and entrance criteria"
+git commit -m "feat: harmonize GRE admission modes badge with confirmed timeline points"
 
 echo.
 echo Pulling latest remote changes with rebase...
