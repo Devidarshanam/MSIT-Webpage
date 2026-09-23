@@ -12,29 +12,19 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const [timerResetKey, setTimerResetKey] = useState(0);
   const timerRef = useRef(null);
 
-  // 7 Slides Definition with Theme Color Palettes and Bespoke Layouts
+  // 6 Slides Definition with Theme Color Palettes and Bespoke Layouts
   const slides = [
     {
       id: 'origin',
       number: '01',
-      category: 'HOW IT STARTED',
+      category: 'HERITAGE & 25-YEAR EVOLUTION',
+      shortCategory: 'HERITAGE & EVOLUTION',
       themeClass: 'slide-theme-origin',
       layoutClass: 'slide-layout-origin',
-      title: 'The Origin Story: 25 Years of Active Learning',
-      lead: 'Founded in 2001 under the visionary direction of Turing Laureate Prof. Raj Reddy, MSIT was created to replace passive classroom lectures with immersive, studio-based software engineering.',
+      title: 'Heritage & Evolution: A Quarter-Century of Active Learning',
+      lead: 'Founded in 2001 by Turing Laureate Prof. Raj Reddy with Carnegie Mellon University guidance, MSIT eliminated passive lectures to pioneer India’s premier studio-based computing master’s.',
       image: '/assets/rajreddy.jpg',
       imageCaption: 'Prof. Raj Reddy — Turing Award Laureate & Founding Chair'
-    },
-    {
-      id: 'journey',
-      number: '02',
-      category: 'JOURNEY & EVOLUTION',
-      themeClass: 'slide-theme-journey',
-      layoutClass: 'slide-layout-journey',
-      title: 'The 25-Year Journey: From Inception in 2001 to the AI Era',
-      lead: 'Launched in 2001 under the Consortium of Institutions of Higher Learning (CIHL) with Carnegie Mellon University guidance, MSIT has evolved over a quarter-century into India’s flagship active-learning computing master’s.',
-      image: '/assets/iiit-campus.jpg',
-      imageCaption: '25 Years of Continuous Computing Pedagogy Evolution at IIIT Hyderabad'
     },
     /*
     {
@@ -51,8 +41,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     */
     {
       id: 'ainative',
-      number: '03',
+      number: '02',
       category: 'MSIT AT 25: AI NATIVE',
+      shortCategory: 'AI NATIVE',
       themeClass: 'slide-theme-ainative',
       layoutClass: 'slide-layout-ainative',
       title: 'A quarter-century of learning by doing enters its AI-native era.',
@@ -62,8 +53,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     },
     {
       id: 'backgrounds',
-      number: '04',
+      number: '03',
       category: 'B.TECH TRANSFORMATION',
+      shortCategory: 'TRANSFORMATION',
       themeClass: 'slide-theme-backgrounds',
       layoutClass: 'slide-layout-backgrounds',
       title: 'B.Tech Transformation Into AI-Native Engineers',
@@ -73,19 +65,21 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     },
     {
       id: 'events',
-      number: '05',
+      number: '04',
       category: 'CAMPUS LIFE',
+      shortCategory: 'CAMPUS LIFE',
       themeClass: 'slide-theme-events',
       layoutClass: 'slide-layout-events',
       title: 'Life on Campus at IIIT Hyderabad',
       lead: 'A vibrant 66-acre green research campus offering an enriching student experience with modern sports, technical clubs, and active community life.',
       image: '/assets/iiit-campus-life.jpg',
-      imageCaption: 'Life on Campus — 66-Acre Green Research Campus at IIIT Hyderabad'
+      imageCaption: 'Life on Campus — 66-Acre Green Research campus at IIIT Hyderabad'
     },
     {
       id: 'practicum',
-      number: '06',
+      number: '05',
       category: 'REAL-WORLD PRACTICUM',
+      shortCategory: 'PRACTICUM',
       themeClass: 'slide-theme-practicum',
       layoutClass: 'slide-layout-practicum',
       title: 'Real-World Practicum: 50% Learning, 50% Projects',
@@ -95,8 +89,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     },
     {
       id: 'admissions',
-      number: '07',
+      number: '06',
       category: 'BEGIN YOUR JOURNEY',
+      shortCategory: 'ADMISSIONS',
       themeClass: 'slide-theme-admissions',
       layoutClass: 'slide-layout-admissions',
       title: 'Begin Your Journey: Admissions & Eligibility',
@@ -219,41 +214,55 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     switch (slide.id) {
       case 'origin':
         return (
-          <div className="slide-content-layout layout-origin-story">
-            <div className="origin-main-grid">
-              {/* Left Column: Narrative Cards */}
-              <div className="origin-text-cards">
-                <div className="origin-highlight-card">
-                  <div className="origin-icon-box"><AwardIcon size={22} /></div>
-                  <div>
-                    <h4>The 2001 Vision</h4>
-                    <p>Conceived by Turing Laureate Prof. Raj Reddy (CMU) to eliminate passive lecture halls in favor of 100% active, project-driven software development studios.</p>
+          <div className="slide-content-layout layout-origin-story layout-origin-merged">
+            <div className="origin-merged-grid">
+              {/* Left Column: Visionary Anchor (Portrait, Credentials, Metrics & Signature Quote) */}
+              <div className="origin-anchor-col">
+                <div className="spotlight-card origin-merged-spotlight">
+                  <div className="spotlight-profile-layout">
+                    <div className="spotlight-img-frame">
+                      <img 
+                        src="/assets/rajreddy.jpg" 
+                        alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
+                        className="spotlight-portrait-img"
+                      />
+                    </div>
+                    <div className="spotlight-meta-info">
+                      <div className="spotlight-badge-row">
+                        <span className="spotlight-badge">Academic Visionary</span>
+                        <span className="spotlight-award-tag">Turing Laureate 1994</span>
+                      </div>
+                      <h3 className="spotlight-name">Prof. Raj Reddy</h3>
+                      <p className="spotlight-role-title">Founding Chair, MSIT • Former Dean, School of Computer Science, Carnegie Mellon University</p>
+                      <p className="spotlight-desc">Conceived MSIT in 2001 to replace passive lecture classrooms with 100% active, studio-based software engineering.</p>
+                    </div>
+                  </div>
+
+                  {/* 3 Vital Stats Row */}
+                  <div className="spotlight-stats-row">
+                    <div className="spot-stat">
+                      <strong>25+</strong>
+                      <span>Years Legacy</span>
+                    </div>
+                    <div className="spot-stat">
+                      <strong>3,000+</strong>
+                      <span>Global Alumni</span>
+                    </div>
+                    <div className="spot-stat">
+                      <strong>0%</strong>
+                      <span>Lectures</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="origin-highlight-card">
-                  <div className="origin-icon-box"><CpuIcon size={22} /></div>
-                  <div>
-                    <h4>Carnegie Mellon Pedagogy</h4>
-                    <p>Pioneered CMU's active-learning model in India: collaborative teams building production systems under dedicated industry mentors.</p>
-                  </div>
-                </div>
-
-                <div className="origin-highlight-card">
-                  <div className="origin-icon-box"><BuildingIcon size={22} /></div>
-                  <div>
-                    <h4>University Consortium</h4>
-                    <p>Anchored at IIIT Hyderabad under CIHL alongside state universities: JNTU Hyderabad, JNTU Kakinada, JNTU Anantapur, and SVU.</p>
-                  </div>
-                </div>
-
+                {/* Signature Quote Box */}
                 <div 
-                  className="origin-quote-box"
+                  className="origin-quote-box origin-quote-merged"
                   style={{
                     background: 'linear-gradient(135deg, #091a38 0%, #17386d 100%)',
                     border: '1.5px solid rgba(59, 130, 246, 0.45)',
                     borderRadius: '10px',
-                    padding: '1rem 1.3rem',
+                    padding: '0.75rem 1.15rem',
                     color: '#ffffff',
                     boxShadow: '0 4px 16px rgba(9, 26, 56, 0.25)'
                   }}
@@ -263,9 +272,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                     style={{
                       color: '#ffffff',
                       fontWeight: 600,
-                      fontSize: '0.92rem',
-                      lineHeight: '1.5',
-                      margin: '0 0 0.45rem 0',
+                      fontSize: '0.86rem',
+                      lineHeight: '1.45',
+                      margin: '0 0 0.35rem 0',
                       fontStyle: 'italic',
                       textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
                     }}
@@ -277,7 +286,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                     style={{
                       color: '#fde047',
                       fontWeight: 700,
-                      fontSize: '0.78rem',
+                      fontSize: '0.74rem',
                       display: 'block'
                     }}
                   >
@@ -286,130 +295,72 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                 </div>
               </div>
 
-              {/* Right Column: Hero Portrait Spotlight Card */}
-              <div className="origin-portrait-spotlight">
-                <div className="spotlight-card">
-                  <div className="spotlight-img-frame">
-                    <img 
-                      src="/assets/rajreddy.jpg" 
-                      alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
-                      className="spotlight-portrait-img"
-                    />
+              {/* Right Column: 4-Era Evolution Milestones Rail */}
+              <div className="journey-rail-col">
+                <div className="journey-rail-header">
+                  <div className="rail-header-tag-group">
+                    <span className="journey-rail-pill">Quarter-Century Evolution</span>
+                    <span className="journey-rail-sub">2001 Foundation to 2026 AI Era</span>
                   </div>
-                  <div className="spotlight-meta">
-                    <div className="spotlight-badge-row">
-                      <span className="spotlight-badge">Academic Visionary</span>
-                      <span className="spotlight-award-tag">Turing Laureate 1994</span>
+                  <span className="journey-rail-note">Active Learning Model</span>
+                </div>
+
+                <div className="journey-eras-grid">
+                  {/* Era 1: 2001-2005 */}
+                  <div className="journey-era-card card-m2001">
+                    <div className="journey-card-top">
+                      <span className="journey-year-badge">2001–2005</span>
+                      <span className="journey-era-label">Inception & Pedagogy</span>
                     </div>
-                    <h3 className="spotlight-name">Prof. Raj Reddy</h3>
-                    <p className="spotlight-role-title">Founding Chair, MSIT • Former Dean, School of Computer Science, Carnegie Mellon University</p>
-                    <p className="spotlight-desc">Conceived MSIT in 2001 to replace passive lecture classrooms with 100% active, studio-based software engineering.</p>
-                    <div className="spotlight-stats-row">
-                      <div className="spot-stat">
-                        <strong>25+</strong>
-                        <span>Years Legacy</span>
-                      </div>
-                      <div className="spot-stat">
-                        <strong>3,000+</strong>
-                        <span>Global Alumni</span>
-                      </div>
-                      <div className="spot-stat">
-                        <strong>0%</strong>
-                        <span>Lectures</span>
-                      </div>
+                    <h4>CIHL & CMU Mastery Model</h4>
+                    <p>Founded at IIIT Hyderabad under CIHL with Carnegie Mellon guidance. Pioneered 90%+ mastery thresholds and collaborative coding studios under dedicated 1:10 mentors.</p>
+                    <div className="journey-card-footer">
+                      <CheckCircleIcon size={14} />
+                      <span>CIHL & Carnegie Mellon Framework</span>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
 
-      case 'journey':
-        return (
-          <div className="slide-content-layout layout-journey-evolution">
-            <div className="journey-milestones-grid">
-              {/* Milestone 1: 2001 */}
-              <div className="journey-milestone-card card-m2001">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2001</span>
-                  <span className="journey-era-label">Consortium Inception</span>
-                </div>
-                <h4>CIHL & CMU Collaboration</h4>
-                <p>Founded at IIIT Hyderabad with Carnegie Mellon University (CMU) researchers under Prof. Raj Reddy, replacing blackboard lectures with active software studios.</p>
-                <div className="journey-card-footer">
-                  <CheckCircleIcon size={14} />
-                  <span>CIHL & Carnegie Mellon Framework</span>
-                </div>
-              </div>
+                  {/* Era 2: 2008-2014 */}
+                  <div className="journey-era-card card-m2008">
+                    <div className="journey-card-top">
+                      <span className="journey-year-badge">2008–2014</span>
+                      <span className="journey-era-label">Industry Integration</span>
+                    </div>
+                    <h4>Pioneering the Practicum</h4>
+                    <p>Introduced ~50% programme tenure dedicated to live engineering sprints and production software microservices alongside CETLS and top tech industry partners.</p>
+                    <div className="journey-card-footer">
+                      <CheckCircleIcon size={14} />
+                      <span>~50% Tenure in Real Projects</span>
+                    </div>
+                  </div>
 
-              {/* Milestone 2: 2002-2005 */}
-              <div className="journey-milestone-card card-m2004">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2002–2005</span>
-                  <span className="journey-era-label">Pedagogy Breakthrough</span>
-                </div>
-                <h4>The "Mastery Learning" Model</h4>
-                <p>Pioneered 90%+ mastery thresholds ('A' grade required) and full-time collaborative coding studios with a dedicated 1:10 mentor ratio.</p>
-                <div className="journey-card-footer">
-                  <CheckCircleIcon size={14} />
-                  <span>90%+ Mastery & Studio Model</span>
-                </div>
-              </div>
+                  {/* Era 3: 2015-2022 */}
+                  <div className="journey-era-card card-m2016">
+                    <div className="journey-card-top">
+                      <span className="journey-year-badge">2015–2022</span>
+                      <span className="journey-era-label">Curriculum & Scale</span>
+                    </div>
+                    <h4>Domain Tracks & Flexible Rigor</h4>
+                    <p>Expanded into Data Science, Machine Learning, and Cloud Full Stack engineering. Adapted sequential online-guided and professional tracks without sacrificing rigor.</p>
+                    <div className="journey-card-footer">
+                      <CheckCircleIcon size={14} />
+                      <span>Data Science, ML & Flexible Pathways</span>
+                    </div>
+                  </div>
 
-              {/* Milestone 3: 2008 */}
-              <div className="journey-milestone-card card-m2008">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2008</span>
-                  <span className="journey-era-label">Industry Integration</span>
-                </div>
-                <h4>Pioneering the Practicum</h4>
-                <p>Introduced ~50% programme tenure in live engineering sprints and production-grade software projects alongside CETLS and industry partners.</p>
-                <div className="journey-card-footer">
-                  <CheckCircleIcon size={14} />
-                  <span>~50% Tenure in Real Projects</span>
-                </div>
-              </div>
-
-              {/* Milestone 4: 2015-2018 */}
-              <div className="journey-milestone-card card-m2016">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2015–2018</span>
-                  <span className="journey-era-label">Curriculum Evolution</span>
-                </div>
-                <h4>Domain Specializations</h4>
-                <p>Expanded into high-demand tracks: Data Science, Machine Learning, and Cloud Full Stack engineering on modern production stacks.</p>
-                <div className="journey-card-footer">
-                  <CheckCircleIcon size={14} />
-                  <span>Data Science, ML & Full Stack</span>
-                </div>
-              </div>
-
-              {/* Milestone 5: 2020-2022 */}
-              <div className="journey-milestone-card card-m2020">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2020–2022</span>
-                  <span className="journey-era-label">Major Restructuring</span>
-                </div>
-                <h4>Hybrid Rigor & Pathways</h4>
-                <p>Adapted to sequential online-guided batches and flexible learning pathways for students and working professionals without sacrificing rigor.</p>
-                <div className="journey-card-footer">
-                  <CheckCircleIcon size={14} />
-                  <span>Online-Guided & Professional Tracks</span>
-                </div>
-              </div>
-
-              {/* Milestone 6: 2024-2026 */}
-              <div className="journey-milestone-card card-m2026">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2024–2026</span>
-                  <span className="journey-era-label">AI-Native Era</span>
-                </div>
-                <h4>GenAI Studios & 25-Year Legacy</h4>
-                <p>25 batches and 3,000+ global alumni, entering the AI-native era with LLMs, autonomous agents, and production GPU architectures.</p>
-                <div className="journey-card-footer">
-                  <CheckCircleIcon size={14} />
-                  <span>GenAI Studios & 3,000+ Alumni</span>
+                  {/* Era 4: 2024-2026 */}
+                  <div className="journey-era-card card-m2026">
+                    <div className="journey-card-top">
+                      <span className="journey-year-badge">2024–2026</span>
+                      <span className="journey-era-label">AI-Native Frontier</span>
+                    </div>
+                    <h4>GenAI Studios & 25-Year Legacy</h4>
+                    <p>25 graduating cohorts and 3,000+ global alumni, entering the AI-native era with LLMs, autonomous software agents, and enterprise GPU architectures.</p>
+                    <div className="journey-card-footer">
+                      <CheckCircleIcon size={14} />
+                      <span>GenAI Studios & 3,000+ Alumni</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1008,7 +959,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </div>
         </div>
 
-        {/* Quick Jump Category Strip (All 7 Slides) */}
+        {/* Quick Jump Category Strip (All 6 Slides) */}
         <nav className="top-bar-category-nav" aria-label="Slideshow Navigation">
           {slides.map((s, idx) => (
             <button
@@ -1017,7 +968,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               className={`top-category-pill ${idx === currentSlide ? 'active' : ''}`}
               onClick={() => goToSlide(idx)}
             >
-              <span className="pill-label">{s.category.split(' & ')[0]}</span>
+              <span className="pill-label">{s.shortCategory || s.category.split(' & ')[0]}</span>
             </button>
           ))}
         </nav>
