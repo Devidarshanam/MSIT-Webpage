@@ -818,15 +818,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                     >
                       Next ❯
                     </button>
-                    <button
-                      type="button"
-                      className={`controls-nav-btn controls-slideshow-btn ${isSlideshowActive ? 'active' : ''}`}
-                      onClick={toggleSlideshow}
-                      aria-label={isSlideshowActive ? "Pause automated slideshow" : "Start automated slideshow"}
-                    >
-                      <span className="slideshow-icon">{isSlideshowActive ? '⏸' : '▶'}</span>
-                      <span>{isSlideshowActive ? 'Pause Slideshow' : 'Play Slideshow'}</span>
-                    </button>
                   </div>
 
                   <div className="controls-center-group">
