@@ -56,16 +56,16 @@ export default function ProgrammePage() {
           <div className="programme-header-container">
             <a href="#dashboard" className="programme-brand" aria-label="MSIT Dashboard">
               <img
-                src="/assets/msit-25-logo.png"
-                alt="25 Years of MSIT"
+                src="/assets/msit-logo.png"
+                alt="MSIT Logo"
                 className="brand-logo"
                 style={{ objectFit: 'contain' }}
                 width="38"
                 height="38"
               />
               <div className="gateway-brand-text">
-                <span className="gateway-brand-title">IIIT Hyderabad Consortium</span>
-                <span className="gateway-brand-subtitle">MSIT Student Decision Dashboard</span>
+                <span className="gateway-brand-title">MSIT</span>
+                <span className="gateway-brand-subtitle">Master of Science in Information Technology</span>
               </div>
             </a>
 

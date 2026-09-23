@@ -141,7 +141,7 @@ export default function AuthFlow() {
       {step === 'email' && (
         <form onSubmit={handleEmailSubmit} className="auth-step" key="email-step">
           <div className="simple-card-top">
-            <span className="simple-mini-badge">STUDENT PORTAL</span>
+            <span className="simple-mini-badge">ADMISSION PORTAL</span>
             <div className="simple-card-icon student-portal-icon">
               <GraduationCapIcon size={26} />
             </div>

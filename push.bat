@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: dynamically label parent mobile number based on selected relationship"
+git commit -m "feat: landing page title update, slide interaction fix, admission portal badge, and MSIT branding alignment"
 
 echo.
 echo Pulling latest remote changes with rebase...

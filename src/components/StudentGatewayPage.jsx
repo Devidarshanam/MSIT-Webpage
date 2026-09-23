@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthContext';
 import AuthFlow from './AuthFlow';
 import { 
   BuildingIcon, DownloadIcon, ArrowRightIcon,
-  GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon
+  GraduationCapIcon, CpuIcon, BookOpenIcon, BriefcaseIcon, ShieldCheckIcon, AwardIcon,
+  PresentationIcon
 } from './Icons';
 import KnowAboutMSITPage from './KnowAboutMSITPage';
 
@@ -58,10 +59,7 @@ export default function StudentGatewayPage() {
               />
               <div className="gateway-title-group">
                 <h1 className="gateway-main-title">
-                  <div className="title-top-lockup">
-                    <span className="title-line-1">Master of Science</span>
-                    <span className="title-line-in">in</span>
-                  </div>
+                  <span className="title-line-1">Master of Science In</span>
                   <span className="title-line-2">Information Technology</span>
                 </h1>
               </div>
@@ -76,18 +74,11 @@ export default function StudentGatewayPage() {
             {/* =========================================================================
                 LEFT SIDE: BOX WITH ARROW TO EXPLORE / KNOW ABOUT MSIT
                 ========================================================================= */}
-            <div 
-              className="simple-action-card explore-box"
-              onClick={() => setView('about-msit')}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setView('about-msit'); }}
-              aria-label="Explore and know about MSIT"
-            >
+            <div className="simple-action-card explore-box">
               <div className="simple-card-top">
                 <span className="simple-mini-badge">ABOUT MSIT</span>
                 <div className="simple-card-icon">
-                  <BookOpenIcon size={24} />
+                  <PresentationIcon size={24} />
                 </div>
               </div>
 
@@ -117,12 +108,10 @@ export default function StudentGatewayPage() {
                 <button 
                   type="button" 
                   className="btn btn-secondary card-arrow-btn"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setView('about-msit');
-                  }}
+                  onClick={() => setView('about-msit')}
+                  aria-label="Explore 7 Slides"
                 >
-                  <span>Explore 7-Slide Overview</span>
+                  <span>Explore 7 Slides</span>
                   <ArrowRightIcon size={18} />
                 </button>
               </div>
@@ -228,7 +217,7 @@ export default function StudentGatewayPage() {
                     <h4>1. University Credentials</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Institution:</strong> IIIT Hyderabad Consortium.</li>
+                    <li><strong>Institution:</strong> MSIT.</li>
                     <li><strong>Founded:</strong> 2001 by Turing Award Laureate Prof. Raj Reddy.</li>
                     <li><strong>Partner Universities:</strong> JNTUH, JNTUK, JNTUA, SVU.</li>
                   </ul>

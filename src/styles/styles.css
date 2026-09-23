@@ -4814,7 +4814,7 @@ p {
 }
 
 .simple-action-card.explore-box {
-  cursor: pointer;
+  cursor: default;
   background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
 }
 
