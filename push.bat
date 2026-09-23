@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "style: update Know About MSIT icon to universal Info icon"
+git commit -m "fix: align Slide 1 layout, compact portrait box, and ensure bottom footer is fully visible without scroll"
 
 echo.
 echo Pulling latest remote changes with rebase...
