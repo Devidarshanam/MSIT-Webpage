@@ -12,7 +12,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const [timerResetKey, setTimerResetKey] = useState(0);
   const timerRef = useRef(null);
 
-  // 7 Slides Definition with Theme Color Palettes and Bespoke Layouts
+  // 4 Core Slides Definition with Theme Color Palettes and Bespoke Layouts
   const slides = [
     {
       id: 'origin',
@@ -61,41 +61,8 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
       imageCaption: '25 Years of MSIT'
     },
     {
-      id: 'backgrounds',
-      number: '04',
-      category: 'B.TECH TRANSFORMATION',
-      themeClass: 'slide-theme-backgrounds',
-      layoutClass: 'slide-layout-backgrounds',
-      title: 'B.Tech Transformation Into AI-Native Engineers',
-      lead: 'Bridging the gap from college theory to production engineering through hands-on AI studios.',
-      image: '/assets/iiit-ai-lab.jpg',
-      imageCaption: 'The MSIT Studio Learning Environment at IIIT Hyderabad'
-    },
-    {
-      id: 'events',
-      number: '05',
-      category: 'CAMPUS LIFE',
-      themeClass: 'slide-theme-events',
-      layoutClass: 'slide-layout-events',
-      title: 'Life on Campus at IIIT Hyderabad',
-      lead: 'A vibrant 66-acre green research campus offering an enriching student experience with modern sports, technical clubs, and active community life.',
-      image: '/assets/iiit-campus-life.jpg',
-      imageCaption: 'Life on Campus — 66-Acre Green Research Campus at IIIT Hyderabad'
-    },
-    {
-      id: 'practicum',
-      number: '06',
-      category: 'REAL-WORLD PRACTICUM',
-      themeClass: 'slide-theme-practicum',
-      layoutClass: 'slide-layout-practicum',
-      title: 'Real-World Practicum: 50% Learning, 50% Projects',
-      lead: 'Spend ~50% of your postgraduate programme embedded directly in real-world projects working with CETLS and mastering industry-relevant skills.',
-      image: '/assets/iiit-coop.jpg',
-      imageCaption: 'Corporate Co-op Practicum at Premier Tech Offices in Gachibowli'
-    },
-    {
       id: 'admissions',
-      number: '07',
+      number: '04',
       category: 'BEGIN YOUR JOURNEY',
       themeClass: 'slide-theme-admissions',
       layoutClass: 'slide-layout-admissions',
@@ -626,220 +593,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </div>
         );
 
-      case 'backgrounds':
-        return (
-          <div className="slide-content-layout layout-student-transformations">
-            <div className="dual-btech-grid">
-              {/* Panel 1: Non-CS B.Tech Graduates */}
-              <div className="dual-btech-card card-non-cs">
-                <div className="btech-card-header">
-                  <span className="btech-badge non-cs">Non-CS Graduates</span>
-                  <h3 className="btech-headline">ECE, EEE, Mechanical & Allied Branches</h3>
-                </div>
-
-                <div className="btech-transformation-rows">
-                  <div className="btech-row past">
-                    <span className="phase-pill past-pill">Before MSIT</span>
-                    <p>Theory-heavy curriculum with zero production coding or systems experience.</p>
-                  </div>
-
-                  <div className="btech-row msit">
-                    <span className="phase-pill msit-pill">At MSIT</span>
-                    <p>Foundational immersion in programming, data structures, and AI tutoring.</p>
-                  </div>
-
-                  <div className="btech-row outcome">
-                    <span className="phase-pill outcome-pill">Outcome</span>
-                    <p>Production full-stack capability, completely erasing the non-CS divide.</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Panel 2: CS & IT Freshers */}
-              <div className="dual-btech-card card-freshers">
-                <div className="btech-card-header">
-                  <span className="btech-badge freshers">CS & IT Freshers</span>
-                  <h3 className="btech-headline">Computer Science & IT Graduates</h3>
-                </div>
-
-                <div className="btech-transformation-rows">
-                  <div className="btech-row past">
-                    <span className="phase-pill past-pill">Before MSIT</span>
-                    <p>Classroom exams without real-world deployments or team git workflows.</p>
-                  </div>
-
-                  <div className="btech-row msit">
-                    <span className="phase-pill msit-pill">At MSIT</span>
-                    <p>Daily studio sprints building microservices alongside AI copilots.</p>
-                  </div>
-
-                  <div className="btech-row outcome">
-                    <span className="phase-pill outcome-pill">Outcome</span>
-                    <p>Job-ready AI software engineers commanding top-tier product roles.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom 3 Core Shifts */}
-            <div className="edu-pillars-strip">
-              <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">PEDAGOGY</span>
-                <strong>Zero Lectures</strong>
-                <p>100% active studio software development</p>
-              </div>
-
-              <div className="edu-pillar-divider"></div>
-
-              <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">AI NATIVE</span>
-                <strong>Copilot Studios</strong>
-                <p>Real-world LLM & agent pair programming</p>
-              </div>
-
-              <div className="edu-pillar-divider"></div>
-
-              <div className="edu-pillar-item">
-                <span className="pillar-shift-badge">EXPERIENCE</span>
-                <strong>50% Practicum</strong>
-                <p>Extended corporate tenure with industry mentors</p>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'events':
-        return (
-          <div className="slide-content-layout layout-events-community">
-            <div className="campus-editorial-container">
-              {/* Left Column: Pure Clean Typography & Flow (No Boxes) */}
-              <div className="campus-text-column">
-                <div className="campus-intro-block">
-                  <span className="campus-kicker">66-Acre Research Campus · Gachibowli</span>
-                  <h3 className="campus-lead-heading">A Balanced Ecosystem for Growth, Recreation & Community</h3>
-                  <p className="campus-lead-narrative">
-                    Life at IIIT Hyderabad blends high-rigour computing studios with an open, green residential atmosphere designed for well-being and collaboration.
-                  </p>
-                </div>
-
-                {/* Minimal Highlights (Clean, Unboxed, Dot Accents) */}
-                <div className="campus-feature-list">
-                  <div className="campus-feature-row">
-                    <span className="feature-indicator green"></span>
-                    <div className="feature-text">
-                      <strong>Green Residential Campus</strong>
-                      <span>Pedestrian-friendly pathways, vast central library, and 24/7 collaborative computing labs.</span>
-                    </div>
-                  </div>
-
-                  <div className="campus-feature-row">
-                    <span className="feature-indicator blue"></span>
-                    <div className="feature-text">
-                      <strong>Sports & Fitness Amenities</strong>
-                      <span>Football and cricket grounds, tennis & basketball courts, badminton, indoor games, gym, and yoga.</span>
-                    </div>
-                  </div>
-
-                  <div className="campus-feature-row">
-                    <span className="feature-indicator amber"></span>
-                    <div className="feature-text">
-                      <strong>Student Clubs & Creative Arts</strong>
-                      <span>Active student societies across robotics, coding, music, dance, dramatics, literature, and visual arts.</span>
-                    </div>
-                  </div>
-
-                  <div className="campus-feature-row">
-                    <span className="feature-indicator purple"></span>
-                    <div className="feature-text">
-                      <strong>Collaborative Peer Community</strong>
-                      <span>A close-knit, supportive campus culture building lasting camaraderie, peer learning, and lifelong networks.</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Minimalist Official Link Button */}
-                <div className="campus-action-area">
-                  <a
-                    href="https://www.iiit.ac.in/life-on-campus/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="campus-clean-portal-link"
-                    aria-label="Visit IIIT Hyderabad Life on Campus Official Website"
-                  >
-                    <span>Explore Life on Campus at IIIT Hyderabad</span>
-                    <ArrowRightIcon size={16} />
-                  </a>
-                  <span className="campus-link-caption">Official portal with campus details & photos ↗</span>
-                </div>
-              </div>
-
-              {/* Right Column: Framed Campus Life Photo Montage */}
-              <div className="campus-visual-column">
-                <div className="campus-visual-frame">
-                  <img 
-                    src="/assets/iiit-campus-life.jpg" 
-                    alt="Life on Campus IIIT Hyderabad" 
-                    className="campus-visual-img"
-                  />
-                  <div className="campus-visual-floating-tag">
-                    <span>IIIT Hyderabad · Life on Campus</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'practicum':
-        return (
-          <div className="slide-content-layout layout-coop-practicum">
-            <div className="practicum-stats-strip">
-              <div className="p-stat-box">
-                <strong className="p-stat-number">50 / 50</strong>
-                <span className="p-stat-label">Learning & Projects</span>
-                <span className="p-stat-detail">Working with CETLS</span>
-              </div>
-              <div className="p-stat-box">
-                <strong className="p-stat-number">100%</strong>
-                <span className="p-stat-label">Industry Aligned</span>
-                <span className="p-stat-detail">Real-world Problem Solving</span>
-              </div>
-            </div>
-
-            <div className="practicum-details-grid">
-              <div className="practicum-text-card">
-                <h4>Why the MSIT Real-World Practicum is Transformative</h4>
-                <ul className="practicum-benefits-list">
-                  <li>
-                    <CheckCircleIcon size={18} />
-                    <span><strong>Industry-Integrated Learning:</strong> Master cutting-edge technologies by working on real-world problems, directly aligning your skills with industry requirements.</span>
-                  </li>
-                  <li>
-                    <CheckCircleIcon size={18} />
-                    <span><strong>Live Production Codebase Exposure:</strong> Interns work on actual customer-facing microservices, CI/CD pipelines, and cloud systems in collaboration with CETLS.</span>
-                  </li>
-                  <li>
-                    <CheckCircleIcon size={18} />
-                    <span><strong>Prime Gachibowli Location:</strong> Companies are located right around the campus in HITEC City and the Financial District, providing effortless connectivity.</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="practicum-image-card">
-                <img 
-                  src="/assets/iiit-coop.jpg" 
-                  alt="Corporate Practicum" 
-                  className="practicum-coop-img"
-                />
-                <div className="practicum-img-caption">
-                  <strong>Embedded in Premier Engineering Divisions</strong>
-                  <span>MSIT students working alongside senior software architects and technology leaders</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
       case 'admissions':
         return (
           <div className="slide-content-layout layout-admissions-gateway">
@@ -1008,7 +761,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </div>
         </div>
 
-        {/* Quick Jump Category Strip (All 7 Slides) */}
+        {/* Quick Jump Category Strip (All 4 Slides) */}
         <nav className="top-bar-category-nav" aria-label="Slideshow Navigation">
           {slides.map((s, idx) => (
             <button
