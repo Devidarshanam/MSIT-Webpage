@@ -33,6 +33,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -42,6 +43,13 @@ body {
   color: var(--neutral-900);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root, .app-root {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* Scroll margin on all section anchors to prevent header overlap */
@@ -5588,6 +5596,9 @@ p {
 .student-decision-dashboard {
   background: #f8fafc;
   color: var(--neutral-800);
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 /* Sub-Navigation (pinned seamlessly directly beneath header in .programme-sticky-nav-shell) */
@@ -7048,6 +7059,61 @@ p {
   margin: 0;
 }
 
+@media (max-width: 768px) {
+  .fee-structure-table, 
+  .fee-structure-table thead, 
+  .fee-structure-table tbody, 
+  .fee-structure-table th, 
+  .fee-structure-table td, 
+  .fee-structure-table tr { 
+    display: block; 
+  }
+  
+  .fee-structure-table thead tr { 
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  
+  .fee-structure-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--neutral-200);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    background: #ffffff;
+  }
+  
+  .fee-structure-table td { 
+    position: relative;
+    padding: 0.5rem 0 0.5rem 45%;
+    border: none;
+    border-bottom: 1px solid var(--neutral-100);
+    text-align: right;
+  }
+  
+  .fee-structure-table td:last-child {
+    border-bottom: 0;
+  }
+  
+  .fee-structure-table td::before { 
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 40%; 
+    white-space: normal;
+    text-align: left;
+    transform: translateY(-50%);
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--neutral-500);
+    text-transform: uppercase;
+  }
+  
+  .fee-structure-table td:nth-of-type(1)::before { content: "Component"; }
+  .fee-structure-table td:nth-of-type(2)::before { content: "Period"; }
+  .fee-structure-table td:nth-of-type(3)::before { content: "Amount"; }
+}
+
 .financial-guidance-card {
   background: #ffffff;
   border: 1px solid var(--neutral-200);
@@ -8252,8 +8318,7 @@ p {
   }
 
   .programme-header .gateway-brand-subtitle {
-    font-size: 0.68rem;
-    display: block;
+    display: none !important;
   }
 
   .programme-header-actions {
@@ -8280,6 +8345,12 @@ p {
   .programme-header .programme-signout-btn {
     font-size: 0.72rem;
     padding: 0.2rem 0.55rem;
+  }
+
+  .programme-header .programme-apply-btn {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    gap: 0.25rem;
   }
 
   /* Sub-navigation pinned directly beneath header in .programme-sticky-nav-shell */
