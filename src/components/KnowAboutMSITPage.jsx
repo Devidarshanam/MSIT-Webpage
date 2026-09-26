@@ -638,7 +638,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   {/* Full Campus Photo Container - No Cropping */}
                   <div className="campus-full-photo-frame">
                     <img 
-                      src="/assets/iiit-campus.jpg" 
+                      src="/assets/iiit-campus-4k.jpg" 
                       alt="IIIT Hyderabad Campus - Academic Block" 
                       className="campus-full-img"
                     />

@@ -8893,6 +8893,17 @@ p {
 
 .slide-header-meta {
   margin-bottom: 1.1rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-meta-top-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
 }
 
 .fullscreen-category-badge {
@@ -8957,34 +8968,49 @@ p {
    SLIDE 1: HERITAGE & EVOLUTION (MERGED) — NO-SCROLL & VIEWPORT-CONSISTENT
    ========================================================================= */
 @media (min-width: 901px) {
-  .stage-origin {
+  .stage-origin,
+  .stage-admissions {
     overflow-y: hidden !important;
     padding: clamp(0.75rem, 1.6vh, 1.15rem) 3.5rem clamp(0.6rem, 1.4vh, 0.85rem) !important;
+    justify-content: flex-start !important;
+    gap: 0.5rem !important;
   }
 
-  .stage-origin .slide-header-meta {
+  .stage-origin .slide-header-meta,
+  .stage-admissions .slide-header-meta {
     margin-bottom: clamp(0.25rem, 0.6vh, 0.45rem) !important;
   }
 
-  .stage-origin .fullscreen-slide-title {
+  .stage-origin .fullscreen-slide-title,
+  .stage-admissions .fullscreen-slide-title {
     font-size: clamp(1.28rem, 1.9vw, 1.8rem) !important;
     margin: 0 0 0.12rem 0 !important;
   }
 
-  .stage-origin .fullscreen-slide-lead {
+  .stage-origin .fullscreen-slide-lead,
+  .stage-admissions .fullscreen-slide-lead {
     font-size: clamp(0.74rem, 0.84vw, 0.82rem) !important;
     line-height: 1.35 !important;
     display: block !important;
     width: 100% !important;
   }
 
-  .stage-origin .slide-body-container {
+  .stage-origin .slide-body-container,
+  .stage-admissions .slide-body-container {
     flex: 1 !important;
     margin-bottom: clamp(0.25rem, 0.6vh, 0.45rem) !important;
     min-height: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
+  }
+
+  .stage-origin .slide-content-layout,
+  .stage-admissions .slide-content-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
   }
 
   .stage-origin .origin-merged-grid {
@@ -9005,7 +9031,7 @@ p {
 .origin-merged-grid {
   display: grid;
   grid-template-columns: 1.05fr 1.35fr;
-  gap: 1.4rem;
+  gap: clamp(1.8rem, 3vw, 2.5rem);
   align-items: stretch;
   height: 100%;
   min-height: 0;
@@ -9015,7 +9041,7 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: clamp(0.4rem, 0.9vh, 0.65rem);
+  gap: clamp(1.5rem, 3.5vh, 2.5rem);
   height: 100%;
   min-height: 0;
 }
@@ -9025,7 +9051,7 @@ p {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-md);
-  padding: clamp(0.6rem, 1.1vh, 0.95rem) clamp(0.75rem, 1.2vw, 1.05rem);
+  padding: clamp(1.2rem, 2.5vh, 1.8rem) clamp(1.2rem, 2vw, 1.8rem);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
@@ -9036,13 +9062,13 @@ p {
 
 .spotlight-profile-layout {
   display: grid;
-  grid-template-columns: clamp(95px, 9.5vw, 130px) 1fr;
-  gap: clamp(0.65rem, 1.1vw, 1rem);
+  grid-template-columns: clamp(160px, 20vw, 260px) 1fr;
+  gap: clamp(1.5rem, 2vw, 2rem);
   align-items: center;
 }
 
 .origin-merged-spotlight .spotlight-img-frame {
-  height: clamp(120px, 16vh, 155px);
+  height: clamp(200px, 32vh, 320px);
   border-radius: var(--radius-sm);
   overflow: hidden;
   position: relative;
@@ -9081,7 +9107,7 @@ p {
 }
 
 .origin-merged-spotlight .spotlight-name {
-  font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
   font-weight: 900;
   color: var(--primary-900);
   margin: 0 0 0.15rem 0;
@@ -9106,13 +9132,13 @@ p {
 .origin-merged-spotlight .spotlight-stats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.35rem;
+  gap: 0.5rem;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: clamp(0.25rem, 0.5vh, 0.38rem) 0.35rem;
+  padding: clamp(0.6rem, 1.2vh, 0.9rem) 0.5rem;
   text-align: center;
-  margin-top: clamp(0.35rem, 0.7vh, 0.55rem);
+  margin-top: clamp(0.6rem, 1.5vh, 1rem);
 }
 
 .origin-merged-spotlight .spot-stat strong {
@@ -9136,7 +9162,7 @@ p {
   background: linear-gradient(135deg, #091a38 0%, #17386d 100%) !important;
   border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
   border-radius: var(--radius-sm);
-  padding: clamp(0.45rem, 0.9vh, 0.7rem) clamp(0.65rem, 1vw, 0.95rem) !important;
+  padding: clamp(0.75rem, 1.2vh, 1.1rem) clamp(0.85rem, 1.2vw, 1.25rem) !important;
   color: #ffffff !important;
   box-shadow: 0 4px 16px rgba(9, 26, 56, 0.25);
   flex-shrink: 0;
@@ -9167,7 +9193,7 @@ p {
   justify-content: space-between;
   height: 100%;
   min-height: 0;
-  gap: clamp(0.3rem, 0.6vh, 0.5rem);
+  gap: clamp(0.8rem, 1.5vh, 1.2rem);
 }
 
 .journey-rail-header {
@@ -9215,7 +9241,7 @@ p {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: clamp(0.4rem, 0.8vh, 0.65rem);
+  gap: clamp(1.2rem, 2.5vh, 1.8rem);
   flex: 1;
   min-height: 0;
 }
@@ -9224,7 +9250,7 @@ p {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: clamp(0.45rem, 0.9vh, 0.75rem) clamp(0.6rem, 0.9vw, 0.85rem);
+  padding: clamp(1.2rem, 2.5vh, 1.8rem) clamp(1.2rem, 1.8vw, 1.6rem);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
@@ -9246,17 +9272,17 @@ p {
 }
 
 .journey-era-card .journey-year-badge {
-  font-size: 0.63rem;
+  font-size: 0.75rem;
   font-weight: 900;
   background: #0b2a6b;
   color: #fcd34d;
-  padding: 0.12rem 0.5rem;
+  padding: 0.18rem 0.6rem;
   border-radius: var(--radius-pill);
   letter-spacing: 0.04em;
 }
 
 .journey-era-card .journey-era-label {
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   font-weight: 800;
   color: #0369a1;
   text-transform: uppercase;
@@ -9264,7 +9290,7 @@ p {
 }
 
 .journey-era-card h4 {
-  font-size: clamp(0.78rem, 0.88vw, 0.86rem) !important;
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem) !important;
   font-weight: 800;
   color: var(--primary-900);
   margin: 0.12rem 0 !important;
@@ -9272,9 +9298,9 @@ p {
 }
 
 .journey-era-card p {
-  font-size: clamp(0.68rem, 0.76vw, 0.74rem) !important;
+  font-size: clamp(0.78rem, 0.88vw, 0.86rem) !important;
   color: var(--neutral-600);
-  line-height: 1.34 !important;
+  line-height: 1.4 !important;
   margin: 0 0 0.35rem 0 !important;
   flex: 1;
 }
@@ -9282,10 +9308,10 @@ p {
 .journey-era-card .journey-card-footer {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding-top: 0.25rem;
+  gap: 0.45rem;
+  padding-top: 0.35rem;
   border-top: 1px solid #f1f5f9;
-  font-size: clamp(0.6rem, 0.68vw, 0.65rem);
+  font-size: clamp(0.7rem, 0.8vw, 0.78rem);
   font-weight: 700;
   color: #0284c7;
 }
@@ -10105,15 +10131,23 @@ p {
 .layout-admissions-gateway .admissions-split-grid {
   display: grid;
   grid-template-columns: 1.25fr 0.95fr;
-  gap: 1.35rem;
-  height: 100%;
+  gap: clamp(1rem, 2vw, 2rem);
+  flex: 1;
+  min-height: 0;
 }
 
 .admissions-process-col {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: clamp(0.5rem, 1vh, 1.5rem);
   justify-content: space-between;
+  min-height: 0;
+}
+
+.admissions-campus-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .admissions-eligibility-card,
@@ -10121,7 +10155,7 @@ p {
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: 0.85rem 1.15rem;
+  padding: clamp(0.5rem, 1vh, 1.4rem) clamp(0.85rem, 1.5vw, 1.5rem);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
@@ -10145,7 +10179,7 @@ p {
 }
 
 .admissions-card-header h4 {
-  font-size: 0.92rem;
+  font-size: clamp(0.85rem, 1.3vw, 1.25rem);
   font-weight: 800;
   color: var(--primary-900);
   margin: 0;
@@ -10181,7 +10215,7 @@ p {
 
 .eligibility-text strong {
   display: block;
-  font-size: 0.81rem;
+  font-size: clamp(0.75rem, 1.1vw, 1.1rem);
   font-weight: 700;
   color: var(--primary-900);
   line-height: 1.3;
@@ -10189,7 +10223,7 @@ p {
 
 .eligibility-text span {
   display: block;
-  font-size: 0.73rem;
+  font-size: clamp(0.68rem, 0.9vw, 0.95rem);
   color: var(--neutral-600);
   line-height: 1.35;
   margin-top: 1px;
@@ -10214,7 +10248,7 @@ p {
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: 0.55rem 0.65rem;
+  padding: clamp(0.45rem, 1vh, 1.1rem) clamp(0.5rem, 1.2vw, 1.1rem);
   transition: transform 0.2s, border-color 0.2s;
 }
 
@@ -10238,14 +10272,14 @@ p {
 }
 
 .step-item strong {
-  font-size: 0.79rem;
+  font-size: clamp(0.72rem, 1.1vw, 1.05rem);
   font-weight: 700;
   color: var(--primary-900);
   margin-bottom: 0.15rem;
 }
 
 .step-item span {
-  font-size: 0.7rem;
+  font-size: clamp(0.65rem, 0.9vw, 0.95rem);
   color: var(--neutral-600);
   line-height: 1.35;
 }
@@ -10254,7 +10288,7 @@ p {
   background: linear-gradient(135deg, #071e46 0%, #173f78 100%) !important;
   border: 1.5px solid rgba(59, 130, 246, 0.45) !important;
   border-radius: var(--radius-sm);
-  padding: 0.85rem 1.15rem;
+  padding: clamp(0.6rem, 1.5vh, 1.6rem) clamp(0.85rem, 1.8vw, 1.6rem);
   color: #ffffff !important;
   display: flex;
   align-items: center;
@@ -10289,7 +10323,7 @@ p {
 .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner h3,
 .admissions-cta-banner h3,
 .cta-banner-heading {
-  font-size: 0.98rem !important;
+  font-size: clamp(0.88rem, 1.4vw, 1.3rem) !important;
   font-weight: 900 !important;
   color: #ffffff !important;
   margin: 0.15rem 0 0.15rem 0 !important;
@@ -10300,7 +10334,7 @@ p {
 .fullscreen-slideshow-root .fullscreen-slide-item .slide-body-container .admissions-cta-banner p,
 .admissions-cta-banner p,
 .cta-banner-desc {
-  font-size: 0.78rem !important;
+  font-size: clamp(0.72rem, 1vw, 1.05rem) !important;
   color: #f1f5f9 !important;
   margin: 0 !important;
   line-height: 1.35 !important;
@@ -10308,8 +10342,8 @@ p {
 }
 
 .admissions-big-cta {
-  font-size: 0.82rem !important;
-  padding: 0.55rem 1.15rem !important;
+  font-size: clamp(0.75rem, 1.1vw, 1.05rem) !important;
+  padding: clamp(0.45rem, 1vh, 0.95rem) clamp(0.85rem, 1.6vw, 1.5rem) !important;
   font-weight: 800 !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
@@ -10339,6 +10373,7 @@ p {
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  min-height: 0;
 }
 
 /* Dedicated frame for displaying the FULL authentic photo without any cropping */
@@ -10350,16 +10385,17 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 190px;
-  max-height: 240px;
+  flex: 1;
+  min-height: 0;
+  max-height: 100%;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .campus-full-img {
   width: 100%;
-  height: auto;
-  max-height: 240px;
-  object-fit: contain;
+  height: 100%;
+  max-height: 100%;
+  object-fit: cover;
   display: block;
 }
 
@@ -10387,11 +10423,11 @@ p {
 }
 
 .campus-showcase-content {
-  padding: 0.95rem 1.15rem;
+  padding: clamp(0.85rem, 1.5vh, 1.25rem) clamp(0.85rem, 1.5vw, 1.25rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
+  flex-shrink: 0;
 }
 
 .consortium-header-group {
@@ -10419,14 +10455,14 @@ p {
 }
 
 .campus-showcase-content h3 {
-  font-size: 0.98rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
   font-weight: 800;
   color: var(--primary-900);
   margin: 0 0 0.25rem 0;
 }
 
 .campus-desc {
-  font-size: 0.76rem;
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem);
   color: var(--neutral-600);
   margin: 0 0 0.65rem 0;
   line-height: 1.4;
@@ -10435,23 +10471,23 @@ p {
 .campus-metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.45rem;
+  gap: 0.5rem;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: var(--radius-sm);
-  padding: 0.55rem 0.4rem;
+  padding: clamp(0.45rem, 1vh, 0.8rem) 0.4rem;
   text-align: center;
 }
 
 .campus-metric-box strong {
   display: block;
-  font-size: 0.96rem;
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
   font-weight: 900;
   color: var(--primary-900);
 }
 
 .campus-metric-box span {
-  font-size: 0.64rem;
+  font-size: clamp(0.6rem, 0.75vw, 0.7rem);
   color: var(--neutral-500);
   font-weight: 600;
   white-space: nowrap;
@@ -10529,9 +10565,13 @@ p {
 
   .origin-merged-grid,
   .origin-main-grid,
-  .practicum-details-grid,
-  .admissions-split-grid {
+  .practicum-details-grid {
     grid-template-columns: 1fr;
+  }
+
+  .layout-admissions-gateway .admissions-split-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
   }
 
   .journey-eras-grid,
@@ -10904,13 +10944,7 @@ p {
     flex-shrink: 0;
   }
 
-  .slide-meta-top-row {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    margin-bottom: 0.35rem;
-  }
+
 
   .fullscreen-category-badge {
     font-size: 0.65rem;
