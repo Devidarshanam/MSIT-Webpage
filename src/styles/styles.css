@@ -7488,105 +7488,372 @@ p {
   text-decoration: underline;
 }
 
-/* Alumni Clean Pending / Empty State Card */
-.alumni-empty-state-card {
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  border: 1.5px dashed #cbd5e1;
-  border-radius: var(--radius-xl);
-  padding: 2.75rem 2rem;
-  text-align: center;
-  box-shadow: 0 4px 16px rgba(11, 42, 107, 0.03);
+/* =========================================================================
+   ALUMNI OUTCOMES (2021–23 BATCH)
+   ========================================================================= */
+.alumni-title-header-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.alumni-cohort-badge-header {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.02em;
+}
+
+.alumni-outcomes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* 1. Statistics Cards Grid (Dual Grid) */
+.alumni-stats-hero-grid,
+.alumni-stats-hero-grid.dual-grid,
+.alumni-stats-hero-grid.quad-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.15rem;
+  width: 100%;
+}
+
+.alumni-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.35rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
 }
 
-.alumni-empty-icon-box {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(11, 42, 107, 0.08);
-  color: #0b2a6b;
+.alumni-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.alumni-stat-card.card-theme-blue {
+  border-top: 3.5px solid #2563eb;
+}
+.alumni-stat-card.card-theme-blue .stat-icon-wrapper {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.alumni-stat-card.card-theme-blue .stat-card-bottom-line {
+  background: #2563eb;
+}
+
+.alumni-stat-card.card-theme-emerald {
+  border-top: 3.5px solid #059669;
+}
+.alumni-stat-card.card-theme-emerald .stat-icon-wrapper {
+  background: #ecfdf5;
+  color: #059669;
+}
+.alumni-stat-card.card-theme-emerald .stat-card-bottom-line {
+  background: #059669;
+}
+
+.alumni-stat-card.card-theme-amber {
+  border-top: 3.5px solid #d97706;
+}
+.alumni-stat-card.card-theme-amber .stat-icon-wrapper {
+  background: #fffbeb;
+  color: #d97706;
+}
+.alumni-stat-card.card-theme-amber .stat-card-bottom-line {
+  background: #d97706;
+}
+
+.alumni-stat-card.card-theme-indigo {
+  border-top: 3.5px solid #4f46e5;
+}
+.alumni-stat-card.card-theme-indigo .stat-icon-wrapper {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+.alumni-stat-card.card-theme-indigo .stat-card-bottom-line {
+  background: #4f46e5;
+}
+
+.stat-card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.stat-card-category-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+}
+
+.stat-icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 1rem;
-  box-shadow: 0 4px 12px rgba(11, 42, 107, 0.08);
+  transition: transform 0.2s ease;
 }
 
-.alumni-empty-badge {
-  display: inline-block;
-  font-size: 0.74rem;
+.alumni-stat-card:hover .stat-icon-wrapper {
+  transform: scale(1.08);
+}
+
+.stat-card-main-data {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-card-number {
+  font-size: clamp(1.5rem, 2vw, 1.85rem);
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.stat-card-name {
+  font-size: 0.88rem;
   font-weight: 700;
-  color: #1e40af;
-  background: #dbeafe;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.stat-card-subtext {
+  font-size: 0.76rem;
+  color: #64748b;
+  line-height: 1.4;
+  margin-top: 0.35rem;
+  font-weight: 500;
+}
+
+.stat-card-bottom-line {
+  height: 3px;
+  width: 0%;
+  transition: width 0.3s ease;
+  margin-top: 0.75rem;
+  border-radius: 2px;
+}
+
+.alumni-stat-card:hover .stat-card-bottom-line {
+  width: 100%;
+}
+
+/* 2. Lower Section: Alumni Career Journey Visual */
+.alumni-journey-card-container {
+  background: linear-gradient(135deg, #091a38 0%, #17386d 100%);
+  border: 1.5px solid rgba(59, 130, 246, 0.35);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2.5vw, 2rem);
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(9, 26, 56, 0.18);
+}
+
+.journey-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.journey-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.journey-kicker {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fde047;
+}
+
+.journey-headline {
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.journey-node {
+  color: #ffffff;
+}
+
+.journey-arrow {
+  color: #60a5fa;
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+
+.journey-batch-pill {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
   padding: 0.25rem 0.75rem;
   border-radius: var(--radius-pill);
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
-.alumni-empty-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--neutral-900);
-  margin: 0 0 0.5rem;
+.journey-stepped-pipeline {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0.75rem;
 }
 
-.alumni-empty-message {
-  font-size: 0.9rem;
-  color: var(--neutral-600);
-  max-width: 640px;
-  margin: 0 auto 1.75rem;
-  line-height: 1.6;
+.pipeline-stage-item {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-md);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
 }
 
-.alumni-network-highlights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem;
-  max-width: 820px;
-  margin: 0 auto;
-  text-align: left;
+.pipeline-stage-item:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(96, 165, 250, 0.5);
+  transform: translateY(-2px);
 }
 
-.alumni-highlight-pill {
+.stage-top-meta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  background: #ffffff;
-  border: 1px solid var(--neutral-200);
-  border-radius: var(--radius-lg);
-  padding: 0.85rem 1rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  color: #93c5fd;
 }
 
-.highlight-pill-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-md);
-  background: rgba(11, 42, 107, 0.06);
-  color: #0b2a6b;
+.stage-step-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: rgba(96, 165, 250, 0.2);
+  color: #bfdbfe;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+}
+
+.pipeline-stage-item h5 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff !important;
+  margin: 0 0 0.35rem 0;
+}
+
+.pipeline-stage-item p {
+  font-size: 0.82rem;
+  color: #e2e8f0 !important;
+  line-height: 1.45;
+  margin: 0 0 0.75rem 0;
+  flex: 1;
+}
+
+.stage-footer-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #fde047;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pipeline-connector-block {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 28px;
   flex-shrink: 0;
 }
 
-.highlight-pill-text {
+.connector-track {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-.highlight-pill-label {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--neutral-900);
+.connector-arrow {
+  font-size: 1.25rem;
+  color: #60a5fa;
+  font-weight: 900;
 }
 
-.highlight-pill-detail {
-  font-size: 0.74rem;
-  color: var(--neutral-500);
+@media (max-width: 992px) {
+  .alumni-stats-hero-grid.quad-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
 }
+
+@media (max-width: 860px) {
+  .journey-stepped-pipeline {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .pipeline-connector-block {
+    width: 100%;
+    height: 20px;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .alumni-stats-hero-grid.quad-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .alumni-stat-card {
+    padding: 1rem 1.15rem;
+  }
+  .stat-card-number {
+    font-size: 1.5rem;
+  }
+  .journey-headline {
+    font-size: 1rem;
+  }
+}
+
 
 /* Practicum Section */
 .practicum-ratio-banner {
