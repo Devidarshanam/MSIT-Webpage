@@ -625,9 +625,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <button 
                     type="button" 
                     className="btn btn-primary admissions-big-cta"
-                    onClick={() => navigate('/apply')}
+                    onClick={onGoToSignIn}
                   >
-                    <span>Apply Now — Online Application Portal ➔</span>
+                    <span>Apply Now — Sign In ➔</span>
                   </button>
                 </div>
               </div>
