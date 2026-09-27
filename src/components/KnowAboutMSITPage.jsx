@@ -638,7 +638,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   {/* Full Campus Photo Container - No Cropping */}
                   <div className="campus-full-photo-frame">
                     <img 
-                      src="/assets/iiit-campus.jpg" 
+                      src="/assets/iiit-campus-4k.jpg" 
                       alt="IIIT Hyderabad Campus - Academic Block" 
                       className="campus-full-img"
                     />
@@ -817,15 +817,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                       aria-label="Next Slide"
                     >
                       Next ❯
-                    </button>
-                    <button
-                      type="button"
-                      className={`controls-nav-btn controls-slideshow-btn ${isSlideshowActive ? 'active' : ''}`}
-                      onClick={toggleSlideshow}
-                      aria-label={isSlideshowActive ? "Pause automated slideshow" : "Start automated slideshow"}
-                    >
-                      <span className="slideshow-icon">{isSlideshowActive ? '⏸' : '▶'}</span>
-                      <span>{isSlideshowActive ? 'Pause Slideshow' : 'Play Slideshow'}</span>
                     </button>
                   </div>
 
