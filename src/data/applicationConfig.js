@@ -40,11 +40,7 @@ export const PARENT_RELATIONSHIP_OPTIONS = [
 ];
 
 export const UG_DEGREE_OPTIONS = [
-  'B.Tech / B.E.',
-  'MCA',
-  'M.Sc (CS / IT / Maths)',
-  'BCA / B.Sc',
-  'Other Equivalent Degree'
+  'B.Tech / B.E.'
 ];
 
 export const DEPARTMENT_OPTIONS = [

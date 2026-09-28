@@ -124,7 +124,9 @@ CREATE OR REPLACE FUNCTION public.is_authorized_admin()
 RETURNS BOOLEAN AS $$
 BEGIN
     RETURN (
-        -- Temporary development rule for @getskills.io domain:
+        -- Authorized domains (@msitprogram.net and @getskills.io):
+        (auth.jwt() ->> 'email') ILIKE '%@msitprogram.net'
+        OR
         (auth.jwt() ->> 'email') ILIKE '%@getskills.io'
         OR
         -- Official database role check:
@@ -139,40 +141,47 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 -- --- ADMIN POLICIES ---
 
 -- Admin Users Table
+DROP POLICY IF EXISTS "Admins can view admin directory" ON public.admin_users;
 CREATE POLICY "Admins can view admin directory"
     ON public.admin_users FOR SELECT
     TO authenticated
     USING (public.is_authorized_admin());
 
 -- Applications Table
+DROP POLICY IF EXISTS "Admins have full access to applications" ON public.applications;
 CREATE POLICY "Admins have full access to applications"
     ON public.applications FOR ALL
     TO authenticated
     USING (public.is_authorized_admin())
     WITH CHECK (public.is_authorized_admin());
 
+DROP POLICY IF EXISTS "Students can view their own applications" ON public.applications;
 CREATE POLICY "Students can view their own applications"
     ON public.applications FOR SELECT
     TO authenticated
     USING (email = (auth.jwt() ->> 'email'));
 
+DROP POLICY IF EXISTS "Students can submit their application" ON public.applications;
 CREATE POLICY "Students can submit their application"
     ON public.applications FOR INSERT
     TO authenticated
     WITH CHECK (email = (auth.jwt() ->> 'email'));
 
+DROP POLICY IF EXISTS "Allow anon submissions for guest portal apply" ON public.applications;
 CREATE POLICY "Allow anon submissions for guest portal apply"
     ON public.applications FOR INSERT
     TO anon
     WITH CHECK (true);
 
 -- Application Documents Table
+DROP POLICY IF EXISTS "Admins have full access to documents" ON public.application_documents;
 CREATE POLICY "Admins have full access to documents"
     ON public.application_documents FOR ALL
     TO authenticated
     USING (public.is_authorized_admin())
     WITH CHECK (public.is_authorized_admin());
 
+DROP POLICY IF EXISTS "Students can view their own documents" ON public.application_documents;
 CREATE POLICY "Students can view their own documents"
     ON public.application_documents FOR SELECT
     TO authenticated
@@ -185,6 +194,7 @@ CREATE POLICY "Students can view their own documents"
     );
 
 -- Application Notes Table (STRICTLY ADMIN ONLY)
+DROP POLICY IF EXISTS "Admins have full access to internal notes" ON public.application_notes;
 CREATE POLICY "Admins have full access to internal notes"
     ON public.application_notes FOR ALL
     TO authenticated
@@ -192,6 +202,7 @@ CREATE POLICY "Admins have full access to internal notes"
     WITH CHECK (public.is_authorized_admin());
 
 -- Status History Table (STRICTLY ADMIN ONLY)
+DROP POLICY IF EXISTS "Admins have full access to status history" ON public.application_status_history;
 CREATE POLICY "Admins have full access to status history"
     ON public.application_status_history FOR ALL
     TO authenticated

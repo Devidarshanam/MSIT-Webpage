@@ -39,9 +39,9 @@ export default function Hero({ data }) {
     }
     setFormError('');
 
-    // Determine eligibility verdict
+    // Determine eligibility verdict (B.Tech / B.E. only)
     const isEligible = (academicStatus === 'final-year' || academicStatus === 'graduated') &&
-                       (degreeStream === 'btech-cs' || degreeStream === 'btech-other' || degreeStream === 'mca-msc');
+                       (degreeStream === 'btech-cs' || degreeStream === 'btech-other');
     
     const studentData = {
       fullName: fullName.trim(),
@@ -94,8 +94,7 @@ export default function Hero({ data }) {
     switch (stream) {
       case 'btech-cs': return 'B.Tech / B.E. (CSE, IT, AI/DS)';
       case 'btech-other': return 'B.Tech / B.E. (ECE, EEE, Mech, Civil, etc.)';
-      case 'mca-msc': return 'MCA / M.Sc (CS, IT, Math)';
-      default: return 'BCA / B.Sc / Other';
+      default: return 'Other / Non-Engineering';
     }
   };
 
@@ -108,7 +107,7 @@ export default function Hero({ data }) {
         <div className="hero-target-banner">
           <span className="target-banner-badge">🎯 TARGET AUDIENCE</span>
           <span className="target-banner-text">
-            <strong>Admissions are exclusively open for:</strong> Students in their <strong>Final Year of Undergraduation (2026 passing out)</strong> or who have <strong>completed graduation</strong> (B.Tech/B.E., MCA, M.Sc).
+            <strong>Admissions are exclusively open for:</strong> Students in their <strong>Final Year of Undergraduation (2026 passing out)</strong> or who have <strong>completed graduation</strong> (B.Tech / B.E. only).
           </span>
         </div>
       </div>
@@ -295,19 +294,11 @@ export default function Hero({ data }) {
                         </button>
                         <button
                           type="button"
-                          className={`screener-pill ${degreeStream === 'mca-msc' ? 'selected' : ''}`}
-                          onClick={() => setDegreeStream('mca-msc')}
-                        >
-                          <span className="pill-dot"></span>
-                          <span>MCA / M.Sc (CS/IT/Math)</span>
-                        </button>
-                        <button
-                          type="button"
                           className={`screener-pill ${degreeStream === 'other' ? 'selected' : ''}`}
                           onClick={() => setDegreeStream('other')}
                         >
                           <span className="pill-dot"></span>
-                          <span>BCA / B.Sc / Other</span>
+                          <span>Other / Non-Engineering</span>
                         </button>
                       </div>
                     </div>
@@ -567,7 +558,7 @@ export default function Hero({ data }) {
                     <h4>4. Eligibility & Financial Avenues</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Degree Criteria:</strong> B.Tech/B.E. (all branches), MCA, M.Sc (CS/IT/Math). Final-year students eligible provisionally.</li>
+                    <li><strong>Degree Criteria:</strong> B.Tech/B.E. (all engineering branches). Final-year students eligible provisionally.</li>
                     <li><strong>Target Profiles:</strong> Fresh graduates seeking rapid industry readiness + early-career engineers seeking leadership.</li>
                     <li><strong>Education Loans:</strong> Pre-approved loan avenues available through major nationalized and private banks for IIIT-H.</li>
                   </ul>

@@ -15,20 +15,20 @@ export default function AdmissionsCenter({ data }) {
       badgeClass: 'badge-info',
       advice: 'Eligible. Candidates from non-CS engineering branches (ECE, EEE, Mechanical, etc.) undergo Phase 01 foundational immersion to build algorithmic thinking, data structures, and Unix fundamentals.'
     },
-    'mca-msc': {
-      status: 'Eligible',
-      badgeClass: 'badge-success',
-      advice: 'Eligible. MCA or M.Sc in Computer Science / IT / Mathematics graduates meet standard qualification thresholds for master’s level admission at IIIT Hyderabad.'
-    },
     'final-year': {
       status: 'Eligible (Provisional)',
       badgeClass: 'badge-warning',
-      advice: 'Eligible to apply provisionally. Final year students completing degree requirements prior to January 2027 commencement can apply pending submission of final transcripts.'
+      advice: 'Eligible to apply provisionally. Final year B.Tech / B.E. students completing degree requirements prior to January 2027 commencement can apply pending submission of final transcripts.'
     },
     'working-pro': {
       status: 'Eligible with Experience Advantage',
       badgeClass: 'badge-success',
-      advice: 'Strong match. Early-career software engineers seeking to transition from maintenance roles into high-impact engineering leadership or startup venture incubation will benefit heavily from the practitioner-led co-op.'
+      advice: 'Strong match. Early-career software engineers holding a B.Tech / B.E. seeking to transition from maintenance roles into high-impact engineering leadership will benefit heavily from the practitioner-led co-op.'
+    },
+    'non-btech': {
+      status: 'Not Eligible',
+      badgeClass: 'badge-danger',
+      advice: 'Admissions are strictly open only to candidates with a B.Tech / B.E. degree. Non-engineering degrees (MCA, M.Sc, BCA, etc.) are not eligible.'
     }
   };
 
@@ -65,9 +65,9 @@ export default function AdmissionsCenter({ data }) {
             >
               <option value="btech-cs">B.Tech / B.E. in Computer Science or IT</option>
               <option value="btech-noncs">B.Tech / B.E. in Other Engineering Disciplines (ECE, EEE, Mech)</option>
-              <option value="mca-msc">MCA or M.Sc (Computer Science / IT / Mathematics)</option>
-              <option value="final-year">Final Year Undergraduate Student (Graduating 2026/2027)</option>
-              <option value="working-pro">Working Software Engineer / Technical Professional</option>
+              <option value="final-year">Final Year B.Tech / B.E. Student (Graduating 2026/2027)</option>
+              <option value="working-pro">Working Software Engineer (with B.Tech / B.E.)</option>
+              <option value="non-btech">Other Degree / Non-B.Tech (Not Eligible)</option>
             </select>
           </div>
 

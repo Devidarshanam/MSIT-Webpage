@@ -20,6 +20,32 @@ export default function AdminLoginPage() {
     }
   }, [adminUser, isAdmin, navigate]);
 
+  // Parse error parameters from URL hash or query if redirected with error
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash;
+    const search = window.location.search;
+
+    const parseParams = (str) => {
+      const clean = str.replace(/^[#?]/, '');
+      return new URLSearchParams(clean);
+    };
+
+    const hashParams = parseParams(hash);
+    const searchParams = parseParams(search);
+
+    const errorDesc = hashParams.get('error_description') || searchParams.get('error_description');
+    const errorCode = hashParams.get('error_code') || searchParams.get('error_code');
+
+    if (errorCode === 'otp_expired' || (errorDesc && errorDesc.toLowerCase().includes('expired'))) {
+      setError('The verification link has expired or has already been used. Please request a new one.');
+      window.history.replaceState(null, '', window.location.pathname);
+    } else if (errorDesc) {
+      setError(decodeURIComponent(errorDesc).replace(/\+/g, ' '));
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }, []);
+
   // Resend cooldown timer
   useEffect(() => {
     if (resendCooldown <= 0) return;
@@ -30,7 +56,7 @@ export default function AdminLoginPage() {
   }, [resendCooldown]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const cleanEmail = email.trim().toLowerCase();
 
     if (!cleanEmail) {
@@ -39,7 +65,7 @@ export default function AdminLoginPage() {
     }
 
     if (!isAuthorizedAdminEmail(cleanEmail)) {
-      setError('Access Restricted: Only authorized accounts (@getskills.io) have access to the Admin Dashboard during development.');
+      setError('Access Restricted: Only authorized accounts (@msitprogram.net or @getskills.io) have access to the Admin Dashboard.');
       return;
     }
 
@@ -92,10 +118,10 @@ export default function AdminLoginPage() {
         <div className="admin-dev-notice-banner">
           <div className="notice-header">
             <ShieldCheckIcon size={16} />
-            <strong>TEMPORARY — DEVELOPMENT / TESTING ACCESS</strong>
+            <strong>ADMINISTRATOR PORTAL ACCESS</strong>
           </div>
           <p>
-            For testing, authorized administrators with an <code>@getskills.io</code> email can access this dashboard via Supabase Magic Link.
+            Authorized administrators with an <code>@msitprogram.net</code> or <code>@getskills.io</code> email can access this console via Supabase Magic Link.
           </p>
         </div>
 
@@ -112,17 +138,17 @@ export default function AdminLoginPage() {
               <code>{email}</code>
             </div>
             <p className="sent-hint">
-              Click the verification link inside your email to enter the MSIT Admissions Admin Console.
+              Open your email and click the magic link to sign in to the MSIT Admissions Admin Console. You will be automatically redirected to your dashboard.
             </p>
 
-            <div className="sent-actions">
+            <div className="sent-actions" style={{ marginTop: '1.75rem' }}>
               <button
                 type="button"
                 className="btn btn-secondary btn-sm"
                 onClick={handleSubmit}
                 disabled={loading || resendCooldown > 0}
               >
-                {resendCooldown > 0 ? `Resend Link (${resendCooldown}s)` : 'Resend Magic Link'}
+                {resendCooldown > 0 ? `Resend Magic Link (${resendCooldown}s)` : 'Resend Magic Link'}
               </button>
               <button
                 type="button"
@@ -160,7 +186,7 @@ export default function AdminLoginPage() {
                   id="adminEmail"
                   type="email"
                   className={`form-input-control ${error ? 'has-error' : ''}`}
-                  placeholder="name@getskills.io"
+                  placeholder="name@msitprogram.net or name@getskills.io"
                   value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);

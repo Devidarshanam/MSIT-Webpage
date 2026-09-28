@@ -86,7 +86,7 @@ const SEED_MOCK_APPLICATIONS = [
     parent_relationship: 'Father',
     parent_name: 'Venkata Varma',
     alt_phone: '+91 97000 44210',
-    ug_degree: 'MCA',
+    ug_degree: 'B.Tech / B.E.',
     department: 'Data Science / AI / ML',
     cgpa: '8.4 CGPA',
     passing_year: '2024',
@@ -103,7 +103,7 @@ const SEED_MOCK_APPLICATIONS = [
     updated_at: new Date(Date.now() - 8 * 3600 * 1000).toISOString(),
     isMock: true,
     documents: [
-      { id: 'doc_003_1', doc_type: 'Marksheets / Transcripts', file_name: 'MCA_Marksheets_AllSem.pdf', file_size: '4.2 MB', status: 'Verified', rejection_reason: null },
+      { id: 'doc_003_1', doc_type: 'Marksheets / Transcripts', file_name: 'Karthik_BTech_Marksheets.pdf', file_size: '4.2 MB', status: 'Verified', rejection_reason: null },
       { id: 'doc_003_2', doc_type: 'Degree / Provisional Certificate', file_name: 'Degree_Certificate_Blurred.jpg', file_size: '450 KB', status: 'Rejected', rejection_reason: 'Document scan is blurry and university stamp is unreadable. Please upload a clear high-resolution color PDF.' },
       { id: 'doc_003_3', doc_type: 'Photo ID Proof', file_name: 'Aadhaar_Karthik.pdf', file_size: '720 KB', status: 'Verified', rejection_reason: null }
     ]
@@ -152,7 +152,7 @@ const SEED_MOCK_APPLICATIONS = [
     parent_relationship: 'Father',
     parent_name: 'Anand Joshi',
     alt_phone: '+91 98220 33110',
-    ug_degree: 'BCA / B.Sc',
+    ug_degree: 'B.Tech / B.E.',
     department: 'Computer Science & Engineering (CSE)',
     cgpa: '5.6 CGPA',
     passing_year: '2021',
@@ -169,7 +169,7 @@ const SEED_MOCK_APPLICATIONS = [
     updated_at: new Date(Date.now() - 36 * 3600 * 1000).toISOString(),
     isMock: true,
     documents: [
-      { id: 'doc_005_1', doc_type: 'Marksheets / Transcripts', file_name: 'Vikram_BSc_Marksheets.pdf', file_size: '1.9 MB', status: 'Rejected', rejection_reason: 'Backlog sheets incomplete.' }
+      { id: 'doc_005_1', doc_type: 'Marksheets / Transcripts', file_name: 'Vikram_BTech_Marksheets.pdf', file_size: '1.9 MB', status: 'Rejected', rejection_reason: 'Backlog sheets incomplete.' }
     ]
   }
 ];
@@ -182,6 +182,19 @@ function ensureInitializedLocalStore() {
     const existing = localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY);
     if (!existing) {
       localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(SEED_MOCK_APPLICATIONS));
+    } else {
+      const parsed = JSON.parse(existing);
+      let changed = false;
+      const updated = parsed.map(app => {
+        if (app.ug_degree && app.ug_degree !== 'B.Tech / B.E.') {
+          changed = true;
+          return { ...app, ug_degree: 'B.Tech / B.E.' };
+        }
+        return app;
+      });
+      if (changed) {
+        localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(updated));
+      }
     }
   } catch (e) {}
 }

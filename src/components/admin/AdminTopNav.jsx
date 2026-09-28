@@ -26,9 +26,9 @@ export default function AdminTopNav({ isSupabaseLive, onToggleSidebar }) {
         </div>
 
         {isDevAdmin && (
-          <div className="admin-dev-pill" title="This authorization rule is temporary for development and testing">
+          <div className="admin-dev-pill" title="Authorized Administrator Access">
             <span className="dev-pill-dot" />
-            <span>TEMPORARY — DEV / TESTING ONLY (@getskills.io)</span>
+            <span>AUTHORIZED DOMAIN (@msitprogram.net / @getskills.io)</span>
           </div>
         )}
       </div>

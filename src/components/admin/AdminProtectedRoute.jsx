@@ -37,9 +37,8 @@ export default function AdminProtectedRoute({ children }) {
           </p>
 
           <div className="denied-notice-box">
-            <strong>Development Notice:</strong>
             <p>
-              In development mode, only accounts with the <code>@getskills.io</code> domain (e.g. <code>sadhvik@getskills.io</code>) are granted administrative access.
+              Only accounts with the <code>@msitprogram.net</code> or <code>@getskills.io</code> domain (e.g. <code>sadhvik@getskills.io</code>) are granted administrative access.
             </p>
           </div>
 

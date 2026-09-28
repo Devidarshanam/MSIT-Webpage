@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { AdminAuthProvider } from './context/AdminAuthContext';
+import { AdminAuthProvider, useAdminAuth } from './context/AdminAuthContext';
 import StudentGatewayPage from './components/StudentGatewayPage';
 import KnowAboutMSITPage from './components/KnowAboutMSITPage';
 import ProgrammePage from './pages/ProgrammePage';
@@ -21,6 +21,29 @@ function KnowAboutMSITRoute() {
       onGoToSignIn={() => navigate('/')}
     />
   );
+}
+
+function AdminIndexRoute() {
+  const { adminUser, isAdmin, loading } = useAdminAuth();
+
+  if (typeof window !== 'undefined' && (window.location.hash || window.location.search.includes('code='))) {
+    return <Navigate to={`/admin/login${window.location.search}${window.location.hash}`} replace />;
+  }
+
+  if (loading) {
+    return (
+      <div className="admin-loading-screen">
+        <div className="admin-spinner"></div>
+        <p>Verifying administrative credentials...</p>
+      </div>
+    );
+  }
+
+  if (adminUser && isAdmin) {
+    return <Navigate to="/admin/dashboard" replace />;
+  }
+
+  return <Navigate to="/admin/login" replace />;
 }
 
 export default function App() {
@@ -52,7 +75,7 @@ export default function App() {
 
             {/* Admin Portal Routes */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="/admin" element={<AdminIndexRoute />} />
             <Route
               path="/admin/dashboard"
               element={
