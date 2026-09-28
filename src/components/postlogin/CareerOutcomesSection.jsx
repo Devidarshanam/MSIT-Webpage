@@ -5,9 +5,8 @@ import {
   CompassIcon,
   ShieldCheckIcon,
   GraduationCapIcon,
-  LinkedinIcon,
-  ExternalLinkIcon,
-  UsersIcon,
+  AwardIcon,
+  CheckCircleIcon,
 } from '../Icons';
 
 export default function CareerOutcomesSection({ data }) {
@@ -17,9 +16,6 @@ export default function CareerOutcomesSection({ data }) {
     if (b.includes('builder')) return <RocketIcon size={20} />;
     return <CompassIcon size={20} />;
   };
-
-  const alumni = data?.alumni;
-  const profiles = alumni?.profiles || [];
 
   return (
     <section className="section career-outcomes-section" id="careers">
@@ -40,8 +36,8 @@ export default function CareerOutcomesSection({ data }) {
               Industry / Placement Outcomes
             </a>
             <span className="career-subnav-divider" aria-hidden="true">→</span>
-            <a href="#alumni-stories" className="career-subnav-chip">
-              Alumni Stories
+            <a href="#alumni-outcomes" className="career-subnav-chip">
+              Alumni Outcomes
             </a>
           </div>
         </div>
@@ -104,109 +100,119 @@ export default function CareerOutcomesSection({ data }) {
         </div>
 
         {/* ============================================================
-            SUBSECTION 3: ALUMNI STORIES & NETWORK
+            SUBSECTION 3: ALUMNI OUTCOMES
             ============================================================ */}
-        <div className="career-subsection alumni-subsection" id="alumni-stories">
+        <div className="career-subsection alumni-subsection" id="alumni-outcomes">
+          <div id="alumni-stories"></div>
           <div className="career-subsection-header">
-            <span className="career-subsection-badge">03 • Alumni Stories</span>
-            <h3 className="career-subsection-title">{alumni?.heading || "Alumni Network & Stories"}</h3>
+            <span className="career-subsection-badge">03 • Alumni Outcomes</span>
+            <div className="alumni-title-header-group">
+              <h3 className="career-subsection-title">Alumni Outcomes</h3>
+              <span className="alumni-cohort-badge-header">2021–23 Batch</span>
+            </div>
             <p className="career-subsection-desc">
-              {alumni?.description || "A distinguished community of over 3,000+ MSIT graduates leading technology, AI engineering, and venture teams worldwide."}
+              Placement benchmarks, recorded outcome rates, and verified compensation metrics for the 2021–23 graduating cohort.
             </p>
           </div>
 
-          {/* Conditional Rendering: Real Profiles or Clean Pending State */}
-          {profiles.length > 0 ? (
-            <div className="alumni-stories-grid">
-              {profiles.map((profile, idx) => (
-                <div key={idx} className="alumni-story-card">
-                  <div className="alumni-card-header">
-                    {profile.avatarUrl ? (
-                      <img
-                        src={profile.avatarUrl}
-                        alt={profile.name}
-                        className="alumni-avatar-img"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="alumni-avatar-initial" aria-hidden="true">
-                        {profile.name ? profile.name.charAt(0).toUpperCase() : 'A'}
-                      </div>
-                    )}
-                    <div className="alumni-header-details">
-                      <h4 className="alumni-name">{profile.name}</h4>
-                      <p className="alumni-role-company">
-                        {profile.role} • <strong>{profile.organization}</strong>
-                      </p>
-                      {profile.cohort && (
-                        <span className="alumni-cohort-badge">Cohort of {profile.cohort}</span>
-                      )}
-                    </div>
+          <div className="alumni-outcomes-container">
+            {/* Top 2 Statistics Cards */}
+            <div className="alumni-stats-hero-grid dual-grid">
+              <div className="alumni-stat-card card-theme-amber">
+                <div className="stat-card-top-row">
+                  <span className="stat-card-category-pill">Highest Package</span>
+                  <div className="stat-icon-wrapper" aria-hidden="true">
+                    <AwardIcon size={20} />
                   </div>
-
-                  {profile.journey && (
-                    <p className="alumni-journey-text">{profile.journey}</p>
-                  )}
-
-                  {profile.quote && (
-                    <blockquote className="alumni-quote-box">
-                      <p>"{profile.quote}"</p>
-                    </blockquote>
-                  )}
-
-                  {profile.linkedinUrl && (
-                    <div className="alumni-card-footer">
-                      <a
-                        href={profile.linkedinUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="alumni-linkedin-btn"
-                        aria-label={`View ${profile.name}'s official LinkedIn profile`}
-                      >
-                        <LinkedinIcon size={16} />
-                        <span>Official Profile</span>
-                        <ExternalLinkIcon size={13} />
-                      </a>
-                    </div>
-                  )}
                 </div>
-              ))}
-            </div>
-          ) : (
-            /* Clean, Factual Pending State — No Placeholder or Fake Data */
-            <div className="alumni-empty-state-card">
-              <div className="alumni-empty-icon-box" aria-hidden="true">
-                <GraduationCapIcon size={30} />
+                <div className="stat-card-main-data">
+                  <span className="stat-card-number">₹22 LPA</span>
+                  <span className="stat-card-name">Highest Package</span>
+                </div>
+                <div className="stat-card-bottom-line" aria-hidden="true"></div>
               </div>
-              <span className="alumni-empty-badge">
-                {alumni?.updateNotice?.badge || "Official Compilation in Progress"}
-              </span>
-              <h4 className="alumni-empty-title">
-                {alumni?.updateNotice?.title || "Alumni information will be updated soon"}
-              </h4>
-              <p className="alumni-empty-message">
-                {alumni?.updateNotice?.message || "Official alumni career profiles, cohort journey highlights, and verified testimonials for the upcoming admissions cycle are currently being compiled with institutional verification and candidate consent."}
-              </p>
 
-              {alumni?.networkHighlights && (
-                <div className="alumni-network-highlights-grid">
-                  {alumni.networkHighlights.map((hl, hIdx) => (
-                    <div key={hIdx} className="alumni-highlight-pill">
-                      <div className="highlight-pill-icon" aria-hidden="true">
-                        <UsersIcon size={16} />
-                      </div>
-                      <div className="highlight-pill-text">
-                        <span className="highlight-pill-label">{hl.label}</span>
-                        <span className="highlight-pill-detail">{hl.detail}</span>
-                      </div>
-                    </div>
-                  ))}
+              <div className="alumni-stat-card card-theme-indigo">
+                <div className="stat-card-top-row">
+                  <span className="stat-card-category-pill">Average Package</span>
+                  <div className="stat-icon-wrapper" aria-hidden="true">
+                    <RocketIcon size={20} />
+                  </div>
                 </div>
-              )}
+                <div className="stat-card-main-data">
+                  <span className="stat-card-number">₹8.27 LPA</span>
+                  <span className="stat-card-name">Average Package</span>
+                </div>
+                <div className="stat-card-bottom-line" aria-hidden="true"></div>
+              </div>
             </div>
-          )}
+
+            {/* Lower Section: Alumni Career Journey Visual */}
+            <div className="alumni-journey-card-container">
+              <div className="journey-card-header">
+                <div className="journey-header-left">
+                  <span className="journey-kicker">Alumni Career Journey</span>
+                  <h4 className="journey-headline">
+                    <span className="journey-node">MSIT</span>
+                    <span className="journey-arrow" aria-hidden="true">→</span>
+                    <span className="journey-node">Internship</span>
+                    <span className="journey-arrow" aria-hidden="true">→</span>
+                    <span className="journey-node">Full-Time Opportunity</span>
+                  </h4>
+                </div>
+                <div className="journey-header-right">
+                  <span className="journey-batch-pill">2021–23 Batch</span>
+                </div>
+              </div>
+
+              <div className="journey-stepped-pipeline">
+                <div className="pipeline-stage-item stage-foundation">
+                  <div className="stage-top-meta">
+                    <span className="stage-step-badge">Stage 01</span>
+                    <GraduationCapIcon size={18} />
+                  </div>
+                  <h5>MSIT Studio Pedagogy</h5>
+                  <p>100% active studio computing, intensive team projects, and mentor-guided engineering practice with zero passive lectures.</p>
+                  <div className="stage-footer-tag">Active Pedagogy</div>
+                </div>
+
+                <div className="pipeline-connector-block" aria-hidden="true">
+                  <div className="connector-track">
+                    <span className="connector-arrow">→</span>
+                  </div>
+                </div>
+
+                <div className="pipeline-stage-item stage-practicum">
+                  <div className="stage-top-meta">
+                    <span className="stage-step-badge">Stage 02</span>
+                    <BriefcaseIcon size={18} />
+                  </div>
+                  <h5>Industry Internship</h5>
+                  <p>Hands-on corporate practicum embedded directly within leading engineering teams solving production problems.</p>
+                  <div className="stage-footer-tag">Industry Practicum</div>
+                </div>
+
+                <div className="pipeline-connector-block" aria-hidden="true">
+                  <div className="connector-track">
+                    <span className="connector-arrow">→</span>
+                  </div>
+                </div>
+
+                <div className="pipeline-stage-item stage-placement">
+                  <div className="stage-top-meta">
+                    <span className="stage-step-badge">Stage 03</span>
+                    <CheckCircleIcon size={18} />
+                  </div>
+                  <h5>Full-Time Opportunity</h5>
+                  <p>Structured transition and conversion into full-time technology roles, systems engineering, and product teams.</p>
+                  <div className="stage-footer-tag">Career Launch</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+

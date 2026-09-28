@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: dynamically label parent mobile number based on selected relationship"
+git commit -m "feat: remove duplicate slideshow button from bottom navigation controls"
 
 echo.
 echo Pulling latest remote changes with rebase...

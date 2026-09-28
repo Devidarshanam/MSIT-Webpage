@@ -1,14 +1,11 @@
 import React from 'react';
-import { 
-  ShieldCheckIcon, 
-  CalendarIcon, 
-  CheckCircleIcon, 
-  ClockIcon, 
-  ArrowRightIcon, 
-  InfoIcon 
-} from '../Icons';
+import { CalendarIcon, InfoIcon } from '../Icons';
 
 export default function EligibilityAndAdmissionsSection({ data }) {
+  const getDateBadgeClass = () => {
+    return 'date-badge-confirmed';
+  };
+
   return (
     <section className="section eligibility-admissions-section" id="eligibility">
       <div className="container">
@@ -31,12 +28,12 @@ export default function EligibilityAndAdmissionsSection({ data }) {
           ))}
         </div>
 
-        {/* 2. Admissions Workflow (4 Verified Steps) */}
+        {/* 2. Admissions Workflow */}
         <div className="admissions-workflow-container">
           <div className="workflow-title-block">
             <span className="kicker">Evaluation Pathway</span>
             <h3>Admission Process & Progression</h3>
-            <p>A structured 4-step selection workflow designed to evaluate technical curiosity, problem-solving mindset, and suitability.</p>
+            <p>A simple 4-step selection pathway to join the upcoming MSIT cohort.</p>
           </div>
 
           <div className="workflow-steps-grid">
@@ -57,8 +54,8 @@ export default function EligibilityAndAdmissionsSection({ data }) {
               <CalendarIcon size={22} />
             </div>
             <div>
-              <h3>Important Admission Dates (January 2027 Intake)</h3>
-              <p>Key milestone schedule. Specific calendar dates will be published with the official admission circular.</p>
+              <h3>Important Admission Dates & Milestone Schedule</h3>
+              <p>Key milestone schedule. Application window and batch commencement dates are confirmed.</p>
             </div>
           </div>
 
@@ -75,7 +72,7 @@ export default function EligibilityAndAdmissionsSection({ data }) {
                   <tr key={idx} className={row.activity.includes('Commencement') ? 'commencement-row' : ''}>
                     <td><strong>{row.activity}</strong></td>
                     <td>
-                      <span className={`date-badge ${row.date.includes('January') ? 'date-badge-primary' : 'date-badge-tba'}`}>
+                      <span className={`date-badge ${getDateBadgeClass(row.date)}`}>
                         {row.date}
                       </span>
                     </td>
