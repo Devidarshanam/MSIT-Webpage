@@ -3,6 +3,19 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const AdminAuthContext = createContext(null);
 
+/**
+ * Get the canonical site URL for auth redirects.
+ * Priority: VITE_SITE_URL env var > window.location.origin > hardcoded fallback.
+ */
+function getSiteUrl() {
+  const envUrl = import.meta?.env?.VITE_SITE_URL;
+  if (envUrl) return envUrl.replace(/\/+$/, '');
+  if (typeof window !== 'undefined' && window.location.origin !== 'http://localhost:3000') {
+    return window.location.origin;
+  }
+  return 'https://msit-webpage.vercel.app';
+}
+
 export function useAdminAuth() {
   const context = useContext(AdminAuthContext);
   if (!context) {
@@ -159,9 +172,7 @@ export function AdminAuthProvider({ children }) {
     }
 
     try {
-      const redirectUrl = typeof window !== 'undefined' 
-        ? `${window.location.origin}/admin`
-        : undefined;
+      const redirectUrl = `${getSiteUrl()}/admin`;
 
       let result = await supabase.auth.signInWithOtp({
         email: normalized,

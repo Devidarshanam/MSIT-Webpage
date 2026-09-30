@@ -3,6 +3,25 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
 const AuthContext = createContext(null);
 
+/**
+ * Get the canonical site URL for auth redirects.
+ * Priority: VITE_SITE_URL env var > window.location.origin > hardcoded fallback.
+ * This prevents magic-link emails from redirecting to localhost:3000.
+ */
+function getSiteUrl() {
+  // 1. Env var set in Vercel / .env (most reliable for deployed environments)
+  const envUrl = import.meta?.env?.VITE_SITE_URL;
+  if (envUrl) return envUrl.replace(/\/+$/, ''); // strip trailing slash
+
+  // 2. Runtime origin (works correctly on deployed sites, but NOT during SSR/build)
+  if (typeof window !== 'undefined' && window.location.origin !== 'http://localhost:3000') {
+    return window.location.origin;
+  }
+
+  // 3. Hardcoded fallback — the current Vercel deployment
+  return 'https://msit-webpage.vercel.app';
+}
+
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) {
@@ -78,7 +97,7 @@ export function AuthProvider({ children }) {
       let result = await supabase.auth.signInWithOtp({ 
         email,
         options: {
-          emailRedirectTo: typeof window !== 'undefined' ? window.location.origin : undefined,
+          emailRedirectTo: getSiteUrl(),
           data: {
             full_name: fullName
           }
@@ -112,7 +131,7 @@ export function AuthProvider({ children }) {
           const retryResult = await supabase.auth.signInWithOtp({
             email,
             options: {
-              emailRedirectTo: typeof window !== 'undefined' ? window.location.origin : undefined,
+              emailRedirectTo: getSiteUrl(),
               data: {
                 full_name: fullName
               }
