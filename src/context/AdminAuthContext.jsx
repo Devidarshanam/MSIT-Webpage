@@ -37,12 +37,17 @@ export function isAuthorizedAdminEmail(email) {
   if (!email || typeof email !== 'string') return false;
   const normalized = email.trim().toLowerCase();
   
-  // Authorized admin domains (@msitprogram.net, @getskills.io) and specific admin accounts
+  // Explicitly authorized admin accounts and domains (@msitprogram.net, @getskills.io)
+  const designatedAdmins = [
+    'head@msitprogram.net',
+    'dean@msitprogram.net',
+    'varshithathorthi04@msitprogram.net'
+  ];
+
   if (
+    designatedAdmins.includes(normalized) ||
     normalized.endsWith('@msitprogram.net') ||
-    normalized.endsWith('@getskills.io') ||
-    normalized === 'varshithathorthi04@msitprogram.net' ||
-    normalized === 'varshithathorthi04@gmail.com'
+    normalized.endsWith('@getskills.io')
   ) {
     return true;
   }
@@ -294,7 +299,7 @@ export function AdminAuthProvider({ children }) {
     requestAdminMagicLink,
     verifyAdminOtp,
     adminSignOut,
-    testAccountEmail: 'sadhvik@getskills.io'
+    testAccountEmail: 'head@msitprogram.net'
   };
 
   return (
