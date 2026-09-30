@@ -37,8 +37,13 @@ export function isAuthorizedAdminEmail(email) {
   if (!email || typeof email !== 'string') return false;
   const normalized = email.trim().toLowerCase();
   
-  // Authorized admin domains: @msitprogram.net and @getskills.io
-  if (normalized.endsWith('@msitprogram.net') || normalized.endsWith('@getskills.io')) {
+  // Authorized admin domains (@msitprogram.net, @getskills.io) and specific admin accounts
+  if (
+    normalized.endsWith('@msitprogram.net') ||
+    normalized.endsWith('@getskills.io') ||
+    normalized === 'varshithathorthi04@msitprogram.net' ||
+    normalized === 'varshithathorthi04@gmail.com'
+  ) {
     return true;
   }
 

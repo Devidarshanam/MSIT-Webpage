@@ -50,7 +50,7 @@ export default function AuthFlow() {
 
       const timer = setTimeout(() => {
         const authIntent = localStorage.getItem('msit_auth_intent') || sessionStorage.getItem('msit_auth_intent');
-        if (authIntent === 'admin' || isAuthorizedAdminEmail(user.email)) {
+        if (authIntent === 'admin' && isAuthorizedAdminEmail(user.email)) {
           localStorage.removeItem('msit_auth_intent');
           sessionStorage.removeItem('msit_auth_intent');
           navigate('/admin/dashboard');

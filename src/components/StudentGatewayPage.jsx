@@ -26,7 +26,7 @@ export default function StudentGatewayPage() {
       const authIntent = localStorage.getItem('msit_auth_intent') || sessionStorage.getItem('msit_auth_intent');
       const isAdmin = user.email && isAuthorizedAdminEmail(user.email);
 
-      if (authIntent === 'admin' || isAdmin) {
+      if (authIntent === 'admin' && isAdmin) {
         localStorage.removeItem('msit_auth_intent');
         sessionStorage.removeItem('msit_auth_intent');
         navigate('/admin/dashboard', { replace: true });
