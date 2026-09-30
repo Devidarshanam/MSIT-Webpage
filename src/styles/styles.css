@@ -5159,6 +5159,125 @@ p {
 }
 
 /* ==========================================================================
+   VISUAL CONSISTENCY: Align Gateway with Know About MSIT slide design
+   ========================================================================== */
+
+/* Card borders — match the slide cards' stronger navy blue accents */
+.simple-action-card {
+  border-color: #d4dff0;
+  border-width: 1.5px;
+}
+
+.simple-action-card.explore-box {
+  border-left: 3px solid var(--primary-800);
+}
+
+.simple-action-card.signin-box {
+  border-left: 3px solid var(--primary-800);
+}
+
+/* Mini badge — match slide category badge style (navy bg, gold text) */
+.simple-mini-badge {
+  background: var(--primary-900);
+  color: #fcd34d;
+  border: 1px solid var(--primary-800);
+}
+
+.simple-mini-badge.success {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+/* Explore chips — match slide year-badge yellow accent color */
+.explore-chip {
+  background: var(--accent-gold-bg);
+  border-color: var(--accent-gold-border);
+  color: #92400e;
+  font-weight: 700;
+}
+
+/* Card titles — match slide title weight and tracking */
+.simple-card-title {
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  color: var(--primary-900);
+}
+
+/* Card icon — use slide blue accent */
+.simple-card-icon {
+  background: var(--primary-900);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+}
+
+/* Footer — align with slide navigation bar style */
+.minimal-footer {
+  background: var(--primary-900);
+  border-top: 3px solid #fcd34d;
+  padding: 1.15rem 0;
+}
+
+.gateway-footer-inner {
+  color: #cbd5e1;
+}
+
+.gateway-footer-inner strong {
+  color: #ffffff;
+}
+
+.gateway-footer-inner p {
+  color: #94a3b8;
+}
+
+.gateway-footer-links a {
+  color: #fcd34d;
+  font-weight: 700;
+}
+
+.gateway-footer-links a:hover {
+  color: #fde68a;
+}
+
+.gateway-footer-links span {
+  color: #64748b;
+}
+
+/* Main description — consistent with slide lead text */
+.gateway-main-desc {
+  color: var(--neutral-600);
+  font-weight: 400;
+}
+
+/* Primary button — uniform across gateway + slides */
+.btn.btn-primary {
+  background: var(--primary-900);
+  border-color: var(--primary-900);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.btn.btn-primary:hover {
+  background: var(--primary-800);
+  border-color: var(--primary-800);
+}
+
+/* Secondary button — outlined style matching slide controls */
+.btn.btn-secondary {
+  background: #ffffff;
+  border: 1.5px solid var(--primary-800);
+  color: var(--primary-800);
+  font-weight: 700;
+}
+
+.btn.btn-secondary:hover {
+  background: var(--primary-50);
+  border-color: var(--primary-900);
+  color: var(--primary-900);
+}
+
+/* ==========================================================================
    SUPABASE AUTH FLOW
    ========================================================================== */
 
@@ -9215,6 +9334,7 @@ p {
 .slide-theme-events { background: #fffbf7; }
 .slide-theme-practicum { background: #f8fafc; }
 .slide-theme-admissions { background: #fffefb; }
+.slide-theme-ainative { background: #ffffff; }
 
 /* Dynamic Slide Stage Container */
 .fullscreen-slide-stage {
@@ -9660,114 +9780,25 @@ p {
 }
 
 /* =========================================================================
-   SLIDE 3: MSIT AT 25 (AI-NATIVE ERA)
+   SLIDE 2: MSIT AT 25 (AI-NATIVE ERA) — Full-width layout (sidebar removed)
    ========================================================================= */
 .stage-ainative {
-  padding: 0;
+  padding: 1.5rem 3.5rem 1.2rem;
 }
 
-.layout-ai-native {
-  display: grid;
-  grid-template-columns: 1.15fr 2fr;
-  min-height: calc(100% + 2.7rem);
-  margin: -1.5rem -3.5rem -1.2rem -3.5rem;
-  align-items: stretch;
+.layout-ai-native-full {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   background-color: #ffffff;
 }
 
-.ai-native-sidebar {
-  background: linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%);
-  color: #ffffff;
-  padding: 3rem 2.2rem 3rem 5.7rem;
+.ai-native-content-full {
   display: flex;
   flex-direction: column;
-}
-
-.ai-native-logo {
-  width: 110px;
-  margin-bottom: 1.5rem;
-  align-self: flex-start;
-  background: #ffffff;
-  border-radius: 10px;
-  padding: 0.4rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.ai-native-title {
-  font-size: 2.2rem;
-  font-weight: 900;
-  margin-bottom: 0.5rem;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: #ffffff !important;
-}
-
-.ai-native-highlight {
-  color: #fcd34d !important;
-}
-
-.ai-native-lead {
-  font-size: 0.9rem;
-  color: #cbd5e1 !important;
-  margin-bottom: 2rem;
-  line-height: 1.5;
-}
-
-.ai-native-timeline {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
-}
-
-.ai-native-timeline-line {
-  position: absolute;
-  left: 7px;
-  top: 20px;
-  width: 1px;
-  height: calc(100% - 30px);
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-.ai-native-timeline-item {
-  position: relative;
-  padding-left: 2.2rem;
-}
-
-.ai-native-dot {
-  position: absolute;
-  left: 0;
-  top: 5px;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-}
-
-.ai-native-dot.gold { background-color: #fcd34d; }
-.ai-native-dot.white { background-color: #ffffff; }
-
-.ai-native-timeline-heading {
-  display: block;
-  font-size: 0.85rem;
-  margin-bottom: 0.2rem;
-}
-
-.ai-native-timeline-heading.gold { color: #fcd34d !important; }
-.ai-native-timeline-heading.white { color: #ffffff !important; }
-
-.ai-native-timeline-text {
-  font-size: 0.8rem;
-  color: #cbd5e1 !important;
-  margin: 0;
-  line-height: 1.4;
-}
-
-.ai-native-content {
-  display: flex;
-  flex-direction: column;
-  padding: 3rem 7rem 3rem 2.2rem;
-  justify-content: center;
+  padding: 0;
+  justify-content: flex-start;
+  gap: 1.2rem;
 }
 
 .ai-native-kicker {
@@ -9777,7 +9808,7 @@ p {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .ai-native-principles-box {
@@ -9785,7 +9816,7 @@ p {
   border: 1px solid #fef3c7;
   border-radius: 12px;
   padding: 1.4rem 1.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 
 .ai-native-principles-title {
@@ -9884,6 +9915,7 @@ p {
   padding: 1rem 3.5rem;
   margin: 0;
 }
+
 
 /* =========================================================================
    SLIDE 3: TOP PLACEMENTS (PACKAGES)
@@ -11504,13 +11536,13 @@ p {
   }
 
   /* =========================================================================
-     SLIDE 2: AI NATIVE (MOBILE LAYOUT)
+     SLIDE 2: AI NATIVE (MOBILE LAYOUT — full-width, no sidebar)
      ========================================================================= */
   .stage-ainative {
     padding: clamp(0.25rem, 0.6vh, 0.45rem) clamp(0.5rem, 1.8vw, 0.85rem) 0.25rem !important;
   }
 
-  .layout-ai-native {
+  .layout-ai-native-full {
     display: flex !important;
     flex-direction: column !important;
     margin: 0 !important;
@@ -11521,74 +11553,7 @@ p {
     background: transparent !important;
   }
 
-  .ai-native-sidebar {
-    padding: clamp(0.3rem, 0.6vh, 0.48rem) clamp(0.48rem, 1.6vw, 0.7rem) !important;
-    border-radius: 8px !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0.14rem !important;
-  }
-
-  .ai-native-logo {
-    width: 24px !important;
-    padding: 0.12rem !important;
-    margin-bottom: 0.08rem !important;
-    border-radius: 5px !important;
-  }
-
-  .ai-native-title {
-    font-size: clamp(0.88rem, 3vw, 1.08rem) !important;
-    margin-bottom: 0.04rem !important;
-    line-height: 1.15 !important;
-  }
-
-  .ai-native-lead {
-    font-size: clamp(0.58rem, 1.7vw, 0.66rem) !important;
-    margin-bottom: 0.12rem !important;
-    line-height: 1.2 !important;
-  }
-
-  .ai-native-timeline {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.25rem !important;
-    flex: none !important;
-    position: static !important;
-  }
-
-  .ai-native-timeline-line {
-    display: none !important;
-  }
-
-  .ai-native-timeline-item {
-    padding: 0.18rem 0.26rem !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border-radius: 6px !important;
-    position: static !important;
-  }
-
-  .ai-native-dot {
-    display: none !important;
-  }
-
-  .ai-native-timeline-heading {
-    font-size: 0.56rem !important;
-    margin-bottom: 0.04rem !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
-  }
-
-  .ai-native-timeline-text {
-    font-size: 0.52rem !important;
-    line-height: 1.16 !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
-  }
-
-  .ai-native-content {
+  .ai-native-content-full {
     padding: 0 !important;
     flex: 1 1 auto !important;
     min-height: 0 !important;
@@ -12414,8 +12379,8 @@ p {
     padding-top: 0.45rem !important;
   }
 
-  /* SLIDE 3: MSIT AT 25 (AI-NATIVE) MOBILE */
-  .layout-ai-native {
+  /* SLIDE 2: MSIT AT 25 (AI-NATIVE) MOBILE — full-width, no sidebar */
+  .layout-ai-native-full {
     display: flex !important;
     flex-direction: column !important;
     margin: 0 !important;
@@ -12423,37 +12388,7 @@ p {
     gap: 1rem !important;
     width: 100% !important;
   }
-  .ai-native-sidebar {
-    padding: 1.25rem 1rem !important;
-    border-radius: 12px !important;
-    background: linear-gradient(145deg, #0b2a6b 0%, #1e3a8a 100%) !important;
-  }
-  .ai-native-logo {
-    width: 75px !important;
-    margin-bottom: 0.85rem !important;
-  }
-  .ai-native-title {
-    font-size: 1.45rem !important;
-    line-height: 1.2 !important;
-  }
-  .ai-native-lead {
-    font-size: 0.82rem !important;
-    margin-bottom: 1.25rem !important;
-  }
-  .ai-native-timeline {
-    gap: 1rem !important;
-  }
-  .ai-native-timeline-item {
-    padding-left: 1.8rem !important;
-  }
-  .ai-native-timeline-heading {
-    font-size: 0.82rem !important;
-  }
-  .ai-native-timeline-text {
-    font-size: 0.76rem !important;
-    line-height: 1.35 !important;
-  }
-  .ai-native-content {
+  .ai-native-content-full {
     padding: 0 !important;
     display: flex !important;
     flex-direction: column !important;

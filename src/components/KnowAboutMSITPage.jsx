@@ -353,40 +353,9 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
 
       case 'ainative':
         return (
-          <div className="slide-content-layout layout-ai-native">
-            {/* Left Sidebar */}
-            <div className="ai-native-sidebar">
-              <img src="/assets/msit-25-logo.png" alt="25 Years of MSIT" className="ai-native-logo" />
-              <h2 className="ai-native-title">MSIT at 25:<br/><span className="ai-native-highlight">AI Native</span></h2>
-              <p className="ai-native-lead">
-                A quarter-century of learning by doing enters its AI-native era.
-              </p>
-              
-              <div className="ai-native-timeline">
-                <div className="ai-native-timeline-line"></div>
-                
-                <div className="ai-native-timeline-item">
-                  <div className="ai-native-dot gold"></div>
-                  <strong className="ai-native-timeline-heading gold">2000 &bull; Founded by Prof. Raj Reddy</strong>
-                  <p className="ai-native-timeline-text">A rigorous master's opening pathways for ambitious engineering graduates.</p>
-                </div>
-                
-                <div className="ai-native-timeline-item">
-                  <div className="ai-native-dot gold"></div>
-                  <strong className="ai-native-timeline-heading gold">Two decades &bull; The bold pivot</strong>
-                  <p className="ai-native-timeline-text">Eliminated passive lectures in favor of collaborative learning by doing.</p>
-                </div>
-                
-                <div className="ai-native-timeline-item">
-                  <div className="ai-native-dot white"></div>
-                  <strong className="ai-native-timeline-heading white">Year 25 &bull; AI Native relaunch</strong>
-                  <p className="ai-native-timeline-text">Re-engineered for an AI-native era of intelligent software and LLMs.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Content */}
-            <div className="ai-native-content">
+          <div className="slide-content-layout layout-ai-native-full">
+            {/* Full-width AI Native Content (sidebar removed) */}
+            <div className="ai-native-content-full">
               <span className="ai-native-kicker">THE AI-NATIVE PROGRAM</span>
               
               <div className="ai-native-principles-box">
@@ -458,6 +427,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             </div>
           </div>
         );
+
 
       case 'placements':
         return (
@@ -783,8 +753,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
               {/* Dynamic Slide Stage Container */}
               <div className={`fullscreen-slide-stage stage-${slideItem.id}`}>
                 {/* Header Meta Row */}
-                {slideItem.id !== 'ainative' && (
-                  <div className="slide-header-meta">
+                <div className="slide-header-meta">
                   <div className="slide-meta-top-row">
                     <span className="fullscreen-category-badge">{slideItem.category}</span>
                     <span className="mobile-desktop-hint-pill">💻 For detailed view & full info, use desktop</span>
@@ -792,7 +761,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
                   <h1 className="fullscreen-slide-title">{slideItem.title}</h1>
                   <p className="fullscreen-slide-lead">{slideItem.lead}</p>
                 </div>
-                )}
 
                 {/* Render Bespoke Non-Interactive Slide Content */}
                 <div className="slide-body-container">
