@@ -155,11 +155,14 @@ export default function ApplicationPortalPage() {
                 className="single-app-logo"
               />
               <span className="brand-sep">|</span>
-              <span className="brand-sub">MSIT Application</span>
+              <div>
+                <span className="brand-sub">MSIT Application</span>
+                <span className="brand-cohort">{APPLICATION_CONFIG.cohort}</span>
+              </div>
             </div>
             <button 
               type="button" 
-              className="btn btn-secondary"
+              className="btn btn-secondary no-print"
               onClick={handleBackToDashboard}
             >
               Return to Programme
@@ -203,10 +206,6 @@ export default function ApplicationPortalPage() {
                 <span className="col-val">{formData.dob}</span>
               </div>
               <div className="table-row">
-                <span className="col-label">Residential Address:</span>
-                <span className="col-val">{formData.address}</span>
-              </div>
-              <div className="table-row">
                 <span className="col-label">{formData.parentRelationship || 'Parent'} Name:</span>
                 <span className="col-val">{formData.parentName}</span>
               </div>
@@ -238,19 +237,35 @@ export default function ApplicationPortalPage() {
                     : 'No (Fresher)'}
                 </span>
               </div>
-              {formData.purposeToJoin && (
-                <div className="table-row">
-                  <span className="col-label">Purpose to Join MSIT:</span>
-                  <span className="col-val">{formData.purposeToJoin}</span>
-                </div>
-              )}
               <div className="table-row">
                 <span className="col-label">Submitted On:</span>
                 <span className="col-val">{formData.submittedAt}</span>
               </div>
+              <div className="table-row full-width">
+                <span className="col-label">Residential Address:</span>
+                <span className="col-val">{formData.address}</span>
+              </div>
+              {formData.purposeToJoin && (
+                <div className="table-row full-width">
+                  <span className="col-label">Purpose to Join MSIT:</span>
+                  <span className="col-val">{formData.purposeToJoin}</span>
+                </div>
+              )}
             </div>
 
-            <div className="success-actions-row">
+            {/* Official footer rendered exclusively for print / PDF output */}
+            <div className="print-official-footer">
+              <div className="print-footer-info">
+                <strong>Consortium of Institutions of Higher Learning (CIHL) — MSIT Programme</strong>
+                <span>MSIT Division, IIIT Hyderabad Campus, Gachibowli, Hyderabad - 500 032</span>
+              </div>
+              <div className="print-footer-meta">
+                <span>Email: query@msit.ac.in | Web: msitprogram.net</span>
+                <span className="print-note">Official computer-generated acknowledgement receipt. No signature required.</span>
+              </div>
+            </div>
+
+            <div className="success-actions-row no-print">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -298,7 +313,7 @@ export default function ApplicationPortalPage() {
             </div>
           </div>
 
-          <div className="single-app-controls">
+          <div className="single-app-controls no-print">
             {lastSavedTime && (
               <span className="draft-saved-pill">
                 <ClockIcon size={14} />
@@ -621,7 +636,7 @@ export default function ApplicationPortalPage() {
             </div>
 
             {/* FORM SUBMISSION BAR */}
-            <div className="form-submit-footer">
+            <div className="form-submit-footer no-print">
               <button
                 type="submit"
                 className="btn btn-primary btn-submit-app"

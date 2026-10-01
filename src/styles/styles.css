@@ -2538,13 +2538,21 @@ p {
   }
 
   /* Completely remove the main webpage and UI elements from document flow */
+  .no-print,
   .site-header,
   .hero > .hero-inner,
   .hero-grid-bg,
   section:not(.hero),
   .site-footer,
   .back-to-top-btn,
-  .mobile-sticky-bar {
+  .mobile-sticky-bar,
+  .single-app-controls,
+  .single-app-header .btn,
+  .single-app-header button,
+  .success-actions-row,
+  .form-submit-footer,
+  .draft-saved-pill,
+  .btn-submit-app {
     display: none !important;
   }
 
@@ -2687,6 +2695,243 @@ p {
     color: #0b2a6b !important;
     text-decoration: none !important;
     font-weight: 600 !important;
+  }
+
+  /* ========================================================
+     APPLICATION PORTAL & SUBMISSION ACKNOWLEDGEMENT (A4 FIT)
+     ======================================================== */
+  .single-app-wrapper {
+    background: #ffffff !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .single-app-header {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-bottom: 2px solid #0b2a6b !important;
+    padding: 0 0 8px 0 !important;
+    margin: 0 0 10px 0 !important;
+    position: static !important;
+  }
+
+  .single-app-header-inner {
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+
+  .single-app-logo {
+    height: 36px !important;
+    max-width: 105px !important;
+    object-fit: contain !important;
+  }
+
+  .single-app-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+  }
+
+  .single-app-brand .brand-sep {
+    color: #94a3b8 !important;
+    font-size: 1.15rem !important;
+  }
+
+  .single-app-brand .brand-sub {
+    color: #0b2a6b !important;
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+  }
+
+  .single-app-brand .brand-cohort {
+    color: #475569 !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+  }
+
+  .single-app-container {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .single-app-card {
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    padding: 10px 14px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .form-section-block {
+    padding: 8px 10px !important;
+    margin-bottom: 8px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .single-app-success-card {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    padding: 10px 14px !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  .single-app-success-card .success-icon-badge {
+    width: 28px !important;
+    height: 28px !important;
+    margin: 0 auto 3px auto !important;
+    background: #dcfce7 !important;
+    color: #15803d !important;
+  }
+
+  .single-app-success-card .success-icon-badge svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .single-app-success-card .success-status-pill {
+    font-size: 0.68rem !important;
+    padding: 2px 8px !important;
+    margin-bottom: 3px !important;
+    background: #dbeafe !important;
+    color: #1e40af !important;
+    display: inline-block !important;
+  }
+
+  .single-app-success-card h2 {
+    font-size: 1.15rem !important;
+    margin: 0 0 2px 0 !important;
+    color: #0b2a6b !important;
+    font-weight: 800 !important;
+  }
+
+  .single-app-success-card .success-subtitle {
+    font-size: 0.76rem !important;
+    margin: 0 auto 8px auto !important;
+    color: #475569 !important;
+    max-width: 100% !important;
+    line-height: 1.3 !important;
+  }
+
+  .single-app-success-card .application-ref-banner {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 5px 12px !important;
+    margin: 0 0 8px 0 !important;
+    max-width: 100% !important;
+    background: #f1f5f9 !important;
+    border: 1px solid #0b2a6b !important;
+    border-radius: 4px !important;
+    font-size: 0.78rem !important;
+    color: #334155 !important;
+  }
+
+  .single-app-success-card .application-ref-banner strong {
+    font-size: 1.05rem !important;
+    color: #0b2a6b !important;
+    font-weight: 800 !important;
+  }
+
+  .submitted-data-table {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    column-gap: 20px !important;
+    row-gap: 3px !important;
+    padding: 8px 12px !important;
+    margin-bottom: 8px !important;
+    background: #fafbfc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .submitted-data-table .table-row {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: baseline !important;
+    padding: 2.5px 0 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    gap: 8px !important;
+    font-size: 0.74rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .submitted-data-table .table-row.full-width {
+    grid-column: 1 / -1 !important;
+    border-top: 1px dashed #cbd5e1 !important;
+    padding-top: 4px !important;
+    margin-top: 2px !important;
+  }
+
+  .submitted-data-table .col-label {
+    font-size: 0.72rem !important;
+    color: #475569 !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+  }
+
+  .submitted-data-table .col-val {
+    font-size: 0.74rem !important;
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    text-align: right !important;
+    word-break: break-word !important;
+  }
+
+  .print-official-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    border-top: 1px solid #cbd5e1 !important;
+    padding-top: 6px !important;
+    margin-top: 4px !important;
+    font-size: 0.68rem !important;
+    color: #64748b !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  .print-official-footer .print-footer-info {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: left !important;
+    gap: 1px !important;
+  }
+
+  .print-official-footer .print-footer-info strong {
+    color: #0b2a6b !important;
+    font-weight: 700 !important;
+    font-size: 0.7rem !important;
+  }
+
+  .print-official-footer .print-footer-meta {
+    display: flex !important;
+    flex-direction: column !important;
+    text-align: right !important;
+    gap: 1px !important;
+  }
+
+  .print-official-footer .print-note {
+    font-style: italic !important;
+    font-size: 0.64rem !important;
+    color: #94a3b8 !important;
   }
 }
 
@@ -15724,6 +15969,10 @@ p {
   justify-content: center;
   gap: 0.85rem;
   flex-wrap: wrap;
+}
+
+.print-official-footer {
+  display: none;
 }
 
 @media (max-width: 680px) {
