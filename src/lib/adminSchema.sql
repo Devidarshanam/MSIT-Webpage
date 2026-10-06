@@ -31,7 +31,8 @@ CREATE TABLE IF NOT EXISTS public.admin_users (
 INSERT INTO public.admin_users (email, full_name, role) VALUES
     ('head@msitprogram.net', 'MSIT Head', 'super_admin'),
     ('dean@msitprogram.net', 'MSIT Dean', 'super_admin'),
-    ('varshithathorthi04@msitprogram.net', 'Varshitha Thorthi', 'admin')
+    ('varshithathorthi04@msitprogram.net', 'Varshitha Thorthi', 'admin'),
+    ('darshanamdevi2.6@msitprogram.net', 'Devi Darshanam', 'admin')
 ON CONFLICT (email) DO NOTHING;
 
 -- 2. APPLICATIONS TABLE

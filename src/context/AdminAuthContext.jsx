@@ -41,7 +41,8 @@ export function isAuthorizedAdminEmail(email) {
   const designatedAdmins = [
     'head@msitprogram.net',
     'dean@msitprogram.net',
-    'varshithathorthi04@msitprogram.net'
+    'varshithathorthi04@msitprogram.net',
+    'darshanamdevi2.6@msitprogram.net'
   ];
 
   if (
