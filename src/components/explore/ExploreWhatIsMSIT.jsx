@@ -9,142 +9,101 @@ export default function ExploreWhatIsMSIT() {
           <h2>A Quarter-Century of Active Learning</h2>
           <p className="section-lead">
             Founded in 2001 by Turing Laureate Prof. Raj Reddy with Carnegie Mellon University 
-            guidance, MSIT replaced passive lectures to pioneer India’s premier studio-based computing master’s.
+            guidance, MSIT replaced passive lectures to pioneer India's premier studio-based computing master's.
           </p>
         </div>
 
-        <div className="origin-merged-grid">
-          {/* Left Column: Visionary Anchor */}
-          <div className="origin-anchor-col">
-            <div className="spotlight-card origin-merged-spotlight">
-              <div className="spotlight-profile-layout">
-                <div className="spotlight-img-frame">
-                  <img 
-                    src="/assets/rajreddy.jpg" 
-                    alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
-                    className="spotlight-portrait-img"
-                  />
-                </div>
-                <div className="spotlight-meta-info">
-                  <div className="spotlight-badge-row">
-                    <span className="spotlight-badge">Academic Visionary</span>
-                    <span className="spotlight-award-tag">Turing Laureate 1994</span>
-                  </div>
-                  <h3 className="spotlight-name">Prof. Raj Reddy</h3>
-                  <p className="spotlight-role-title">Founding Chair, MSIT • Former Dean, School of Computer Science, Carnegie Mellon University</p>
-                  <p className="spotlight-desc">Conceived MSIT in 2001 to promote active, studio-based software engineering education.</p>
-                </div>
+        <div className="heritage-layout">
+          {/* Left Column: Founder Profile Card */}
+          <div className="heritage-founder-card">
+            <div className="heritage-founder-top">
+              <div className="heritage-founder-img">
+                <img 
+                  src="/assets/rajreddy.jpg" 
+                  alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
+                />
               </div>
-
-              {/* 3 Vital Stats Row */}
-              <div className="spotlight-stats-row">
-                <div className="spot-stat">
-                  <strong>25+</strong>
-                  <span>Years Legacy</span>
+              <div className="heritage-founder-info">
+                <div className="heritage-badges">
+                  <span className="heritage-badge">Academic Visionary</span>
+                  <span className="heritage-badge accent">Turing Laureate 1994</span>
                 </div>
-                <div className="spot-stat">
-                  <strong>3,000+</strong>
-                  <span>Global Alumni</span>
-                </div>
-                <div className="spot-stat">
-                  <strong>Focus</strong>
-                  <span>Studio Pedagogy</span>
-                </div>
+                <h3>Prof. Raj Reddy</h3>
+                <p className="heritage-founder-role">Founding Chair, MSIT • Former Dean, School of Computer Science, Carnegie Mellon University</p>
+                <p className="heritage-founder-desc">Conceived MSIT in 2001 to promote active, studio-based software engineering education.</p>
               </div>
             </div>
 
-            {/* Signature Quote Box */}
-            <div 
-              className="origin-quote-box origin-quote-merged"
-              style={{
-                background: 'linear-gradient(135deg, #091a38 0%, #17386d 100%)',
-                border: '1.5px solid rgba(59, 130, 246, 0.45)',
-                borderRadius: '10px',
-                padding: '0.75rem 1.15rem',
-                color: '#ffffff',
-                boxShadow: '0 4px 16px rgba(9, 26, 56, 0.25)'
-              }}
-            >
-              <p 
-                className="origin-quote-text"
-                style={{
-                  color: '#ffffff',
-                  fontWeight: 600,
-                  fontSize: '0.86rem',
-                  lineHeight: '1.45',
-                  margin: '0 0 0.35rem 0',
-                  fontStyle: 'italic',
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.4)'
-                }}
-              >
-                “In computing, learning is not a spectator sport. You don't learn by watching; you learn by building, breaking, debugging, and deploying.”
-              </p>
-              <span 
-                className="quote-author"
-                style={{
-                  color: '#fde047',
-                  fontWeight: 700,
-                  fontSize: '0.74rem',
-                  display: 'block'
-                }}
-              >
-                — Prof. Raj Reddy, Turing Award Laureate & MSIT Founding Chair
-              </span>
+            <div className="heritage-stats-row">
+              <div className="heritage-stat">
+                <strong>25+</strong>
+                <span>Years Legacy</span>
+              </div>
+              <div className="heritage-stat">
+                <strong>3,000+</strong>
+                <span>Global Alumni</span>
+              </div>
+              <div className="heritage-stat">
+                <strong>Focus</strong>
+                <span>Studio Pedagogy</span>
+              </div>
             </div>
           </div>
 
-          {/* Right Column: 4-Era Evolution Milestones Rail */}
-          <div className="journey-rail-col">
-            <div className="journey-rail-header">
-              <div className="rail-header-tag-group">
-                <span className="journey-rail-pill">Quarter-Century Evolution</span>
-                <span className="journey-rail-sub">2001 Foundation to 2026 AI Era</span>
-              </div>
-              <span className="journey-rail-note">Active Learning Model</span>
+          {/* Right Column: Evolution Timeline */}
+          <div className="heritage-timeline">
+            <div className="heritage-timeline-header">
+              <span className="heritage-timeline-pill">Quarter-Century Evolution</span>
+              <span className="heritage-timeline-sub">2001 → 2026</span>
             </div>
 
-            <div className="journey-eras-grid">
-              {/* Era 1: 2001-2005 */}
-              <div className="journey-era-card card-m2001">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2001–2005</span>
-                  <span className="journey-era-label">Inception & Pedagogy</span>
+            <div className="heritage-eras-grid">
+              <div className="heritage-era-card">
+                <div className="heritage-era-top">
+                  <span className="heritage-year">2001–2005</span>
+                  <span className="heritage-era-label">Inception & Pedagogy</span>
                 </div>
                 <h4>CIHL & CMU Mastery Model</h4>
                 <p>Founded at IIIT Hyderabad under CIHL with Carnegie Mellon guidance. Pioneered 90%+ mastery thresholds and collaborative coding studios under dedicated 1:10 mentors.</p>
               </div>
 
-              {/* Era 2: 2006-2015 */}
-              <div className="journey-era-card card-m2006">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2006–2015</span>
-                  <span className="journey-era-label">Expansion & Scalability</span>
+              <div className="heritage-era-card">
+                <div className="heritage-era-top">
+                  <span className="heritage-year">2006–2015</span>
+                  <span className="heritage-era-label">Expansion & Scalability</span>
                 </div>
                 <h4>Multi-Campus IT Hubs</h4>
                 <p>Scaled the studio model across JNTUH, JNTUK, JNTUA, and SVU. Institutionalized Soft Skills and Professional Development alongside deep technical rigor.</p>
               </div>
 
-              {/* Era 3: 2016-2023 */}
-              <div className="journey-era-card card-m2016">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2016–2023</span>
-                  <span className="journey-era-label">Agile & Cloud Shift</span>
+              <div className="heritage-era-card">
+                <div className="heritage-era-top">
+                  <span className="heritage-year">2016–2023</span>
+                  <span className="heritage-era-label">Agile & Cloud Shift</span>
                 </div>
                 <h4>DevOps & Specializations</h4>
                 <p>Transitioned from monolithic software engineering to Cloud, Data Science, and Machine Learning tracks. Embedded Agile/Scrum directly into daily student workflows.</p>
               </div>
 
-              {/* Era 4: 2024-Present */}
-              <div className="journey-era-card card-m2024 active-era">
-                <div className="journey-card-top">
-                  <span className="journey-year-badge">2024–Present</span>
-                  <span className="journey-era-label">The Future</span>
+              <div className="heritage-era-card active">
+                <div className="heritage-era-top">
+                  <span className="heritage-year">2024–Present</span>
+                  <span className="heritage-era-label">The Future</span>
                 </div>
                 <h4>The AI-Native Core</h4>
                 <p>Curriculum fully rebuilt for the LLM era. Students use agentic workflows, Copilots, and advanced AI systems, focusing on higher-order system architecture.</p>
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Full-width Quote Banner */}
+        <div className="heritage-quote-banner">
+          <p>
+            "In computing, learning is not a spectator sport. You don't learn by watching; 
+            you learn by building, breaking, debugging, and deploying."
+          </p>
+          <span>— Prof. Raj Reddy, Turing Award Laureate & MSIT Founding Chair</span>
         </div>
       </div>
     </section>

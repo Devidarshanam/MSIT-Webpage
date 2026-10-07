@@ -18308,6 +18308,315 @@ p {
   gap: 1rem;
 }
 
+/* ==========================================================================
+   2. Heritage & Evolution Section (Webpage Section)
+   ========================================================================== */
+
+.heritage-layout {
+  display: grid;
+  grid-template-columns: minmax(360px, 1fr) 1.25fr;
+  gap: 2.5rem;
+  align-items: stretch;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+/* Founder Profile Card */
+.heritage-founder-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: 20px;
+  padding: 2.25rem;
+  box-shadow: 0 4px 20px rgba(11, 42, 107, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.heritage-founder-card:hover {
+  box-shadow: 0 12px 32px rgba(11, 42, 107, 0.08);
+  transform: translateY(-2px);
+}
+
+.heritage-founder-top {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+  margin-bottom: 1.75rem;
+}
+
+.heritage-founder-img {
+  flex-shrink: 0;
+  width: 145px;
+  height: 180px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(11, 42, 107, 0.12);
+  border: 3px solid #ffffff;
+  background: var(--primary-50);
+}
+
+.heritage-founder-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.heritage-founder-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.heritage-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.heritage-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--primary-50);
+  color: var(--primary-700);
+  border: 1px solid var(--neutral-300);
+}
+
+.heritage-badge.accent {
+  background: var(--accent-gold-bg);
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+.heritage-founder-info h3 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  margin: 0 0 0.4rem 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.heritage-founder-role {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--primary-600);
+  line-height: 1.45;
+  margin: 0 0 0.75rem 0;
+}
+
+.heritage-founder-desc {
+  font-size: 0.92rem;
+  color: var(--neutral-600);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.heritage-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--neutral-200);
+}
+
+.heritage-stat {
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 0.75rem;
+  background: var(--neutral-50, #f8fafc);
+  border-radius: 12px;
+  border: 1px solid var(--neutral-200);
+  text-align: center;
+}
+
+.heritage-stat strong {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.heritage-stat span {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.3rem;
+}
+
+/* Timeline Column */
+.heritage-timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.heritage-timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding: 0 0.25rem;
+}
+
+.heritage-timeline-pill {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-700);
+  background: var(--primary-50);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--neutral-300);
+}
+
+.heritage-timeline-sub {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--neutral-500);
+  letter-spacing: 0.03em;
+}
+
+.heritage-eras-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  flex: 1;
+}
+
+.heritage-era-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: 16px;
+  padding: 1.35rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+}
+
+.heritage-era-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(11, 42, 107, 0.07);
+  border-color: #cbd5e1;
+}
+
+.heritage-era-card.active {
+  background: linear-gradient(180deg, var(--primary-50) 0%, #ffffff 100%);
+  border: 1.5px solid var(--primary-600);
+  box-shadow: 0 10px 24px rgba(31, 94, 196, 0.08);
+}
+
+.heritage-era-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.heritage-year {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--primary-800);
+  background: #edf4ff;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  letter-spacing: -0.01em;
+}
+
+.heritage-era-card.active .heritage-year {
+  background: var(--primary-600);
+  color: #ffffff;
+}
+
+.heritage-era-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--neutral-500);
+}
+
+.heritage-era-card.active .heritage-era-label {
+  color: var(--primary-600);
+}
+
+.heritage-era-card h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-900);
+  margin: 0 0 0.45rem 0;
+  line-height: 1.3;
+}
+
+.heritage-era-card p {
+  font-size: 0.88rem;
+  color: var(--neutral-600);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+/* Quote Banner */
+.heritage-quote-banner {
+  background: linear-gradient(135deg, #071e4a 0%, #0b2a6b 50%, #103d93 100%);
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 2.25rem 3rem;
+  box-shadow: 0 12px 32px rgba(11, 42, 107, 0.16);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.heritage-quote-banner::before {
+  content: '“';
+  position: absolute;
+  top: -20px;
+  left: 25px;
+  font-size: 8rem;
+  font-family: Georgia, serif;
+  color: rgba(255, 255, 255, 0.08);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.heritage-quote-banner p {
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.6;
+  max-width: 960px;
+  margin: 0 auto 1rem auto;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+.heritage-quote-banner span {
+  display: inline-block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #fde68a;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+}
+
 /* Who is MSIT For Grid */
 .who-is-for-grid {
   display: grid;
@@ -18650,3 +18959,40 @@ p {
     flex-direction: column;
   }
 }
+
+@media (max-width: 1080px) {
+  .heritage-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .heritage-founder-top {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .heritage-founder-img {
+    width: 130px;
+    height: 160px;
+  }
+
+  .heritage-badges {
+    justify-content: center;
+  }
+
+  .heritage-eras-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .heritage-quote-banner {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .heritage-quote-banner p {
+    font-size: 1.05rem;
+  }
+}
+
