@@ -6,7 +6,8 @@ import {
   ClockIcon, 
   ArrowRightIcon, 
   BookOpenIcon,
-  SparklesIcon
+  SparklesIcon,
+  DownloadIcon
 } from '../Icons';
 import { getStudentDisplayName } from '../../utils/userUtils';
 
@@ -68,6 +69,23 @@ export default function StudentDashboardHeader({ user, data, onApply }) {
                 <BookOpenIcon size={16} />
                 <span>Explore Curriculum</span>
               </button>
+            </div>
+
+            {/* Admission Notification Item */}
+            <div className="admission-notification-item">
+              <div className="admission-notification-header">
+                <span className="admission-notification-title">Admission Notification</span>
+              </div>
+              <a 
+                href="/documents/MSIT_Admission_Notification_2026-27.pdf" 
+                download="MSIT_Admission_Notification_2026-27.pdf"
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn btn-secondary btn-sm admission-notification-download-btn"
+              >
+                <DownloadIcon size={15} />
+                <span>Download</span>
+              </a>
             </div>
           </div>
 

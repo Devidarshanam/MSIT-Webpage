@@ -6380,6 +6380,38 @@ p {
   gap: 0.85rem;
 }
 
+.admission-notification-item {
+  margin-top: 1.15rem;
+  padding: 0.75rem 1rem;
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 440px;
+}
+
+.admission-notification-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  letter-spacing: -0.01em;
+}
+
+.admission-notification-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
 /* ==========================================================================
    APPLICATION STATUS CARD (HEADER) - HIGH CONTRAST & GUARANTEED LEGIBILITY
    ========================================================================== */
@@ -9091,6 +9123,10 @@ p {
   .welcome-quick-ctas .btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .admission-notification-item {
+    max-width: 100%;
   }
 
   .application-status-card {
