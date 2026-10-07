@@ -1,9 +1,10 @@
 import React from 'react';
 import { 
-  UsersIcon, 
-  CpuIcon, 
+  ServerIcon,
+  CodeIcon,
   RocketIcon, 
-  HeartIcon,
+  HomeIcon,
+  UsersIcon,
   CompassIcon
 } from '../Icons';
 
@@ -74,7 +75,7 @@ export default function ExploreCampus() {
           
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-research">
-              <CpuIcon size={24} />
+              <ServerIcon size={24} />
             </div>
             <span className="campus-pillar-tag">Research Proximity</span>
             <h4>World-Class Computing Labs</h4>
@@ -83,7 +84,7 @@ export default function ExploreCampus() {
 
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-maker">
-              <UsersIcon size={24} />
+              <CodeIcon size={24} />
             </div>
             <span className="campus-pillar-tag">Studio Culture</span>
             <h4>24/7 Collaborative Maker Spaces</h4>
@@ -101,7 +102,7 @@ export default function ExploreCampus() {
 
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-wellbeing">
-              <HeartIcon size={24} />
+              <HomeIcon size={24} />
             </div>
             <span className="campus-pillar-tag">Residential Life</span>
             <h4>Holistic Wellbeing &amp; Living</h4>

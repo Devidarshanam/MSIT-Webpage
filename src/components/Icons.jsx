@@ -24,6 +24,45 @@ export function BuildingIcon({ className = "icon", size = 20 }) {
   );
 }
 
+export function HomeIcon({ className = "icon", size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+    </svg>
+  );
+}
+
+export function ServerIcon({ className = "icon", size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect>
+      <rect width="20" height="8" x="2" y="14" rx="2" ry="2"></rect>
+      <line x1="6" y1="6" x2="6.01" y2="6"></line>
+      <line x1="6" y1="18" x2="6.01" y2="18"></line>
+    </svg>
+  );
+}
+
+export function LightbulbIcon({ className = "icon", size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-1 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+      <path d="M9 18h6"></path>
+      <path d="M10 22h4"></path>
+    </svg>
+  );
+}
+
+export function TrendingUpIcon({ className = "icon", size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+      <polyline points="17 6 23 6 23 12"></polyline>
+    </svg>
+  );
+}
+
 export function RocketIcon({ className = "icon", size = 20 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
@@ -411,6 +450,15 @@ export function getSmartIcon(keyOrEmoji, defaultSize = 20) {
   }
   if (str.includes('cloud') || str.includes('infrastructure')) {
     return <CloudIcon size={defaultSize} />;
+  }
+  if (str.includes('home') || str.includes('residential') || str.includes('hostel') || str.includes('living') || str.includes('accommodation')) {
+    return <HomeIcon size={defaultSize} />;
+  }
+  if (str.includes('server') || str.includes('hpc') || str.includes('datacenter')) {
+    return <ServerIcon size={defaultSize} />;
+  }
+  if (str.includes('trending') || str.includes('trading') || str.includes('fintech') || str.includes('quant')) {
+    return <TrendingUpIcon size={defaultSize} />;
   }
   if (str.includes('heart') || str.includes('wellbeing') || str.includes('wellness') || str.includes('health')) {
     return <HeartIcon size={defaultSize} />;

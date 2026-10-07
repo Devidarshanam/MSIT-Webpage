@@ -3,9 +3,9 @@ import {
   AwardIcon, 
   RocketIcon, 
   BriefcaseIcon, 
-  CpuIcon, 
-  ZapIcon, 
-  TerminalIcon, 
+  BrainIcon, 
+  TrendingUpIcon, 
+  CloudIcon, 
   ShieldCheckIcon,
   CheckCircleIcon,
   ArrowRightIcon
@@ -90,7 +90,7 @@ export default function ExploreCareerOutcomes() {
             <div className="pathway-top-bar">
               <span className="pathway-domain-pill pill-ai">Artificial Intelligence</span>
               <div className="pathway-card-icon icon-ai">
-                <CpuIcon size={20} />
+                <BrainIcon size={20} />
               </div>
             </div>
 
@@ -131,7 +131,7 @@ export default function ExploreCareerOutcomes() {
             <div className="pathway-top-bar">
               <span className="pathway-domain-pill pill-fintech">FinTech &amp; Systems</span>
               <div className="pathway-card-icon icon-fintech">
-                <ZapIcon size={20} />
+                <TrendingUpIcon size={20} />
               </div>
             </div>
 
@@ -172,7 +172,7 @@ export default function ExploreCareerOutcomes() {
             <div className="pathway-top-bar">
               <span className="pathway-domain-pill pill-cloud">Cloud &amp; Distributed</span>
               <div className="pathway-card-icon icon-cloud">
-                <TerminalIcon size={20} />
+                <CloudIcon size={20} />
               </div>
             </div>
 
