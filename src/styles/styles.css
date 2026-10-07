@@ -18309,56 +18309,53 @@ p {
 }
 
 /* ==========================================================================
-   2. Heritage & Evolution Section (Webpage Section)
+   2. Heritage & Evolution (Separated Webpage Sections)
    ========================================================================== */
 
-.heritage-layout {
-  display: grid;
-  grid-template-columns: minmax(360px, 1fr) 1.25fr;
-  gap: 2.5rem;
-  align-items: stretch;
-  margin-bottom: 2.5rem;
-  width: 100%;
+/* PART 1: Founder & Heritage Block */
+.heritage-founder-block {
+  margin-bottom: 5rem;
 }
 
-/* Founder Profile Card */
-.heritage-founder-card {
+.heritage-founder-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2.75rem;
+  align-items: stretch;
+}
+
+/* Profile Panel (Left) */
+.heritage-profile-panel {
   background: #ffffff;
   border: 1px solid var(--neutral-200);
   border-radius: 20px;
-  padding: 2.25rem;
+  padding: 2.25rem 2rem;
   box-shadow: 0 4px 20px rgba(11, 42, 107, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+  align-items: center;
+  text-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.heritage-founder-card:hover {
-  box-shadow: 0 12px 32px rgba(11, 42, 107, 0.08);
+.heritage-profile-panel:hover {
   transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(11, 42, 107, 0.08);
 }
 
-.heritage-founder-top {
-  display: flex;
-  gap: 1.75rem;
-  align-items: flex-start;
-  margin-bottom: 1.75rem;
-}
-
-.heritage-founder-img {
-  flex-shrink: 0;
-  width: 145px;
-  height: 180px;
-  border-radius: 14px;
+.heritage-portrait-frame {
+  width: 200px;
+  height: 240px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(11, 42, 107, 0.12);
-  border: 3px solid #ffffff;
+  box-shadow: 0 8px 24px rgba(11, 42, 107, 0.14);
+  border: 4px solid #ffffff;
   background: var(--primary-50);
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
 }
 
-.heritage-founder-img img {
+.heritage-portrait-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -18366,22 +18363,22 @@ p {
   display: block;
 }
 
-.heritage-founder-info {
-  flex: 1;
-  min-width: 0;
+.heritage-profile-header {
+  width: 100%;
 }
 
 .heritage-badges {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
+  justify-content: center;
+  margin-bottom: 0.85rem;
 }
 
 .heritage-badge {
   display: inline-flex;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -18398,223 +18395,243 @@ p {
   border-color: #fde68a;
 }
 
-.heritage-founder-info h3 {
-  font-size: 1.6rem;
+.heritage-profile-header h3 {
+  font-size: 1.55rem;
   font-weight: 800;
   color: var(--primary-900);
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.5rem 0;
   letter-spacing: -0.02em;
-  line-height: 1.2;
 }
 
-.heritage-founder-role {
-  font-size: 0.88rem;
+.heritage-profile-title {
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--primary-600);
   line-height: 1.45;
-  margin: 0 0 0.75rem 0;
-}
-
-.heritage-founder-desc {
-  font-size: 0.92rem;
-  color: var(--neutral-600);
-  line-height: 1.6;
   margin: 0;
 }
 
-.heritage-stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--neutral-200);
-}
-
-.heritage-stat {
+/* Narrative Panel (Right) */
+.heritage-narrative-panel {
   display: flex;
   flex-direction: column;
-  padding: 0.85rem 0.75rem;
-  background: var(--neutral-50, #f8fafc);
-  border-radius: 12px;
-  border: 1px solid var(--neutral-200);
-  text-align: center;
+  gap: 1.5rem;
 }
 
-.heritage-stat strong {
-  font-size: 1.4rem;
+.heritage-story-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: 18px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 4px 16px rgba(11, 42, 107, 0.04);
+}
+
+.heritage-story-card h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  margin: 0 0 0.85rem 0;
+  letter-spacing: -0.01em;
+}
+
+.heritage-story-card p {
+  font-size: 0.95rem;
+  color: var(--neutral-700);
+  line-height: 1.65;
+  margin: 0 0 0.85rem 0;
+}
+
+.heritage-story-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Stats Grid */
+.heritage-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.heritage-stat-box {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: 14px;
+  padding: 1.25rem 1.2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(11, 42, 107, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.heritage-stat-box .stat-number {
+  font-size: 1.65rem;
   font-weight: 800;
   color: var(--primary-900);
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
-.heritage-stat span {
-  font-size: 0.75rem;
+.heritage-stat-box .stat-label {
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--neutral-500);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-top: 0.3rem;
 }
 
-/* Timeline Column */
-.heritage-timeline {
-  display: flex;
-  flex-direction: column;
-}
-
-.heritage-timeline-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-  padding: 0 0.25rem;
-}
-
-.heritage-timeline-pill {
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--primary-700);
-  background: var(--primary-50);
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid var(--neutral-300);
-}
-
-.heritage-timeline-sub {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--neutral-500);
-  letter-spacing: 0.03em;
-}
-
-.heritage-eras-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  flex: 1;
-}
-
-.heritage-era-card {
-  background: #ffffff;
-  border: 1px solid var(--neutral-200);
-  border-radius: 16px;
-  padding: 1.35rem 1.4rem;
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  position: relative;
-}
-
-.heritage-era-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(11, 42, 107, 0.07);
-  border-color: #cbd5e1;
-}
-
-.heritage-era-card.active {
-  background: linear-gradient(180deg, var(--primary-50) 0%, #ffffff 100%);
-  border: 1.5px solid var(--primary-600);
-  box-shadow: 0 10px 24px rgba(31, 94, 196, 0.08);
-}
-
-.heritage-era-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.heritage-year {
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: var(--primary-800);
-  background: #edf4ff;
-  padding: 0.25rem 0.65rem;
-  border-radius: 8px;
-  letter-spacing: -0.01em;
-}
-
-.heritage-era-card.active .heritage-year {
-  background: var(--primary-600);
-  color: #ffffff;
-}
-
-.heritage-era-label {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--neutral-500);
-}
-
-.heritage-era-card.active .heritage-era-label {
-  color: var(--primary-600);
-}
-
-.heritage-era-card h4 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--primary-900);
-  margin: 0 0 0.45rem 0;
-  line-height: 1.3;
-}
-
-.heritage-era-card p {
-  font-size: 0.88rem;
-  color: var(--neutral-600);
-  line-height: 1.5;
-  margin: 0;
-  flex: 1;
-}
-
-/* Quote Banner */
-.heritage-quote-banner {
+/* Quote Card */
+.heritage-quote-card {
   background: linear-gradient(135deg, #071e4a 0%, #0b2a6b 50%, #103d93 100%);
   color: #ffffff;
-  border-radius: 20px;
-  padding: 2.25rem 3rem;
-  box-shadow: 0 12px 32px rgba(11, 42, 107, 0.16);
+  border-radius: 18px;
+  padding: 1.75rem 2.25rem;
   position: relative;
   overflow: hidden;
-  text-align: center;
+  box-shadow: 0 10px 28px rgba(11, 42, 107, 0.12);
 }
 
-.heritage-quote-banner::before {
-  content: '“';
+.heritage-quote-card .quote-mark {
   position: absolute;
-  top: -20px;
-  left: 25px;
-  font-size: 8rem;
+  top: -10px;
+  right: 20px;
+  font-size: 6rem;
   font-family: Georgia, serif;
   color: rgba(255, 255, 255, 0.08);
   line-height: 1;
   pointer-events: none;
 }
 
-.heritage-quote-banner p {
-  font-size: 1.2rem;
-  font-weight: 500;
+.heritage-quote-card blockquote {
+  font-size: 1.05rem;
   font-style: italic;
+  font-weight: 400;
   line-height: 1.6;
-  max-width: 960px;
-  margin: 0 auto 1rem auto;
+  margin: 0 0 0.65rem 0;
   color: #ffffff;
   position: relative;
   z-index: 1;
 }
 
-.heritage-quote-banner span {
-  display: inline-block;
-  font-size: 0.92rem;
+.heritage-quote-card cite {
+  display: block;
+  font-size: 0.88rem;
+  font-style: normal;
   font-weight: 600;
   color: #fde68a;
-  letter-spacing: 0.02em;
   position: relative;
   z-index: 1;
+}
+
+/* PART 2: Evolution Timeline Block (Dedicated Full-Width Section) */
+.heritage-evolution-block {
+  padding-top: 4.5rem;
+  border-top: 1px solid var(--neutral-300);
+  margin-top: 1rem;
+}
+
+.heritage-timeline-progression {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+.heritage-milestone-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: 16px;
+  padding: 1.75rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(11, 42, 107, 0.04);
+}
+
+.heritage-milestone-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(11, 42, 107, 0.08);
+  border-color: #cbd5e1;
+}
+
+.heritage-milestone-card.active {
+  background: linear-gradient(180deg, var(--primary-50) 0%, #ffffff 100%);
+  border: 2px solid var(--primary-600);
+  box-shadow: 0 10px 28px rgba(31, 94, 196, 0.12);
+}
+
+.milestone-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.milestone-step {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--primary-700);
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.02em;
+}
+
+.heritage-milestone-card.active .milestone-step {
+  background: var(--primary-600);
+  color: #ffffff;
+  border-color: var(--primary-600);
+}
+
+.milestone-year {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  background: #edf4ff;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  letter-spacing: -0.01em;
+}
+
+.heritage-milestone-card.active .milestone-year {
+  background: var(--primary-900);
+  color: #ffffff;
+}
+
+.milestone-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--neutral-500);
+  margin-bottom: 0.65rem;
+}
+
+.milestone-tag.current {
+  color: var(--primary-600);
+}
+
+.heritage-milestone-card h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-900);
+  margin: 0 0 0.65rem 0;
+  line-height: 1.35;
+}
+
+.heritage-milestone-card p {
+  font-size: 0.88rem;
+  color: var(--neutral-600);
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
 }
 
 /* Who is MSIT For Grid */
@@ -18960,39 +18977,44 @@ p {
   }
 }
 
-@media (max-width: 1080px) {
-  .heritage-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+@media (max-width: 1120px) {
+  .heritage-timeline-progression {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 680px) {
-  .heritage-founder-top {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+@media (max-width: 900px) {
+  .heritage-founder-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
   
-  .heritage-founder-img {
-    width: 130px;
-    height: 160px;
+  .heritage-profile-panel {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
   }
 
-  .heritage-badges {
-    justify-content: center;
+  .heritage-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
+}
 
-  .heritage-eras-grid {
+@media (max-width: 640px) {
+  .heritage-timeline-progression {
     grid-template-columns: 1fr;
   }
 
-  .heritage-quote-banner {
-    padding: 1.75rem 1.5rem;
+  .heritage-stats-grid {
+    grid-template-columns: 1fr;
   }
-
-  .heritage-quote-banner p {
-    font-size: 1.05rem;
+  
+  .heritage-quote-card {
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .heritage-evolution-block {
+    padding-top: 3.5rem;
   }
 }
 
