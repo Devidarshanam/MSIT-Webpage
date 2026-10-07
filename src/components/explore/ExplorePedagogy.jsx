@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   UsersIcon,
   AwardIcon,
-  TerminalIcon
+  CodeIcon
 } from '../Icons';
 
 export default function ExplorePedagogy() {
@@ -140,7 +140,7 @@ export default function ExplorePedagogy() {
 
             <div className="pedagogy-pillar-item pillar-projects">
               <div className="pillar-item-icon">
-                <TerminalIcon size={22} />
+                <CodeIcon size={22} />
               </div>
               <div className="pillar-item-content">
                 <span className="pillar-item-tag">Learning by Doing</span>

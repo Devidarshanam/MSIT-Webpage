@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  BriefcaseIcon, 
+  CorporateBuildingIcon, 
   RocketIcon, 
   CheckCircleIcon, 
   BuildingIcon, 
@@ -65,7 +65,7 @@ export default function ExplorePracticum() {
               />
               <div className="track-media-overlay"></div>
               <div className="track-pill-tag tag-coop">
-                <BriefcaseIcon size={15} />
+                <CorporateBuildingIcon size={15} />
                 <span>Industry Track</span>
               </div>
             </div>

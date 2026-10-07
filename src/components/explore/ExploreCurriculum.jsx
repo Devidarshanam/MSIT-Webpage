@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  SparklesIcon, 
+  GenAIIcon, 
   CpuIcon, 
   CloudIcon, 
   UsersIcon 
@@ -33,7 +33,7 @@ export default function ExploreCurriculum() {
             <div className="tshape-top-header">
               <div className="tshape-top-icon-title">
                 <div className="tshape-top-icon">
-                  <SparklesIcon size={22} />
+                  <GenAIIcon size={22} />
                 </div>
                 <div>
                   <span className="tshape-domain-badge">Domain 1 • Horizontal Breadth</span>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpenIcon, CpuIcon, BriefcaseIcon } from '../Icons';
+import { BookOpenIcon, BrainIcon, ToolsIcon } from '../Icons';
 
 export default function ExploreWhyMSIT() {
   return (
@@ -56,7 +56,7 @@ export default function ExploreWhyMSIT() {
               <div className="why-pillar-top">
                 <span className="why-pillar-number">Pillar 02</span>
                 <div className="why-pillar-icon" title="Learning to Think">
-                  <CpuIcon size={24} />
+                  <BrainIcon size={24} />
                 </div>
               </div>
               <span className="pillar-focus-tag">Architecture & Logic</span>
@@ -77,7 +77,7 @@ export default function ExploreWhyMSIT() {
               <div className="why-pillar-top">
                 <span className="why-pillar-number">Pillar 03</span>
                 <div className="why-pillar-icon" title="Learning to Do">
-                  <BriefcaseIcon size={24} />
+                  <ToolsIcon size={24} />
                 </div>
               </div>
               <span className="pillar-focus-tag">Studio Practice</span>
