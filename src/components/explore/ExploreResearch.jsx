@@ -8,7 +8,8 @@ import {
 
 export default function ExploreResearch() {
   return (
-    <section className="explore-section bg-light" id="research-philosophy">
+    <section className="explore-section bg-light" id="learning-sciences">
+      <div id="research-philosophy" style={{ position: 'relative', top: '-80px', height: 0 }} aria-hidden="true"></div>
       <div className="explore-container">
         
         {/* Section Header */}

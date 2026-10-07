@@ -14,7 +14,7 @@ import ExplorePracticum from './explore/ExplorePracticum';
 import ExploreCampus from './explore/ExploreCampus';
 import ExploreCareerOutcomes from './explore/ExploreCareerOutcomes';
 import ExploreAdmissions from './explore/ExploreAdmissions';
-import ExploreFinalCTA from './explore/ExploreFinalCTA';
+import Footer from './Footer';
 
 export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         <ExploreCampus />
         <ExploreCareerOutcomes />
         <ExploreAdmissions onGoToSignIn={handleApplyClick} />
-        <ExploreFinalCTA onGoToSignIn={handleApplyClick} />
+        <Footer onGoToSignIn={handleApplyClick} />
       </main>
     </div>
   );

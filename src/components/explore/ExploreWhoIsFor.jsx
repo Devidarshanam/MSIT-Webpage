@@ -79,21 +79,20 @@ export default function ExploreWhoIsFor() {
 
             <h3>Eligibility Information</h3>
             <p className="who-card-lead">
-              Admission to MSIT requires a Bachelor of Technology / Engineering (B.Tech / B.E.) degree. 
-              The program welcomes engineering graduates from all engineering branches—not exclusively Computer Science.
+              Graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math. Open to B.Tech / B.E. graduates across all engineering branches.
             </p>
 
             <div className="who-persona-pills">
-              <span className="persona-pill">B.Tech / B.E. Degree Required</span>
-              <span className="persona-pill">All Engineering Branches Eligible</span>
-              <span className="persona-pill">Aptitude + Interview Path</span>
+              <span className="persona-pill">16 Years Formal Education</span>
+              <span className="persona-pill">CS, AI &amp; Math Orientation</span>
+              <span className="persona-pill">All Engineering Branches</span>
             </div>
 
             <div className="who-breakdown-box">
               <div className="who-breakdown-item">
                 <span className="breakdown-bullet">01</span>
                 <div>
-                  <strong>Academic Qualifications:</strong> Bachelor's degree in Engineering (B.Tech / B.E.) across any discipline—open to all engineering graduates, not restricted only to Computer Science.
+                  <strong>Academic Qualifications:</strong> Graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math (B.Tech / B.E. across any discipline).
                 </div>
               </div>
               <div className="who-breakdown-item">

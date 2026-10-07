@@ -9,7 +9,8 @@ import {
 
 export default function ExploreCampus() {
   return (
-    <section className="explore-section bg-light" id="campus-experience">
+    <section className="explore-section bg-light" id="campus-life">
+      <div id="campus-experience" style={{ position: 'relative', top: '-80px', height: 0 }} aria-hidden="true"></div>
       <div className="explore-container">
         
         {/* Section Header */}

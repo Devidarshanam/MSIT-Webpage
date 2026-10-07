@@ -7,7 +7,8 @@ import {
 
 export default function ExplorePedagogy() {
   return (
-    <section className="explore-section bg-light" id="how-students-learn">
+    <section className="explore-section bg-light" id="pedagogy-foundations">
+      <div id="how-students-learn" style={{ position: 'relative', top: '-80px', height: 0 }} aria-hidden="true"></div>
       <div className="explore-container">
         {/* Section Header */}
         <div className="explore-section-header">

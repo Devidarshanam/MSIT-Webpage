@@ -1,24 +1,57 @@
 import React from 'react';
-import { ArrowRightIcon, UserIcon } from '../Icons';
+import { ArrowRightIcon, GraduationCapIcon, BuildingIcon, BriefcaseIcon, ShieldCheckIcon } from '../Icons';
 
-export default function ExploreFinalCTA({ onGoToSignIn, onGoToDashboard }) {
-  // If the user is authenticated, we show "Open Dashboard" instead of Sign In.
-  const isAuthenticated = false; // We can pass this as a prop later from KnowAboutMSITPage
-
+export default function ExploreFinalCTA({ onGoToSignIn }) {
   return (
-    <section className="explore-section bg-dark text-white" id="final-cta">
-      <div className="explore-container text-center">
-        <h2>Ready to explore MSIT?</h2>
-        <p className="section-lead" style={{ color: 'var(--neutral-300)', maxWidth: '600px', margin: '0 auto 2rem auto' }}>
-          Create an account to access the detailed curriculum, verify your eligibility, and 
-          begin your application for the upcoming cohort.
-        </p>
-        
-        <div className="hero-actions" style={{ justifyContent: 'center' }}>
-          <button className="btn btn-primary" onClick={onGoToSignIn}>
-            <UserIcon size={18} />
-            <span>Register Interest / Check Eligibility</span>
-          </button>
+    <section className="explore-final-cta-section" id="final-cta">
+      <div className="explore-container">
+        <div className="final-cta-card">
+          <div className="final-cta-glow-bg" aria-hidden="true"></div>
+          <div className="final-cta-content">
+            <div className="final-cta-badge">
+              <span className="cta-sparkle-dot"></span>
+              <span>Next Cohort Admissions Open • IIIT Hyderabad Campus</span>
+            </div>
+            
+            <h2>Ready to Transform into a Production-Ready Software Engineer?</h2>
+            
+            <p className="final-cta-lead">
+              Experience the 100% active learning-by-doing pedagogy. Work in dedicated workstation studios, solve industry challenges, and graduate with a prestigious multi-university Master's degree.
+            </p>
+            
+            <div className="final-cta-actions">
+              <button 
+                className="btn btn-primary btn-cta-primary" 
+                onClick={onGoToSignIn}
+                id="cta-apply-btn"
+              >
+                <span>Check Eligibility &amp; Apply Now</span>
+                <ArrowRightIcon size={18} />
+              </button>
+              <a href="#admission-journey" className="btn btn-outline-white btn-cta-secondary">
+                <span>View Selection Process</span>
+              </a>
+            </div>
+
+            <div className="final-cta-highlights">
+              <div className="cta-highlight-item">
+                <GraduationCapIcon size={18} />
+                <span>Multi-University Master's</span>
+              </div>
+              <div className="cta-highlight-item">
+                <BuildingIcon size={18} />
+                <span>IIIT Hyderabad Campus</span>
+              </div>
+              <div className="cta-highlight-item">
+                <BriefcaseIcon size={18} />
+                <span>Industry Practicum &amp; Co-op</span>
+              </div>
+              <div className="cta-highlight-item">
+                <ShieldCheckIcon size={18} />
+                <span>25-Year Academic Heritage</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

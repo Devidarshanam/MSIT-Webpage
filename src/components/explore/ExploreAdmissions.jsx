@@ -34,17 +34,28 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
               <GraduationCapIcon size={26} />
             </div>
             <div>
-              <span className="spotlight-tag">Academic Qualification</span>
-              <h3>B.Tech / B.E. Across All Engineering Disciplines</h3>
+              <span className="spotlight-tag">Academic Eligibility</span>
+              <h3>Graduates with 16 Years of Formal Education</h3>
+              <p className="spotlight-lead-requirement">
+                Graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math.
+              </p>
             </div>
           </div>
 
           <div className="eligibility-details-grid">
+            <div className="eligibility-detail-card highlight-card">
+              <span className="detail-check">✓</span>
+              <div>
+                <strong>16 Years Formal Education</strong>
+                <p>Graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math.</p>
+              </div>
+            </div>
+
             <div className="eligibility-detail-card">
               <span className="detail-check">✓</span>
               <div>
                 <strong>All Engineering Streams Eligible</strong>
-                <p>Open to graduates and final-year students from Computer Science, ECE, EEE, Mechanical, Civil, IT, and all allied engineering disciplines.</p>
+                <p>Open to B.Tech / B.E. graduates and final-year students across Computer Science, ECE, EEE, Mechanical, Civil, IT, and all allied branches.</p>
               </div>
             </div>
 
@@ -53,14 +64,6 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
               <div>
                 <strong>Flexible Entrance Evaluation</strong>
                 <p>Qualify via valid national exam scores (GATE / GRE) or take the dedicated MSIT Graduate Aptitude Test (GAT).</p>
-              </div>
-            </div>
-
-            <div className="eligibility-detail-card">
-              <span className="detail-check">✓</span>
-              <div>
-                <strong>Foundation Bridge Support</strong>
-                <p>Students from non-CS engineering backgrounds receive dedicated foundational mentoring to build rock-solid programming skills from Day 1.</p>
               </div>
             </div>
           </div>
@@ -128,16 +131,24 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
           <div className="action-card-text">
             <div className="action-tag-row">
               <span className="action-status-dot"></span>
-              <span className="action-tag-text">Admissions Guidance Desk</span>
+              <span className="action-tag-text">Next Cohort Admissions Open • IIIT Hyderabad</span>
             </div>
-            <h4>Ready to Begin Your Engineering Transition?</h4>
-            <p>Create your portal account to access syllabus breakdowns, sample GAT papers, and verify your undergraduate degree eligibility.</p>
+            <h4>Ready to Transform into a Production-Ready Software &amp; AI Engineer?</h4>
+            <p>
+              Experience the 100% active learning-by-doing pedagogy. Open to all graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math. Work in dedicated workstation studios and earn a prestigious multi-university Master's degree.
+            </p>
+            <div className="admissions-action-badges-row">
+              <span className="action-badge-pill">🎓 Multi-University Master's</span>
+              <span className="action-badge-pill">🏛️ IIIT Hyderabad Campus</span>
+              <span className="action-badge-pill">💼 Industry Practicum &amp; Co-op</span>
+              <span className="action-badge-pill">🌟 25-Year Heritage</span>
+            </div>
           </div>
 
           {onGoToSignIn && (
             <div className="action-card-btn-wrap">
               <button className="btn btn-primary btn-admissions-action" onClick={onGoToSignIn}>
-                <span>Check Eligibility &amp; Apply</span>
+                <span>Check Eligibility &amp; Apply Now</span>
                 <ArrowRightIcon size={18} />
               </button>
             </div>
