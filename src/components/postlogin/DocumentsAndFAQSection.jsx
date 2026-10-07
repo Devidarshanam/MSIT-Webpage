@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DownloadIcon, BookOpenIcon, ClockIcon, CheckCircleIcon, ArrowRightIcon, HelpCircleIcon } from '../Icons';
+import { ArrowRightIcon, HelpCircleIcon } from '../Icons';
 
 export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenSummaryModal }) {
   const navigate = useNavigate();
@@ -8,48 +8,7 @@ export default function DocumentsAndFAQSection({ documentsData, faqData, onOpenS
   return (
     <section className="section documents-faq-section" id="documents-faq">
       <div className="container">
-        <div className="section-heading">
-          <span className="kicker">{documentsData.kicker}</span>
-          <h2>{documentsData.heading}</h2>
-          <p>{documentsData.description}</p>
-        </div>
-
-        {/* 1. Official Documents Repository */}
-        <div className="documents-repository-grid">
-          {(documentsData?.resources || []).map((res, idx) => (
-            <div key={idx} className="document-resource-card">
-              <div className="doc-card-top">
-                <span className="doc-type-badge">{res.type}</span>
-                <span className={`doc-status-pill ${res.action === 'view-summary' ? 'available' : 'pending'}`}>
-                  {res.status}
-                </span>
-              </div>
-
-              <h4>{res.title}</h4>
-              <p>{res.desc}</p>
-
-              <div className="doc-card-action">
-                {res.action === 'view-summary' ? (
-                  <button
-                    type="button"
-                    className="btn btn-secondary doc-action-btn"
-                    onClick={onOpenSummaryModal}
-                  >
-                    <BookOpenIcon size={16} />
-                    <span>View Academic Summary</span>
-                  </button>
-                ) : (
-                  <span className="doc-pending-text">
-                    <ClockIcon size={14} />
-                    <span>Releasing with official circular</span>
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 2. FAQ Gateway Card (Replaces heavy in-page accordion) */}
+        {/* FAQ Gateway Card */}
         <div className="faq-gateway-card">
           <div className="faq-gateway-content">
             <div className="faq-gateway-badge">
