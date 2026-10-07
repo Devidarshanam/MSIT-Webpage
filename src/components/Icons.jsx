@@ -288,11 +288,10 @@ export function CodeIcon({ className = "icon", size = 20 }) {
 export function GenAIIcon({ className = "icon", size = 20 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
-      <path d="M5 3v4"></path>
-      <path d="M19 17v4"></path>
-      <path d="M3 5h4"></path>
-      <path d="M17 19h4"></path>
+      <path d="M16 2c0 3.8-2.7 6.5-6.5 6.5 3.8 0 6.5 2.7 6.5 6.5 0-3.8 2.7-6.5 6.5-6.5-3.8 0-6.5-2.7-6.5-6.5Z"></path>
+      <path d="M7 11c0 2.8-2 5-5 5 3 0 5 2.2 5 5 0-2.8 2-5 5-5-3 0-5-2.2-5-5Z"></path>
+      <path d="M5 2.5v5M2.5 5h5"></path>
+      <path d="M19 16v5M16.5 18.5h5"></path>
     </svg>
   );
 }
