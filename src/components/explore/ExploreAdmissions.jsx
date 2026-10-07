@@ -1,57 +1,149 @@
 import React from 'react';
-import { ShieldCheckIcon } from '../Icons';
+import { 
+  GraduationCapIcon, 
+  CheckCircleIcon, 
+  UsersIcon, 
+  ZapIcon, 
+  ArrowRightIcon, 
+  ShieldCheckIcon,
+  UserIcon
+} from '../Icons';
 
-export default function ExploreAdmissions() {
+export default function ExploreAdmissions({ onGoToSignIn }) {
   return (
-    <section className="explore-section" id="admission-journey">
+    <section className="explore-section bg-light" id="admission-journey">
       <div className="explore-container">
+        
+        {/* Section Header */}
         <div className="explore-section-header">
-          <span className="section-kicker">Begin Your Journey</span>
-          <h2>Admission Pathway</h2>
+          <span className="admissions-kicker-badge">
+            <span className="admissions-kicker-dot"></span>
+            Admission Pathway &amp; Eligibility
+          </span>
+          <h2>How to Join the MSIT Cohort</h2>
           <p className="section-lead">
-            We follow a structured evaluation pathway designed to identify candidates with strong problem-solving 
-            potential and the drive to succeed in an active learning environment.
+            We follow a structured evaluation pathway designed to identify motivated problem-solvers with an active 
+            builder mindset. Open to engineering graduates and final-year students from all engineering disciplines.
           </p>
         </div>
 
-        <div className="admissions-timeline-flexible">
-          <div className="timeline-node">
-            <div className="node-marker">1</div>
-            <div className="node-content">
-              <h4>Register Interest</h4>
-              <p>Create an account to receive official updates and access the application portal.</p>
+        {/* Academic Qualification & Eligibility Spotlight */}
+        <div className="admissions-eligibility-spotlight">
+          <div className="eligibility-spotlight-header">
+            <div className="spotlight-icon-box">
+              <GraduationCapIcon size={26} />
+            </div>
+            <div>
+              <span className="spotlight-tag">Academic Qualification</span>
+              <h3>B.Tech / B.E. Across All Engineering Disciplines</h3>
             </div>
           </div>
-          <div className="timeline-node">
-            <div className="node-marker">2</div>
-            <div className="node-content">
-              <h4>Eligibility & Documents</h4>
-              <p>Submit academic records to verify your qualifying undergraduate degree.</p>
+
+          <div className="eligibility-details-grid">
+            <div className="eligibility-detail-card">
+              <span className="detail-check">✓</span>
+              <div>
+                <strong>All Engineering Streams Eligible</strong>
+                <p>Open to graduates and final-year students from Computer Science, ECE, EEE, Mechanical, Civil, IT, and all allied engineering disciplines.</p>
+              </div>
             </div>
-          </div>
-          <div className="timeline-node">
-            <div className="node-marker">3</div>
-            <div className="node-content">
-              <h4>Aptitude Evaluation</h4>
-              <p>Qualify via recognized national exams (e.g., GRE, GATE) or the MSIT entrance test.</p>
+
+            <div className="eligibility-detail-card">
+              <span className="detail-check">✓</span>
+              <div>
+                <strong>Flexible Entrance Evaluation</strong>
+                <p>Qualify via valid national exam scores (GATE / GRE) or take the dedicated MSIT Graduate Aptitude Test (GAT).</p>
+              </div>
             </div>
-          </div>
-          <div className="timeline-node">
-            <div className="node-marker">4</div>
-            <div className="node-content">
-              <h4>Interview & Admission</h4>
-              <p>Technical and qualitative interview, followed by formal admission offers.</p>
+
+            <div className="eligibility-detail-card">
+              <span className="detail-check">✓</span>
+              <div>
+                <strong>Foundation Bridge Support</strong>
+                <p>Students from non-CS engineering backgrounds receive dedicated foundational mentoring to build rock-solid programming skills from Day 1.</p>
+              </div>
             </div>
           </div>
         </div>
-        
-        <div className="pending-alert-box mt-4">
-          <ShieldCheckIcon size={18} />
-          <span>
-            <strong>Note:</strong> Exact dates and specific workflow requirements are pending final confirmation 
-            from the admissions committee.
-          </span>
+
+        {/* 4-Step Progressive Admission Pathway Grid */}
+        <div className="admissions-process-grid">
+          
+          {/* Step 1 */}
+          <div className="admissions-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">01</span>
+              <div className="step-icon-wrap icon-register">
+                <UserIcon size={20} />
+              </div>
+            </div>
+            <span className="step-stage-tag">Step 1 • Initial Registration</span>
+            <h4>Register Interest &amp; Profile</h4>
+            <p>Create your candidate account on the admissions portal, submit undergraduate academic details, and select your preferred specialization track.</p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="admissions-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">02</span>
+              <div className="step-icon-wrap icon-eval">
+                <ZapIcon size={20} />
+              </div>
+            </div>
+            <span className="step-stage-tag">Step 2 • Aptitude Assessment</span>
+            <h4>Aptitude Evaluation</h4>
+            <p>Demonstrate logical reasoning and problem-solving through valid GATE / GRE percentiles or the official MSIT online entrance test (GAT).</p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="admissions-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">03</span>
+              <div className="step-icon-wrap icon-interview">
+                <UsersIcon size={20} />
+              </div>
+            </div>
+            <span className="step-stage-tag">Step 3 • Technical Counseling</span>
+            <h4>Interactive Interview</h4>
+            <p>Engage in a constructive 1-on-1 dialogue with academic mentors focused on analytical thinking, curiosity, and learning mindset.</p>
+          </div>
+
+          {/* Step 4 */}
+          <div className="admissions-step-card">
+            <div className="step-card-header">
+              <span className="step-number-badge">04</span>
+              <div className="step-icon-wrap icon-offer">
+                <CheckCircleIcon size={20} />
+              </div>
+            </div>
+            <span className="step-stage-tag">Step 4 • Studio Onboarding</span>
+            <h4>Studio Allotment &amp; Offer</h4>
+            <p>Receive formal admission confirmation, complete workstation allotment, and begin cohort onboarding into the collaborative studio environment.</p>
+          </div>
+
         </div>
+
+        {/* Admissions Action & Guidance Card */}
+        <div className="admissions-action-card">
+          <div className="action-card-text">
+            <div className="action-tag-row">
+              <span className="action-status-dot"></span>
+              <span className="action-tag-text">Admissions Guidance Desk</span>
+            </div>
+            <h4>Ready to Begin Your Engineering Transition?</h4>
+            <p>Create your portal account to access syllabus breakdowns, sample GAT papers, and verify your undergraduate degree eligibility.</p>
+          </div>
+
+          {onGoToSignIn && (
+            <div className="action-card-btn-wrap">
+              <button className="btn btn-primary btn-admissions-action" onClick={onGoToSignIn}>
+                <span>Check Eligibility &amp; Apply</span>
+                <ArrowRightIcon size={18} />
+              </button>
+            </div>
+          )}
+        </div>
+
       </div>
     </section>
   );

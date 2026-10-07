@@ -61,7 +61,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         <ExplorePracticum />
         <ExploreCampus />
         <ExploreCareerOutcomes />
-        <ExploreAdmissions />
+        <ExploreAdmissions onGoToSignIn={handleApplyClick} />
         <ExploreFinalCTA onGoToSignIn={handleApplyClick} />
       </main>
     </div>
