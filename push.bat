@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: update program overview with official 4-semester programme structure from admissions document"
+git commit -m "feat: streamline programme structure section to 4 semesters in concise format"
 
 echo.
 echo Pulling latest remote changes with rebase...

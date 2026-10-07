@@ -1,31 +1,12 @@
 import React from 'react';
 import { 
-  GraduationCapIcon, 
-  BuildingIcon, 
-  CalendarIcon, 
   CpuIcon, 
-  CompassIcon, 
-  TargetIcon, 
   AwardIcon, 
-  BriefcaseIcon,
-  SparklesIcon,
-  BookOpenIcon
+  RocketIcon, 
+  BriefcaseIcon 
 } from '../Icons';
 
 export default function ProgrammeOverviewSection({ data }) {
-  // Helper to match an appropriate SVG icon to parameter labels
-  const getParamIcon = (label) => {
-    const l = (label || '').toLowerCase();
-    if (l.includes('degree')) return <GraduationCapIcon size={22} />;
-    if (l.includes('awarding') || l.includes('institute')) return <BuildingIcon size={22} />;
-    if (l.includes('intake') || l.includes('cohort') || l.includes('date') || l.includes('starts')) return <CalendarIcon size={22} />;
-    if (l.includes('format') || l.includes('campus') || l.includes('location')) return <CompassIcon size={22} />;
-    if (l.includes('tuition') || l.includes('fee')) return <AwardIcon size={22} />;
-    if (l.includes('focus') || l.includes('technology')) return <CpuIcon size={22} />;
-    if (l.includes('programme') || l.includes('semesters')) return <BookOpenIcon size={22} />;
-    return <BriefcaseIcon size={22} />;
-  };
-
   const getSemesterIcon = (idx) => {
     switch (idx) {
       case 0:
@@ -33,14 +14,13 @@ export default function ProgrammeOverviewSection({ data }) {
       case 1:
         return <AwardIcon size={22} />;
       case 2:
-        return <SparklesIcon size={22} />;
+        return <RocketIcon size={22} />;
       case 3:
       default:
         return <BriefcaseIcon size={22} />;
     }
   };
 
-  const specsList = data?.quickSpecs || data?.items || [];
   const semestersList = data?.semesters || [];
 
   return (
@@ -48,26 +28,11 @@ export default function ProgrammeOverviewSection({ data }) {
       <div className="container">
         <div className="section-heading">
           <span className="kicker">{data?.kicker || 'Programme Structure'}</span>
-          <h2>{data?.heading || 'Programme Structure & Academic Framework'}</h2>
+          <h2>{data?.heading || '4-Semester Programme Structure'}</h2>
           <p>{data?.description}</p>
         </div>
 
-        {/* 1. Quick Programme Specifications Strip (From Attached PDF) */}
-        <div className="specs-cards-grid">
-          {specsList.map((item, idx) => (
-            <div key={idx} className="spec-card">
-              <div className="spec-card-icon" aria-hidden="true">
-                {getParamIcon(item.label)}
-              </div>
-              <div className="spec-card-body">
-                <span className="spec-label">{item.label}</span>
-                <strong className="spec-value">{item.value}</strong>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* 2. Four-Semester Programme Structure (Original details from attached PDF) */}
+        {/* Four-Semester Programme Structure Grid (Detailed & Concise) */}
         {semestersList.length > 0 && (
           <div className="programme-structure-block">
             <div className="programme-structure-grid">
@@ -85,37 +50,40 @@ export default function ProgrammeOverviewSection({ data }) {
 
                   <h3 className="semester-title">{sem.title}</h3>
 
-                  {sem.courses && sem.courses.length > 0 && (
-                    <ul className="semester-courses-list">
-                      {sem.courses.map((course, cIdx) => (
-                        <li key={cIdx} className="semester-course-item">
-                          <span className="course-bullet" aria-hidden="true">•</span>
-                          <span>{course}</span>
+                  {sem.points && sem.points.length > 0 ? (
+                    <ul className="semester-points-list">
+                      {sem.points.map((pt, pIdx) => (
+                        <li key={pIdx} className="semester-point-item">
+                          <span className="point-bullet" aria-hidden="true">•</span>
+                          <div className="point-text-wrap">
+                            <strong className="point-label">{pt.label}:</strong>{' '}
+                            <span className="point-desc">{pt.desc}</span>
+                          </div>
                         </li>
                       ))}
                     </ul>
+                  ) : (
+                    <>
+                      {sem.courses && sem.courses.length > 0 && (
+                        <ul className="semester-courses-list">
+                          {sem.courses.map((course, cIdx) => (
+                            <li key={cIdx} className="semester-course-item">
+                              <span className="course-bullet" aria-hidden="true">•</span>
+                              <span>{course}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {sem.emphasis && <p className="semester-desc">{sem.emphasis}</p>}
+                    </>
                   )}
-
-                  <p className="semester-desc">{sem.emphasis}</p>
                 </div>
               ))}
             </div>
           </div>
         )}
-
-        {/* 3. Academic Collaboration Anchor Strip */}
-        <div className="specs-anchor-banner">
-          <div className="anchor-banner-icon" aria-hidden="true">
-            <AwardIcon size={28} />
-          </div>
-          <div className="anchor-banner-text">
-            <h4>{data?.anchor?.title || "Redesigned in Collaboration with CETLS, IIIT Hyderabad"}</h4>
-            <p>
-              {data?.anchor?.desc || "Offered by the Consortium of Institutions of Higher Learning (CIHL) with degree awarded by IIIT Hyderabad. By the end of the first year, students are expected to be capable of designing and building substantial software systems using modern AI-enabled development workflows."}
-            </p>
-          </div>
-        </div>
       </div>
     </section>
   );
 }
+

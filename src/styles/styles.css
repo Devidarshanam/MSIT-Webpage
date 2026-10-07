@@ -6886,6 +6886,52 @@ p {
   flex-grow: 1;
 }
 
+/* Concise & Detailed Points List */
+.semester-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.semester-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.91rem;
+  line-height: 1.5;
+}
+
+.point-bullet {
+  color: var(--primary-600);
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  flex-shrink: 0;
+}
+
+.semester-card-1 .point-bullet { color: #1d4ed8; }
+.semester-card-2 .point-bullet { color: #6d28d9; }
+.semester-card-3 .point-bullet { color: #15803d; }
+.semester-card-4 .point-bullet { color: #c2410c; }
+
+.point-text-wrap {
+  color: var(--neutral-700);
+}
+
+.point-label {
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-right: 0.25rem;
+}
+
+.point-desc {
+  color: var(--neutral-700);
+}
+
 @media (max-width: 900px) {
   .programme-structure-grid {
     grid-template-columns: 1fr;
