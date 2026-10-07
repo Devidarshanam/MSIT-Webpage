@@ -37,7 +37,17 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           </span>
           <span className="back-text">Back</span>
         </button>
-        <div className="explore-brand">MSIT</div>
+        
+        <nav className="explore-inpage-nav">
+          <a href="#what-is-msit">Overview</a>
+          <a href="#t-shaped-curriculum">Curriculum</a>
+          <a href="#real-world-practicum">Practicum</a>
+          <a href="#admission-journey">Admissions</a>
+        </nav>
+
+        <div className="explore-brand">
+          <img src="/assets/msit-logo.png" alt="MSIT Logo" className="explore-header-logo" />
+        </div>
       </div>
 
       <main className="explore-main-content">
