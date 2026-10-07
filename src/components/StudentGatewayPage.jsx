@@ -239,9 +239,9 @@ export default function StudentGatewayPage() {
                     <h4>2. Programme Structure</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Batch:</strong> January 2027 (Full-Time On-Campus).</li>
-                    <li><strong>Methodology:</strong> 100% Practical Studios.</li>
-                    <li><strong>Co-op:</strong> ~50% paid corporate industry internship.</li>
+                    <li><strong>Programme:</strong> 4 Semesters (Full-Time).</li>
+                    <li><strong>Starts:</strong> 2 January 2027.</li>
+                    <li><strong>Degree:</strong> Awarded by IIIT Hyderabad.</li>
                   </ul>
                 </div>
 
@@ -251,9 +251,9 @@ export default function StudentGatewayPage() {
                     <h4>3. Technical Focus</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>AI & Machine Learning:</strong> LLMs, Deep Learning, Data Systems.</li>
-                    <li><strong>Cloud Architecture:</strong> Distributed systems & microservices.</li>
-                    <li><strong>Software Engineering:</strong> Clean code, testing & DevOps.</li>
+                    <li><strong>Computing Foundations:</strong> AI tools, algorithms & systems.</li>
+                    <li><strong>Research Co-op:</strong> Lab co-op at IIIT Hyderabad + core AI.</li>
+                    <li><strong>Venture Studio:</strong> Venture-building studio & industry co-op.</li>
                   </ul>
                 </div>
 
@@ -263,9 +263,9 @@ export default function StudentGatewayPage() {
                     <h4>4. Admissions & Support</h4>
                   </div>
                   <ul className="summary-list compact">
-                    <li><strong>Eligibility:</strong> Graduates & final-year (B.Tech / B.E. all branches).</li>
-                    <li><strong>Intake:</strong> January 2027.</li>
-                    <li><strong>Bank Loans:</strong> 100% collateral-free education loans.</li>
+                    <li><strong>Tuition Fee:</strong> INR 1,50,000 per semester.</li>
+                    <li><strong>Eligibility:</strong> Graduates with 16 years formal education.</li>
+                    <li><strong>Selection:</strong> GRE, GATE, or MSIT Entrance Exam + Interview.</li>
                   </ul>
                 </div>
               </div>

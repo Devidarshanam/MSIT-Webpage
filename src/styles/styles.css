@@ -6745,6 +6745,155 @@ p {
   margin: 0;
 }
 
+/* Programme Structure Grid & Semester Cards (From PDF) */
+.programme-structure-block {
+  margin-bottom: 2rem;
+}
+
+.programme-structure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.semester-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 2px 8px rgba(11, 42, 107, 0.04);
+}
+
+.semester-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-300);
+  box-shadow: 0 10px 24px rgba(11, 42, 107, 0.08);
+}
+
+.semester-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.semester-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.semester-card-1 .semester-icon-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.semester-card-2 .semester-icon-badge {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+
+.semester-card-3 .semester-icon-badge {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.semester-card-4 .semester-icon-badge {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.semester-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.semester-num-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary-800);
+  background: var(--primary-50);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--primary-200);
+}
+
+.semester-tag-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--neutral-600);
+  background: var(--neutral-100);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid var(--neutral-200);
+}
+
+.semester-title {
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 0.85rem;
+  line-height: 1.35;
+}
+
+.semester-courses-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.semester-course-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--neutral-800);
+  line-height: 1.45;
+}
+
+.course-bullet {
+  color: var(--primary-600);
+  font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.semester-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--neutral-600);
+  margin: 0;
+  flex-grow: 1;
+}
+
+@media (max-width: 900px) {
+  .programme-structure-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
 /* Curriculum Section - Principles Cards & Expandable Details */
 .principles-row {
   display: grid;

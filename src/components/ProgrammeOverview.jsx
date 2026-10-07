@@ -26,12 +26,12 @@ export default function ProgrammeOverview({ data }) {
         </div>
 
         <div className="overview-copy-block">
-          <p>{data.leadParagraph}</p>
-          <p>{data.bodyParagraph}</p>
+          <p>{data.leadParagraph || data.description}</p>
+          {data.bodyParagraph && <p>{data.bodyParagraph}</p>}
         </div>
 
         <div className="four-up-grid">
-          {data.cards.map((card, idx) => (
+          {(data.cards || data.quickSpecs || data.items || []).map((card, idx) => (
             <div key={idx} className="overview-card">
               <div className="overview-card-icon" aria-hidden="true">
                 {getSmartIcon(card.label, 20)}
@@ -42,10 +42,12 @@ export default function ProgrammeOverview({ data }) {
           ))}
         </div>
 
-        <div className="highlight-banner">
-          <h3>{data.highlight.title}</h3>
-          <p>{data.highlight.text}</p>
-        </div>
+        {data.highlight && (
+          <div className="highlight-banner">
+            <h3>{data.highlight.title}</h3>
+            <p>{data.highlight.text}</p>
+          </div>
+        )}
       </div>
     </section>
   );

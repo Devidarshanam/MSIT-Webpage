@@ -3,7 +3,7 @@ import { MenuIcon, XIcon, ArrowRightIcon } from '../Icons';
 
 const NAV_ITEMS = [
   { num: '01', label: 'Overview', href: '#overview', desc: 'MSIT charter, consortium & cohort targets' },
-  { num: '02', label: 'Programme', href: '#programme-specs', desc: 'Degree specs, learning model & duration' },
+  { num: '02', label: 'Programme Structure', href: '#programme-specs', desc: '4-semester structure, co-op & venture studio' },
   { num: '03', label: 'Curriculum', href: '#curriculum', desc: 'Full syllabus, 6 learning stages & domains' },
   { num: '04', label: 'Eligibility & Admissions', href: '#eligibility', desc: 'Academic criteria, intake timeline & test structure' },
   { num: '05', label: 'Fees & Loans', href: '#fees', desc: 'Verified fee schedule, installment plan & loan facilitation' },

@@ -47,52 +47,101 @@
     ]
   },
   "overview": {
-    "sectionId": "overview",
-    "kicker": "Programme Overview",
-    "heading": "Essential Programme Parameters",
-    "description": "Concise, verified institutional and operational specifications for prospective students.",
-    "items": [
+    "sectionId": "programme-specs",
+    "kicker": "Programme Structure",
+    "heading": "Programme Structure & Academic Framework",
+    "description": "The Consortium of Institutions of Higher Learning (CIHL) invites applications for admission to the Master of Science in Information Technology (MSIT) programme for the cohort commencing on 2 January 2027. The programme has been comprehensively redesigned in collaboration with the Centre for Educational Technology and Learning Sciences (CETLS), IIIT Hyderabad, with a focus on AI-enabled learning, computing foundations, applied research, software engineering, and venture creation.",
+    "quickSpecs": [
+      {
+        "label": "Programme",
+        "value": "4 Semesters"
+      },
+      {
+        "label": "Starts",
+        "value": "2 Jan 2027"
+      },
+      {
+        "label": "Tuition Fee",
+        "value": "INR 1,50,000 / semester"
+      },
+      {
+        "label": "Format",
+        "value": "Full-Time"
+      },
       {
         "label": "Degree Awarded",
-        "value": "Master of Science in Information Technology (MSIT)"
-      },
-      {
-        "label": "Awarding Institution",
-        "value": "Offered under the IIIT Hyderabad"
-      },
-      {
-        "label": "Batch Commencement",
-        "value": "January 2, 2027"
-      },
-      {
-        "label": "Application Window",
-        "value": "October 1, 2026 to November 30, 2026"
-      },
-      {
-        "label": "Admission Modes",
-        "value": "GRE, GATE, or MSIT's Own Entrance Exam"
-      },
-      {
-        "label": "Interview & Counselling",
-        "value": "Process & Schedule To Be Confirmed (TBD)"
-      },
-      {
-        "label": "Academic Format",
-        "value": "Full-Time, On-Campus Postgraduate Programme"
-      },
-      {
-        "label": "Campus Location",
-        "value": "IIIT Hyderabad Campus, Gachibowli, Hyderabad"
-      },
-      {
-        "label": "Core Principles",
-        "value": "Learning to Learn · Learning to Think · Learning to Do"
-      },
-      {
-        "label": "Pedagogy Anchor",
-        "value": "Living Lab for Centre for Educational Technology & Learning Sciences (CETLS)"
+        "value": "Awarded by IIIT Hyderabad"
       }
-    ]
+    ],
+    "items": [
+      {
+        "label": "Programme",
+        "value": "4 Semesters"
+      },
+      {
+        "label": "Starts",
+        "value": "2 Jan 2027"
+      },
+      {
+        "label": "Tuition Fee",
+        "value": "INR 1,50,000 / semester"
+      },
+      {
+        "label": "Format",
+        "value": "Full-Time"
+      },
+      {
+        "label": "Degree Awarded",
+        "value": "Awarded by IIIT Hyderabad"
+      }
+    ],
+    "semesters": [
+      {
+        "semNumber": "Semester 1",
+        "title": "Computing Foundations",
+        "tag": "Foundations & AI Tools",
+        "courses": [
+          "Learning to Learn with AI Tools",
+          "Algorithms and Data Structures",
+          "Computer Systems"
+        ],
+        "emphasis": "The programme will strongly emphasize contemporary AI-assisted software engineering tools and practices. By the end of the first year, students are expected to be capable of designing and building substantial software systems using modern AI-enabled development workflows."
+      },
+      {
+        "semNumber": "Semester 2",
+        "title": "Research Co-op",
+        "tag": "Applied AI & Lab Co-op",
+        "courses": [
+          "Half-time co-op in research laboratories at IIIT Hyderabad",
+          "Learning to Learn model: 1 core AI course + 1 elective"
+        ],
+        "emphasis": "Students will undertake a half-time co-op in research laboratories at IIIT Hyderabad, working on applied AI and software solutions emerging from deep-tech research. The remaining half follows the Learning to Learn model. Students will study one core AI course + one elective [to be selected as per their interests and goals]. Electives will be governed by a one-on-one learning contract agreed with a mentor in advance; assessment is based on the objectives and deliverables specified in that contract."
+      },
+      {
+        "semNumber": "Semester 3",
+        "title": "Venture-Building Studio",
+        "tag": "Product & Venture Studio",
+        "courses": [
+          "Develop technology-driven products and ventures in a venture-building studio",
+          "Pitch to early-stage investors and venture capital representatives"
+        ],
+        "emphasis": "Students will develop technology-driven products and ventures in a venture-building studio. By the end of the semester, they will have the opportunity to pitch to early-stage investors and venture capital representatives."
+      },
+      {
+        "semNumber": "Semester 4",
+        "title": "Startup or Industry Co-op",
+        "tag": "Venture Launch / Corporate Co-op",
+        "courses": [
+          "Startup track: Continue developing startup for funded ventures",
+          "Industry co-op track: Substantial technology and AI-driven projects"
+        ],
+        "emphasis": "Students who secure suitable funding may continue developing their startup. Other students will undertake a co-op engagement with an industry partner, working on substantial technology and AI-driven projects."
+      }
+    ],
+    "anchor": {
+      "title": "Redesigned in Collaboration with CETLS, IIIT Hyderabad",
+      "desc": "Offered by the Consortium of Institutions of Higher Learning (CIHL) with degree awarded by IIIT Hyderabad. By the end of the first year, students are expected to be capable of designing and building substantial software systems using modern AI-enabled development workflows."
+    }
   },
   "curriculum": {
     "sectionId": "curriculum",
@@ -290,7 +339,7 @@
     "heading": "Fee Structure & Financial Support",
     "description": "Transparent breakdown of fee heads and official guidance on educational loan facilitation.",
     "table": [
-      { "component": "Tuition Fee", "amount": "To be published with admission notification", "period": "Per Semester / Academic Year" },
+      { "component": "Tuition Fee", "amount": "INR 1,50,000", "period": "Per Semester" },
       { "component": "Admission / Registration Fee", "amount": "To be published with admission notification", "period": "One-time at admission" },
       { "component": "Refundable Caution Deposit", "amount": "To be published with admission notification", "period": "Refundable on completion" },
       { "component": "Hostel & Accommodation Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" },

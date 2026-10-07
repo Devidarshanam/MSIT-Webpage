@@ -26,7 +26,7 @@ git add .
 
 echo.
 echo Committing changes...
-git commit -m "feat: remove duplicate slideshow button from bottom navigation controls"
+git commit -m "feat: update program overview with official 4-semester programme structure from admissions document"
 
 echo.
 echo Pulling latest remote changes with rebase...

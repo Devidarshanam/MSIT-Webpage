@@ -48,9 +48,9 @@ export default function AcademicSummaryModal({ isOpen, onClose }) {
                 <h4>2. Academic Model</h4>
               </div>
               <ul className="summary-list compact">
-                <li><strong>Format:</strong> Full-Time, On-Campus Postgraduate Master's.</li>
-                <li><strong>Pedagogy:</strong> Learn to Learn · Learn to Think · Learn to Do.</li>
-                <li><strong>Anchor:</strong> Living Lab for Centre for Educational Technology & Learning Sciences (CETLS).</li>
+                <li><strong>Programme:</strong> 4 Semesters (Full-Time On-Campus).</li>
+                <li><strong>Degree Awarded:</strong> Awarded by IIIT Hyderabad.</li>
+                <li><strong>Pedagogy Anchor:</strong> Centre for Educational Technology & Learning Sciences (CETLS).</li>
               </ul>
             </div>
 
@@ -60,9 +60,9 @@ export default function AcademicSummaryModal({ isOpen, onClose }) {
                 <h4>3. Technical Focus</h4>
               </div>
               <ul className="summary-list compact">
-                <li><strong>AI & Machine Learning:</strong> Neural architectures, LLMs, applied modeling.</li>
-                <li><strong>Systems & Cloud:</strong> Distributed systems, concurrency & scalability.</li>
-                <li><strong>Software Quality:</strong> Production architecture, CI/CD & defensive code reviews.</li>
+                <li><strong>AI & Machine Learning:</strong> Contemporary AI tools, LLMs & applied modeling.</li>
+                <li><strong>Systems & Computing:</strong> Algorithms, data structures, and computer systems.</li>
+                <li><strong>Practicum:</strong> Half-time research co-op, venture-building & industry co-op.</li>
               </ul>
             </div>
 
@@ -72,11 +72,11 @@ export default function AcademicSummaryModal({ isOpen, onClose }) {
                 <h4>4. Practicum & Admissions</h4>
               </div>
               <ul className="summary-list compact">
-                <li><strong>Structure:</strong> ~50% Academic Learning + ~50% Industry Practicum / Venture Studio.</li>
-                <li><strong>Batch Commencement:</strong> January 2, 2027.</li>
-                <li><strong>Application Dates:</strong> October 1, 2026 to November 30, 2026.</li>
-                <li><strong>Admission Modes:</strong> GRE, GATE, or MSIT's own entrance exam.</li>
-                <li><strong>Interview & Counselling:</strong> Process & dates To Be Confirmed (TBD).</li>
+                <li><strong>Tuition Fee:</strong> INR 1,50,000 per semester.</li>
+                <li><strong>Eligibility:</strong> Graduates with 16 years of formal education (CS, AI & Math).</li>
+                <li><strong>Commencement:</strong> 2 January 2027.</li>
+                <li><strong>Admission Modes:</strong> GRE, GATE, or MSIT Entrance Exam.</li>
+                <li><strong>Interview & Selection:</strong> Interactive interview & final selection.</li>
               </ul>
             </div>
           </div>
