@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   SparklesIcon, 
   CpuIcon, 
-  TerminalIcon, 
+  CloudIcon, 
   UsersIcon 
 } from '../Icons';
 
@@ -60,7 +60,7 @@ export default function ExploreCurriculum() {
             <div className="tshape-wing-card wing-left">
               <div className="tshape-wing-header">
                 <div className="tshape-wing-icon icon-adjacent">
-                  <TerminalIcon size={20} />
+                  <CloudIcon size={20} />
                 </div>
                 <div>
                   <span className="wing-domain-badge">Domain 3</span>

@@ -2,9 +2,8 @@ import React from 'react';
 import { 
   UsersIcon, 
   AwardIcon, 
-  TerminalIcon, 
-  CheckCircleIcon,
-  SparklesIcon
+  TargetIcon, 
+  CheckCircleIcon
 } from '../Icons';
 
 export default function ExploreResearch() {
@@ -124,7 +123,7 @@ export default function ExploreResearch() {
             
             <div className="research-card-header">
               <div className="research-card-icon icon-practice">
-                <TerminalIcon size={24} />
+                <TargetIcon size={24} />
               </div>
               <div className="research-card-meta">
                 <span className="research-domain-tag tag-purple">Skill Acquisition</span>
@@ -169,7 +168,6 @@ export default function ExploreResearch() {
         <div className="research-comparison-wrapper">
           <div className="research-comparison-header">
             <div className="comparison-kicker">
-              <SparklesIcon size={16} />
               <span>Evidence in Action</span>
             </div>
             <h4>Why Method Matters: Traditional Lecture vs. MSIT Studio</h4>

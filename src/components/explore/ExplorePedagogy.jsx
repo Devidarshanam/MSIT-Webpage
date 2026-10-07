@@ -1,12 +1,8 @@
 import React from 'react';
 import { 
-  BookOpenIcon, 
-  CpuIcon, 
-  TerminalIcon, 
-  RocketIcon, 
   UsersIcon,
   AwardIcon,
-  ZapIcon
+  TerminalIcon
 } from '../Icons';
 
 export default function ExplorePedagogy() {
@@ -40,9 +36,6 @@ export default function ExplorePedagogy() {
               <div className="stage-accent-bar"></div>
               <div className="stage-top-row">
                 <span className="stage-number">01</span>
-                <div className="stage-icon-box" title="Learn">
-                  <BookOpenIcon size={20} />
-                </div>
               </div>
               <span className="stage-tag">Exploration</span>
               <h4>1. Learn</h4>
@@ -54,9 +47,6 @@ export default function ExplorePedagogy() {
               <div className="stage-accent-bar"></div>
               <div className="stage-top-row">
                 <span className="stage-number">02</span>
-                <div className="stage-icon-box" title="Think">
-                  <CpuIcon size={20} />
-                </div>
               </div>
               <span className="stage-tag">Problem Solving</span>
               <h4>2. Think</h4>
@@ -68,9 +58,6 @@ export default function ExplorePedagogy() {
               <div className="stage-accent-bar"></div>
               <div className="stage-top-row">
                 <span className="stage-number">03</span>
-                <div className="stage-icon-box" title="Build">
-                  <TerminalIcon size={20} />
-                </div>
               </div>
               <span className="stage-tag">Hands-on Coding</span>
               <h4>3. Build</h4>
@@ -82,9 +69,6 @@ export default function ExplorePedagogy() {
               <div className="stage-accent-bar"></div>
               <div className="stage-top-row">
                 <span className="stage-number">04</span>
-                <div className="stage-icon-box" title="Apply">
-                  <RocketIcon size={20} />
-                </div>
               </div>
               <span className="stage-tag">Real Application</span>
               <h4>4. Apply</h4>
@@ -96,9 +80,6 @@ export default function ExplorePedagogy() {
               <div className="stage-accent-bar"></div>
               <div className="stage-top-row">
                 <span className="stage-number">05</span>
-                <div className="stage-icon-box" title="Reflect">
-                  <UsersIcon size={20} />
-                </div>
               </div>
               <span className="stage-tag">Mentor Review</span>
               <h4>5. Reflect</h4>
@@ -110,14 +91,6 @@ export default function ExplorePedagogy() {
               <div className="stage-accent-bar"></div>
               <div className="stage-top-row">
                 <span className="stage-number">06</span>
-                <div className="stage-icon-box" title="Improve">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-                    <path d="M3 3v5h5"/>
-                    <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/>
-                    <path d="M16 21h5v-5"/>
-                  </svg>
-                </div>
               </div>
               <span className="stage-tag">Continuous Mastery</span>
               <h4>6. Improve</h4>
@@ -167,7 +140,7 @@ export default function ExplorePedagogy() {
 
             <div className="pedagogy-pillar-item pillar-projects">
               <div className="pillar-item-icon">
-                <ZapIcon size={22} />
+                <TerminalIcon size={22} />
               </div>
               <div className="pillar-item-content">
                 <span className="pillar-item-tag">Learning by Doing</span>

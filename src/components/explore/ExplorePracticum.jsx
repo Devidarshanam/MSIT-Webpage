@@ -4,8 +4,6 @@ import {
   RocketIcon, 
   CheckCircleIcon, 
   BuildingIcon, 
-  ClockIcon,
-  SparklesIcon,
   TerminalIcon
 } from '../Icons';
 
@@ -31,7 +29,6 @@ export default function ExplorePracticum() {
         <div className="practicum-horizon-banner">
           <div className="horizon-phase phase-academic">
             <div className="horizon-phase-badge">
-              <ClockIcon size={16} />
               <span>Phase 1 • ~50% Tenure</span>
             </div>
             <h4>Studio-Based Foundations</h4>
@@ -47,7 +44,6 @@ export default function ExplorePracticum() {
 
           <div className="horizon-phase phase-industry">
             <div className="horizon-phase-badge badge-highlight">
-              <SparklesIcon size={16} />
               <span>Phase 2 • ~50% Tenure</span>
             </div>
             <h4>Full-Time Practicum Immersion</h4>

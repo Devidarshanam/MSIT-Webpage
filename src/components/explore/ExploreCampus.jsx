@@ -1,10 +1,9 @@
 import React from 'react';
 import { 
-  BuildingIcon, 
-  TerminalIcon, 
+  UsersIcon, 
   CpuIcon, 
   RocketIcon, 
-  SparklesIcon,
+  HeartIcon,
   CompassIcon
 } from '../Icons';
 
@@ -35,7 +34,7 @@ export default function ExploreCampus() {
               src="/assets/iiit-campus-4k.jpg" 
               alt="IIIT Hyderabad Academic and Research Campus" 
               className="campus-duo-img"
-              loading="lazy"
+              loading="lazy" 
             />
             <div className="campus-duo-overlay"></div>
             <div className="campus-duo-badge">
@@ -54,11 +53,11 @@ export default function ExploreCampus() {
               src="/assets/iiit-campus-life.jpg" 
               alt="Life on Campus and Vibrant Student Community at IIIT Hyderabad" 
               className="campus-duo-img"
-              loading="lazy"
+              loading="lazy" 
             />
             <div className="campus-duo-overlay"></div>
             <div className="campus-duo-badge badge-culture">
-              <SparklesIcon size={15} />
+              <UsersIcon size={15} />
               <span>Student Community &amp; Culture</span>
             </div>
             <div className="campus-duo-content">
@@ -83,7 +82,7 @@ export default function ExploreCampus() {
 
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-maker">
-              <TerminalIcon size={24} />
+              <UsersIcon size={24} />
             </div>
             <span className="campus-pillar-tag">Studio Culture</span>
             <h4>24/7 Collaborative Maker Spaces</h4>
@@ -101,7 +100,7 @@ export default function ExploreCampus() {
 
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-wellbeing">
-              <BuildingIcon size={24} />
+              <HeartIcon size={24} />
             </div>
             <span className="campus-pillar-tag">Residential Life</span>
             <h4>Holistic Wellbeing &amp; Living</h4>

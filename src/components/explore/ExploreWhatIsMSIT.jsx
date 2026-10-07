@@ -149,12 +149,6 @@ export default function ExploreWhatIsMSIT() {
               <div className="milestone-top">
                 <div className="milestone-step-wrapper">
                   <span className="milestone-step">01</span>
-                  <div className="milestone-icon-box" title="Carnegie Mellon Pedagogy">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                      <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                    </svg>
-                  </div>
                 </div>
                 <span className="milestone-year">2001–2005</span>
               </div>
@@ -171,15 +165,6 @@ export default function ExploreWhatIsMSIT() {
               <div className="milestone-top">
                 <div className="milestone-step-wrapper">
                   <span className="milestone-step">02</span>
-                  <div className="milestone-icon-box" title="Network & Expansion">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <circle cx="12" cy="5" r="3"></circle>
-                      <circle cx="5" cy="19" r="3"></circle>
-                      <circle cx="19" cy="19" r="3"></circle>
-                      <line x1="12" y1="8" x2="5" y2="16"></line>
-                      <line x1="12" y1="8" x2="19" y2="16"></line>
-                    </svg>
-                  </div>
                 </div>
                 <span className="milestone-year">2006–2015</span>
               </div>
@@ -196,13 +181,6 @@ export default function ExploreWhatIsMSIT() {
               <div className="milestone-top">
                 <div className="milestone-step-wrapper">
                   <span className="milestone-step">03</span>
-                  <div className="milestone-icon-box" title="Cloud & DevOps Shift">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
-                      <polyline points="10 13 12 11 14 13"></polyline>
-                      <line x1="12" y1="11" x2="12" y2="17"></line>
-                    </svg>
-                  </div>
                 </div>
                 <span className="milestone-year">2016–2023</span>
               </div>
@@ -219,11 +197,6 @@ export default function ExploreWhatIsMSIT() {
               <div className="milestone-top">
                 <div className="milestone-step-wrapper">
                   <span className="milestone-step">04</span>
-                  <div className="milestone-icon-box active" title="AI-Native Engineering">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path>
-                    </svg>
-                  </div>
                 </div>
                 <div className="milestone-year-wrapper">
                   <span className="milestone-live-pill">
