@@ -18136,3 +18136,507 @@ p {
 
 
 
+
+/* ==========================================================================
+   VERTICAL EXPLORE EXPERIENCE CSS
+   ========================================================================== */
+
+.explore-page-root {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  scroll-behavior: smooth;
+}
+
+.explore-top-nav {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--neutral-200);
+  z-index: 100;
+}
+
+.explore-back-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--primary-700);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.explore-back-btn:hover {
+  background: var(--primary-50);
+}
+
+.explore-brand {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--primary-900);
+  letter-spacing: -0.02em;
+}
+
+.explore-main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.explore-section {
+  padding: 5rem 0;
+}
+
+.explore-section.bg-light {
+  background-color: var(--neutral-50);
+}
+
+.explore-section.bg-dark {
+  background-color: var(--primary-900);
+  color: #ffffff;
+}
+
+.explore-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.explore-section-header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem auto;
+}
+
+.explore-section-header .section-kicker {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary-600);
+  margin-bottom: 0.5rem;
+}
+
+.explore-section-header h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.explore-section.bg-dark .explore-section-header h2 {
+  color: #ffffff;
+}
+
+.explore-section-header .section-lead {
+  font-size: 1.1rem;
+  color: var(--neutral-600);
+  line-height: 1.6;
+}
+
+/* 1. HERO */
+.explore-hero-section {
+  padding: 8rem 0 6rem;
+  background: linear-gradient(135deg, var(--primary-50) 0%, #ffffff 100%);
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-kicker {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--neutral-500);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--primary-900);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.hero-title .highlight {
+  color: var(--primary-600);
+}
+
+.hero-lead {
+  font-size: 1.25rem;
+  color: var(--neutral-700);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Who is MSIT For Grid */
+.who-is-for-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.who-card {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--neutral-200);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.who-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--primary-900);
+  margin-bottom: 1rem;
+}
+
+/* Learning Cycle (Pedagogy) */
+.learning-cycle-container {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-xl);
+  padding: 3rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.learning-cycle-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cycle-node {
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-200);
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  min-width: 150px;
+  flex: 1;
+}
+
+.cycle-node h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 0.25rem;
+}
+
+.cycle-node p {
+  font-size: 0.8rem;
+  color: var(--neutral-600);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.cycle-arrow {
+  color: var(--primary-400);
+  display: flex;
+}
+
+/* T-Shaped Curriculum */
+.t-shape-visual-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.t-shape-horizontal {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 900px;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.t-horizontal-segment {
+  flex: 1;
+  background: var(--neutral-50);
+  border: 1px solid var(--primary-200);
+  border-bottom: 4px solid var(--primary-400);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.t-horizontal-segment h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin: 0.75rem 0 0.25rem 0;
+}
+
+.t-horizontal-segment p {
+  font-size: 0.85rem;
+  color: var(--neutral-600);
+  margin: 0;
+}
+
+.t-shape-vertical-stem {
+  width: 100%;
+  max-width: 400px;
+}
+
+.t-vertical-core {
+  background: var(--primary-900);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(9, 26, 56, 0.2);
+}
+
+.t-vertical-core h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.t-vertical-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.t-vertical-list li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.95rem;
+}
+
+.t-vertical-list li:last-child {
+  border-bottom: none;
+}
+
+/* Research */
+.research-summary-box {
+  display: flex;
+  gap: 2rem;
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-xl);
+  padding: 3rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.research-icon {
+  color: var(--primary-500);
+  background: var(--primary-50);
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  height: max-content;
+}
+
+.research-content h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-900);
+  margin-bottom: 1rem;
+}
+
+.pending-link-alert {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--warning-50);
+  color: var(--warning-900);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--warning-400);
+  font-size: 0.85rem;
+  align-items: center;
+}
+
+/* Practicum */
+.practicum-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.practicum-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.practicum-visual img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.practicum-info {
+  padding: 2rem;
+}
+
+.practicum-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Campus */
+.campus-highlight-banner img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: var(--radius-xl);
+}
+
+.campus-features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.campus-feature h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-900);
+  margin-bottom: 0.5rem;
+}
+
+.campus-feature p {
+  color: var(--neutral-600);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Admissions Timeline */
+.admissions-timeline-flexible {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.admissions-timeline-flexible::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--primary-200);
+}
+
+.timeline-node {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline-node:last-child {
+  margin-bottom: 0;
+}
+
+.node-marker {
+  position: absolute;
+  left: -2.75rem;
+  top: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--primary-600);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 4px solid #fff;
+}
+
+.node-content h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-900);
+  margin-bottom: 0.25rem;
+}
+
+.node-content p {
+  color: var(--neutral-600);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.pending-alert-box {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  background: var(--warning-50);
+  color: var(--warning-900);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--warning-300);
+  max-width: 600px;
+  margin: 2rem auto 0 auto;
+  font-size: 0.9rem;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .who-is-for-grid,
+  .practicum-grid,
+  .campus-features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .t-shape-horizontal {
+    flex-direction: column;
+  }
+  
+  .learning-cycle-visual {
+    flex-direction: column;
+  }
+  
+  .cycle-arrow {
+    transform: rotate(90deg);
+    margin: 0.5rem 0;
+  }
+  
+  .research-summary-box {
+    flex-direction: column;
+  }
+}
