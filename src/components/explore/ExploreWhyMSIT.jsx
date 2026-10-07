@@ -3,10 +3,14 @@ import { BookOpenIcon, CpuIcon, BriefcaseIcon } from '../Icons';
 
 export default function ExploreWhyMSIT() {
   return (
-    <section className="explore-section" id="why-msit">
+    <section className="explore-section why-msit-section" id="why-msit">
       <div className="explore-container">
+        {/* Section Header */}
         <div className="explore-section-header">
-          <span className="section-kicker">MSIT at 25: The AI Era</span>
+          <span className="why-msit-kicker-badge">
+            <span className="why-kicker-dot"></span>
+            MSIT at 25 • The AI Era
+          </span>
           <h2>Why MSIT? Why Now?</h2>
           <p className="section-lead">
             As the technology landscape rapidly shifts toward AI-native environments, traditional coding 
@@ -15,35 +19,95 @@ export default function ExploreWhyMSIT() {
           </p>
         </div>
 
-        <div className="ai-native-principles-container">
-          <h3 className="text-center mb-4">Anchored in Three Core Principles</h3>
-          
-          <div className="pillars-triad-grid">
-            <div className="pillar-card">
-              <div className="pillar-top-row">
-                <span className="pillar-step-badge">Pillar 1</span>
-                <div className="pillar-icon"><BookOpenIcon size={22} /></div>
+        {/* Principles Container */}
+        <div className="why-principles-wrapper">
+          <div className="principles-section-header">
+            <span className="principles-mini-pill">Pedagogical Framework</span>
+            <h3 className="principles-title">Anchored in Three Core Principles</h3>
+            <div className="principles-accent-divider"></div>
+          </div>
+
+          {/* 3 Pillar Cards */}
+          <div className="why-pillars-grid">
+            {/* Pillar 1 */}
+            <div className="why-pillar-card pillar-learn">
+              <div className="pillar-accent-stripe"></div>
+              <div className="why-pillar-top">
+                <span className="why-pillar-number">Pillar 01</span>
+                <div className="why-pillar-icon" title="Learning to Learn">
+                  <BookOpenIcon size={24} />
+                </div>
               </div>
+              <span className="pillar-focus-tag">Adaptability & Agility</span>
               <h3>Learning to Learn</h3>
-              <p>In a world where frameworks change constantly, the most critical skill is adaptability. We teach you how to rapidly acquire new paradigms on your own.</p>
-            </div>
-            
-            <div className="pillar-card">
-              <div className="pillar-top-row">
-                <span className="pillar-step-badge">Pillar 2</span>
-                <div className="pillar-icon"><CpuIcon size={22} /></div>
+              <p>
+                In a world where frameworks change constantly, the most critical skill is adaptability. 
+                We teach you how to rapidly acquire new paradigms on your own.
+              </p>
+              <div className="pillar-micro-points">
+                <span className="micro-point-tag">Framework Independence</span>
+                <span className="micro-point-tag">Autonomous Research</span>
               </div>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className="why-pillar-card pillar-think">
+              <div className="pillar-accent-stripe"></div>
+              <div className="why-pillar-top">
+                <span className="why-pillar-number">Pillar 02</span>
+                <div className="why-pillar-icon" title="Learning to Think">
+                  <CpuIcon size={24} />
+                </div>
+              </div>
+              <span className="pillar-focus-tag">Architecture & Logic</span>
               <h3>Learning to Think</h3>
-              <p>Beyond syntax, we focus on system architecture, logical reasoning, and AI-assisted workflows to solve complex engineering challenges.</p>
-            </div>
-            
-            <div className="pillar-card">
-              <div className="pillar-top-row">
-                <span className="pillar-step-badge">Pillar 3</span>
-                <div className="pillar-icon"><BriefcaseIcon size={22} /></div>
+              <p>
+                Beyond syntax, we focus on system architecture, logical reasoning, 
+                and AI-assisted workflows to solve complex engineering challenges.
+              </p>
+              <div className="pillar-micro-points">
+                <span className="micro-point-tag">System Design</span>
+                <span className="micro-point-tag">AI-Augmented Logic</span>
               </div>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="why-pillar-card pillar-do">
+              <div className="pillar-accent-stripe"></div>
+              <div className="why-pillar-top">
+                <span className="why-pillar-number">Pillar 03</span>
+                <div className="why-pillar-icon" title="Learning to Do">
+                  <BriefcaseIcon size={24} />
+                </div>
+              </div>
+              <span className="pillar-focus-tag">Studio Practice</span>
               <h3>Learning to Do</h3>
-              <p>Knowledge is solidified through action. Our studio methodology ensures you are building, testing, and deploying real systems daily.</p>
+              <p>
+                Knowledge is solidified through action. Our studio methodology ensures 
+                you are building, testing, and deploying real systems daily.
+              </p>
+              <div className="pillar-micro-points">
+                <span className="micro-point-tag">Daily Deployment</span>
+                <span className="micro-point-tag">Practicum Delivery</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Connected Flow / Triad Summary Rail */}
+          <div className="principles-synergy-rail">
+            <div className="synergy-step">
+              <span className="synergy-num">1</span>
+              <span className="synergy-text">Acquire Paradigms</span>
+            </div>
+            <div className="synergy-arrow" aria-hidden="true">→</div>
+            <div className="synergy-step">
+              <span className="synergy-num">2</span>
+              <span className="synergy-text">Architect Systems</span>
+            </div>
+            <div className="synergy-arrow" aria-hidden="true">→</div>
+            <div className="synergy-step">
+              <span className="synergy-num">3</span>
+              <span className="synergy-text">Build & Deploy</span>
             </div>
           </div>
         </div>

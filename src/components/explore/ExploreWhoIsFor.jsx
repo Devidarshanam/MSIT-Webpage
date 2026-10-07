@@ -1,12 +1,16 @@
 import React from 'react';
-import { ShieldCheckIcon } from '../Icons';
+import { UsersIcon, GraduationCapIcon } from '../Icons';
 
 export default function ExploreWhoIsFor() {
   return (
     <section className="explore-section bg-light" id="who-is-for">
       <div className="explore-container">
+        {/* Section Header */}
         <div className="explore-section-header">
-          <span className="section-kicker">Candidate Profile</span>
+          <span className="who-kicker-badge">
+            <span className="who-kicker-dot"></span>
+            Candidate Profile & Eligibility
+          </span>
           <h2>Who is MSIT For?</h2>
           <p className="section-lead">
             MSIT is designed for driven individuals who want to transition from traditional learning 
@@ -15,26 +19,95 @@ export default function ExploreWhoIsFor() {
           </p>
         </div>
 
+        {/* 2 Symmetrical Feature Cards */}
         <div className="who-is-for-grid">
-          <div className="who-card">
+          {/* Card 1: Target Student Profile */}
+          <div className="who-card target-profile">
+            <div className="who-card-accent"></div>
+            
+            <div className="who-card-header">
+              <div className="who-card-icon-box" title="Candidate Profile">
+                <UsersIcon size={24} />
+              </div>
+              <span className="who-category-tag">Who Should Apply</span>
+            </div>
+
             <h3>Target Student Profile</h3>
-            <p>
-              Ideal for graduates and early-career software engineers seeking to transition from maintenance 
-              roles into high-impact engineering leadership through a practitioner-led co-op model.
+            <p className="who-card-lead">
+              Ideal for engineering graduates and early-career software engineers seeking to transition 
+              from routine maintenance roles into high-impact engineering leadership through a practitioner-led co-op model.
             </p>
+
+            <div className="who-persona-pills">
+              <span className="persona-pill">B.Tech Graduates (Any Branch)</span>
+              <span className="persona-pill">Early-Career Engineers</span>
+              <span className="persona-pill">Aspiring System Architects</span>
+            </div>
+
+            <div className="who-breakdown-box">
+              <div className="who-breakdown-item">
+                <span className="breakdown-bullet">✓</span>
+                <div>
+                  <strong>Growth Mindset:</strong> Ambition to transition from syntax-level coding to higher-order system architecture.
+                </div>
+              </div>
+              <div className="who-breakdown-item">
+                <span className="breakdown-bullet">✓</span>
+                <div>
+                  <strong>Active Builder:</strong> Thrives in hands-on coding studios rather than traditional lecture halls.
+                </div>
+              </div>
+              <div className="who-breakdown-item">
+                <span className="breakdown-bullet">✓</span>
+                <div>
+                  <strong>Collaborative Mentorship:</strong> Ready to build real systems with close guidance and daily code reviews from dedicated mentors.
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="who-card">
+
+          {/* Card 2: Eligibility Information */}
+          <div className="who-card eligibility-info">
+            <div className="who-card-accent"></div>
+            
+            <div className="who-card-header">
+              <div className="who-card-icon-box" title="Eligibility & Standards">
+                <GraduationCapIcon size={24} />
+              </div>
+              <span className="who-category-tag">Admission Standards</span>
+            </div>
+
             <h3>Eligibility Information</h3>
-            <p>
-              Admission to MSIT is based on undergraduate academic qualifications and performance in accepted 
-              aptitude evaluations. Detailed eligibility requirements and qualifying degree criteria will be 
-              published in the latest official admission notification.
+            <p className="who-card-lead">
+              Admission to MSIT requires a Bachelor of Technology / Engineering (B.Tech / B.E.) degree. 
+              The program welcomes engineering graduates from all engineering branches—not exclusively Computer Science.
             </p>
-            <div className="cetls-badge-row mt-3">
-              <span className="badge">
-                <ShieldCheckIcon size={14} />
-                Pending Official Notification
-              </span>
+
+            <div className="who-persona-pills">
+              <span className="persona-pill">B.Tech / B.E. Degree Required</span>
+              <span className="persona-pill">All Engineering Branches Eligible</span>
+              <span className="persona-pill">Aptitude + Interview Path</span>
+            </div>
+
+            <div className="who-breakdown-box">
+              <div className="who-breakdown-item">
+                <span className="breakdown-bullet">01</span>
+                <div>
+                  <strong>Academic Qualifications:</strong> Bachelor's degree in Engineering (B.Tech / B.E.) across any discipline—open to all engineering graduates, not restricted only to Computer Science.
+                </div>
+              </div>
+              <div className="who-breakdown-item">
+                <span className="breakdown-bullet">02</span>
+                <div>
+                  <strong>Aptitude Evaluation:</strong> Evaluation via recognized aptitude exams (GATE, GRE) or the official MSIT Entrance Test.
+                </div>
+              </div>
+              <div className="who-breakdown-item">
+                <span className="breakdown-bullet">03</span>
+                <div>
+                  <strong>Interviews & Readiness:</strong> Comprehensive evaluation focusing on analytical thinking and active learning orientation.
+                </div>
+              </div>
             </div>
           </div>
         </div>

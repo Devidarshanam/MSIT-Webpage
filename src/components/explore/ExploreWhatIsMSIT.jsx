@@ -84,7 +84,10 @@ export default function ExploreWhatIsMSIT() {
             ======================================================== */}
         <div className="heritage-evolution-block">
           <div className="explore-section-header">
-            <span className="section-kicker">Quarter-Century Evolution</span>
+            <span className="evolution-kicker-badge">
+              <span className="evolution-kicker-dot"></span>
+              Quarter-Century Evolution
+            </span>
             <h2>The 25-Year Journey: 2001 to 2026</h2>
             <p className="section-lead">
               From the original CMU mastery studios to modern AI-native engineering, 
@@ -92,51 +95,143 @@ export default function ExploreWhatIsMSIT() {
             </p>
           </div>
 
+          {/* Interactive Connected Timeline Track Rail */}
+          <div className="journey-timeline-track" aria-hidden="true">
+            <div className="journey-track-nodes">
+              <div className="journey-node">
+                <div className="journey-marker">
+                  <span className="journey-core"></span>
+                </div>
+                <div className="journey-info">
+                  <span className="journey-year">2001</span>
+                  <span className="journey-caption">Inception</span>
+                </div>
+              </div>
+
+              <div className="journey-node">
+                <div className="journey-marker">
+                  <span className="journey-core"></span>
+                </div>
+                <div className="journey-info">
+                  <span className="journey-year">2006</span>
+                  <span className="journey-caption">Expansion</span>
+                </div>
+              </div>
+
+              <div className="journey-node">
+                <div className="journey-marker">
+                  <span className="journey-core"></span>
+                </div>
+                <div className="journey-info">
+                  <span className="journey-year">2016</span>
+                  <span className="journey-caption">Cloud & Modern Tech</span>
+                </div>
+              </div>
+
+              <div className="journey-node active">
+                <div className="journey-marker active">
+                  <span className="journey-pulse"></span>
+                  <span className="journey-core active"></span>
+                </div>
+                <div className="journey-info">
+                  <span className="journey-year active">Present</span>
+                  <span className="journey-caption active">AI-Native</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 4 Cards Grid */}
           <div className="heritage-timeline-progression">
             {/* Step 1 */}
-            <div className="heritage-milestone-card">
+            <div className="heritage-milestone-card era-1">
+              <div className="milestone-accent-bar"></div>
               <div className="milestone-top">
-                <span className="milestone-step">01</span>
+                <div className="milestone-step-wrapper">
+                  <span className="milestone-step">01</span>
+                  <div className="milestone-icon-box" title="Carnegie Mellon Pedagogy">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                      <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                    </svg>
+                  </div>
+                </div>
                 <span className="milestone-year">2001–2005</span>
               </div>
-              <span className="milestone-tag">Inception & Pedagogy</span>
+              <span className="milestone-tag tag-pedagogy">Inception & Pedagogy</span>
               <h4>CIHL & CMU Mastery Model</h4>
               <p>
-                Founded at IIIT Hyderabad under CIHL with Carnegie Mellon guidance. Pioneered 90%+ mastery thresholds and collaborative coding studios under dedicated 1:10 mentors.
+                Founded at IIIT Hyderabad under CIHL with Carnegie Mellon guidance. Pioneered mastery-based learning and collaborative coding studios under dedicated full-time mentors.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="heritage-milestone-card">
+            <div className="heritage-milestone-card era-2">
+              <div className="milestone-accent-bar"></div>
               <div className="milestone-top">
-                <span className="milestone-step">02</span>
+                <div className="milestone-step-wrapper">
+                  <span className="milestone-step">02</span>
+                  <div className="milestone-icon-box" title="Network & Expansion">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="5" r="3"></circle>
+                      <circle cx="5" cy="19" r="3"></circle>
+                      <circle cx="19" cy="19" r="3"></circle>
+                      <line x1="12" y1="8" x2="5" y2="16"></line>
+                      <line x1="12" y1="8" x2="19" y2="16"></line>
+                    </svg>
+                  </div>
+                </div>
                 <span className="milestone-year">2006–2015</span>
               </div>
-              <span className="milestone-tag">Expansion & Scalability</span>
-              <h4>Multi-Campus IT Hubs</h4>
+              <span className="milestone-tag tag-expansion">Evolution & Expansion</span>
+              <h4>Growing the Learning-by-Doing Model</h4>
               <p>
-                Scaled the studio model across JNTUH, JNTUK, JNTUA, and SVU. Institutionalized Soft Skills and Professional Development alongside deep technical rigor.
+                MSIT strengthened its hands-on learning approach, expanded its learning-centre network, and evolved its curriculum with emerging technologies.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="heritage-milestone-card">
+            <div className="heritage-milestone-card era-3">
+              <div className="milestone-accent-bar"></div>
               <div className="milestone-top">
-                <span className="milestone-step">03</span>
+                <div className="milestone-step-wrapper">
+                  <span className="milestone-step">03</span>
+                  <div className="milestone-icon-box" title="Cloud & DevOps Shift">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                      <polyline points="10 13 12 11 14 13"></polyline>
+                      <line x1="12" y1="11" x2="12" y2="17"></line>
+                    </svg>
+                  </div>
+                </div>
                 <span className="milestone-year">2016–2023</span>
               </div>
-              <span className="milestone-tag">Agile & Cloud Shift</span>
+              <span className="milestone-tag tag-cloud">Cloud & Modern Engineering</span>
               <h4>DevOps & Specializations</h4>
               <p>
-                Transitioned from monolithic software engineering to Cloud, Data Science, and Machine Learning tracks. Embedded Agile/Scrum directly into daily student workflows.
+                Transitioned to Cloud, Data Science, and Machine Learning tracks, embedding collaborative team projects and hands-on software development directly into student learning.
               </p>
             </div>
 
             {/* Step 4 */}
-            <div className="heritage-milestone-card active">
+            <div className="heritage-milestone-card era-4 active">
+              <div className="milestone-accent-bar"></div>
               <div className="milestone-top">
-                <span className="milestone-step">04</span>
-                <span className="milestone-year">2024–Present</span>
+                <div className="milestone-step-wrapper">
+                  <span className="milestone-step">04</span>
+                  <div className="milestone-icon-box active" title="AI-Native Engineering">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div className="milestone-year-wrapper">
+                  <span className="milestone-live-pill">
+                    <span className="live-pulse-dot"></span>
+                    ACTIVE
+                  </span>
+                  <span className="milestone-year current">2024–Present</span>
+                </div>
               </div>
               <span className="milestone-tag current">Current Era</span>
               <h4>The AI-Native Core</h4>
