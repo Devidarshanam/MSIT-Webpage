@@ -6714,7 +6714,7 @@ p {
 
 .dashboard-welcome-card {
   display: grid;
-  grid-template-columns: 1.4fr 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   background: #ffffff;
   border: 1px solid var(--neutral-200);
