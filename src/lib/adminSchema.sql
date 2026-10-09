@@ -230,3 +230,31 @@ CREATE TRIGGER set_applications_updated_at
     BEFORE UPDATE ON public.applications
     FOR EACH ROW
     EXECUTE FUNCTION public.handle_updated_at();
+
+-- ====================================================================
+-- 6. ADMISSION PROCESS & NEXT ACTION SETTINGS TABLE
+-- ====================================================================
+CREATE TABLE IF NOT EXISTS public.admission_settings (
+    id TEXT PRIMARY KEY DEFAULT 'current',
+    cohort TEXT NOT NULL DEFAULT 'January 2027 Intake',
+    settings JSONB NOT NULL DEFAULT '{}'::jsonb,
+    updated_at TIMESTAMPTZ DEFAULT TIMEZONE('utc'::TEXT, NOW()) NOT NULL
+);
+
+ALTER TABLE public.admission_settings ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read of admission settings so prospective students can see live dates/modes
+DROP POLICY IF EXISTS "Allow public read admission settings" ON public.admission_settings;
+CREATE POLICY "Allow public read admission settings"
+    ON public.admission_settings FOR SELECT
+    TO anon, authenticated
+    USING (true);
+
+-- Allow admins to insert or update admission settings
+DROP POLICY IF EXISTS "Allow admins to update admission settings" ON public.admission_settings;
+CREATE POLICY "Allow admins to update admission settings"
+    ON public.admission_settings FOR ALL
+    TO authenticated
+    USING (true)
+    WITH CHECK (true);
+

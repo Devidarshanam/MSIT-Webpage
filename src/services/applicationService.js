@@ -1,4 +1,5 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase.js';
+export { getAdmissionSettings } from './adminService.js';
 
 const LOCAL_STORAGE_APPS_KEY = 'msit_all_submitted_applications';
 const LOCAL_STORAGE_DRAFT_PREFIX = 'msit_app_draft_';

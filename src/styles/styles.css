@@ -6714,7 +6714,7 @@ p {
 
 .dashboard-welcome-card {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1.4fr 1fr;
   gap: 2rem;
   background: #ffffff;
   border: 1px solid var(--neutral-200);
@@ -7070,6 +7070,62 @@ p {
   color: var(--neutral-600);
   line-height: 1.4;
   margin: 0;
+}
+
+.prep-skeleton-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: var(--neutral-100);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  min-height: 96px;
+  animation: pulse-shimmer 1.5s ease-in-out infinite;
+}
+
+.prep-skeleton-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--neutral-200);
+  flex-shrink: 0;
+}
+
+.prep-skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.prep-skeleton-bar-title {
+  height: 14px;
+  width: 75%;
+  background: var(--neutral-200);
+  border-radius: 4px;
+}
+
+.prep-skeleton-bar-desc {
+  height: 10px;
+  width: 95%;
+  background: var(--neutral-200);
+  border-radius: 4px;
+}
+
+.prep-empty-box {
+  background: var(--neutral-50);
+  border: 1px dashed var(--neutral-300);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--neutral-500);
+  font-size: 0.88rem;
+}
+
+@keyframes pulse-shimmer {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
 }
 
 /* Specs Section (Overview) */

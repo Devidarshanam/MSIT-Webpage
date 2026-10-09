@@ -17,7 +17,7 @@ import Footer from '../components/Footer';
 import { getStudentDisplayName } from '../utils/userUtils';
 import { isAuthorizedAdminEmail } from '../context/AdminAuthContext';
 
-import { getUserApplication } from '../services/applicationService';
+import { getUserApplication, getAdmissionSettings } from '../services/applicationService';
 export default function ProgrammePage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -31,10 +31,29 @@ export default function ProgrammePage() {
   const [applicationStatus, setApplicationStatus] = useState('Not Started');
   const [loadingApp, setLoadingApp] = useState(true);
 
+  // Dynamic Admin Admission Settings State
+  const [admissionSettings, setAdmissionSettings] = useState(null);
+  const [loadingSettings, setLoadingSettings] = useState(true);
+
   React.useEffect(() => {
     let isMounted = true;
-    async function fetchUserApp() {
-      if (!user) return;
+    async function loadData() {
+      try {
+        const settings = await getAdmissionSettings();
+        if (isMounted && settings) {
+          setAdmissionSettings(settings);
+        }
+      } catch (err) {
+        console.warn('[MSIT] Admission settings fetch error:', err);
+      } finally {
+        if (isMounted) setLoadingSettings(false);
+      }
+
+      if (!user) {
+        if (isMounted) setLoadingApp(false);
+        return;
+      }
+
       try {
         const { application: app, status } = await getUserApplication(user);
         if (isMounted) {
@@ -47,8 +66,20 @@ export default function ProgrammePage() {
         if (isMounted) setLoadingApp(false);
       }
     }
-    fetchUserApp();
-    return () => { isMounted = false; };
+    loadData();
+
+    // Live update listener for instant sync when admin saves settings in any tab
+    const handleSettingsUpdate = (e) => {
+      if (e.detail && isMounted) {
+        setAdmissionSettings(e.detail);
+      }
+    };
+    window.addEventListener('msit:admission-settings-updated', handleSettingsUpdate);
+
+    return () => { 
+      isMounted = false; 
+      window.removeEventListener('msit:admission-settings-updated', handleSettingsUpdate);
+    };
   }, [user]);
 
   // If user arrived with intent to login to admin, auto-redirect to admin dashboard
@@ -203,6 +234,8 @@ export default function ProgrammePage() {
         data={msitData.dashboard} 
         application={application}
         applicationStatus={applicationStatus}
+        admissionSettings={admissionSettings}
+        loadingSettings={loadingSettings}
         onApply={(status) => {
           if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(status)) {
             navigate('/apply?mode=view');

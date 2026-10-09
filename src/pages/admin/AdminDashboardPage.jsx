@@ -7,7 +7,10 @@ import ApplicationDetailModal from '../../components/admin/ApplicationDetailModa
 import { 
   fetchAllApplications, 
   calculateDashboardMetrics, 
-  resetMockData 
+  resetMockData,
+  getAdmissionSettings,
+  saveAdmissionSettings,
+  DEFAULT_ADMISSION_SETTINGS
 } from '../../services/adminService';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 import { 
@@ -47,15 +50,26 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
   // Copy SQL state
   const [sqlCopied, setSqlCopied] = useState(false);
 
-  // Load applications
+  // Admission Process Settings State
+  const [admissionSettings, setAdmissionSettings] = useState(DEFAULT_ADMISSION_SETTINGS);
+  const [savingSettings, setSavingSettings] = useState(false);
+  const [settingsSavedSuccess, setSettingsSavedSuccess] = useState(false);
+
+  // Load applications & settings
   const loadApplications = async () => {
     setLoading(true);
     try {
-      const res = await fetchAllApplications();
+      const [res, settings] = await Promise.all([
+        fetchAllApplications(),
+        getAdmissionSettings()
+      ]);
       setApplications(res.applications);
       setIsSupabaseLive(res.isSupabaseLive);
+      if (settings) {
+        setAdmissionSettings(settings);
+      }
     } catch (err) {
-      console.error('Failed to load applications:', err);
+      console.error('Failed to load applications or settings:', err);
     } finally {
       setLoading(false);
     }
@@ -889,6 +903,216 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
 
               <div className="settings-grid">
                 
+                {/* Live Admission Process & Recommended Next Action Configuration */}
+                <div className="admin-content-card" style={{ gridColumn: '1 / -1' }}>
+                  <div className="content-card-header">
+                    <div>
+                      <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>
+                        Admission Cycle & Recommended Next Action Settings
+                      </h3>
+                      <p style={{ color: '#64748b', fontSize: '0.88rem', margin: 0 }}>
+                        Configure key admission milestones, evaluation modes, and onboarding details. Updates sync automatically to all prospective-student dashboards.
+                      </p>
+                    </div>
+                    {settingsSavedSuccess && (
+                      <span className="status-badge status-badge-success" style={{ padding: '0.4rem 0.85rem' }}>
+                        <CheckCircleIcon size={14} />
+                        Saved & Synced!
+                      </span>
+                    )}
+                  </div>
+
+                  <form 
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setSavingSettings(true);
+                      try {
+                        const saved = await saveAdmissionSettings(admissionSettings);
+                        setAdmissionSettings(saved);
+                        setSettingsSavedSuccess(true);
+                        setTimeout(() => setSettingsSavedSuccess(false), 4000);
+                      } catch (err) {
+                        console.error('Failed to save admission settings:', err);
+                      } finally {
+                        setSavingSettings(false);
+                      }
+                    }}
+                    style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginTop: '1.5rem' }}
+                  >
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Cohort Intake Title
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.cohort || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, cohort: e.target.value }))}
+                          placeholder="e.g. January 2027 Intake"
+                          required
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Application Start Date
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.applicationStartDate || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, applicationStartDate: e.target.value }))}
+                          placeholder="e.g. October 1, 2026"
+                          required
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Application Deadline
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.applicationDeadline || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, applicationDeadline: e.target.value }))}
+                          placeholder="e.g. November 30, 2026"
+                          required
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Admission Evaluation Modes
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.admissionModes || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, admissionModes: e.target.value }))}
+                          placeholder="e.g. GRE, GATE, or MSIT Exam"
+                          required
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Technical Interview Timeline
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.interviewSchedule || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, interviewSchedule: e.target.value }))}
+                          placeholder="e.g. TBD (Announced post shortlisting)"
+                          required
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Batch Commencement Date
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.commencementDate || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, commencementDate: e.target.value }))}
+                          placeholder="e.g. January 2, 2027"
+                          required
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Onboarding Venue
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.commencementVenue || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, commencementVenue: e.target.value }))}
+                          placeholder="e.g. IIIT Hyderabad"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Evaluation Mode Card Description
+                        </label>
+                        <textarea
+                          className="form-control"
+                          rows="2"
+                          value={admissionSettings.admissionModesDesc || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, admissionModesDesc: e.target.value }))}
+                          placeholder="Description for Step 2 card"
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Interview & Counselling Card Instructions
+                        </label>
+                        <textarea
+                          className="form-control"
+                          rows="2"
+                          value={admissionSettings.interviewInstructions || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, interviewInstructions: e.target.value }))}
+                          placeholder="Description for Step 3 card"
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          Onboarding Instructions Card Description
+                        </label>
+                        <textarea
+                          className="form-control"
+                          rows="2"
+                          value={admissionSettings.onboardingInstructions || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, onboardingInstructions: e.target.value }))}
+                          placeholder="Description for Step 4 card"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                        Recommended Next Action Subtitle (Overview Banner)
+                      </label>
+                      <textarea
+                        className="form-control"
+                        rows="2"
+                        value={admissionSettings.nextActionDesc || ''}
+                        onChange={(e) => setAdmissionSettings(prev => ({ ...prev, nextActionDesc: e.target.value }))}
+                        placeholder="Overview summary banner shown above the action cards"
+                      />
+                    </div>
+
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.5rem' }}>
+                      <button
+                        type="button"
+                        className="btn btn-secondary btn-sm"
+                        onClick={() => setAdmissionSettings(DEFAULT_ADMISSION_SETTINGS)}
+                      >
+                        Reset to Defaults
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn btn-primary btn-sm"
+                        disabled={savingSettings}
+                        style={{ minWidth: '180px', justifyContent: 'center' }}
+                      >
+                        {savingSettings ? 'Saving Settings...' : 'Save Admission Settings'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+
                 {/* Supabase Schema Box */}
                 <div className="admin-content-card">
                   <div className="content-card-header">

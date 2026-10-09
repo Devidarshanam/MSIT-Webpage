@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   CpuIcon, 
-  AwardIcon, 
+  FlaskConicalIcon, 
   RocketIcon, 
   BriefcaseIcon 
 } from '../Icons';
@@ -12,7 +12,7 @@ export default function ProgrammeOverviewSection({ data }) {
       case 0:
         return <CpuIcon size={22} />;
       case 1:
-        return <AwardIcon size={22} />;
+        return <FlaskConicalIcon size={22} />;
       case 2:
         return <RocketIcon size={22} />;
       case 3:

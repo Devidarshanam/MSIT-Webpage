@@ -495,3 +495,98 @@ export function resetMockData() {
     localStorage.removeItem(ADMIN_LOCAL_STORAGE_LOGS_KEY);
   } catch (e) {}
 }
+
+export const ADMIN_LOCAL_STORAGE_SETTINGS_KEY = 'msit_admission_settings';
+
+export const DEFAULT_ADMISSION_SETTINGS = {
+  cohort: 'January 2027 Intake',
+  isApplicationOpen: true,
+  applicationStartDate: 'October 1, 2026',
+  applicationDeadline: 'November 30, 2026',
+  admissionModes: 'GRE, GATE, or MSIT Exam',
+  admissionModesDesc: "Confirm your evaluation mode: submit valid GRE/GATE scorecards or register for MSIT's own entrance exam.",
+  interviewSchedule: 'TBD',
+  interviewInstructions: 'Brush up on computational logic and problem-solving for the technical interaction (Interview & counselling dates: TBD).',
+  commencementDate: 'January 2, 2027',
+  commencementVenue: 'IIIT Hyderabad',
+  onboardingInstructions: 'Confirmed batch commencement date is January 2, 2027 at IIIT Hyderabad.',
+  nextActionTitle: 'Recommended Next Action',
+  nextActionDesc: "Submit your application through the portal between October 1, 2026 and November 30, 2026. Prepare for evaluation via GRE, GATE, or MSIT's entrance exam."
+};
+
+/**
+ * Retrieve admission configuration from Supabase or localStorage.
+ * Connects Recommended Next Action and cycle information to real admin settings.
+ */
+export async function getAdmissionSettings() {
+  // 1. Try Supabase
+  if (isSupabaseConfigured() && supabase) {
+    try {
+      const { data, error } = await supabase
+        .from('admission_settings')
+        .select('*')
+        .eq('id', 'current')
+        .maybeSingle();
+
+      if (!error && data && data.settings) {
+        return { ...DEFAULT_ADMISSION_SETTINGS, ...data.settings };
+      }
+    } catch (err) {
+      console.warn('[MSIT Admin] Supabase getAdmissionSettings warning:', err);
+    }
+  }
+
+  // 2. Try localStorage
+  try {
+    const raw = localStorage.getItem(ADMIN_LOCAL_STORAGE_SETTINGS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return { ...DEFAULT_ADMISSION_SETTINGS, ...parsed };
+    }
+  } catch (e) {
+    console.warn('[MSIT Admin] localStorage getAdmissionSettings warning:', e);
+  }
+
+  return { ...DEFAULT_ADMISSION_SETTINGS };
+}
+
+/**
+ * Save admission configuration to Supabase and localStorage.
+ * Automatically broadcasts live update to all listeners.
+ */
+export async function saveAdmissionSettings(updatedSettings) {
+  const merged = {
+    ...DEFAULT_ADMISSION_SETTINGS,
+    ...updatedSettings,
+    updated_at: new Date().toISOString()
+  };
+
+  // 1. Write to localStorage for instant client persistence
+  try {
+    localStorage.setItem(ADMIN_LOCAL_STORAGE_SETTINGS_KEY, JSON.stringify(merged));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('msit:admission-settings-updated', { detail: merged }));
+    }
+  } catch (e) {
+    console.warn('[MSIT Admin] localStorage saveAdmissionSettings warning:', e);
+  }
+
+  // 2. Write to Supabase if configured
+  if (isSupabaseConfigured() && supabase) {
+    try {
+      await supabase
+        .from('admission_settings')
+        .upsert({
+          id: 'current',
+          cohort: merged.cohort,
+          settings: merged,
+          updated_at: merged.updated_at
+        }, { onConflict: 'id' });
+    } catch (err) {
+      console.warn('[MSIT Admin] Supabase saveAdmissionSettings warning:', err);
+    }
+  }
+
+  return merged;
+}
+
