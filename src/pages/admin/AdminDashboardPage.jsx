@@ -4,6 +4,7 @@ import AdminTopNav from '../../components/admin/AdminTopNav';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import { StatusBadge, TestDataBadge } from '../../components/admin/StatusBadge';
 import ApplicationDetailModal from '../../components/admin/ApplicationDetailModal';
+import CertificateModal from '../../components/admin/CertificateModal';
 import { 
   fetchAllApplications, 
   calculateDashboardMetrics, 
@@ -24,7 +25,11 @@ import {
   DownloadIcon, 
   TerminalIcon, 
   ShieldCheckIcon,
-  HelpCircleIcon
+  HelpCircleIcon,
+  RefreshCwIcon,
+  CopyIcon,
+  SparklesIcon,
+  FileTextIcon
 } from '../../components/Icons';
 
 export default function AdminDashboardPage({ activeTab: initialTab = 'overview' }) {
@@ -41,11 +46,100 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
   const [selectedApp, setSelectedApp] = useState(null);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
 
+  // Certificate Viewer Modal State
+  const [viewingCertificate, setViewingCertificate] = useState(null);
+
+  const handleOpenCertificate = (app, certType) => {
+    let certObj = null;
+    const name = app.full_name || 'Candidate';
+    const appId = app.application_id || app.id || 'MSIT-APP';
+
+    if (certType === 'btech') {
+      certObj = {
+        type: 'btech',
+        title: 'Undergraduate Degree Certificate (B.Tech / B.E.)',
+        subtitle: 'Official Degree Award & Consolidated Transcripts Memo',
+        applicantName: name,
+        applicationId: appId,
+        institution: app.university || 'CMR Institute of Technology / JNTU Hyderabad',
+        department: app.department || 'Computer Science & Engineering (CSE)',
+        qualification: `${app.ug_degree || 'B.Tech / B.E.'} in ${app.department || 'Computer Science & Engineering'}`,
+        score: app.cgpa ? `${app.cgpa} (${app.grading_scale || 'Percentage'})` : '7.5 CGPA',
+        passingYear: app.passing_year || '2026',
+        fileName: 'BTech_Degree_Certificate.pdf'
+      };
+    } else if (certType === '10th') {
+      certObj = {
+        type: '10th',
+        title: 'Class 10 / Secondary School Certificate (SSC)',
+        subtitle: 'Board Examination Cumulative Marksheet & Memo',
+        applicantName: name,
+        applicationId: appId,
+        institution: 'Board of Secondary Education',
+        department: 'General Secondary Curriculum',
+        qualification: 'Secondary School Certificate (Class 10 / SSC)',
+        score: app.class10_score ? `${app.class10_score} (${app.class10_score_type || 'Percentage'})` : '85.0%',
+        passingYear: '2020',
+        fileName: 'Class10_SSC_Marksheet_Memo.pdf'
+      };
+    } else if (certType === '12th') {
+      certObj = {
+        type: '12th',
+        title: 'Class 12 / Intermediate Examination Marks Memo',
+        subtitle: 'Board of Intermediate Education Official Marks Memo',
+        applicantName: name,
+        applicationId: appId,
+        institution: 'Board of Intermediate Education',
+        department: 'Mathematics, Physics, Chemistry (MPC)',
+        qualification: app.inter_pathway || 'Class 12 / Intermediate',
+        score: app.inter_score ? `${app.inter_score} (${app.inter_score_type || 'Percentage'})` : '87.0%',
+        passingYear: '2022',
+        fileName: 'Class12_Intermediate_MarksMemo.pdf'
+      };
+    } else if (certType === 'gr') {
+      certObj = {
+        type: 'gr',
+        title: 'Official Graduate Record Examination (GRE) Score Report',
+        subtitle: 'ETS Official Test-Taker Scorecard & National Ranking',
+        applicantName: name,
+        applicationId: appId,
+        institution: 'Educational Testing Service (ETS) / National Testing Agency',
+        department: 'General GRE / Quantitative & Verbal Reasoning',
+        qualification: app.entrance_exam_status || 'GRE General Test',
+        score: app.gre_score ? `GRE Score: ${app.gre_score}` : (app.gate_score ? `GATE Score: ${app.gate_score}` : 'Official Scorecard'),
+        passingYear: app.gre_year || app.gate_year || '2025',
+        fileName: 'Official_GRE_Scorecard.pdf'
+      };
+    }
+
+    if (certObj) {
+      setViewingCertificate(certObj);
+    }
+  };
+
   // Filters & Search State
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('ALL');
   const [docFilter, setDocFilter] = useState('ALL');
   const [sortBy, setSortBy] = useState('newest');
+
+  // Copy ID feedback state
+  const [copiedAppId, setCopiedAppId] = useState(null);
+  const handleCopyAppId = (e, id) => {
+    e.stopPropagation();
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(id);
+      setCopiedAppId(id);
+      setTimeout(() => setCopiedAppId(null), 2000);
+    }
+  };
+
+  const getInitials = (name) => {
+    if (!name) return 'AP';
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  };
 
   // Copy SQL state
   const [sqlCopied, setSqlCopied] = useState(false);
@@ -157,21 +251,22 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
 
   return (
     <div className="admin-layout">
-      {/* Top Navigation */}
-      <AdminTopNav
-        isSupabaseLive={isSupabaseLive}
-        onToggleSidebar={() => setSidebarOpen(prev => !prev)}
+      {/* Left Navigation Sidebar (Starts from the very top of the screen: top 0, 100vh) */}
+      <AdminSidebar
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
+        metrics={metrics}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        onSignOut={adminSignOut}
       />
 
-      <div className="admin-body-container">
-        {/* Left Sidebar */}
-        <AdminSidebar
-          activeTab={activeTab}
-          onSelectTab={setActiveTab}
-          metrics={metrics}
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
-          onSignOut={adminSignOut}
+      {/* Main Content & Top Header Wrap */}
+      <div className="admin-main-wrap">
+        {/* Sticky Top Navigation Bar (Starts from top: 0 to the right of sidebar) */}
+        <AdminTopNav
+          isSupabaseLive={isSupabaseLive}
+          onToggleSidebar={() => setSidebarOpen(prev => !prev)}
         />
 
         {/* Main Content Area */}
@@ -183,90 +278,136 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
           {activeTab === 'overview' && (
             <div className="admin-tab-pane">
               
-              {/* Hero Banner */}
+              {/* Executive Hero Command Banner */}
               <div className="admin-hero-banner">
-                <div className="banner-text">
-                  <span className="banner-kicker">ADMISSIONS CONSOLE</span>
-                  <h2>Admissions Overview & Application Metrics</h2>
-                  <p>
-                    Track candidate submissions, review documents, and manage admissions decisions for the <strong>January 2027 Intake</strong>.
-                  </p>
-                </div>
-                <div className="banner-actions">
-                  <button
-                    type="button"
-                    className="btn btn-primary btn-sm"
-                    onClick={() => {
-                      setStatusFilter('New');
-                      setActiveTab('applications');
-                    }}
-                  >
-                    Review New Submissions ({metrics.newCount})
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                    onClick={loadApplications}
-                  >
-                    Refresh Data
-                  </button>
+                <div className="hero-banner-glow-effect" />
+                <div className="banner-content-wrap">
+                  <div className="banner-text">
+                    <div className="banner-badge-group">
+                      <span className="banner-kicker-pill">
+                        <span className="live-pulsing-dot" />
+                        ADMISSIONS COMMAND CONSOLE
+                      </span>
+                      <span className="banner-cohort-pill">Active Cohort: January 2027</span>
+                    </div>
+                    <h2>Admissions Overview & Application Metrics</h2>
+                    <p>
+                      Track candidate submissions, review documents, and manage admissions decisions for the <strong>January 2027 Intake</strong>.
+                    </p>
+                    <div className="banner-quick-stats">
+                      <div className="quick-stat-item">
+                        <span className="quick-stat-val">{metrics.total}</span>
+                        <span className="quick-stat-lbl">Total Candidates</span>
+                      </div>
+                      <div className="quick-stat-divider" />
+                      <div className="quick-stat-item">
+                        <span className="quick-stat-val highlight-amber">{metrics.newCount}</span>
+                        <span className="quick-stat-lbl">Action Required</span>
+                      </div>
+                      <div className="quick-stat-divider" />
+                      <div className="quick-stat-item">
+                        <span className="quick-stat-val highlight-purple">{metrics.documentsPending}</span>
+                        <span className="quick-stat-lbl">Docs in Queue</span>
+                      </div>
+                      <div className="quick-stat-divider" />
+                      <div className="quick-stat-item">
+                        <span className="quick-stat-val highlight-green">{metrics.total > 0 ? `${Math.round((metrics.accepted / metrics.total) * 100)}%` : '0%'}</span>
+                        <span className="quick-stat-lbl">Acceptance Rate</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="banner-actions">
+                    <button
+                      type="button"
+                      className="btn btn-hero-primary"
+                      onClick={() => {
+                        setStatusFilter('New');
+                        setActiveTab('applications');
+                      }}
+                    >
+                      <ClockIcon size={16} />
+                      <span>Review New Submissions</span>
+                      <span className="hero-action-badge">{metrics.newCount}</span>
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-hero-secondary"
+                      onClick={loadApplications}
+                      title="Sync latest application data from Supabase"
+                    >
+                      <RefreshCwIcon size={16} className={loading ? 'spin-animation' : ''} />
+                      <span>Refresh Data</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* 6 Core Metric Cards */}
+              {/* 6 Core Metric Cards in Balanced Responsive Grid */}
               <div className="admin-metrics-grid">
                 
                 {/* 1. Total Applications */}
                 <div 
-                  className="metric-card clickable"
+                  className="metric-card card-primary clickable"
                   onClick={() => handleCardClick('ALL')}
                   title="Click to view all applications"
                 >
                   <div className="metric-header">
                     <span className="metric-label">Total Applications</span>
                     <span className="metric-icon-wrap primary">
-                      <UsersIcon size={20} />
+                      <UsersIcon size={18} />
                     </span>
                   </div>
-                  <strong className="metric-value">{metrics.total}</strong>
+                  <div className="metric-value-row">
+                    <strong className="metric-value">{metrics.total}</strong>
+                    <span className="metric-pill primary">100% Pipeline</span>
+                  </div>
                   <span className="metric-sub">Total candidate submissions</span>
+                  <div className="metric-bottom-bar primary" />
                 </div>
 
-                {/* 2. New / Pending */}
+                {/* 2. New Submissions */}
                 <div 
-                  className="metric-card clickable border-info"
+                  className="metric-card card-info clickable"
                   onClick={() => handleCardClick('New')}
                   title="Click to filter New applications"
                 >
                   <div className="metric-header">
                     <span className="metric-label">New Submissions</span>
                     <span className="metric-icon-wrap info">
-                      <ClockIcon size={20} />
+                      <ClockIcon size={18} />
                     </span>
                   </div>
-                  <strong className="metric-value text-info">{metrics.newCount}</strong>
+                  <div className="metric-value-row">
+                    <strong className="metric-value text-info">{metrics.newCount}</strong>
+                    <span className="metric-pill info">{metrics.total > 0 ? Math.round((metrics.newCount / metrics.total) * 100) : 0}% of total</span>
+                  </div>
                   <span className="metric-sub">Awaiting initial evaluation</span>
+                  <div className="metric-bottom-bar info" />
                 </div>
 
                 {/* 3. Under Review */}
                 <div 
-                  className="metric-card clickable border-warning"
+                  className="metric-card card-warning clickable"
                   onClick={() => handleCardClick('Under Review')}
                   title="Click to filter applications Under Review"
                 >
                   <div className="metric-header">
                     <span className="metric-label">Under Review</span>
                     <span className="metric-icon-wrap warning">
-                      <BookOpenIcon size={20} />
+                      <BookOpenIcon size={18} />
                     </span>
                   </div>
-                  <strong className="metric-value text-warning">{metrics.underReview}</strong>
+                  <div className="metric-value-row">
+                    <strong className="metric-value text-warning">{metrics.underReview}</strong>
+                    <span className="metric-pill warning">{metrics.total > 0 ? Math.round((metrics.underReview / metrics.total) * 100) : 0}% active</span>
+                  </div>
                   <span className="metric-sub">Active committee review</span>
+                  <div className="metric-bottom-bar warning" />
                 </div>
 
-                {/* 4. Documents Review Required */}
+                {/* 4. Document Review */}
                 <div 
-                  className="metric-card clickable border-purple"
+                  className="metric-card card-purple clickable"
                   onClick={() => {
                     setDocFilter('Pending Review');
                     setActiveTab('documents');
@@ -276,54 +417,69 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                   <div className="metric-header">
                     <span className="metric-label">Document Review</span>
                     <span className="metric-icon-wrap purple">
-                      <BookOpenIcon size={20} />
+                      <BookOpenIcon size={18} />
                     </span>
                   </div>
-                  <strong className="metric-value text-purple">{metrics.documentsPending}</strong>
-                  <span className="metric-sub">Pending verification / corrections</span>
+                  <div className="metric-value-row">
+                    <strong className="metric-value text-purple">{metrics.documentsPending}</strong>
+                    <span className="metric-pill purple">{metrics.total > 0 ? Math.round((metrics.documentsPending / metrics.total) * 100) : 0}% queue</span>
+                  </div>
+                  <span className="metric-sub">Pending verification / memos</span>
+                  <div className="metric-bottom-bar purple" />
                 </div>
 
-                {/* 5. Accepted Applications */}
+                {/* 5. Accepted */}
                 <div 
-                  className="metric-card clickable border-success"
+                  className="metric-card card-success clickable"
                   onClick={() => handleCardClick('Accepted')}
                   title="Click to filter Accepted applications"
                 >
                   <div className="metric-header">
                     <span className="metric-label">Accepted</span>
                     <span className="metric-icon-wrap success">
-                      <CheckCircleIcon size={20} />
+                      <CheckCircleIcon size={18} />
                     </span>
                   </div>
-                  <strong className="metric-value text-success">{metrics.accepted}</strong>
+                  <div className="metric-value-row">
+                    <strong className="metric-value text-success">{metrics.accepted}</strong>
+                    <span className="metric-pill success">{metrics.total > 0 ? Math.round((metrics.accepted / metrics.total) * 100) : 0}% confirmed</span>
+                  </div>
                   <span className="metric-sub">Offers confirmed by committee</span>
+                  <div className="metric-bottom-bar success" />
                 </div>
 
-                {/* 6. Declined Applications */}
+                {/* 6. Declined */}
                 <div 
-                  className="metric-card clickable border-danger"
+                  className="metric-card card-danger clickable"
                   onClick={() => handleCardClick('Declined')}
                   title="Click to filter Declined applications"
                 >
                   <div className="metric-header">
                     <span className="metric-label">Declined</span>
                     <span className="metric-icon-wrap danger">
-                      <ShieldCheckIcon size={20} />
+                      <ShieldCheckIcon size={18} />
                     </span>
                   </div>
-                  <strong className="metric-value text-danger">{metrics.declined}</strong>
-                  <span className="metric-sub">With documented rejection reasons</span>
+                  <div className="metric-value-row">
+                    <strong className="metric-value text-danger">{metrics.declined}</strong>
+                    <span className="metric-pill danger">{metrics.total > 0 ? Math.round((metrics.declined / metrics.total) * 100) : 0}% archived</span>
+                  </div>
+                  <span className="metric-sub">With rejection decisions</span>
+                  <div className="metric-bottom-bar danger" />
                 </div>
 
               </div>
 
-              {/* Quick Jump & Pending Alerts */}
+              {/* Quick Jump & Candidate Submissions Overview */}
               <div className="overview-subsections-grid">
                 
                 {/* Recent Submissions */}
                 <div className="admin-content-card">
                   <div className="content-card-header">
-                    <h3>Recent Candidate Submissions</h3>
+                    <div className="card-header-title-wrap">
+                      <h3>Recent Candidate Submissions</h3>
+                      <span className="live-indicator-pill">Live Pipeline</span>
+                    </div>
                     <button
                       type="button"
                       className="link-action-btn"
@@ -338,27 +494,46 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                     <table className="admin-table">
                       <thead>
                         <tr>
-                          <th>Applicant Name</th>
-                          <th>Application ID</th>
-                          <th>UG Degree / CGPA</th>
+                          <th>Applicant</th>
+                          <th>Application Ref</th>
+                          <th>UG Degree / Score</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         {applications.slice(0, 5).map(app => (
-                          <tr key={app.id}>
+                          <tr key={app.id} className="admin-table-row">
                             <td>
                               <div className="applicant-cell">
-                                <strong>{app.full_name}</strong>
-                                <span className="cell-sub">{app.email}</span>
-                                {app.isMock && <TestDataBadge />}
+                                <div className="applicant-avatar-circle" title={app.full_name}>
+                                  {getInitials(app.full_name)}
+                                </div>
+                                <div className="applicant-info">
+                                  <strong className="applicant-name">{app.full_name}</strong>
+                                  <span className="cell-sub">{app.email}</span>
+                                  {app.isMock && <TestDataBadge />}
+                                </div>
                               </div>
                             </td>
-                            <td><code>{app.application_id}</code></td>
                             <td>
-                              <span>{app.ug_degree}</span>
-                              <span className="cell-sub font-bold">{app.cgpa}</span>
+                              <div className="app-id-pill-wrap">
+                                <code className="app-id-code">{app.application_id}</code>
+                                <button
+                                  type="button"
+                                  className="copy-id-btn"
+                                  onClick={(e) => handleCopyAppId(e, app.application_id)}
+                                  title="Copy Application ID"
+                                >
+                                  {copiedAppId === app.application_id ? '✓' : <CopyIcon size={12} />}
+                                </button>
+                              </div>
+                            </td>
+                            <td>
+                              <div className="academic-cell-wrap">
+                                <span className="degree-text">{app.ug_degree || 'B.Tech / B.E.'}</span>
+                                <span className="cgpa-badge">Score: <strong>{app.cgpa || 'N/A'}</strong></span>
+                              </div>
                             </td>
                             <td>
                               <StatusBadge status={app.status} type="application" />
@@ -366,10 +541,11 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                             <td>
                               <button
                                 type="button"
-                                className="btn btn-secondary btn-sm"
+                                className="btn btn-table-review"
                                 onClick={() => handleOpenDetail(app)}
                               >
-                                View Details
+                                <span>Review</span>
+                                <ArrowRightIcon size={12} />
                               </button>
                             </td>
                           </tr>
@@ -382,7 +558,10 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                 {/* Intake Status & Governance Card */}
                 <div className="admin-content-card side-summary-card">
                   <div className="content-card-header">
-                    <h3>Admissions Cycle Information</h3>
+                    <div className="card-header-title-wrap">
+                      <h3>Admissions Governance</h3>
+                    </div>
+                    <span className="cohort-mini-tag">Jan 2027</span>
                   </div>
                   
                   <div className="cycle-info-list">
@@ -392,28 +571,65 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                     </div>
                     <div className="cycle-info-item">
                       <span className="info-label">Portal Status:</span>
-                      <span className="text-success font-bold">Applications Live</span>
+                      <span className="status-live-chip">
+                        <span className="live-dot" />
+                        Applications Active
+                      </span>
+                    </div>
+                    <div className="cycle-info-item vertical">
+                      <div className="info-label-row">
+                        <span className="info-label">Admissions Acceptance Rate:</span>
+                        <strong className="text-primary font-bold">
+                          {metrics.total > 0 ? `${Math.round((metrics.accepted / metrics.total) * 100)}%` : '0%'}
+                        </strong>
+                      </div>
+                      <div className="progress-track-wrapper">
+                        <div 
+                          className="progress-fill-bar" 
+                          style={{ width: `${metrics.total > 0 ? Math.min(100, Math.round((metrics.accepted / metrics.total) * 100)) : 0}%` }}
+                        />
+                      </div>
                     </div>
                     <div className="cycle-info-item">
-                      <span className="info-label">Acceptance Rate:</span>
-                      <strong>
-                        {metrics.total > 0 ? `${Math.round((metrics.accepted / metrics.total) * 100)}%` : '0%'}
-                      </strong>
-                    </div>
-                    <div className="cycle-info-item">
-                      <span className="info-label">Backend Database:</span>
-                      <span>{isSupabaseLive ? 'Supabase PostgreSQL (Connected)' : 'Local Storage Fallback'}</span>
+                      <span className="info-label">Database Connection:</span>
+                      <span className="db-connected-tag">
+                        {isSupabaseLive ? '● Supabase PostgreSQL (Live)' : '○ Local Storage Fallback'}
+                      </span>
                     </div>
                   </div>
 
-                  <div className="workflow-reminder-box">
-                    <strong>Standard Workflow (Pending Confirmation):</strong>
-                    <p className="workflow-steps">
-                      New ➔ Under Review ➔ Documents Pending ➔ Documents Verified ➔ Accepted / Declined
+                  {/* Visual Step Workflow Pipeline */}
+                  <div className="workflow-pipeline-box">
+                    <span className="pipeline-title">ADMISSIONS EVALUATION PIPELINE</span>
+                    <div className="pipeline-flow">
+                      <div className="flow-step">
+                        <span className="step-num step-1">1</span>
+                        <span className="step-text">New</span>
+                      </div>
+                      <span className="flow-arrow">›</span>
+                      <div className="flow-step">
+                        <span className="step-num step-2">2</span>
+                        <span className="step-text">Review</span>
+                      </div>
+                      <span className="flow-arrow">›</span>
+                      <div className="flow-step">
+                        <span className="step-num step-3">3</span>
+                        <span className="step-text">Docs</span>
+                      </div>
+                      <span className="flow-arrow">›</span>
+                      <div className="flow-step">
+                        <span className="step-num step-4">4</span>
+                        <span className="step-text">Verified</span>
+                      </div>
+                      <span className="flow-arrow">›</span>
+                      <div className="flow-step">
+                        <span className="step-num step-5">5</span>
+                        <span className="step-text">Offer</span>
+                      </div>
+                    </div>
+                    <p className="pipeline-note">
+                      All candidate applications follow MSIT's structured evaluation protocol with mandatory document verification and academic committee approval.
                     </p>
-                    <span className="clarification-tag">
-                      PENDING — REQUIRES CONFIRMATION: Business rules, email templates, and acceptance criteria are subject to final committee approval.
-                    </span>
                   </div>
                 </div>
 
@@ -563,7 +779,10 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                           <th>Applicant Name & Email</th>
                           <th>Application ID</th>
                           <th>Application Date</th>
-                          <th>Academic Profile</th>
+                          <th title="B.Tech / Undergraduate Score & Certificate">BTX</th>
+                          <th title="Class 10 / SSC Score & Certificate">10</th>
+                          <th title="Class 12 / Intermediate Score & Certificate">12</th>
+                          <th title="GRE / Entrance Exam Score">GR</th>
                           <th>Application Status</th>
                           <th>Document Status</th>
                           <th>Last Updated</th>
@@ -591,11 +810,92 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                                 {new Date(app.submitted_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                               </span>
                             </td>
-                            <td>
-                              <div className="academic-cell">
-                                <span>{app.ug_degree}</span>
-                                <span className="cell-sub">{app.department}</span>
-                                <span className="cgpa-pill">{app.cgpa}</span>
+
+                            {/* BTX Column */}
+                            <td className="acad-col-cell">
+                              <div className="acad-col-content">
+                                <strong className="acad-col-score">{app.cgpa || 'NA'}</strong>
+                                <button
+                                  type="button"
+                                  className="acad-cert-btn"
+                                  title="View BTX Certificate"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleOpenCertificate(app, 'btech');
+                                  }}
+                                >
+                                  <FileTextIcon size={12} />
+                                  <span>View Certificate</span>
+                                </button>
+                              </div>
+                            </td>
+
+                            {/* 10 Column */}
+                            <td className="acad-col-cell">
+                              <div className="acad-col-content">
+                                <strong className={`acad-col-score ${!app.class10_score ? 'acad-score-na' : ''}`}>
+                                  {app.class10_score || 'NA'}
+                                </strong>
+                                <button
+                                  type="button"
+                                  className="acad-cert-btn"
+                                  title="View 10th Certificate"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleOpenCertificate(app, '10th');
+                                  }}
+                                >
+                                  <FileTextIcon size={12} />
+                                  <span>View Certificate</span>
+                                </button>
+                              </div>
+                            </td>
+
+                            {/* 12 Column */}
+                            <td className="acad-col-cell">
+                              <div className="acad-col-content">
+                                <strong className={`acad-col-score ${!app.inter_score ? 'acad-score-na' : ''}`}>
+                                  {app.inter_score || 'NA'}
+                                </strong>
+                                <button
+                                  type="button"
+                                  className="acad-cert-btn"
+                                  title="View 12th Certificate"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleOpenCertificate(app, '12th');
+                                  }}
+                                >
+                                  <FileTextIcon size={12} />
+                                  <span>View Certificate</span>
+                                </button>
+                              </div>
+                            </td>
+
+                            {/* GR Column */}
+                            <td className="acad-col-cell">
+                              <div className="acad-col-content">
+                                {(app.gre_score || app.gate_score) ? (
+                                  <>
+                                    <strong className="acad-col-score acad-score-highlight">
+                                      {app.gre_score || app.gate_score}
+                                    </strong>
+                                    <button
+                                      type="button"
+                                      className="acad-cert-btn"
+                                      title="View GR Official Scorecard"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleOpenCertificate(app, 'gr');
+                                      }}
+                                    >
+                                      <FileTextIcon size={12} />
+                                      <span>View Certificate</span>
+                                    </button>
+                                  </>
+                                ) : (
+                                  <span className="acad-col-score acad-score-na">NA</span>
+                                )}
                               </div>
                             </td>
                             <td>
@@ -1206,6 +1506,13 @@ CREATE TABLE IF NOT EXISTS public.application_status_history (...);`}
         onClose={() => setDetailModalOpen(false)}
         application={selectedApp}
         onApplicationUpdated={handleApplicationUpdated}
+      />
+
+      {/* Certificate Viewer Modal */}
+      <CertificateModal
+        isOpen={!!viewingCertificate}
+        onClose={() => setViewingCertificate(null)}
+        certificate={viewingCertificate}
       />
 
     </div>

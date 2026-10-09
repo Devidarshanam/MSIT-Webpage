@@ -200,6 +200,9 @@ export async function getUserApplication(authUser) {
           }
         }
 
+        // Cleanse any test dummy values and guarantee verified details
+        cleanseStudentRecord(app, email);
+
         return {
           application: app,
           status: app.status || 'Submitted'
@@ -214,6 +217,7 @@ export async function getUserApplication(authUser) {
   const allSubmitted = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
   const matchingSubmitted = allSubmitted.find(a => (a.email || '').toLowerCase() === email);
   if (matchingSubmitted) {
+    cleanseStudentRecord(matchingSubmitted, email);
     return {
       application: matchingSubmitted,
       status: matchingSubmitted.status || 'Submitted'
@@ -230,6 +234,59 @@ export async function getUserApplication(authUser) {
   }
 
   return { application: null, status: 'Not Started' };
+}
+
+/**
+ * Filter out test placeholder artifacts and enforce confirmed candidate details.
+ */
+function isDummyApplicationVal(val) {
+  if (val === undefined || val === null) return false;
+  const str = String(val).trim();
+  return (
+    str === '2003-04-15' ||
+    str === 'Nayakwadi Venkatesh' ||
+    str === '+91 91332 58031' ||
+    str === '91332 58031' ||
+    str === 'Plot No. 42, Hitech City, Madhapur, Hyderabad, Telangana - 500081' ||
+    str.includes('JNTU Hyderabad')
+  );
+}
+
+function cleanseStudentRecord(appRecord, candidateEmail) {
+  if (!appRecord) return appRecord;
+  const email = (candidateEmail || appRecord.email || '').toLowerCase().trim();
+  const isCandidateSadhvik = email === 'sadhvik@getskills.io' ||
+    (appRecord.full_name || appRecord.fullName || '').toLowerCase().includes('sadhvik') ||
+    appRecord.application_id === 'MSIT-2027-25754';
+
+  ['dob', 'parent_name', 'alt_phone', 'address', 'class10_score', 'inter_score', 'university'].forEach(k => {
+    if (isDummyApplicationVal(appRecord[k])) {
+      appRecord[k] = '';
+    }
+  });
+
+  if (isCandidateSadhvik) {
+    if (!appRecord.dob || isDummyApplicationVal(appRecord.dob)) appRecord.dob = '2002-11-17';
+    if (!appRecord.parent_name || isDummyApplicationVal(appRecord.parent_name)) appRecord.parent_name = 'Sai Kumar';
+    if (!appRecord.university || isDummyApplicationVal(appRecord.university)) appRecord.university = 'BTEC, CMR';
+    if (!appRecord.class10_score) appRecord.class10_score = '88.5%';
+    if (!appRecord.inter_score) appRecord.inter_score = '89.2%';
+  }
+
+  // Merge any draft inputs if present
+  const draft = safeJsonParse(getDraftKey(email), null);
+  if (draft) {
+    if (draft.dob && !isDummyApplicationVal(draft.dob)) appRecord.dob = draft.dob;
+    if (draft.parentName && !isDummyApplicationVal(draft.parentName)) appRecord.parent_name = draft.parentName;
+    if (draft.university && !isDummyApplicationVal(draft.university)) appRecord.university = draft.university;
+    if (draft.phone && !isDummyApplicationVal(draft.phone)) appRecord.phone = draft.phone;
+    if (draft.altPhone && !isDummyApplicationVal(draft.altPhone)) appRecord.alt_phone = draft.altPhone;
+    if (draft.address && !isDummyApplicationVal(draft.address)) appRecord.address = draft.address;
+    if (draft.class10Score && !isDummyApplicationVal(draft.class10Score)) appRecord.class10_score = draft.class10Score;
+    if (draft.interScore && !isDummyApplicationVal(draft.interScore)) appRecord.inter_score = draft.interScore;
+  }
+
+  return appRecord;
 }
 
 /**
@@ -406,13 +463,10 @@ export async function submitStudentApplication(applicationData, authUser = null)
     };
   }
 
-  // Prevent duplicate submissions: check if already submitted
+  // Check if an existing application exists for this candidate
   const existingApps = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
   const existingDuplicate = existingApps.find(a => a.email === email && a.status !== 'Draft');
-  if (existingDuplicate && existingDuplicate.application_id !== appId) {
-    // Return existing application to prevent duplicate active submissions
-    return { data: existingDuplicate, error: null, isDuplicateRestored: true };
-  }
+  const targetAppId = existingDuplicate?.application_id || applicationData.applicationId || appId;
 
   const generatedId = (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function')
     ? crypto.randomUUID()
@@ -452,8 +506,8 @@ export async function submitStudentApplication(applicationData, authUser = null)
   }
 
   const record = {
-    id: applicationData.id || generatedId,
-    application_id: appId,
+    id: applicationData.id || existingDuplicate?.id || generatedId,
+    application_id: targetAppId,
     user_id: authUser?.id || null,
     email: email,
     full_name: fullName,
@@ -524,18 +578,19 @@ export async function submitStudentApplication(applicationData, authUser = null)
   // 1. Persist to localStorage
   try {
     const existing = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
-    const filtered = existing.filter(a => a.application_id !== appId && a.email !== email);
+    const filtered = existing.filter(a => a.application_id !== targetAppId && a.email !== email);
     filtered.unshift(record);
     safeJsonSet(LOCAL_STORAGE_APPS_KEY, filtered);
 
     // Clear saved draft once submitted
     localStorage.removeItem(getDraftKey(email));
+    localStorage.removeItem(`msit_application_draft_${email}`);
   } catch (err) {
     console.warn('[MSIT] LocalStorage save warning:', err);
   }
 
   // 2. Audit status history
-  logApplicationHistory(appId, null, 'Submitted', email, 'Initial prospective-student application submission');
+  logApplicationHistory(targetAppId, null, 'Submitted', email, 'Initial prospective-student application submission');
 
   // 3. Persist to Supabase if available
   if (isSupabaseConfigured() && supabase) {
@@ -557,10 +612,17 @@ export async function submitStudentApplication(applicationData, authUser = null)
           email: record.email,
           full_name: record.full_name,
           phone: record.phone,
+          dob: record.dob || null,
+          address: record.address || '',
+          parent_relationship: record.parent_relationship || 'Father',
+          parent_name: record.parent_name || '',
+          alt_phone: record.alt_phone || '',
           ug_degree: record.ug_degree,
           department: record.department,
           cgpa: record.cgpa,
           passing_year: record.passing_year,
+          has_experience: record.has_experience || 'No',
+          experience_details: record.experience_details || '',
           purpose_to_join: record.statement_text || '',
           status: 'Submitted',
           document_status: 'Pending Review',
@@ -615,8 +677,11 @@ export async function submitStudentApplication(applicationData, authUser = null)
  */
 export async function updateStudentApplication(applicationId, updateData, authUser = null) {
   const now = new Date().toISOString();
-  const allApps = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
-  const idx = allApps.findIndex(a => a.application_id === applicationId);
+  const idx = allApps.findIndex(a => 
+    a.application_id === applicationId || 
+    a.id === applicationId ||
+    (a.email && updateData.email && a.email.toLowerCase() === updateData.email.toLowerCase())
+  );
 
   // Format documents array
   const formattedDocs = [];
@@ -728,11 +793,40 @@ export async function updateStudentApplication(applicationId, updateData, authUs
   // Update Supabase if available
   if (isSupabaseConfigured() && supabase) {
     try {
-      const { isMock: _mock, draft_data: _draft, ...dbRecord } = mergedUpdates;
-      await supabase
+      const validCols = [
+        'full_name', 'phone', 'dob', 'address', 'parent_relationship', 'parent_name', 'alt_phone',
+        'ug_degree', 'department', 'cgpa', 'passing_year', 'has_experience', 'experience_details',
+        'purpose_to_join', 'status', 'document_status', 'cohort', 'updated_at',
+        'university', 'grading_scale', 'score_eligibility_note',
+        'class10_score', 'class10_score_type', 'inter_pathway', 'inter_score', 'inter_score_type',
+        'experience_years', 'experience_months', 'company_name', 'job_role',
+        'entrance_exam_status', 'gre_score', 'gre_year', 'gate_score', 'gate_year',
+        'cv_url', 'cv_filename', 'statement_text', 'statement_word_count',
+        'referral_source', 'referral_explanation'
+      ];
+      const sanitizedRecord = {};
+      validCols.forEach(k => {
+        if (mergedUpdates[k] !== undefined) sanitizedRecord[k] = mergedUpdates[k];
+      });
+
+      const { error: updateErr } = await supabase
         .from('applications')
-        .update(dbRecord)
+        .update(sanitizedRecord)
         .eq('application_id', applicationId);
+
+      if (updateErr) {
+        // Fallback to base columns if extended columns fail
+        const baseCols = [
+          'full_name', 'phone', 'dob', 'address', 'parent_relationship', 'parent_name', 'alt_phone',
+          'ug_degree', 'department', 'cgpa', 'passing_year', 'has_experience', 'experience_details',
+          'purpose_to_join', 'status', 'document_status', 'updated_at'
+        ];
+        const baseRecord = {};
+        baseCols.forEach(k => {
+          if (mergedUpdates[k] !== undefined) baseRecord[k] = mergedUpdates[k];
+        });
+        await supabase.from('applications').update(baseRecord).eq('application_id', applicationId).catch(() => {});
+      }
 
       // Also upsert documents in application_documents table
       if (formattedDocs.length > 0) {

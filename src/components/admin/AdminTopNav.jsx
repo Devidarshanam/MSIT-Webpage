@@ -17,7 +17,8 @@ export default function AdminTopNav({ isSupabaseLive, onToggleSidebar }) {
           <MenuIcon size={22} />
         </button>
 
-        <div className="admin-brand">
+        {/* Brand logo shown in topnav on mobile when sidebar is hidden */}
+        <div className="admin-brand mobile-only">
           <img src="/assets/msit-logo.png" alt="MSIT Logo" className="admin-logo" />
           <div className="admin-brand-text">
             <span className="admin-portal-title">Admissions Portal</span>
@@ -25,8 +26,15 @@ export default function AdminTopNav({ isSupabaseLive, onToggleSidebar }) {
           </div>
         </div>
 
+        {/* Desktop breadcrumb context */}
+        <div className="admin-topnav-breadcrumb desktop-only">
+          <span className="topnav-portal-badge">ADMISSIONS CONSOLE</span>
+          <span className="topnav-breadcrumb-divider">/</span>
+          <span className="topnav-current-section">January 2027 Intake</span>
+        </div>
+
         {isDevAdmin && (
-          <div className="admin-dev-pill" title="Authorized Administrator Access">
+          <div className="admin-dev-pill desktop-only" title="Authorized Administrator Access">
             <span className="dev-pill-dot" />
             <span>AUTHORIZED DOMAIN (@msitprogram.net / @getskills.io)</span>
           </div>
