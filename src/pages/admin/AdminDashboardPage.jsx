@@ -667,8 +667,13 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                     </thead>
                     <tbody>
                       {applications.map(app => {
-                        const docs = app.documents || [];
-                        const verifiedCount = docs.filter(d => d.status === 'Verified').length;
+                        const rawDocs = app.documents;
+                        const docs = Array.isArray(rawDocs)
+                          ? rawDocs.filter(Boolean)
+                          : (rawDocs && typeof rawDocs === 'object')
+                            ? Object.values(rawDocs).filter(d => d && typeof d === 'object')
+                            : [];
+                        const verifiedCount = docs.filter(d => d && d.status === 'Verified').length;
                         return (
                           <tr key={app.id}>
                             <td>

@@ -194,10 +194,28 @@ export default function StudentDashboardHeader({
   );
 
   // --- Step 2: Application Review & Document Verification ---
-  const docs = application?.documents || [];
-  const rejectedDocs = docs.filter(d => d.status === 'Rejected');
+  const rawDocs = application?.documents;
+  let docs = [];
+  if (Array.isArray(rawDocs)) {
+    docs = rawDocs.filter(Boolean);
+  } else if (typeof rawDocs === 'string') {
+    try {
+      const parsed = JSON.parse(rawDocs);
+      if (Array.isArray(parsed)) {
+        docs = parsed.filter(Boolean);
+      } else if (parsed && typeof parsed === 'object') {
+        docs = Object.values(parsed).filter(d => d && typeof d === 'object');
+      }
+    } catch (_) {
+      docs = [];
+    }
+  } else if (rawDocs && typeof rawDocs === 'object') {
+    docs = Object.values(rawDocs).filter(d => d && typeof d === 'object');
+  }
+
+  const rejectedDocs = docs.filter(d => d && (d.status === 'Rejected' || d.verificationStatus === 'Rejected'));
   const hasRejectedDoc = rejectedDocs.length > 0 || application?.document_status === 'Rejected';
-  const allDocsVerified = docs.length > 0 && docs.every(d => d.status === 'Verified');
+  const allDocsVerified = docs.length > 0 && docs.every(d => d && (d.status === 'Verified' || d.verificationStatus === 'Verified'));
   const isDocVerified = allDocsVerified || 
     application?.document_status === 'Verified' || 
     application?.document_status === 'Documents Verified' ||
@@ -308,8 +326,8 @@ export default function StudentDashboardHeader({
             ? 'All documents verified'
             : 'Review in progress by admissions committee',
       rejectedDocInfo: hasRejectedDoc ? {
-        name: rejectedDocs[0]?.doc_type || 'Uploaded Document',
-        reason: rejectedDocs[0]?.rejection_reason || application?.decision_reason || 'Document does not meet institutional verification criteria.'
+        name: rejectedDocs[0]?.doc_type || rejectedDocs[0]?.docType || rejectedDocs[0]?.name || rejectedDocs[0]?.fileName || 'Uploaded Document',
+        reason: rejectedDocs[0]?.rejection_reason || rejectedDocs[0]?.rejectionReason || application?.decision_reason || 'Document does not meet institutional verification criteria.'
       } : null
     },
 
