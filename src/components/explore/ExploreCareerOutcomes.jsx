@@ -6,19 +6,6 @@ import {
   CalendarIcon
 } from '../Icons';
 
-const ALUMNI_TOP_EMPLOYERS = [
-  { rank: 1, name: 'Kore.AI', placements: 9 },
-  { rank: 2, name: 'Skill Intern Pvt. Ltd.', placements: 8 },
-  { rank: 3, name: 'BizAcuity', placements: 8 },
-  { rank: 4, name: 'Zest Labs', placements: 7 },
-  { rank: 5, name: 'Q3 Veni Financial Information Pvt. Ltd.', placements: 6 },
-  { rank: 6, name: 'Quantana', placements: 4 },
-  { rank: 7, name: 'Saavan', placements: 4 },
-  { rank: 8, name: 'Synactive', placements: 4 },
-  { rank: 9, name: 'Synectiks', placements: 4 },
-  { rank: 10, name: 'Modak Analytics', placements: 3 },
-];
-
 export default function ExploreCareerOutcomes() {
   return (
     <section className="explore-section bg-white" id="career-outcomes">
@@ -93,6 +80,7 @@ export default function ExploreCareerOutcomes() {
         <div className="career-ecosystem-card">
           <div className="ecosystem-header-row">
             <div>
+              <span className="ecosystem-tag">CORPORATE RECRUITMENT &amp; PRACTICUM PARTNERS</span>
               <h4>Employers Recorded in Alumni Outcomes</h4>
             </div>
           </div>
@@ -101,22 +89,41 @@ export default function ExploreCareerOutcomes() {
             MSIT graduates have recorded career outcomes across technology, financial services, analytics, and enterprise software organizations.
           </p>
 
-          <div className="sector-group">
-            <span className="sector-title">Top Recorded Alumni Employers</span>
-            <div className="sector-tags-row">
-              {ALUMNI_TOP_EMPLOYERS.map((company) => (
-                <span className="sector-tag" key={company.name}>
-                  <span className="tag-name">{company.name}</span>
-                  <span className="tag-count">{company.placements}</span>
-                </span>
-              ))}
+          <div className="ecosystem-sectors-grid">
+            <div className="sector-group">
+              <span className="sector-title">TECH &amp; AI SYSTEMS</span>
+              <div className="sector-tags-row">
+                <span className="sector-tag">Kore.AI</span>
+                <span className="sector-tag">BizAcuity</span>
+                <span className="sector-tag">Zest Labs</span>
+              </div>
             </div>
-          </div>
 
-          <div className="ecosystem-notice-box">
-            <span className="ecosystem-notice-text">
-              <strong>Reporting Notice:</strong> Placement figures reflect verified alumni career outcome records compiled across recent graduating cohorts.
-            </span>
+            <div className="sector-group">
+              <span className="sector-title">FINTECH &amp; PAYMENTS</span>
+              <div className="sector-tags-row">
+                <span className="sector-tag">American Express</span>
+                <span className="sector-tag">Quantana</span>
+                <span className="sector-tag">Q3 Veni Financial Information Pvt. Ltd.</span>
+              </div>
+            </div>
+
+            <div className="sector-group">
+              <span className="sector-title">ENTERPRISE SOFTWARE &amp; SAAS</span>
+              <div className="sector-tags-row">
+                <span className="sector-tag">Skill Intern Pvt. Ltd.</span>
+                <span className="sector-tag">Synactive</span>
+                <span className="sector-tag">Synectiks</span>
+                <span className="sector-tag">Modak Analytics</span>
+              </div>
+            </div>
+
+            <div className="sector-group">
+              <span className="sector-title">DIGITAL &amp; ENGINEERING IT</span>
+              <div className="sector-tags-row">
+                <span className="sector-tag">Saavan</span>
+              </div>
+            </div>
           </div>
         </div>
 
