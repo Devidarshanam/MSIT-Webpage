@@ -2,13 +2,12 @@ import React from 'react';
 import { 
   AwardIcon, 
   RocketIcon, 
-  BriefcaseIcon, 
   BrainIcon, 
-  TrendingUpIcon, 
   CloudIcon, 
+  CodeIcon, 
   ShieldCheckIcon,
-  CheckCircleIcon,
-  ArrowRightIcon
+  UsersIcon,
+  CalendarIcon
 } from '../Icons';
 
 export default function ExploreCareerOutcomes() {
@@ -20,202 +19,211 @@ export default function ExploreCareerOutcomes() {
         <div className="explore-section-header">
           <span className="career-kicker-badge">
             <span className="career-kicker-dot"></span>
-            Career Pathways &amp; Outcomes
+            Career Pathways
           </span>
-          <h2>High-Growth Engineering Pathways</h2>
+          <h2>Where Can MSIT Take You?</h2>
           <p className="section-lead">
-            MSIT graduates transition from conventional undergraduate engineering backgrounds directly into high-growth 
-            software roles—accelerated by 100% active studio development and substantive corporate practicum exposure.
+            Build practical skills, explore different technology careers, and prepare for opportunities in software development, AI, data science, and cloud computing.
           </p>
         </div>
 
-        {/* Verified Outcome Stats Banner */}
+        {/* Verified Outcome Stats Banner: Refined Deep-Navy Panel */}
         <div className="career-stats-banner">
           <div className="career-stat-col">
-            <div className="c-stat-icon-wrap icon-amber">
-              <AwardIcon size={22} />
+            <div className="c-stat-icon-wrap icon-amber" aria-hidden="true">
+              <AwardIcon size={18} />
             </div>
             <div className="c-stat-info">
               <span className="c-stat-num">₹22 LPA</span>
               <span className="c-stat-title">Highest Package</span>
-              <span className="c-stat-desc">Top tier engineering placement</span>
+              <span className="c-stat-desc">2021–23 batch placement record</span>
             </div>
           </div>
 
-          <div className="career-stat-divider"></div>
+          <div className="career-stat-divider" aria-hidden="true"></div>
 
           <div className="career-stat-col">
-            <div className="c-stat-icon-wrap icon-blue">
-              <RocketIcon size={22} />
+            <div className="c-stat-icon-wrap icon-blue" aria-hidden="true">
+              <RocketIcon size={18} />
             </div>
             <div className="c-stat-info">
               <span className="c-stat-num">₹8.27 LPA</span>
               <span className="c-stat-title">Average Package</span>
-              <span className="c-stat-desc">Verified cohort compensation baseline</span>
+              <span className="c-stat-desc">2021–23 batch placement report</span>
             </div>
           </div>
 
-          <div className="career-stat-divider"></div>
+          <div className="career-stat-divider" aria-hidden="true"></div>
 
           <div className="career-stat-col">
-            <div className="c-stat-icon-wrap icon-emerald">
-              <BriefcaseIcon size={22} />
+            <div className="c-stat-icon-wrap icon-emerald" aria-hidden="true">
+              <UsersIcon size={18} />
             </div>
             <div className="c-stat-info">
-              <span className="c-stat-num">100%</span>
-              <span className="c-stat-title">Practicum Transition</span>
-              <span className="c-stat-desc">Direct corporate co-op immersion</span>
+              <span className="c-stat-num">3,000+</span>
+              <span className="c-stat-title">Alumni Network</span>
+              <span className="c-stat-desc">Graduates across 25 batches</span>
             </div>
           </div>
 
-          <div className="career-stat-divider"></div>
+          <div className="career-stat-divider" aria-hidden="true"></div>
 
           <div className="career-stat-col">
-            <div className="c-stat-icon-wrap icon-purple">
-              <CheckCircleIcon size={22} />
+            <div className="c-stat-icon-wrap icon-purple" aria-hidden="true">
+              <CalendarIcon size={18} />
             </div>
             <div className="c-stat-info">
-              <span className="c-stat-num">3x+</span>
-              <span className="c-stat-title">Career Acceleration</span>
-              <span className="c-stat-desc">Rapid trajectory into tech leadership</span>
+              <span className="c-stat-num">25+</span>
+              <span className="c-stat-title">Years Legacy</span>
+              <span className="c-stat-desc">Hands-on learning since 2001</span>
             </div>
           </div>
         </div>
 
-        {/* 3 High-Growth Engineering Pathway Cards */}
+        {/* 3 Career Pathway Cards */}
         <div className="career-pathways-grid">
           
-          {/* Card 1: AI & Intelligent Systems */}
+          {/* Card 1: Software Development */}
+          <div className="career-pathway-card card-software">
+            <div className="pathway-card-header">
+              <div className="pathway-title-row">
+                <div className="pathway-icon-badge icon-software" aria-hidden="true">
+                  <CodeIcon size={18} />
+                </div>
+                <h3 className="pathway-title">Software Development</h3>
+              </div>
+              <p className="pathway-desc">
+                Learn to build applications, develop software, work with databases, and solve real-world problems.
+              </p>
+            </div>
+
+            <div className="pathway-skills-block">
+              <span className="skills-heading">Key Focus Areas</span>
+              <ul className="pathway-skills-list">
+                <li>
+                  <span className="skill-bullet bullet-software" aria-hidden="true">•</span>
+                  <span>Building web and software applications</span>
+                </li>
+                <li>
+                  <span className="skill-bullet bullet-software" aria-hidden="true">•</span>
+                  <span>Working with databases, APIs, and modern frameworks</span>
+                </li>
+                <li>
+                  <span className="skill-bullet bullet-software" aria-hidden="true">•</span>
+                  <span>Writing clean code and solving practical problems</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="pathway-roles-footer">
+              <span className="roles-label">Example Roles:</span>
+              <div className="roles-tags-wrap">
+                <span className="role-tag">Software Developer</span>
+                <span className="role-tag">Full-Stack Developer</span>
+              </div>
+              <p className="roles-disclaimer">
+                *Illustrative career directions, not guaranteed placement.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2: Artificial Intelligence & Data Science */}
           <div className="career-pathway-card card-ai">
-            <div className="pathway-top-bar">
-              <span className="pathway-domain-pill pill-ai">Artificial Intelligence</span>
-              <div className="pathway-card-icon icon-ai">
-                <BrainIcon size={20} />
+            <div className="pathway-card-header">
+              <div className="pathway-title-row">
+                <div className="pathway-icon-badge icon-ai" aria-hidden="true">
+                  <BrainIcon size={18} />
+                </div>
+                <h3 className="pathway-title">Artificial Intelligence &amp; Data Science</h3>
               </div>
+              <p className="pathway-desc">
+                Learn how to work with data, build machine-learning models, and develop AI-powered solutions.
+              </p>
             </div>
 
-            <h3 className="pathway-role-title">Full-Stack AI Systems Architect</h3>
-            <p className="pathway-role-desc">
-              Designing multi-region enterprise AI pipelines, autonomous LLM agent clusters, RAG architectures, and fault-tolerant inference backends.
-            </p>
-
-            <div className="pathway-competencies">
-              <div className="pathway-comp-item">
-                <span className="comp-check check-ai">✓</span>
-                <span>Fine-tuning domain-specific LLMs &amp; RAG vector stores</span>
-              </div>
-              <div className="pathway-comp-item">
-                <span className="comp-check check-ai">✓</span>
-                <span>Distributed model serving &amp; real-time streaming APIs</span>
-              </div>
-              <div className="pathway-comp-item">
-                <span className="comp-check check-ai">✓</span>
-                <span>Autonomous agent workflows &amp; production guardrails</span>
-              </div>
+            <div className="pathway-skills-block">
+              <span className="skills-heading">Key Focus Areas</span>
+              <ul className="pathway-skills-list">
+                <li>
+                  <span className="skill-bullet bullet-ai" aria-hidden="true">•</span>
+                  <span>Analyzing and understanding real-world datasets</span>
+                </li>
+                <li>
+                  <span className="skill-bullet bullet-ai" aria-hidden="true">•</span>
+                  <span>Building and evaluating machine learning models</span>
+                </li>
+                <li>
+                  <span className="skill-bullet bullet-ai" aria-hidden="true">•</span>
+                  <span>Developing practical AI and intelligent features</span>
+                </li>
+              </ul>
             </div>
 
-            <div className="pathway-stepper-box">
-              <span className="stepper-label">Career Progression:</span>
-              <div className="stepper-track">
-                <span className="step-pill">B.Tech Graduate</span>
-                <span className="step-arr">→</span>
-                <span className="step-pill active">MSIT AI Studio</span>
-                <span className="step-arr">→</span>
-                <span className="step-pill target">AI Architect</span>
+            <div className="pathway-roles-footer">
+              <span className="roles-label">Example Roles:</span>
+              <div className="roles-tags-wrap">
+                <span className="role-tag">Data Analyst</span>
+                <span className="role-tag">Data Scientist</span>
+                <span className="role-tag">AI/ML Engineer</span>
               </div>
-            </div>
-          </div>
-
-          {/* Card 2: FinTech & High-Performance Systems */}
-          <div className="career-pathway-card card-fintech">
-            <div className="pathway-top-bar">
-              <span className="pathway-domain-pill pill-fintech">FinTech &amp; Systems</span>
-              <div className="pathway-card-icon icon-fintech">
-                <TrendingUpIcon size={20} />
-              </div>
-            </div>
-
-            <h3 className="pathway-role-title">Algorithmic Trading &amp; Systems Engineer</h3>
-            <p className="pathway-role-desc">
-              Building ultra-low-latency order matching engines, high-frequency data pipelines, and quantitative financial computing architectures.
-            </p>
-
-            <div className="pathway-competencies">
-              <div className="pathway-comp-item">
-                <span className="comp-check check-fintech">✓</span>
-                <span>Low-latency memory management &amp; concurrency</span>
-              </div>
-              <div className="pathway-comp-item">
-                <span className="comp-check check-fintech">✓</span>
-                <span>Event-driven messaging &amp; distributed cache layers</span>
-              </div>
-              <div className="pathway-comp-item">
-                <span className="comp-check check-fintech">✓</span>
-                <span>High-throughput quantitative execution algorithms</span>
-              </div>
-            </div>
-
-            <div className="pathway-stepper-box">
-              <span className="stepper-label">Career Progression:</span>
-              <div className="stepper-track">
-                <span className="step-pill">Core Engineering</span>
-                <span className="step-arr">→</span>
-                <span className="step-pill active">Systems Studio</span>
-                <span className="step-arr">→</span>
-                <span className="step-pill target">FinTech Lead</span>
-              </div>
+              <p className="roles-disclaimer">
+                *Illustrative career directions, not guaranteed placement.
+              </p>
             </div>
           </div>
 
-          {/* Card 3: Cloud & Enterprise Infrastructure */}
+          {/* Card 3: Cloud & Modern Applications */}
           <div className="career-pathway-card card-cloud">
-            <div className="pathway-top-bar">
-              <span className="pathway-domain-pill pill-cloud">Cloud &amp; Distributed</span>
-              <div className="pathway-card-icon icon-cloud">
-                <CloudIcon size={20} />
+            <div className="pathway-card-header">
+              <div className="pathway-title-row">
+                <div className="pathway-icon-badge icon-cloud" aria-hidden="true">
+                  <CloudIcon size={18} />
+                </div>
+                <h3 className="pathway-title">Cloud &amp; Modern Applications</h3>
               </div>
+              <p className="pathway-desc">
+                Explore how applications are deployed, connected, and maintained using modern technologies.
+              </p>
             </div>
 
-            <h3 className="pathway-role-title">Cloud Infrastructure Architect</h3>
-            <p className="pathway-role-desc">
-              Architecting resilient cloud-native platforms, container orchestration at massive scale, and automated continuous delivery pipelines.
-            </p>
-
-            <div className="pathway-competencies">
-              <div className="pathway-comp-item">
-                <span className="comp-check check-cloud">✓</span>
-                <span>Kubernetes orchestration &amp; scalable microservices</span>
-              </div>
-              <div className="pathway-comp-item">
-                <span className="comp-check check-cloud">✓</span>
-                <span>Infrastructure as Code &amp; multi-region networking</span>
-              </div>
-              <div className="pathway-comp-item">
-                <span className="comp-check check-cloud">✓</span>
-                <span>Zero-downtime deployment pipelines &amp; observability</span>
-              </div>
+            <div className="pathway-skills-block">
+              <span className="skills-heading">Key Focus Areas</span>
+              <ul className="pathway-skills-list">
+                <li>
+                  <span className="skill-bullet bullet-cloud" aria-hidden="true">•</span>
+                  <span>Deploying applications to modern cloud platforms</span>
+                </li>
+                <li>
+                  <span className="skill-bullet bullet-cloud" aria-hidden="true">•</span>
+                  <span>Building backend services, APIs, and data layers</span>
+                </li>
+                <li>
+                  <span className="skill-bullet bullet-cloud" aria-hidden="true">•</span>
+                  <span>Maintaining reliable application workflows</span>
+                </li>
+              </ul>
             </div>
 
-            <div className="pathway-stepper-box">
-              <span className="stepper-label">Career Progression:</span>
-              <div className="stepper-track">
-                <span className="step-pill">IT / Software Dev</span>
-                <span className="step-arr">→</span>
-                <span className="step-pill active">Cloud Studio</span>
-                <span className="step-arr">→</span>
-                <span className="step-pill target">Cloud Architect</span>
+            <div className="pathway-roles-footer">
+              <span className="roles-label">Example Roles:</span>
+              <div className="roles-tags-wrap">
+                <span className="role-tag">Cloud Engineer</span>
+                <span className="role-tag">Backend Developer</span>
               </div>
+              <p className="roles-disclaimer">
+                *Illustrative career directions, not guaranteed placement.
+              </p>
             </div>
           </div>
 
         </div>
 
-        {/* Verified Recruiter & Industry Partner Card */}
+        {/* Industry Recruiter & Employer Partner Card */}
         <div className="career-ecosystem-card">
           <div className="ecosystem-header-row">
             <div>
-              <span className="ecosystem-tag">Corporate Recruitment &amp; Practicum Partners</span>
-              <h4>Verified Industry Recruiters &amp; Employers</h4>
+              <span className="ecosystem-tag">Industry &amp; Alumni Network</span>
+              <h4>Organizations Where MSIT Alumni &amp; Interns Work</h4>
             </div>
             <div className="integrity-note-badge">
               <ShieldCheckIcon size={16} />
@@ -224,46 +232,41 @@ export default function ExploreCareerOutcomes() {
           </div>
 
           <p className="ecosystem-desc">
-            MSIT graduates and corporate interns are placed across product engineering, data analytics, 
-            and enterprise technology organizations through verified campus recruitment and corporate practicums.
+            MSIT graduates and interns have contributed across top technology firms, product companies, 
+            and global IT services organizations through campus recruitment and practical industry internships.
           </p>
 
           <div className="ecosystem-sectors-grid">
             <div className="sector-group">
-              <span className="sector-title">Tech &amp; AI Systems</span>
+              <span className="sector-title">Technology &amp; Products</span>
               <div className="sector-tags-row">
                 <span className="sector-tag">Amazon</span>
-                <span className="sector-tag">NVIDIA</span>
-                <span className="sector-tag">Gramener</span>
-              </div>
-            </div>
-
-            <div className="sector-group">
-              <span className="sector-title">FinTech &amp; Payments</span>
-              <div className="sector-tags-row">
-                <span className="sector-tag">American Express</span>
-                <span className="sector-tag">Finmkt</span>
-              </div>
-            </div>
-
-            <div className="sector-group">
-              <span className="sector-title">Enterprise Software &amp; SaaS</span>
-              <div className="sector-tags-row">
                 <span className="sector-tag">ZOHO</span>
                 <span className="sector-tag">Teradata</span>
+              </div>
+            </div>
+
+            <div className="sector-group">
+              <span className="sector-title">Enterprise Software</span>
+              <div className="sector-tags-row">
                 <span className="sector-tag">CA Technologies</span>
                 <span className="sector-tag">Cyient</span>
               </div>
             </div>
 
             <div className="sector-group">
-              <span className="sector-title">Digital &amp; Engineering IT</span>
+              <span className="sector-title">IT Services &amp; Consulting</span>
               <div className="sector-tags-row">
                 <span className="sector-tag">TCS</span>
                 <span className="sector-tag">Tech Mahindra</span>
-                <span className="sector-tag">Nendrasys</span>
               </div>
             </div>
+          </div>
+
+          <div className="ecosystem-notice-box">
+            <span className="ecosystem-notice-text">
+              <strong>Reporting Notice:</strong> Company names reflect sample organizations where MSIT students and alumni have worked or interned. Formal verified placement reports and recruiter lists for recent cohorts are published in the official admission circular.
+            </span>
           </div>
         </div>
 

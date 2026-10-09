@@ -18,53 +18,52 @@ export default function ExploreCampus() {
         <div className="explore-section-header">
           <span className="campus-kicker-badge">
             <span className="campus-kicker-dot"></span>
-            Campus Ecosystem &amp; Student Life
+            Campus Life
           </span>
-          <h2>Life &amp; Building at IIIT Hyderabad</h2>
+          <h2>Life at IIIT Hyderabad</h2>
           <p className="section-lead">
-            Thrive within one of India's foremost computing and AI research institutions—a vibrant, 66-acre 
-            tech ecosystem situated at the heart of Hyderabad's premier technology and innovation corridor.
+            Discover the campus, meet other students, explore new ideas, and experience life at IIIT Hyderabad.
           </p>
         </div>
 
         {/* Authentic Visual Showcase (Balanced Duo Grid) */}
         <div className="campus-duo-grid">
           
-          {/* Card 1: Campus Infrastructure & Environment */}
+          {/* Card 1: A Campus for Learning */}
           <div className="campus-duo-card">
             <img 
               src="/assets/iiit-campus-4k.jpg" 
-              alt="IIIT Hyderabad Academic and Research Campus" 
+              alt="IIIT Hyderabad Campus" 
               className="campus-duo-img"
               loading="lazy" 
             />
             <div className="campus-duo-overlay"></div>
             <div className="campus-duo-badge">
               <CompassIcon size={15} />
-              <span>66-Acre Green Campus • Gachibowli Hub</span>
+              <span>66-Acre Green Campus</span>
             </div>
             <div className="campus-duo-content">
-              <h3>The IIIT Hyderabad Computing Environment</h3>
-              <p>An immersive residential campus blending high-performance computing labs, lush green walkways, and premier research centers.</p>
+              <h3>A Campus for Learning</h3>
+              <p>A welcoming residential campus with modern computing facilities, tree-lined walkways, and dedicated spaces to study and collaborate.</p>
             </div>
           </div>
 
-          {/* Card 2: Student Life, Hackathons & Community */}
+          {/* Card 2: Student Life & Community */}
           <div className="campus-duo-card">
             <img 
               src="/assets/iiit-campus-life.jpg" 
-              alt="Life on Campus and Vibrant Student Community at IIIT Hyderabad" 
+              alt="Student Life and Community at IIIT Hyderabad" 
               className="campus-duo-img"
               loading="lazy" 
             />
             <div className="campus-duo-overlay"></div>
             <div className="campus-duo-badge badge-culture">
               <UsersIcon size={15} />
-              <span>Student Community &amp; Culture</span>
+              <span>Student Community</span>
             </div>
             <div className="campus-duo-content">
-              <h3>Campus Culture, Hackathons &amp; Peer Life</h3>
-              <p>A vibrant, energetic developer atmosphere with active technical clubs, hackathons, sports complexes, and cultural symposiums.</p>
+              <h3>Student Life &amp; Community</h3>
+              <p>An active and supportive community where students take part in clubs, hackathons, sports, and cultural activities.</p>
             </div>
           </div>
 
@@ -73,40 +72,44 @@ export default function ExploreCampus() {
         {/* 4 Pillars of the IIIT-H Ecosystem */}
         <div className="campus-pillars-grid">
           
+          {/* Card 3: Labs & Research */}
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-research">
               <ServerIcon size={24} />
             </div>
-            <span className="campus-pillar-tag">Research Proximity</span>
-            <h4>World-Class Computing Labs</h4>
-            <p>Immediate access to premier research centers, including the Kohli Centre on Intelligent Systems (KCIS), CVIT, and LTRC.</p>
+            <span className="campus-pillar-tag">Research &amp; Facilities</span>
+            <h4>Labs &amp; Research</h4>
+            <p>Access to advanced computing facilities, modern labs, and research centers in AI and emerging technologies.</p>
           </div>
 
+          {/* Card 4: Spaces to Learn & Build */}
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-maker">
               <CodeIcon size={24} />
             </div>
-            <span className="campus-pillar-tag">Studio Culture</span>
-            <h4>24/7 Collaborative Maker Spaces</h4>
-            <p>Dedicated studio pods with high-throughput network infrastructure, built for continuous teamwork, debugging, and software design.</p>
+            <span className="campus-pillar-tag">Collaborative Spaces</span>
+            <h4>Spaces to Learn &amp; Build</h4>
+            <p>Comfortable studio environments designed for teamwork, coding, and building practical projects together.</p>
           </div>
 
+          {/* Card 5: Innovation & Startups */}
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-startup">
               <RocketIcon size={24} />
             </div>
-            <span className="campus-pillar-tag">Innovation Corridor</span>
-            <h4>CIE &amp; T-Hub Startup Proximity</h4>
-            <p>Direct exposure to India's largest innovation ecosystem—surrounded by global tech headquarters and venture incubators.</p>
+            <span className="campus-pillar-tag">Innovation Hub</span>
+            <h4>Innovation &amp; Startups</h4>
+            <p>Learn about startups, explore new ideas, and discover how technology can solve real-world problems.</p>
           </div>
 
+          {/* Card 6: Campus Life & Facilities */}
           <div className="campus-pillar-card">
             <div className="campus-pillar-icon icon-wellbeing">
               <HomeIcon size={24} />
             </div>
-            <span className="campus-pillar-tag">Residential Life</span>
-            <h4>Holistic Wellbeing &amp; Living</h4>
-            <p>On-campus student accommodation, modern cafeterias, multi-sport complexes, gyms, and quiet green reflection zones.</p>
+            <span className="campus-pillar-tag">Living &amp; Recreation</span>
+            <h4>Campus Life &amp; Facilities</h4>
+            <p>Student dining facilities, sports courts, gymnasium, green areas, and everyday conveniences for campus life.</p>
           </div>
 
         </div>
@@ -116,31 +119,31 @@ export default function ExploreCampus() {
           <div className="campus-stat-item">
             <span className="c-stat-val">66</span>
             <span className="c-stat-unit">Acres</span>
-            <span className="c-stat-desc">Green residential tech campus in Gachibowli</span>
+            <span className="c-stat-desc">Green residential campus in Gachibowli</span>
           </div>
 
           <div className="campus-stat-divider"></div>
 
           <div className="campus-stat-item">
-            <span className="c-stat-val">24/7</span>
-            <span className="c-stat-unit">Access</span>
-            <span className="c-stat-desc">Unrestricted studio and computing lab availability</span>
+            <span className="c-stat-val">20+</span>
+            <span className="c-stat-unit">Research Centers</span>
+            <span className="c-stat-desc">Specialized labs across computing and AI</span>
           </div>
 
           <div className="campus-stat-divider"></div>
 
           <div className="campus-stat-item">
-            <span className="c-stat-val">Top Tier</span>
-            <span className="c-stat-unit">Rankings</span>
-            <span className="c-stat-desc">Consistently among India's elite computer science institutions</span>
+            <span className="c-stat-val">25+</span>
+            <span className="c-stat-unit">Years Legacy</span>
+            <span className="c-stat-desc">Hands-on learning tradition since 2001</span>
           </div>
 
           <div className="campus-stat-divider"></div>
 
           <div className="campus-stat-item">
-            <span className="c-stat-val">100+</span>
-            <span className="c-stat-unit">Events</span>
-            <span className="c-stat-desc">Hackathons, tech symposiums &amp; cultural activities annually</span>
+            <span className="c-stat-val">Active</span>
+            <span className="c-stat-unit">Student Life</span>
+            <span className="c-stat-desc">Technical clubs, hackathons, and cultural events</span>
           </div>
         </div>
 
