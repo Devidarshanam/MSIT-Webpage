@@ -14,13 +14,7 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import AdminProtectedRoute from './components/admin/AdminProtectedRoute';
 
 function KnowAboutMSITRoute() {
-  const navigate = useNavigate();
-  return (
-    <KnowAboutMSITPage 
-      onBack={() => navigate('/')}
-      onGoToSignIn={() => navigate('/')}
-    />
-  );
+  return <KnowAboutMSITPage />;
 }
 
 function AdminIndexRoute() {
@@ -52,8 +46,11 @@ export default function App() {
       <AdminAuthProvider>
         <div className="app-root">
           <Routes>
-            <Route path="/" element={<StudentGatewayPage />} />
-            <Route path="/know-about-msit" element={<KnowAboutMSITRoute />} />
+            <Route path="/" element={<KnowAboutMSITRoute />} />
+            <Route path="/know-about-msit" element={<Navigate to="/" replace />} />
+            <Route path="/gateway" element={<StudentGatewayPage />} />
+            <Route path="/login" element={<StudentGatewayPage />} />
+            <Route path="/register" element={<StudentGatewayPage />} />
             <Route
               path="/programme"
               element={

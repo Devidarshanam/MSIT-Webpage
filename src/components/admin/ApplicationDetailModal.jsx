@@ -78,7 +78,7 @@ export default function ApplicationDetailModal({
     let targetStatus = 'Under Review';
     if (decisionType === 'Accept') targetStatus = 'Accepted';
     else if (decisionType === 'Decline') targetStatus = 'Declined';
-    else if (decisionType === 'Pending') targetStatus = 'Documents Pending';
+    else if (decisionType === 'Pending' || decisionType === 'ActionRequired') targetStatus = 'Additional Information Required';
 
     const res = await updateApplicationStatus(application.application_id, targetStatus, reason, adminEmail);
     if (res.updatedApp) {
@@ -174,10 +174,11 @@ export default function ApplicationDetailModal({
               <button
                 type="button"
                 className="btn btn-sm btn-secondary"
-                onClick={() => handleOpenDecision('Pending')}
-                disabled={application.status === 'Documents Pending'}
+                onClick={() => handleOpenDecision('ActionRequired')}
+                disabled={application.status === 'Additional Information Required'}
+                style={{ background: '#fff7ed', color: '#9a3412', borderColor: '#fed7aa', fontWeight: '600' }}
               >
-                Documents Pending
+                Request Additional Info
               </button>
             </div>
           </div>
@@ -279,39 +280,107 @@ export default function ApplicationDetailModal({
                   <div className="info-grid">
                     <div className="info-item">
                       <span className="label">Qualifying Degree:</span>
-                      <strong className="value">{application.ug_degree || 'N/A'}</strong>
+                      <strong className="value">{application.ug_degree || 'B.Tech / B.E.'}</strong>
+                    </div>
+                    <div className="info-item">
+                      <span className="label">University / Institution:</span>
+                      <span className="value">{application.university || 'N/A'}</span>
                     </div>
                     <div className="info-item">
                       <span className="label">Department / Branch:</span>
                       <span className="value">{application.department || 'N/A'}</span>
                     </div>
                     <div className="info-item">
-                      <span className="label">CGPA / Percentage:</span>
-                      <strong className="value text-primary">{application.cgpa || 'N/A'}</strong>
+                      <span className="label">Aggregate Score:</span>
+                      <strong className="value text-primary">{application.cgpa || 'N/A'} {application.grading_scale ? `(${application.grading_scale})` : ''}</strong>
                     </div>
                     <div className="info-item">
-                      <span className="label">Year of Passing:</span>
+                      <span className="label">Graduation Year:</span>
                       <span className="value">{application.passing_year || 'N/A'}</span>
                     </div>
+                    {application.score_eligibility_note && (
+                      <div className="info-item full" style={{ background: '#fffbeb', padding: '0.65rem 0.85rem', borderRadius: '6px', border: '1px solid #fde68a' }}>
+                        <span className="label" style={{ color: '#92400e' }}>Eligibility Threshold Advisory:</span>
+                        <span className="value" style={{ color: '#92400e', fontSize: '0.85rem' }}>{application.score_eligibility_note}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Section 3: Entrance Exam Scores & CV */}
+                <div className="applicant-info-card">
+                  <h4 className="info-card-title">
+                    <AwardIcon size={18} />
+                    <span>Entrance Examination &amp; CV / Resume</span>
+                  </h4>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <span className="label">GRE Score:</span>
+                      <span className="value">{application.gre_score || 'Not provided'}</span>
+                    </div>
+                    <div className="info-item">
+                      <span className="label">GATE Score:</span>
+                      <span className="value">{application.gate_score || 'Not provided'}</span>
+                    </div>
                     <div className="info-item full">
-                      <span className="label">Prior Work Experience:</span>
+                      <span className="label">Curriculum Vitae (CV) / Resume:</span>
                       <span className="value">
-                        {application.has_experience === 'Yes'
-                          ? `Yes — ${application.experience_details || 'Specified in application'}`
-                          : 'No (Fresher)'}
+                        {application.cv_url ? (
+                          <a 
+                            href={application.cv_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn btn-sm btn-secondary" 
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.25rem' }}
+                          >
+                            <DownloadIcon size={14} />
+                            <span>Download CV ({application.cv_filename || 'Candidate_CV.pdf'})</span>
+                          </a>
+                        ) : (
+                          application.cv_filename || 'Uploaded with application'
+                        )}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Section 3: Purpose to Join */}
-                {application.purpose_to_join && (
+                {/* Section 4: Statement about MSIT */}
+                {(application.statement_text || application.purpose_to_join) && (
+                  <div className="applicant-info-card">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                      <h4 className="info-card-title" style={{ margin: 0 }}>
+                        <BookOpenIcon size={18} />
+                        <span>Statement about MSIT</span>
+                      </h4>
+                      <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#0b2a6b', background: '#eff6ff', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                        {application.statement_word_count || (application.statement_text ? application.statement_text.trim().split(/\s+/).length : 0)} / 200 words
+                      </span>
+                    </div>
+                    <p className="sop-text" style={{ fontStyle: 'italic', background: '#f8fafc', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                      "{application.statement_text || application.purpose_to_join}"
+                    </p>
+                  </div>
+                )}
+
+                {/* Section 5: Referral Source */}
+                {application.referral_source && (
                   <div className="applicant-info-card">
                     <h4 className="info-card-title">
-                      <AwardIcon size={18} />
-                      <span>Purpose to Join MSIT</span>
+                      <UsersIcon size={18} />
+                      <span>How Candidate Heard About MSIT</span>
                     </h4>
-                    <p className="sop-text">{application.purpose_to_join}</p>
+                    <div className="info-grid">
+                      <div className="info-item">
+                        <span className="label">Source:</span>
+                        <strong className="value">{application.referral_source}</strong>
+                      </div>
+                      {application.referral_explanation && (
+                        <div className="info-item">
+                          <span className="label">Explanation:</span>
+                          <span className="value">{application.referral_explanation}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
 
@@ -359,13 +428,27 @@ export default function ApplicationDetailModal({
                             )}
                           </td>
                           <td>
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                              onClick={() => handleOpenDocReview(doc)}
-                            >
-                              Review / Update
-                            </button>
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                              <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                                onClick={() => handleOpenDocReview(doc)}
+                              >
+                                Review / Update
+                              </button>
+                              {doc.file_url && (
+                                <a
+                                  href={doc.file_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn btn-sm"
+                                  style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '0.25rem 0.5rem', fontSize: '0.78rem', textDecoration: 'none', color: '#0f172a' }}
+                                  title="Open document securely in new tab"
+                                >
+                                  View File
+                                </a>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}

@@ -24,6 +24,9 @@ export function getStudentDisplayName(user) {
   // 2. Check browser storage for locally saved registration details
   if (typeof window !== 'undefined') {
     try {
+      const sessionName = sessionStorage.getItem('msit_auth_fullname');
+      if (sessionName?.trim()) return sessionName.trim();
+
       const localUser = JSON.parse(localStorage.getItem('msit_auth_user') || '{}');
       if (localUser?.user_metadata?.full_name?.trim()) return localUser.user_metadata.full_name.trim();
       if (localUser?.fullName?.trim()) return localUser.fullName.trim();

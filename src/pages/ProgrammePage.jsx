@@ -24,6 +24,8 @@ import { getStudentDisplayName } from '../utils/userUtils';
 import { APPLICATION_CONFIG } from '../data/applicationConfig';
 import { isAuthorizedAdminEmail } from '../context/AdminAuthContext';
 
+import { getUserApplication } from '../services/applicationService';
+
 const APPLICATION_PORTAL_URL = APPLICATION_CONFIG?.isApplicationOpen
   ? APPLICATION_CONFIG.standbyRoute
   : import.meta.env.VITE_APPLICATION_PORTAL_URL;
@@ -35,6 +37,31 @@ export default function ProgrammePage() {
   // Resolved student display name
   const displayName = getStudentDisplayName(user);
   const isAdmin = user?.email && isAuthorizedAdminEmail(user.email);
+
+  // Application state
+  const [application, setApplication] = useState(null);
+  const [applicationStatus, setApplicationStatus] = useState('Not Started');
+  const [loadingApp, setLoadingApp] = useState(true);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    async function fetchUserApp() {
+      if (!user) return;
+      try {
+        const { application: app, status } = await getUserApplication(user);
+        if (isMounted) {
+          setApplication(app);
+          setApplicationStatus(status || 'Not Started');
+        }
+      } catch (err) {
+        console.warn('[MSIT] Application fetch error:', err);
+      } finally {
+        if (isMounted) setLoadingApp(false);
+      }
+    }
+    fetchUserApp();
+    return () => { isMounted = false; };
+  }, [user]);
 
   // If user arrived with intent to login to admin, auto-redirect to admin dashboard
   React.useEffect(() => {
@@ -145,9 +172,22 @@ export default function ProgrammePage() {
               <button
                 type="button"
                 className="btn btn-primary programme-apply-btn"
-                onClick={() => navigate('/apply')}
+                onClick={() => {
+                  if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(applicationStatus)) {
+                    navigate('/apply?mode=view');
+                  } else if (applicationStatus === 'Additional Information Required') {
+                    navigate('/apply?mode=edit');
+                  } else {
+                    navigate('/apply');
+                  }
+                }}
               >
-                <span>Apply Now</span>
+                <span>
+                  {applicationStatus === 'Draft' && 'Continue Application'}
+                  {['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(applicationStatus) && 'View Application'}
+                  {applicationStatus === 'Additional Information Required' && 'Update Application'}
+                  {applicationStatus === 'Not Started' && 'Apply Now'}
+                </span>
                 <ArrowRightIcon size={16} />
               </button>
 
@@ -173,7 +213,17 @@ export default function ProgrammePage() {
       <StudentDashboardHeader 
         user={user} 
         data={msitData.dashboard} 
-        onApply={() => navigate('/apply')} 
+        application={application}
+        applicationStatus={applicationStatus}
+        onApply={(status) => {
+          if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(status)) {
+            navigate('/apply?mode=view');
+          } else if (status === 'Additional Information Required') {
+            navigate('/apply?mode=edit');
+          } else {
+            navigate('/apply');
+          }
+        }} 
       />
 
       {/* ============================================================
@@ -226,6 +276,8 @@ export default function ProgrammePage() {
       <NextStepsAndApplicationSection 
         data={msitData.nextSteps} 
         user={user} 
+        application={application}
+        applicationStatus={applicationStatus}
         applicationPortalUrl={APPLICATION_PORTAL_URL} 
       />
 

@@ -22,12 +22,14 @@ export function StatusBadge({ status, type = 'application' }) {
     // Application status
     switch (normalized) {
       case 'new':
+      case 'submitted':
         badgeClass = 'status-badge-info';
         break;
       case 'under review':
         badgeClass = 'status-badge-warning';
         break;
       case 'documents pending':
+      case 'additional information required':
         badgeClass = 'status-badge-purple';
         break;
       case 'documents verified':

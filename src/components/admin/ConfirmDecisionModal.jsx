@@ -5,7 +5,7 @@ export default function ConfirmDecisionModal({
   isOpen,
   onClose,
   onConfirm,
-  decisionType, // 'Accept' | 'Decline' | 'Review' | 'Pending'
+  decisionType, // 'Accept' | 'Decline' | 'Review' | 'Pending' | 'ActionRequired'
   applicantName,
   applicationId
 }) {
@@ -17,10 +17,15 @@ export default function ConfirmDecisionModal({
 
   const isDecline = decisionType === 'Decline';
   const isAccept = decisionType === 'Accept';
+  const isActionRequired = decisionType === 'ActionRequired' || decisionType === 'Pending';
 
   const handleConfirm = async () => {
     if (isDecline && !reason.trim()) {
       setError('A decline reason / comment is required before declining an application.');
+      return;
+    }
+    if (isActionRequired && !reason.trim()) {
+      setError('Please specify the documents or information requested from the candidate.');
       return;
     }
 
@@ -42,11 +47,11 @@ export default function ConfirmDecisionModal({
       <div className="admin-modal-box confirm-decision-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <div className="modal-title-wrap">
-            <h3 className={isDecline ? 'text-danger' : isAccept ? 'text-success' : ''}>
+            <h3 className={isDecline ? 'text-danger' : isAccept ? 'text-success' : isActionRequired ? 'text-warning' : ''}>
               {decisionType === 'Accept' && 'Accept Application'}
               {decisionType === 'Decline' && 'Decline Application'}
               {decisionType === 'Review' && 'Move Application to Under Review'}
-              {decisionType === 'Pending' && 'Move Application to Documents Pending'}
+              {isActionRequired && 'Request Additional Information / Documents'}
             </h3>
             <span className="modal-sub">
               Candidate: <strong>{applicantName}</strong> ({applicationId})
@@ -64,7 +69,7 @@ export default function ConfirmDecisionModal({
                 Are you sure you want to mark this application as <strong>Accepted</strong>?
               </p>
               <span className="notice-clarification">
-                PENDING — REQUIRES CONFIRMATION: Automated acceptance emails are not sent automatically.
+                Official offer will be reflected on the candidate portal.
               </span>
             </div>
           )}
@@ -77,9 +82,17 @@ export default function ConfirmDecisionModal({
             </div>
           )}
 
-          {(!isAccept && !isDecline) && (
+          {isActionRequired && (
+            <div className="decision-notice-box notice-warning" style={{ background: '#fff7ed', borderColor: '#fed7aa', color: '#9a3412', padding: '0.85rem', borderRadius: '8px', marginBottom: '1rem' }}>
+              <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                This status notifies the candidate on their dashboard and enables the <strong>Update Application</strong> button so they can upload revised documents or provide missing information.
+              </p>
+            </div>
+          )}
+
+          {(!isAccept && !isDecline && !isActionRequired) && (
             <p className="modal-description-text">
-              Update status for this candidate to <strong>{decisionType === 'Review' ? 'Under Review' : 'Documents Pending'}</strong>.
+              Update status for this candidate to <strong>Under Review</strong>.
             </p>
           )}
 
@@ -88,6 +101,8 @@ export default function ConfirmDecisionModal({
             <label htmlFor="decisionReason">
               {isDecline ? (
                 <>Official Decline Reason <span className="req">*</span></>
+              ) : isActionRequired ? (
+                <>Instructions / Requested Information for Candidate <span className="req">*</span></>
               ) : (
                 <>Internal Note / Committee Remark (Optional)</>
               )}
@@ -99,6 +114,8 @@ export default function ConfirmDecisionModal({
               placeholder={
                 isDecline
                   ? 'Specify why this application is being declined (e.g. Ineligible CGPA, Incomplete transcripts, etc.)...'
+                  : isActionRequired
+                  ? 'e.g. Please upload a clearer scan of Class 10 marksheet or provide updated degree certificate...'
                   : 'Add any optional admissions committee comments...'
               }
               value={reason}
@@ -122,11 +139,11 @@ export default function ConfirmDecisionModal({
           </button>
           <button
             type="button"
-            className={`btn ${isDecline ? 'btn-danger' : 'btn-primary'}`}
+            className={`btn ${isDecline ? 'btn-danger' : isActionRequired ? 'btn-primary-accent' : 'btn-primary'}`}
             onClick={handleConfirm}
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Updating...' : `Confirm ${decisionType}`}
+            {isSubmitting ? 'Updating...' : isActionRequired ? 'Request Updates' : `Confirm ${decisionType}`}
           </button>
         </div>
       </div>
