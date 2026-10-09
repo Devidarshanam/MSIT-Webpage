@@ -23,15 +23,6 @@ export default function StudentDashboardHeader({
   // Extract real student name cleanly
   const displayName = getStudentDisplayName(user);
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const yOffset = -120;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
-
   // Dynamic parameters from admin admission settings or fallback
   const commencementDate = admissionSettings?.commencementDate || data?.cohortBadge?.replace('Batch Commencement: ', '') || 'January 2, 2027';
   const commencementVenue = admissionSettings?.commencementVenue || 'IIIT Hyderabad';
@@ -517,7 +508,7 @@ export default function StudentDashboardHeader({
               </div>
             </div>
 
-            <div className="status-card-footer" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+            <div className="status-card-footer">
               <button 
                 type="button" 
                 className="btn btn-primary btn-sm full-width"
@@ -525,21 +516,6 @@ export default function StudentDashboardHeader({
                 onClick={handleActionClick}
               >
                 <span>{currentStatusConfig.buttonLabel}</span>
-                <ArrowRightIcon size={14} />
-              </button>
-              <button 
-                type="button" 
-                className="status-jump-btn"
-                onClick={() => {
-                  const el = document.getElementById('eligibility');
-                  if (el) {
-                    scrollToSection('eligibility');
-                  } else {
-                    navigate('/#eligibility');
-                  }
-                }}
-              >
-                <span>Check Eligibility Criteria</span>
                 <ArrowRightIcon size={14} />
               </button>
             </div>

@@ -6940,39 +6940,6 @@ p {
   border-top: 1px solid rgba(255, 255, 255, 0.25);
 }
 
-.status-jump-btn {
-  background: #ffffff !important;
-  border: 1px solid #ffffff !important;
-  color: #091e42 !important;
-  font-size: 0.9rem !important;
-  font-weight: 800 !important;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0.75rem 1.1rem !important;
-  border-radius: var(--radius-md);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-  transition: all 0.2s ease;
-}
-
-.status-jump-btn span {
-  color: #091e42 !important;
-  font-weight: 800 !important;
-}
-
-.status-jump-btn svg {
-  color: #091e42 !important;
-}
-
-.status-jump-btn:hover {
-  background: #f0f7ff !important;
-  color: #0b2a6b !important;
-  border-color: #93c5fd !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-}
 
 /* Decision Prep / Checklist Area */
 .decision-prep-area {
