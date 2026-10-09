@@ -90,33 +90,33 @@ export default function ExploreCareerOutcomes() {
         </div>
 
         {/* Employers Recorded in Alumni Outcomes */}
-        <div className="career-ecosystem-card alumni-outcomes-card">
-          <div className="alumni-outcomes-header">
-            <h3 className="alumni-outcomes-title">Employers Recorded in Alumni Outcomes</h3>
-            <p className="alumni-outcomes-desc">
-              MSIT graduates have recorded career outcomes across technology, financial services, analytics, and enterprise software organizations.
-            </p>
+        <div className="career-ecosystem-card">
+          <div className="ecosystem-header-row">
+            <div>
+              <h4>Employers Recorded in Alumni Outcomes</h4>
+            </div>
           </div>
 
-          <div className="alumni-employers-grid">
-            {ALUMNI_TOP_EMPLOYERS.map((company) => (
-              <div 
-                className={`alumni-employer-card ${company.rank <= 3 ? 'top-rank' : ''}`} 
-                key={company.rank}
-              >
-                <div className="employer-rank-badge">
-                  #{company.rank}
-                </div>
-                <div className="employer-info">
-                  <h4 className="employer-name">{company.name}</h4>
-                  <span className="employer-subtext">Recorded Alumni Placement</span>
-                </div>
-                <div className="employer-count-badge">
-                  <span className="count-number">{company.placements}</span>
-                  <span className="count-label">{company.placements === 1 ? 'Placement' : 'Placements'}</span>
-                </div>
-              </div>
-            ))}
+          <p className="ecosystem-desc">
+            MSIT graduates have recorded career outcomes across technology, financial services, analytics, and enterprise software organizations.
+          </p>
+
+          <div className="sector-group">
+            <span className="sector-title">Top Recorded Alumni Employers</span>
+            <div className="sector-tags-row">
+              {ALUMNI_TOP_EMPLOYERS.map((company) => (
+                <span className="sector-tag" key={company.name}>
+                  <span className="tag-name">{company.name}</span>
+                  <span className="tag-count">{company.placements}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="ecosystem-notice-box">
+            <span className="ecosystem-notice-text">
+              <strong>Reporting Notice:</strong> Placement figures reflect verified alumni career outcome records compiled across recent graduating cohorts.
+            </span>
           </div>
         </div>
 
