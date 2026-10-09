@@ -10,26 +10,14 @@ import msitData from '../data/msitData.json';
 import DashboardSubNav from '../components/postlogin/DashboardSubNav';
 import StudentDashboardHeader from '../components/postlogin/StudentDashboardHeader';
 import ProgrammeOverviewSection from '../components/postlogin/ProgrammeOverviewSection';
-import CurriculumSection from '../components/postlogin/CurriculumSection';
-import EligibilityAndAdmissionsSection from '../components/postlogin/EligibilityAndAdmissionsSection';
 import FeesAndFinancialSupportSection from '../components/postlogin/FeesAndFinancialSupportSection';
-import CareerOutcomesSection from '../components/postlogin/CareerOutcomesSection';
-import RealWorldPracticumSection from '../components/postlogin/RealWorldPracticumSection';
-import CampusAndStudentLifeSection from '../components/postlogin/CampusAndStudentLifeSection';
 import DocumentsAndFAQSection from '../components/postlogin/DocumentsAndFAQSection';
-import NextStepsAndApplicationSection from '../components/postlogin/NextStepsAndApplicationSection';
 import AcademicSummaryModal from '../components/postlogin/AcademicSummaryModal';
 import Footer from '../components/Footer';
 import { getStudentDisplayName } from '../utils/userUtils';
-import { APPLICATION_CONFIG } from '../data/applicationConfig';
 import { isAuthorizedAdminEmail } from '../context/AdminAuthContext';
 
 import { getUserApplication } from '../services/applicationService';
-
-const APPLICATION_PORTAL_URL = APPLICATION_CONFIG?.isApplicationOpen
-  ? APPLICATION_CONFIG.standbyRoute
-  : import.meta.env.VITE_APPLICATION_PORTAL_URL;
-
 export default function ProgrammePage() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -232,37 +220,12 @@ export default function ProgrammePage() {
       <ProgrammeOverviewSection data={msitData.overview} />
 
       {/* ============================================================
-          3. CURRICULUM & LEARNING STRUCTURE
-          ============================================================ */}
-      <CurriculumSection data={msitData.curriculum} />
-
-      {/* ============================================================
-          4. ELIGIBILITY & ADMISSIONS PROCESS
-          ============================================================ */}
-      <EligibilityAndAdmissionsSection data={msitData.eligibility} />
-
-      {/* ============================================================
-          5. FEES & FINANCIAL SUPPORT
+          3. FEES & FINANCIAL SUPPORT
           ============================================================ */}
       <FeesAndFinancialSupportSection data={msitData.fees} />
 
       {/* ============================================================
-          6. CAREER PATHWAYS & OUTCOMES
-          ============================================================ */}
-      <CareerOutcomesSection data={msitData.careers} />
-
-      {/* ============================================================
-          7. REAL-WORLD PRACTICUM & VENTURE STUDIO
-          ============================================================ */}
-      <RealWorldPracticumSection data={msitData.practicum} />
-
-      {/* ============================================================
-          8. CAMPUS & STUDENT LIFE
-          ============================================================ */}
-      <CampusAndStudentLifeSection data={msitData.campusLife} />
-
-      {/* ============================================================
-          9. DOCUMENTS & FAQ
+          4. DOCUMENTS & FAQ
           ============================================================ */}
       <DocumentsAndFAQSection 
         documentsData={msitData.documents} 
@@ -271,17 +234,7 @@ export default function ProgrammePage() {
       />
 
       {/* ============================================================
-          10. APPLICATION STATUS & NEXT STEPS
-          ============================================================ */}
-      <NextStepsAndApplicationSection 
-        data={msitData.nextSteps} 
-        user={user} 
-        application={application}
-        applicationStatus={applicationStatus}
-        applicationPortalUrl={APPLICATION_PORTAL_URL} 
-      />
 
-      {/* ============================================================
           OFFICIAL FOOTER
           ============================================================ */}
       <Footer data={msitData.footer} />

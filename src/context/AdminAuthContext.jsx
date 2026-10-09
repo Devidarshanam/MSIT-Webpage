@@ -10,7 +10,7 @@ const AdminAuthContext = createContext(null);
 function getSiteUrl() {
   const envUrl = import.meta?.env?.VITE_SITE_URL;
   if (envUrl) return envUrl.replace(/\/+$/, '');
-  if (typeof window !== 'undefined' && window.location.origin !== 'http://localhost:3000') {
+  if (typeof window !== 'undefined' && window.location.origin) {
     return window.location.origin;
   }
   return 'https://msit-webpage.vercel.app';

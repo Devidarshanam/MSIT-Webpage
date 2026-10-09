@@ -4,14 +4,8 @@ import { MenuIcon, XIcon, ArrowRightIcon } from '../Icons';
 const NAV_ITEMS = [
   { num: '01', label: 'Overview', href: '#overview', desc: 'MSIT charter, consortium & cohort targets' },
   { num: '02', label: 'Programme Structure', href: '#programme-specs', desc: '4-semester structure, co-op & venture studio' },
-  { num: '03', label: 'Curriculum', href: '#curriculum', desc: 'Full syllabus, 6 learning stages & domains' },
-  { num: '04', label: 'Eligibility & Admissions', href: '#eligibility', desc: 'Academic criteria, intake timeline & test structure' },
-  { num: '05', label: 'Fees & Loans', href: '#fees', desc: 'Verified fee schedule, installment plan & loan facilitation' },
-  { num: '06', label: 'Career Outcomes', href: '#careers', desc: 'Pathways, placement outcomes & alumni stories' },
-  { num: '07', label: 'Practicum', href: '#practicum', desc: 'Industry project sprints & production systems' },
-  { num: '08', label: 'Campus Life', href: '#campus', desc: 'IIIT-H campus ecosystem, labs & student facilities' },
-  { num: '09', label: 'Documents & FAQ', href: '#documents-faq', desc: 'Circular downloads, FAQs & helpdesk channels' },
-  { num: '10', label: 'Apply Now', href: '#next-steps', desc: 'Online application portal & admissions submission' },
+  { num: '03', label: 'Fees & Loans', href: '#fees', desc: 'Verified fee schedule, installment plan & loan facilitation' },
+  { num: '04', label: 'Documents & FAQ', href: '#documents-faq', desc: 'Circular downloads, FAQs & helpdesk channels' },
 ];
 
 export default function DashboardSubNav() {
@@ -109,37 +103,37 @@ export default function DashboardSubNav() {
             </div>
 
             {/* 3-Lines (☰) Hamburger Menu Button */}
-            <button
-              type="button"
-              className="subnav-menu-btn"
-              onClick={() => setIsDrawerOpen(true)}
-              aria-label="Open all 10 sections menu"
-              title="View all 10 programme sections"
-            >
-              <MenuIcon size={16} />
-              <span className="subnav-menu-btn-label">Sections</span>
-              <span className="subnav-menu-count-badge">10</span>
-            </button>
+              <button
+                type="button"
+                className="subnav-menu-btn"
+                onClick={() => setIsDrawerOpen(true)}
+                aria-label="Open sections menu"
+                title="View programme sections"
+              >
+                <MenuIcon size={16} />
+                <span className="subnav-menu-btn-label">Sections</span>
+                <span className="subnav-menu-count-badge">{NAV_ITEMS.length}</span>
+              </button>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* Slide-Up Bottom Drawer / Modal for All 10 Sections */}
-      {isDrawerOpen && (
-        <div
-          className="subnav-drawer-overlay"
-          onClick={() => setIsDrawerOpen(false)}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="drawer-heading"
-        >
-          <div className="subnav-drawer" onClick={(e) => e.stopPropagation()}>
-            <div className="drawer-header">
-              <div className="drawer-handle" />
-              <div className="drawer-header-content">
-                <div>
-                  <h3 id="drawer-heading" className="drawer-title">Programme Sections</h3>
-                  <p className="drawer-subtitle">10 decision areas — tap to jump instantly</p>
+        {/* Slide-Up Bottom Drawer / Modal */}
+        {isDrawerOpen && (
+          <div
+            className="subnav-drawer-overlay"
+            onClick={() => setIsDrawerOpen(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="drawer-heading"
+          >
+            <div className="subnav-drawer" onClick={(e) => e.stopPropagation()}>
+              <div className="drawer-header">
+                <div className="drawer-handle" />
+                <div className="drawer-header-content">
+                  <div>
+                    <h3 id="drawer-heading" className="drawer-title">Programme Sections</h3>
+                    <p className="drawer-subtitle">{NAV_ITEMS.length} decision areas — tap to jump instantly</p>
                 </div>
                 <button
                   type="button"

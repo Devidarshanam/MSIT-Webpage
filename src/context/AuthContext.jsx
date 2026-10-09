@@ -13,8 +13,8 @@ function getSiteUrl() {
   const envUrl = import.meta?.env?.VITE_SITE_URL;
   if (envUrl) return envUrl.replace(/\/+$/, ''); // strip trailing slash
 
-  // 2. Runtime origin (works correctly on deployed sites, but NOT during SSR/build)
-  if (typeof window !== 'undefined' && window.location.origin !== 'http://localhost:3000') {
+  // 2. Runtime origin (works for both http://localhost:3000 and deployed domains)
+  if (typeof window !== 'undefined' && window.location.origin) {
     return window.location.origin;
   }
 
