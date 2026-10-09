@@ -54,14 +54,6 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
             <div className="eligibility-detail-card">
               <span className="detail-check">✓</span>
               <div>
-                <strong>All Engineering Streams Eligible</strong>
-                <p>Open to B.Tech / B.E. graduates and final-year students across Computer Science, ECE, EEE, Mechanical, Civil, IT, and all allied branches.</p>
-              </div>
-            </div>
-
-            <div className="eligibility-detail-card">
-              <span className="detail-check">✓</span>
-              <div>
                 <strong>Flexible Entrance Evaluation</strong>
                 <p>Qualify via valid national exam scores (GATE / GRE) or take the dedicated MSIT Graduate Aptitude Test (GAT).</p>
               </div>
@@ -121,7 +113,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
             </div>
             <span className="step-stage-tag">Step 4 • Studio Onboarding</span>
             <h4>Studio Allotment &amp; Offer</h4>
-            <p>Receive formal admission confirmation, complete workstation allotment, and begin cohort onboarding into the collaborative studio environment.</p>
+            <p>Receive your admission confirmation, get your workstation, and prepare to begin the programme.</p>
           </div>
 
         </div>
