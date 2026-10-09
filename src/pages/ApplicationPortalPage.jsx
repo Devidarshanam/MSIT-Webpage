@@ -6,25 +6,38 @@ import {
   ClockIcon, 
   ArrowRightIcon, 
   HelpCircleIcon,
-  DownloadIcon,
-  UploadIcon,
-  XIcon,
-  UserIcon,
-  GraduationCapIcon,
-  ShieldCheckIcon,
-  BookOpenIcon,
-  SparklesIcon,
-  MailIcon
+  DownloadIcon, 
+  UploadIcon, 
+  XIcon, 
+  UserIcon, 
+  GraduationCapIcon, 
+  ShieldCheckIcon, 
+  BookOpenIcon, 
+  SparklesIcon, 
+  MailIcon,
+  BriefcaseIcon,
+  PhoneIcon,
+  MapPinIcon,
+  AwardIcon,
+  UsersIcon,
+  InfoIcon
 } from '../components/Icons';
 import { 
   APPLICATION_CONFIG, 
   INITIAL_APPLICATION_STATE, 
+  PARENT_RELATIONSHIP_OPTIONS,
+  INTER_PATHWAY_OPTIONS,
   UG_DEGREE_OPTIONS, 
   DEPARTMENT_OPTIONS, 
   PASSING_YEAR_OPTIONS,
   GRADING_SCALE_OPTIONS,
   REFERRAL_SOURCE_OPTIONS,
-  ACADEMIC_DOC_DEFINITIONS
+  ENTRANCE_EXAM_OPTIONS,
+  EXAM_YEAR_OPTIONS,
+  WORK_EXP_YEAR_OPTIONS,
+  WORK_EXP_MONTH_OPTIONS,
+  DOCUMENT_DEFINITIONS,
+  requires16YearProof
 } from '../data/applicationConfig';
 import { 
   getUserApplication, 
@@ -36,6 +49,18 @@ import {
   generateApplicationId
 } from '../services/applicationService';
 import { getStudentDisplayName } from '../utils/userUtils';
+
+// Stepper Step Metadata (8 Sections)
+const FORM_SECTIONS = [
+  { id: 1, title: 'Personal Info', fullTitle: 'Personal & Contact Information', shortLabel: 'Personal' },
+  { id: 2, title: 'Parent / Guardian', fullTitle: 'Parent / Guardian Information', shortLabel: 'Guardian' },
+  { id: 3, title: 'Academics', fullTitle: 'Academic Qualifications', shortLabel: 'Academics' },
+  { id: 4, title: 'Work Experience', fullTitle: 'Work Experience & Resume', shortLabel: 'Experience' },
+  { id: 5, title: 'Purpose of Joining', fullTitle: 'Purpose of Joining MSIT', shortLabel: 'Purpose' },
+  { id: 6, title: 'Referral Source', fullTitle: 'How Did You Hear About MSIT?', shortLabel: 'Referral' },
+  { id: 7, title: 'Entrance Exams', fullTitle: 'Entrance Examination Details', shortLabel: 'Exams' },
+  { id: 8, title: 'Review & Submit', fullTitle: 'Review & Submit Application', shortLabel: 'Review' }
+];
 
 export default function ApplicationPortalPage() {
   const navigate = useNavigate();
@@ -49,6 +74,7 @@ export default function ApplicationPortalPage() {
   const [isDraftDirty, setIsDraftDirty] = useState(false);
   const [errors, setErrors] = useState({});
   const [uploadProgress, setUploadProgress] = useState({});
+  const [saveDraftMessage, setSaveDraftMessage] = useState(null);
 
   // Active / Submitted Application Record
   const [serverApp, setServerApp] = useState(null);
@@ -63,6 +89,34 @@ export default function ApplicationPortalPage() {
     };
   });
 
+  // Helper to map document array to document map
+  const mapDocsArrayToMap = (docsArray) => {
+    const docsMap = { ...INITIAL_APPLICATION_STATE.documents };
+    if (!Array.isArray(docsArray)) return docsMap;
+
+    docsArray.forEach(doc => {
+      const type = (doc.doc_type || doc.docType || '').toLowerCase();
+      if (type.includes('class 10') || type.includes('ssc')) {
+        docsMap.class10Doc = doc;
+      } else if (type.includes('class 12') || type.includes('intermediate') || type.includes('diploma')) {
+        docsMap.class12Doc = doc;
+      } else if (type.includes('16-year') || type.includes('additional qualifying')) {
+        docsMap.additionalDegree16YearDoc = doc;
+      } else if (type.includes('degree cert') || type.includes('provisional')) {
+        docsMap.degreeCertDoc = doc;
+      } else if (type.includes('degree') || type.includes('transcripts') || type.includes('marks memo')) {
+        docsMap.ugDegreeDoc = doc;
+      } else if (type.includes('gre')) {
+        docsMap.greScorecardDoc = doc;
+      } else if (type.includes('gate')) {
+        docsMap.gateScorecardDoc = doc;
+      } else if (type.includes('cv') || type.includes('resume')) {
+        docsMap.cvDoc = doc;
+      }
+    });
+    return docsMap;
+  };
+
   // Load existing application or saved draft on mount
   useEffect(() => {
     let isMounted = true;
@@ -73,18 +127,51 @@ export default function ApplicationPortalPage() {
       const email = user.email.toLowerCase();
 
       try {
-        const { application: app, status } = await getUserApplication(user);
+        const { application: app } = await getUserApplication(user);
 
         if (!isMounted) return;
 
         if (app && app.status && app.status !== 'Draft') {
           // Application has already been submitted
           setServerApp(app);
+          const restoredDocs = mapDocsArrayToMap(app.documents);
+
           setFormData({
             ...INITIAL_APPLICATION_STATE,
             ...app,
             fullName: app.full_name || resolvedName,
             email: app.email || email,
+            phone: app.phone || '',
+            dob: app.dob || '',
+            address: app.address || '',
+            parentRelationship: app.parent_relationship || 'Father',
+            parentName: app.parent_name || '',
+            altPhone: app.alt_phone || '',
+            class10Score: app.class10_score || '',
+            class10ScoreType: app.class10_score_type || 'Percentage',
+            interPathway: app.inter_pathway || 'Class 12 / Intermediate',
+            interScore: app.inter_score || '',
+            interScoreType: app.inter_score_type || 'Percentage',
+            ugDegree: app.ug_degree || 'B.Tech / B.E.',
+            university: app.university || '',
+            department: app.department || 'Computer Science & Engineering (CSE)',
+            passingYear: app.passing_year || '2026',
+            gradingScale: app.grading_scale || 'Percentage (out of 100%)',
+            cgpa: app.cgpa || '',
+            hasExperience: app.has_experience || 'No',
+            experienceYears: app.experience_years || '0',
+            experienceMonths: app.experience_months || '0',
+            companyName: app.company_name || '',
+            jobRole: app.job_role || '',
+            statementText: app.statement_text || app.purpose_to_join || '',
+            referralSource: app.referral_source || '',
+            referralExplanation: app.referral_explanation || '',
+            entranceExamStatus: app.entrance_exam_status || 'Neither',
+            greScore: app.gre_score || '',
+            greYear: app.gre_year || '',
+            gateScore: app.gate_score || '',
+            gateYear: app.gate_year || '',
+            documents: restoredDocs,
             cvDocument: app.cv_url ? { fileName: app.cv_filename || 'Candidate_CV.pdf', fileUrl: app.cv_url, status: 'Uploaded' } : null,
             isSubmitted: true
           });
@@ -104,7 +191,11 @@ export default function ApplicationPortalPage() {
             ...INITIAL_APPLICATION_STATE,
             ...draft,
             fullName: draft.fullName || resolvedName,
-            email: email
+            email: email,
+            documents: {
+              ...INITIAL_APPLICATION_STATE.documents,
+              ...(draft.documents || {})
+            }
           });
           setLastSavedTime(draft.updated_at ? new Date(draft.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Saved');
         } else {
@@ -142,33 +233,7 @@ export default function ApplicationPortalPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentStep, portalMode]);
 
-  // Handle generic field change
-  const handleFieldChange = (field, value) => {
-    setFormData(prev => {
-      const updated = { ...prev, [field]: value };
-      return updated;
-    });
-    setIsDraftDirty(true);
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: null }));
-    }
-  };
-
-  // Explicit Save Draft action
-  const handleSaveDraft = async () => {
-    if (!user?.email) return;
-    try {
-      const res = await saveApplicationDraft(formData, user);
-      if (res.success) {
-        setIsDraftDirty(false);
-        setLastSavedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-      }
-    } catch (err) {
-      console.warn('[MSIT] Save draft warning:', err);
-    }
-  };
-
-  // Word counter calculation for Section F (200 words max)
+  // Word counter calculation for Section 5 (200 words max)
   const getWordCount = (text) => {
     if (!text || typeof text !== 'string') return 0;
     const trimmed = text.trim();
@@ -211,6 +276,94 @@ export default function ApplicationPortalPage() {
 
   const eligibilityAdvisory = getEligibilityAdvisory();
 
+  // Dynamic Parent / Guardian Label Helpers
+  const getParentNameLabel = () => {
+    switch (formData.parentRelationship) {
+      case 'Mother': return "Mother's Name";
+      case 'Legal Guardian': return "Legal Guardian's Name";
+      default: return "Father's Name";
+    }
+  };
+
+  const getParentPhoneLabel = () => {
+    switch (formData.parentRelationship) {
+      case 'Mother': return "Mother's Mobile Number";
+      case 'Legal Guardian': return "Legal Guardian's Mobile Number";
+      default: return "Father's Mobile Number";
+    }
+  };
+
+  // Handle generic field change
+  const handleFieldChange = (field, value) => {
+    setFormData(prev => {
+      const updated = { ...prev, [field]: value };
+
+      // Handle conditional resets
+      if (field === 'hasExperience' && value === 'No') {
+        updated.experienceYears = '0';
+        updated.experienceMonths = '0';
+        updated.companyName = '';
+        updated.jobRole = '';
+      }
+
+      if (field === 'referralSource' && value !== 'Other') {
+        updated.referralExplanation = '';
+      }
+
+      if (field === 'entranceExamStatus') {
+        if (value === 'Neither') {
+          updated.greScore = '';
+          updated.greYear = '';
+          updated.gateScore = '';
+          updated.gateYear = '';
+          updated.documents = {
+            ...updated.documents,
+            greScorecardDoc: null,
+            gateScorecardDoc: null
+          };
+        } else if (value === 'GRE') {
+          updated.gateScore = '';
+          updated.gateYear = '';
+          updated.documents = {
+            ...updated.documents,
+            gateScorecardDoc: null
+          };
+        } else if (value === 'GATE') {
+          updated.greScore = '';
+          updated.greYear = '';
+          updated.documents = {
+            ...updated.documents,
+            greScorecardDoc: null
+          };
+        }
+      }
+
+      return updated;
+    });
+
+    setIsDraftDirty(true);
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: null }));
+    }
+  };
+
+  // Explicit Save Draft action (DOES NOT BLOCK on incomplete required fields!)
+  const handleSaveDraft = async () => {
+    if (!user?.email) return;
+    try {
+      const res = await saveApplicationDraft(formData, user);
+      if (res.success) {
+        setIsDraftDirty(false);
+        const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        setLastSavedTime(timeStr);
+        setSaveDraftMessage('Draft saved successfully!');
+        setTimeout(() => setSaveDraftMessage(null), 3000);
+      }
+    } catch (err) {
+      console.warn('[MSIT] Save draft warning:', err);
+    }
+  };
+
   // Handle document file upload
   const handleFileUpload = async (file, docTypeKey, docTypeLabel) => {
     if (!file) return;
@@ -229,19 +382,20 @@ export default function ApplicationPortalPage() {
         return;
       }
 
-      if (docTypeKey === 'cvDocument') {
-        setFormData(prev => ({ ...prev, cvDocument: res.data }));
-      } else if (docTypeKey === 'entranceScorecardDoc') {
-        setFormData(prev => ({ ...prev, entranceScorecardDoc: res.data }));
-      } else {
-        setFormData(prev => ({
+      setFormData(prev => {
+        const updatedDocs = {
+          ...prev.documents,
+          [docTypeKey]: res.data
+        };
+        const updated = {
           ...prev,
-          documents: {
-            ...prev.documents,
-            [docTypeKey]: res.data
-          }
-        }));
-      }
+          documents: updatedDocs
+        };
+        if (docTypeKey === 'cvDocument') {
+          updated.cvDocument = res.data;
+        }
+        return updated;
+      });
 
       setIsDraftDirty(true);
     } catch (err) {
@@ -250,17 +404,107 @@ export default function ApplicationPortalPage() {
     }
   };
 
-  // Validate step fields
-  const validateStep = (stepNumber) => {
+  // Section-level validation
+  const validateSection = (stepNum) => {
     const errs = {};
+    const phoneRegex = /^[+]?[(]?[0-9]{1,4}[)]?[-\s./0-9]{8,14}$/;
 
-    if (stepNumber === 1) {
+    // SECTION 1: Personal & Contact Information
+    if (stepNum === 1) {
       if (!formData.fullName.trim()) errs.fullName = 'Full Name is required';
       if (!formData.email.trim()) errs.email = 'Email Address is required';
-      if (!formData.phone.trim()) errs.phone = 'Mobile Phone Number is required';
+      
+      if (!formData.phone.trim()) {
+        errs.phone = 'Mobile Phone Number is required';
+      } else if (!phoneRegex.test(formData.phone.replace(/\s+/g, ''))) {
+        errs.phone = 'Please enter a valid 10-digit mobile number';
+      }
+
+      if (!formData.dob) {
+        errs.dob = 'Date of birth is required';
+      } else {
+        const dobDate = new Date(formData.dob);
+        const now = new Date();
+        const age = (now - dobDate) / (365.25 * 24 * 60 * 60 * 1000);
+        if (isNaN(dobDate.getTime())) {
+          errs.dob = 'Please select a valid date';
+        } else if (dobDate >= now) {
+          errs.dob = 'Date of birth cannot be in the future';
+        } else if (age < 15) {
+          errs.dob = 'Candidate must be at least 15 years of age';
+        }
+      }
+
+      if (!formData.address.trim()) {
+        errs.address = 'Residential Address is required';
+      }
+    }
+
+    // SECTION 2: Parent / Guardian Information
+    if (stepNum === 2) {
+      if (!formData.parentRelationship) {
+        errs.parentRelationship = 'Please select the relationship';
+      }
+
+      const nameLabel = getParentNameLabel();
+      if (!formData.parentName.trim()) {
+        errs.parentName = `${nameLabel} is required`;
+      }
+
+      const phoneLabel = getParentPhoneLabel();
+      if (!formData.altPhone.trim()) {
+        errs.altPhone = `${phoneLabel} is required`;
+      } else if (!phoneRegex.test(formData.altPhone.replace(/\s+/g, ''))) {
+        errs.altPhone = `Please enter a valid 10-digit mobile number for ${nameLabel}`;
+      }
+    }
+
+    // SECTION 3: Academic Qualifications
+    if (stepNum === 3) {
+      // 3A. Class 10
+      if (!formData.class10Score || !formData.class10Score.trim()) {
+        errs.class10Score = 'Class 10 / SSC score is required';
+      } else {
+        const val = parseFloat(formData.class10Score);
+        if (isNaN(val) || val <= 0) {
+          errs.class10Score = 'Please enter a valid score';
+        } else if (formData.class10ScoreType === 'Percentage' && val > 100) {
+          errs.class10Score = 'Percentage cannot exceed 100%';
+        } else if (formData.class10ScoreType === 'CGPA' && val > 10) {
+          errs.class10Score = 'CGPA cannot exceed 10.0';
+        }
+      }
+
+      if (!formData.documents?.class10Doc) {
+        errs.class10Doc = 'Class 10 / SSC Marksheet or Memo upload is required';
+      }
+
+      // 3B. Class 12 / Intermediate
+      if (!formData.interScore || !formData.interScore.trim()) {
+        errs.interScore = 'Intermediate / Class 12 score is required';
+      } else {
+        const val = parseFloat(formData.interScore);
+        if (isNaN(val) || val <= 0) {
+          errs.interScore = 'Please enter a valid score';
+        } else if (formData.interScoreType === 'Percentage' && val > 100) {
+          errs.interScore = 'Percentage cannot exceed 100%';
+        } else if (formData.interScoreType === 'CGPA' && val > 10) {
+          errs.interScore = 'CGPA cannot exceed 10.0';
+        }
+      }
+
+      if (!formData.documents?.class12Doc) {
+        errs.class12Doc = 'Intermediate / Class 12 Marksheet or Memo upload is required';
+      }
+
+      // 3C. Qualifying Degree
+      if (!formData.ugDegree) errs.ugDegree = 'Qualifying Degree is required';
       if (!formData.university.trim()) errs.university = 'University / Institution name is required';
-      if (!formData.cgpa.trim()) {
-        errs.cgpa = 'Aggregate score or CGPA is required';
+      if (!formData.department.trim()) errs.department = 'Department / Branch is required';
+      if (!formData.passingYear) errs.passingYear = 'Graduation year is required';
+
+      if (!formData.cgpa || !formData.cgpa.trim()) {
+        errs.cgpa = 'Aggregate CGPA / Percentage is required';
       } else {
         const val = parseFloat(formData.cgpa);
         if (isNaN(val) || val <= 0) {
@@ -273,37 +517,82 @@ export default function ApplicationPortalPage() {
           errs.cgpa = '4-Point GPA cannot exceed 4.0';
         }
       }
-    }
 
-    if (stepNumber === 2) {
-      // Academic documents
-      ACADEMIC_DOC_DEFINITIONS.forEach(docDef => {
-        if (docDef.required && (!formData.documents || !formData.documents[docDef.key])) {
-          errs[docDef.key] = `${docDef.title} is required`;
+      if (!formData.documents?.ugDegreeDoc) {
+        errs.ugDegreeDoc = 'Degree Marksheet / Consolidated Marks Memo upload is required';
+      }
+
+      // Conditional 16-Year Education Proof for MCA / non-4-year degrees
+      if (requires16YearProof(formData.ugDegree)) {
+        if (!formData.documents?.additionalDegree16YearDoc) {
+          errs.additionalDegree16YearDoc = '16-Year Education Proof is required for your qualifying degree';
         }
-      });
-    }
-
-    if (stepNumber === 3) {
-      // CV is mandatory
-      if (!formData.cvDocument) {
-        errs.cvDocument = 'CV / Resume upload is required before submitting your application';
       }
     }
 
-    if (stepNumber === 4) {
-      // Statement of Purpose
+    // SECTION 4: Work Experience
+    if (stepNum === 4) {
+      if (formData.hasExperience === 'Yes') {
+        if (!formData.companyName.trim()) {
+          errs.companyName = 'Company name is required';
+        }
+        if (!formData.jobRole.trim()) {
+          errs.jobRole = 'Job title / role is required';
+        }
+      }
+
+      // CV / Resume is required
+      if (!formData.cvDocument && !formData.documents?.cvDoc && !formData.documents?.cvDocument && !formData.cv_url) {
+        errs.cvDocument = 'Curriculum Vitae (CV) / Resume upload is required';
+      }
+    }
+
+    // SECTION 5: Purpose of Joining MSIT
+    if (stepNum === 5) {
       if (!formData.statementText.trim()) {
-        errs.statementText = 'Please provide your statement about MSIT';
+        errs.statementText = 'Please provide your statement explaining why you want to join MSIT';
       } else if (currentStatementWords > APPLICATION_CONFIG.statementMaxWords) {
-        errs.statementText = `Your statement exceeds the 200-word limit (${currentStatementWords} words). Please edit to 200 words or less.`;
+        errs.statementText = `Your statement exceeds the 200-word limit (${currentStatementWords} words). Please reduce to 200 words or less.`;
       }
+    }
 
-      // Referral source
+    // SECTION 6: How Did You Hear About MSIT?
+    if (stepNum === 6) {
       if (!formData.referralSource) {
-        errs.referralSource = 'Please tell us how you heard about MSIT';
+        errs.referralSource = 'Please select how you heard about the MSIT programme';
       } else if (formData.referralSource === 'Other' && !formData.referralExplanation.trim()) {
         errs.referralExplanation = 'Please specify how you heard about MSIT';
+      }
+    }
+
+    // SECTION 7: Entrance Examination Details
+    if (stepNum === 7) {
+      if (formData.entranceExamStatus === 'GRE' || formData.entranceExamStatus === 'Both') {
+        if (!formData.greScore || !formData.greScore.trim()) {
+          errs.greScore = 'GRE score is required';
+        } else {
+          const val = parseFloat(formData.greScore);
+          if (isNaN(val) || val <= 0) {
+            errs.greScore = 'Please enter a valid GRE score';
+          }
+        }
+        if (!formData.documents?.greScorecardDoc) {
+          errs.greScorecardDoc = 'GRE Scorecard upload is required';
+        }
+      }
+
+      if (formData.entranceExamStatus === 'GATE' || formData.entranceExamStatus === 'Both') {
+        if (!formData.gateScore || !formData.gateScore.trim()) {
+          errs.gateScore = 'GATE score is required';
+        } else {
+          const val = parseFloat(formData.gateScore);
+          if (isNaN(val) || val <= 0) {
+            errs.gateScore = 'Please enter a valid GATE score';
+          }
+        }
+        if (!formData.documents?.gateScorecardDoc) {
+          errs.gateScorecardDoc = 'GATE Scorecard upload is required';
+        }
       }
     }
 
@@ -311,27 +600,44 @@ export default function ApplicationPortalPage() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleNextStep = () => {
-    if (validateStep(currentStep)) {
+  // Continue to Next Section
+  const handleNextSection = () => {
+    if (validateSection(currentStep)) {
       handleSaveDraft();
-      setCurrentStep(prev => Math.min(prev + 1, 5));
+      setCurrentStep(prev => Math.min(prev + 1, 8));
     }
   };
 
-  const handlePrevStep = () => {
+  // Back to Previous Section
+  const handlePrevSection = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
+  };
+
+  // Direct step jump (from stepper tab or review edit link)
+  const handleJumpToSection = (stepNum) => {
+    // Save draft without blocking
+    handleSaveDraft();
+    setCurrentStep(stepNum);
+  };
+
+  // Verify all sections for final submission
+  const validateAllSections = () => {
+    const sectionErrors = {};
+    for (let s = 1; s <= 7; s++) {
+      if (!validateSection(s)) {
+        sectionErrors[s] = true;
+      }
+    }
+    return Object.keys(sectionErrors).length === 0;
   };
 
   // Final Application Submission
   const handleSubmitApplication = async (e) => {
     e.preventDefault();
 
-    // Re-verify all steps
-    for (let s = 1; s <= 4; s++) {
-      if (!validateStep(s)) {
-        setCurrentStep(s);
-        return;
-      }
+    if (!validateAllSections()) {
+      alert('Please complete all required fields and upload required documents across all sections before submitting.');
+      return;
     }
 
     setIsSubmitting(true);
@@ -373,1024 +679,303 @@ export default function ApplicationPortalPage() {
     }
   };
 
-  return (
-    <div className="single-app-wrapper">
-      {/* Top Application Bar */}
-      <header className="single-app-header">
-        <div className="container single-app-header-inner">
-          <div className="single-app-brand">
-            <img
-              src="/assets/msit-logo.png"
-              alt="MSIT Logo"
-              className="single-app-logo"
-            />
-            <div>
-              <span className="brand-title">MSIT Application Portal</span>
-              <span className="brand-cohort">{APPLICATION_CONFIG.cohort} • IIIT Hyderabad</span>
-            </div>
+  // Reusable Document Upload Card Component
+  const renderDocumentUploadCard = (docKey, docTitle, isRequired, helperText, accept = '.pdf,.jpg,.jpeg,.png') => {
+    const uploadedDoc = formData.documents?.[docKey] || (docKey === 'cvDocument' ? formData.cvDocument : null);
+    const isUploading = !!uploadProgress[docKey];
+    const fieldError = errors[docKey];
+
+    return (
+      <div 
+        key={docKey} 
+        className={`doc-upload-item-card ${uploadedDoc ? 'is-uploaded' : ''} ${isUploading ? 'is-uploading' : ''}`}
+        id={`upload-card-${docKey}`}
+      >
+        <div className="doc-upload-header">
+          <div>
+            <h5 className="doc-upload-title">{docTitle}</h5>
+            <p className="doc-upload-sub">{helperText}</p>
           </div>
-
-          <div className="single-app-controls">
-            {portalMode !== 'view' && portalMode !== 'success' && (
-              <>
-                {lastSavedTime && (
-                  <span className="draft-saved-pill">
-                    <CheckCircleIcon size={13} />
-                    <span>Draft Saved: {lastSavedTime}</span>
-                  </span>
-                )}
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-sm"
-                  onClick={handleSaveDraft}
-                  title="Save current progress"
-                >
-                  Save Draft
-                </button>
-              </>
+          <div>
+            {isRequired ? (
+              <span className="field-badge-required">Required</span>
+            ) : (
+              <span className="field-badge-optional">Optional</span>
             )}
-
-            <button
-              type="button"
-              className="btn btn-secondary btn-sm"
-              onClick={() => navigate('/programme')}
-            >
-              Exit to Dashboard
-            </button>
           </div>
         </div>
-      </header>
 
-      <main className="multi-section-app-container">
-        {/* ============================================================
-            VIEW MODE BANNER (When application is already submitted)
-            ============================================================ */}
-        {portalMode === 'view' && (
+        {uploadedDoc ? (
+          <div className="doc-file-uploaded-view">
+            <div className="doc-file-info">
+              <CheckCircleIcon size={18} className="text-success" />
+              <div>
+                <span className="doc-file-name">{uploadedDoc.fileName || uploadedDoc.file_name || 'Document Uploaded'}</span>
+                {uploadedDoc.fileSize && (
+                  <span className="doc-file-size"> • {uploadedDoc.fileSize || uploadedDoc.file_size}</span>
+                )}
+              </div>
+            </div>
+            {portalMode !== 'view' && (
+              <div>
+                <label className="doc-replace-btn" htmlFor={`file-input-${docKey}`}>
+                  Replace
+                </label>
+                <input
+                  id={`file-input-${docKey}`}
+                  type="file"
+                  accept={accept}
+                  className="doc-file-input"
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      handleFileUpload(e.target.files[0], docKey, docTitle);
+                    }
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="doc-dropzone-row">
+            {portalMode !== 'view' ? (
+              <>
+                <label className="doc-select-file-btn" htmlFor={`file-input-${docKey}`}>
+                  <UploadIcon size={16} />
+                  <span>Choose File</span>
+                </label>
+                <input
+                  id={`file-input-${docKey}`}
+                  type="file"
+                  accept={accept}
+                  className="doc-file-input"
+                  disabled={isUploading}
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      handleFileUpload(e.target.files[0], docKey, docTitle);
+                    }
+                  }}
+                />
+                <span className="doc-format-hint">
+                  {accept.includes('doc') ? 'PDF, DOC, DOCX up to 5 MB' : 'PDF, JPG, PNG up to 10 MB'}
+                </span>
+              </>
+            ) : (
+              <span className="field-error-text" style={{ color: '#64748b' }}>Not provided</span>
+            )}
+          </div>
+        )}
+
+        {isUploading && (
+          <div className="doc-upload-progress">
+            <div className="doc-progress-bar-fill"></div>
+          </div>
+        )}
+
+        {fieldError && <span className="field-error-text">{fieldError}</span>}
+      </div>
+    );
+  };
+
+  // VIEW MODE: Render Read-Only View of Submitted Application
+  if (portalMode === 'view' && formData.isSubmitted) {
+    return (
+      <div className="single-app-wrapper">
+        <header className="single-app-header">
+          <div className="container single-app-header-inner">
+            <div className="single-app-brand">
+              <img src="/assets/msit-logo.png" alt="MSIT Logo" className="single-app-logo" />
+              <div>
+                <span className="brand-title">MSIT Application Portal</span>
+                <span className="brand-cohort">{APPLICATION_CONFIG.cohort} • IIIT Hyderabad</span>
+              </div>
+            </div>
+            <div className="single-app-controls">
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                onClick={() => navigate('/programme')}
+              >
+                ← Back to Dashboard
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div className="multi-section-app-container">
+          {/* Status Alert Banner */}
           <div className="app-view-banner">
-            <CheckCircleIcon size={24} style={{ flexShrink: 0, marginTop: '2px' }} />
+            <InfoIcon size={24} />
             <div>
-              <strong style={{ fontSize: '1.05rem', display: 'block', marginBottom: '0.25rem' }}>
-                Application Recorded — {formData.applicationId || 'Submitted'}
-              </strong>
-              <p style={{ margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                Your prospective student application is currently recorded with MSIT Admissions. You can review your submitted details and uploaded credentials below. If you require document adjustments or updates, please reach out to the admissions office at <strong>{APPLICATION_CONFIG.supportEmail}</strong>.
+              <h4 style={{ margin: '0 0 0.25rem 0', fontWeight: '800' }}>
+                Application Submitted ({formData.applicationId || serverApp?.application_id})
+              </h4>
+              <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                Your application is currently <strong>{formData.status || 'Submitted'}</strong>. The admissions committee is reviewing your academic credentials and statement of purpose.
               </p>
             </div>
           </div>
-        )}
 
-        {/* ============================================================
-            EDIT MODE BANNER (Admissions requested updates)
-            ============================================================ */}
-        {portalMode === 'edit' && (
-          <div className="app-edit-banner">
-            <ClockIcon size={24} style={{ flexShrink: 0, marginTop: '2px' }} />
-            <div>
-              <strong style={{ fontSize: '1.05rem', display: 'block', marginBottom: '0.25rem' }}>
-                Admissions Update Requested
-              </strong>
-              <p style={{ margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
-                {serverApp?.decision_reason 
-                  ? `Admissions Note: "${serverApp.decision_reason}". Please update the requested fields or documents below and submit your changes.`
-                  : 'The admissions committee has requested updates to your submitted application details or documents. Please make the required changes below and resubmit.'}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* ============================================================
-            STEPPER NAVIGATION TABS (Sections A - H)
-            ============================================================ */}
-        {portalMode !== 'success' && (
-          <nav className="app-stepper-wrap" aria-label="Application Stepper">
-            <button
-              type="button"
-              className={`stepper-tab-btn ${currentStep === 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}
-              onClick={() => setCurrentStep(1)}
-            >
-              <span className="stepper-tab-num">1</span>
-              <span>A &amp; B. Candidate &amp; Academics</span>
-            </button>
-
-            <button
-              type="button"
-              className={`stepper-tab-btn ${currentStep === 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}
-              onClick={() => { if (validateStep(1)) setCurrentStep(2); }}
-            >
-              <span className="stepper-tab-num">2</span>
-              <span>C. Academic Documents</span>
-            </button>
-
-            <button
-              type="button"
-              className={`stepper-tab-btn ${currentStep === 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}`}
-              onClick={() => { if (validateStep(1) && validateStep(2)) setCurrentStep(3); }}
-            >
-              <span className="stepper-tab-num">3</span>
-              <span>D &amp; E. Exams &amp; CV</span>
-            </button>
-
-            <button
-              type="button"
-              className={`stepper-tab-btn ${currentStep === 4 ? 'active' : ''} ${currentStep > 4 ? 'completed' : ''}`}
-              onClick={() => { if (validateStep(1) && validateStep(2) && validateStep(3)) setCurrentStep(4); }}
-            >
-              <span className="stepper-tab-num">4</span>
-              <span>F &amp; G. Statement &amp; Source</span>
-            </button>
-
-            <button
-              type="button"
-              className={`stepper-tab-btn ${currentStep === 5 ? 'active' : ''}`}
-              onClick={() => {
-                if (validateStep(1) && validateStep(2) && validateStep(3) && validateStep(4)) {
-                  setCurrentStep(5);
-                }
-              }}
-            >
-              <span className="stepper-tab-num">5</span>
-              <span>H. Review &amp; Submit</span>
-            </button>
-          </nav>
-        )}
-
-        {/* ============================================================
-            STEP 1: SECTION A (Candidate Details) & SECTION B (Academic Details)
-            ============================================================ */}
-        {currentStep === 1 && portalMode !== 'success' && (
+          {/* Read-Only Summary */}
           <div className="form-section-card">
             <div className="form-section-header">
-              <span className="form-section-kicker">Section A &amp; B</span>
-              <h2 className="form-section-title">Candidate &amp; Undergraduate Academic Details</h2>
-              <p className="form-section-desc">
-                Your registered candidate details are prefilled below. Enter your undergraduate degree information and aggregate score.
-              </p>
+              <span className="form-section-kicker">APPLICATION SUMMARY</span>
+              <h3 className="form-section-title">{formData.fullName}</h3>
+              <p className="form-section-desc">Application Ref: {formData.applicationId || serverApp?.application_id} • Cohort: {APPLICATION_CONFIG.cohort}</p>
             </div>
 
-            <div className="form-fields-grid">
-              {/* Section A: Candidate Details */}
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="fullName" className="field-label">Full Name</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <input
-                  id="fullName"
-                  type="text"
-                  className={`app-form-input ${errors.fullName ? 'has-error' : ''}`}
-                  value={formData.fullName}
-                  onChange={(e) => handleFieldChange('fullName', e.target.value)}
-                  placeholder="Enter your full name"
-                  disabled={portalMode === 'view'}
-                />
-                {errors.fullName && <span className="field-error-text">{errors.fullName}</span>}
-              </div>
-
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="email" className="field-label">Verified Email Address</label>
-                  <span className="field-badge-required">Read-Only</span>
-                </div>
-                <input
-                  id="email"
-                  type="email"
-                  className="app-form-input is-readonly"
-                  value={formData.email}
-                  readOnly
-                  title="Prefilled from your verified Magic Link session"
-                />
-              </div>
-
-              <div className="form-field-full">
-                <div className="field-label-row">
-                  <label htmlFor="phone" className="field-label">Mobile Contact Number</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <input
-                  id="phone"
-                  type="tel"
-                  className={`app-form-input ${errors.phone ? 'has-error' : ''}`}
-                  value={formData.phone}
-                  onChange={(e) => handleFieldChange('phone', e.target.value)}
-                  placeholder="e.g. +91 98765 43210"
-                  disabled={portalMode === 'view'}
-                />
-                {errors.phone && <span className="field-error-text">{errors.phone}</span>}
-              </div>
-
-              {/* Section B: Academic Details */}
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="ugDegree" className="field-label">Qualifying Undergraduate Degree</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <select
-                  id="ugDegree"
-                  className="app-form-select"
-                  value={formData.ugDegree}
-                  onChange={(e) => handleFieldChange('ugDegree', e.target.value)}
-                  disabled={portalMode === 'view'}
-                >
-                  {UG_DEGREE_OPTIONS.map(opt => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="university" className="field-label">University / Institution Name</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <input
-                  id="university"
-                  type="text"
-                  className={`app-form-input ${errors.university ? 'has-error' : ''}`}
-                  value={formData.university}
-                  onChange={(e) => handleFieldChange('university', e.target.value)}
-                  placeholder="e.g. Osmania University / JNTU / Delhi University"
-                  disabled={portalMode === 'view'}
-                />
-                {errors.university && <span className="field-error-text">{errors.university}</span>}
-              </div>
-
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="department" className="field-label">Department / Branch</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <select
-                  id="department"
-                  className="app-form-select"
-                  value={formData.department}
-                  onChange={(e) => handleFieldChange('department', e.target.value)}
-                  disabled={portalMode === 'view'}
-                >
-                  {DEPARTMENT_OPTIONS.map(opt => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="passingYear" className="field-label">Year of Graduation / Passing</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <select
-                  id="passingYear"
-                  className="app-form-select"
-                  value={formData.passingYear}
-                  onChange={(e) => handleFieldChange('passingYear', e.target.value)}
-                  disabled={portalMode === 'view'}
-                >
-                  {PASSING_YEAR_OPTIONS.map(opt => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="gradingScale" className="field-label">Grading Scale</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <select
-                  id="gradingScale"
-                  className="app-form-select"
-                  value={formData.gradingScale}
-                  onChange={(e) => handleFieldChange('gradingScale', e.target.value)}
-                  disabled={portalMode === 'view'}
-                >
-                  {GRADING_SCALE_OPTIONS.map(scale => (
-                    <option key={scale.value} value={scale.value}>{scale.label}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div>
-                <div className="field-label-row">
-                  <label htmlFor="cgpa" className="field-label">Aggregate Score / CGPA</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <input
-                  id="cgpa"
-                  type="text"
-                  className={`app-form-input ${errors.cgpa ? 'has-error' : ''}`}
-                  value={formData.cgpa}
-                  onChange={(e) => handleFieldChange('cgpa', e.target.value)}
-                  placeholder={formData.gradingScale.includes('Percentage') ? 'e.g. 74.5%' : 'e.g. 8.2'}
-                  disabled={portalMode === 'view'}
-                />
-                {errors.cgpa && <span className="field-error-text">{errors.cgpa}</span>}
-              </div>
-
-              {/* Informative 68% Eligibility Advisory Box */}
-              {eligibilityAdvisory && (
-                <div className="form-field-full">
-                  <div className="eligibility-advisory-box">
-                    <HelpCircleIcon size={20} style={{ flexShrink: 0, marginTop: '2px' }} />
-                    <div>
-                      <strong>Holistic Admission Consideration</strong>
-                      <p>{eligibilityAdvisory.message}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div className="app-step-actions">
-              <div className="app-action-left">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={() => navigate('/programme')}
-                >
-                  Dashboard
-                </button>
-              </div>
-              <div className="app-action-right">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleNextStep}
-                >
-                  <span>Continue to Document Uploads</span>
-                  <ArrowRightIcon size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ============================================================
-            STEP 2: SECTION C (Academic Document Uploads)
-            ============================================================ */}
-        {currentStep === 2 && portalMode !== 'success' && (
-          <div className="form-section-card">
-            <div className="form-section-header">
-              <span className="form-section-kicker">Section C</span>
-              <h2 className="form-section-title">Academic Document Uploads</h2>
-              <p className="form-section-desc">
-                Upload scanned copies of your degree certificate, marksheets, and school memo proofs. Supported formats: PDF, JPG, PNG (Max 10 MB each).
-              </p>
-            </div>
-
-            <div className="doc-upload-stack">
-              {ACADEMIC_DOC_DEFINITIONS.map((docDef) => {
-                const uploadedDoc = formData.documents?.[docDef.key];
-                const isUploading = !!uploadProgress[docDef.key];
-                const docError = errors[docDef.key];
-
-                return (
-                  <div 
-                    key={docDef.key} 
-                    className={`doc-upload-item-card ${uploadedDoc ? 'is-uploaded' : ''} ${isUploading ? 'is-uploading' : ''}`}
-                  >
-                    <div className="doc-upload-header">
-                      <div>
-                        <h3 className="doc-upload-title">{docDef.title}</h3>
-                        <p className="doc-upload-sub">{docDef.subtitle}</p>
-                        {docDef.isFlaggedOverlap && (
-                          <div className="doc-overlap-note">
-                            ℹ️ Note: If your state board issued a single combined certificate for 10th/SSC, you may upload it here.
-                          </div>
-                        )}
-                      </div>
-                      <span className={docDef.required ? 'field-badge-required' : 'field-badge-optional'}>
-                        {docDef.required ? 'Required' : 'Optional'}
-                      </span>
-                    </div>
-
-                    {uploadedDoc ? (
-                      <div className="doc-file-uploaded-view">
-                        <div className="doc-file-info">
-                          <CheckCircleIcon size={18} color="#059669" />
-                          <div>
-                            <span className="doc-file-name">{uploadedDoc.fileName}</span>
-                            <span className="doc-file-size" style={{ marginLeft: '0.5rem' }}>({uploadedDoc.fileSize})</span>
-                          </div>
-                        </div>
-                        {portalMode !== 'view' && (
-                          <label className="doc-replace-btn" htmlFor={`upload_${docDef.key}`}>
-                            Replace File
-                            <input
-                              id={`upload_${docDef.key}`}
-                              type="file"
-                              accept={docDef.accept}
-                              className="doc-file-input"
-                              onChange={(e) => {
-                                if (e.target.files?.[0]) {
-                                  handleFileUpload(e.target.files[0], docDef.key, docDef.title);
-                                }
-                              }}
-                            />
-                          </label>
-                        )}
-                      </div>
-                    ) : (
-                      <div>
-                        {portalMode !== 'view' && (
-                          <div className="doc-dropzone-row">
-                            <label className="doc-select-file-btn" htmlFor={`upload_${docDef.key}`}>
-                              <UploadIcon size={16} />
-                              <span>Select {docDef.title}</span>
-                              <input
-                                id={`upload_${docDef.key}`}
-                                type="file"
-                                accept={docDef.accept}
-                                className="doc-file-input"
-                                disabled={isUploading}
-                                onChange={(e) => {
-                                  if (e.target.files?.[0]) {
-                                    handleFileUpload(e.target.files[0], docDef.key, docDef.title);
-                                  }
-                                }}
-                              />
-                            </label>
-                            <span className="doc-format-hint">Formats: PDF, JPG, PNG • Max size {docDef.maxSize}</span>
-                          </div>
-                        )}
-                        {isUploading && (
-                          <div className="doc-upload-progress">
-                            <div className="doc-progress-bar-fill"></div>
-                          </div>
-                        )}
-                        {docError && <span className="field-error-text">{docError}</span>}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="app-step-actions">
-              <div className="app-action-left">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handlePrevStep}
-                >
-                  Back
-                </button>
-              </div>
-              <div className="app-action-right">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleNextStep}
-                >
-                  <span>Continue to Entrance Exams &amp; CV</span>
-                  <ArrowRightIcon size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ============================================================
-            STEP 3: SECTION D (Entrance Exams) & SECTION E (CV / Resume)
-            ============================================================ */}
-        {currentStep === 3 && portalMode !== 'success' && (
-          <div className="form-section-card">
-            <div className="form-section-header">
-              <span className="form-section-kicker">Section D &amp; E</span>
-              <h2 className="form-section-title">Entrance Examination Details &amp; Curriculum Vitae (CV)</h2>
-              <p className="form-section-desc">
-                Provide optional national exam scores if taken. CV / Resume upload is mandatory for admissions review.
-              </p>
-            </div>
-
-            {/* Section D: Entrance Examination Details */}
-            <div style={{ marginBottom: '2.5rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0b2a6b', marginBottom: '0.85rem' }}>
-                Section D — Entrance Examination Scores (Optional)
-              </h3>
-              <p style={{ fontSize: '0.88rem', color: '#64748b', marginBottom: '1.25rem' }}>
-                If you have taken GRE or GATE, enter your scores and upload your scorecard. Candidates without these scores may leave these fields blank.
-              </p>
-
-              <div className="form-fields-grid">
-                <div>
-                  <div className="field-label-row">
-                    <label htmlFor="greScore" className="field-label">GRE Score (Optional)</label>
-                    <span className="field-badge-optional">Optional</span>
-                  </div>
-                  <input
-                    id="greScore"
-                    type="text"
-                    className="app-form-input"
-                    value={formData.greScore || ''}
-                    onChange={(e) => handleFieldChange('greScore', e.target.value)}
-                    placeholder="e.g. 318 / 340"
-                    disabled={portalMode === 'view'}
-                  />
-                </div>
-
-                <div>
-                  <div className="field-label-row">
-                    <label htmlFor="gateScore" className="field-label">GATE Score / Rank (Optional)</label>
-                    <span className="field-badge-optional">Optional</span>
-                  </div>
-                  <input
-                    id="gateScore"
-                    type="text"
-                    className="app-form-input"
-                    value={formData.gateScore || ''}
-                    onChange={(e) => handleFieldChange('gateScore', e.target.value)}
-                    placeholder="e.g. 540 Score / All India Rank 1850"
-                    disabled={portalMode === 'view'}
-                  />
-                </div>
-
-                <div className="form-field-full">
-                  <div className="field-label-row">
-                    <label className="field-label">Exam Scorecard Upload (Optional)</label>
-                    <span className="field-badge-optional">Optional</span>
-                  </div>
-
-                  {formData.entranceScorecardDoc ? (
-                    <div className="doc-file-uploaded-view">
-                      <div className="doc-file-info">
-                        <CheckCircleIcon size={18} color="#059669" />
-                        <div>
-                          <span className="doc-file-name">{formData.entranceScorecardDoc.fileName}</span>
-                          <span className="doc-file-size" style={{ marginLeft: '0.5rem' }}>({formData.entranceScorecardDoc.fileSize})</span>
-                        </div>
-                      </div>
-                      {portalMode !== 'view' && (
-                        <label className="doc-replace-btn" htmlFor="upload_scorecard">
-                          Replace Scorecard
-                          <input
-                            id="upload_scorecard"
-                            type="file"
-                            accept=".pdf,.jpg,.jpeg,.png"
-                            className="doc-file-input"
-                            onChange={(e) => {
-                              if (e.target.files?.[0]) {
-                                handleFileUpload(e.target.files[0], 'entranceScorecardDoc', 'Entrance Scorecard');
-                              }
-                            }}
-                          />
-                        </label>
-                      )}
-                    </div>
-                  ) : (
-                    portalMode !== 'view' && (
-                      <div className="doc-dropzone-row">
-                        <label className="doc-select-file-btn" htmlFor="upload_scorecard">
-                          <UploadIcon size={16} />
-                          <span>Upload Scorecard (GRE / GATE)</span>
-                          <input
-                            id="upload_scorecard"
-                            type="file"
-                            accept=".pdf,.jpg,.jpeg,.png"
-                            className="doc-file-input"
-                            onChange={(e) => {
-                              if (e.target.files?.[0]) {
-                                handleFileUpload(e.target.files[0], 'entranceScorecardDoc', 'Entrance Scorecard');
-                              }
-                            }}
-                          />
-                        </label>
-                        <span className="doc-format-hint">Formats: PDF, JPG, PNG • Max size 10 MB</span>
-                      </div>
-                    )
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Section E: CV / Resume (Mandatory) */}
-            <div style={{ paddingTop: '1.5rem', borderTop: '1px solid #e2e8f0' }}>
-              <div className="field-label-row" style={{ marginBottom: '0.25rem' }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0b2a6b', margin: 0 }}>
-                  Section E — Curriculum Vitae (CV) / Resume
-                </h3>
-                <span className="field-badge-required">Mandatory</span>
-              </div>
-              <p style={{ fontSize: '0.88rem', color: '#64748b', marginBottom: '1.25rem' }}>
-                Upload your updated CV detailing your academic background, programming projects, internships, or technical work experience. Supported formats: PDF, DOC, DOCX (Max 5 MB).
-              </p>
-
-              {formData.cvDocument ? (
-                <div className="doc-file-uploaded-view" style={{ borderColor: '#a7f3d0', background: '#f0fdf4' }}>
-                  <div className="doc-file-info">
-                    <CheckCircleIcon size={20} color="#059669" />
-                    <div>
-                      <span className="doc-file-name" style={{ fontSize: '0.95rem' }}>{formData.cvDocument.fileName}</span>
-                      <span className="doc-file-size" style={{ marginLeft: '0.5rem' }}>({formData.cvDocument.fileSize})</span>
-                    </div>
-                  </div>
-                  {portalMode !== 'view' && (
-                    <label className="doc-replace-btn" htmlFor="upload_cv">
-                      Replace CV
-                      <input
-                        id="upload_cv"
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        className="doc-file-input"
-                        onChange={(e) => {
-                          if (e.target.files?.[0]) {
-                            handleFileUpload(e.target.files[0], 'cvDocument', 'CV / Resume');
-                          }
-                        }}
-                      />
-                    </label>
-                  )}
-                </div>
-              ) : (
-                <div>
-                  {portalMode !== 'view' && (
-                    <div className="doc-dropzone-row">
-                      <label className="doc-select-file-btn" htmlFor="upload_cv" style={{ background: '#2563eb' }}>
-                        <UploadIcon size={16} />
-                        <span>Upload CV / Resume (Required)</span>
-                        <input
-                          id="upload_cv"
-                          type="file"
-                          accept=".pdf,.doc,.docx"
-                          className="doc-file-input"
-                          onChange={(e) => {
-                            if (e.target.files?.[0]) {
-                              handleFileUpload(e.target.files[0], 'cvDocument', 'CV / Resume');
-                            }
-                          }}
-                        />
-                      </label>
-                      <span className="doc-format-hint">Formats: PDF, DOC, DOCX • Max size 5 MB</span>
-                    </div>
-                  )}
-                  {uploadProgress.cvDocument && (
-                    <div className="doc-upload-progress">
-                      <div className="doc-progress-bar-fill"></div>
-                    </div>
-                  )}
-                  {errors.cvDocument && <span className="field-error-text">{errors.cvDocument}</span>}
-                </div>
-              )}
-            </div>
-
-            <div className="app-step-actions">
-              <div className="app-action-left">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handlePrevStep}
-                >
-                  Back
-                </button>
-              </div>
-              <div className="app-action-right">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleNextStep}
-                >
-                  <span>Continue to Statement &amp; Source</span>
-                  <ArrowRightIcon size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ============================================================
-            STEP 4: SECTION F (Statement about MSIT) & SECTION G (How did you hear)
-            ============================================================ */}
-        {currentStep === 4 && portalMode !== 'success' && (
-          <div className="form-section-card">
-            <div className="form-section-header">
-              <span className="form-section-kicker">Section F &amp; G</span>
-              <h2 className="form-section-title">Statement of Purpose &amp; Information Source</h2>
-              <p className="form-section-desc">
-                Express your motivation for joining MSIT and let us know how you learned about the programme.
-              </p>
-            </div>
-
-            {/* Section F: Statement about MSIT */}
-            <div style={{ marginBottom: '2.5rem' }}>
-              <div className="field-label-row">
-                <label htmlFor="statementText" className="field-label" style={{ fontSize: '0.98rem' }}>
-                  “In approximately 200 words, explain why you are interested in MSIT and what you hope to learn from the programme.”
-                </label>
-                <span className="field-badge-required">Required</span>
-              </div>
-
-              <textarea
-                id="statementText"
-                rows="6"
-                className={`app-form-textarea ${errors.statementText ? 'has-error' : ''}`}
-                value={formData.statementText}
-                onChange={(e) => handleFieldChange('statementText', e.target.value)}
-                placeholder="Write your explanation in your own words (approx. 200 words)..."
-                disabled={portalMode === 'view'}
-              />
-
-              <div className="statement-counter-bar">
-                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                  Maximum 200 words permitted.
-                </span>
-                <span className={`word-count-badge ${currentStatementWords > 200 ? 'is-over' : currentStatementWords > 0 ? 'is-valid' : ''}`}>
-                  {currentStatementWords} / 200 words
-                </span>
-              </div>
-              {errors.statementText && <span className="field-error-text">{errors.statementText}</span>}
-            </div>
-
-            {/* Section G: How did you hear about MSIT? */}
-            <div style={{ paddingTop: '1.5rem', borderTop: '1px solid #e2e8f0' }}>
-              <div className="field-label-row">
-                <label className="field-label" style={{ fontSize: '0.98rem' }}>
-                  “How did you hear about the MSIT programme?”
-                </label>
-                <span className="field-badge-required">Required</span>
-              </div>
-
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', margin: '0.75rem 0 1.25rem 0' }}>
-                {REFERRAL_SOURCE_OPTIONS.map((opt) => (
-                  <label key={opt} style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '500' }}>
-                    <input
-                      type="radio"
-                      name="referralSource"
-                      value={opt}
-                      checked={formData.referralSource === opt}
-                      onChange={(e) => handleFieldChange('referralSource', e.target.value)}
-                      disabled={portalMode === 'view'}
-                    />
-                    <span>{opt}</span>
-                  </label>
-                ))}
-              </div>
-              {errors.referralSource && <span className="field-error-text">{errors.referralSource}</span>}
-
-              {/* Reveal text field if "Other" is selected */}
-              {formData.referralSource === 'Other' && (
-                <div style={{ marginTop: '1rem' }}>
-                  <div className="field-label-row">
-                    <label htmlFor="referralExplanation" className="field-label">
-                      Please specify how you heard about MSIT
-                    </label>
-                    <span className="field-badge-required">Required</span>
-                  </div>
-                  <input
-                    id="referralExplanation"
-                    type="text"
-                    className={`app-form-input ${errors.referralExplanation ? 'has-error' : ''}`}
-                    value={formData.referralExplanation}
-                    onChange={(e) => handleFieldChange('referralExplanation', e.target.value)}
-                    placeholder="e.g. University professor recommendation, tech webinar, career fair"
-                    disabled={portalMode === 'view'}
-                  />
-                  {errors.referralExplanation && <span className="field-error-text">{errors.referralExplanation}</span>}
-                </div>
-              )}
-            </div>
-
-            <div className="app-step-actions">
-              <div className="app-action-left">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handlePrevStep}
-                >
-                  Back
-                </button>
-              </div>
-              <div className="app-action-right">
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onClick={handleNextStep}
-                >
-                  <span>Review Application Summary</span>
-                  <ArrowRightIcon size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* ============================================================
-            STEP 5: SECTION H (Review and Final Submission)
-            ============================================================ */}
-        {currentStep === 5 && portalMode !== 'success' && (
-          <div className="form-section-card">
-            <div className="form-section-header">
-              <span className="form-section-kicker">Section H</span>
-              <h2 className="form-section-title">Application Summary &amp; Final Submission</h2>
-              <p className="form-section-desc">
-                Review all details and documents prior to final submission. You may return to any section to make edits.
-              </p>
-            </div>
-
-            {/* Block 1: Candidate Details */}
+            {/* Section 1 & 2 Summary */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h3 className="review-block-title">Candidate &amp; Academic Credentials</h3>
-                {portalMode !== 'view' && (
-                  <button type="button" className="review-edit-link" onClick={() => setCurrentStep(1)}>
-                    Edit Section
-                  </button>
-                )}
+                <h4 className="review-block-title">1 & 2. Personal & Parent / Guardian Information</h4>
               </div>
               <div className="review-details-grid">
-                <div className="review-item">
-                  <span className="review-item-label">Full Name</span>
-                  <span className="review-item-val">{formData.fullName}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Verified Email</span>
-                  <span className="review-item-val">{formData.email}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Contact Phone</span>
-                  <span className="review-item-val">{formData.phone || 'N/A'}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Degree</span>
-                  <span className="review-item-val">{formData.ugDegree} ({formData.department})</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">University</span>
-                  <span className="review-item-val">{formData.university || 'N/A'}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Graduation Year</span>
-                  <span className="review-item-val">{formData.passingYear}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Score &amp; Scale</span>
-                  <span className="review-item-val">{formData.cgpa} ({formData.gradingScale})</span>
-                </div>
-                {eligibilityAdvisory && (
-                  <div className="review-item" style={{ gridColumn: '1 / -1' }}>
-                    <span className="review-item-label">Advisory Status</span>
-                    <span className="review-item-val" style={{ color: '#d97706' }}>
-                      Undergraduate score noted below recommended {eligibilityAdvisory.thresholdLabel} threshold; eligible for holistic evaluation.
-                    </span>
-                  </div>
-                )}
+                <div className="review-item"><span className="review-item-label">Full Name</span><span className="review-item-val">{formData.fullName}</span></div>
+                <div className="review-item"><span className="review-item-label">Email Address</span><span className="review-item-val">{formData.email}</span></div>
+                <div className="review-item"><span className="review-item-label">Mobile Phone</span><span className="review-item-val">{formData.phone}</span></div>
+                <div className="review-item"><span className="review-item-label">Date of Birth</span><span className="review-item-val">{formData.dob}</span></div>
+                <div className="review-item" style={{ gridColumn: '1 / -1' }}><span className="review-item-label">Residential Address</span><span className="review-item-val">{formData.address}</span></div>
+                <div className="review-item"><span className="review-item-label">{formData.parentRelationship} Name</span><span className="review-item-val">{formData.parentName}</span></div>
+                <div className="review-item"><span className="review-item-label">{formData.parentRelationship} Mobile</span><span className="review-item-val">{formData.altPhone}</span></div>
               </div>
             </div>
 
-            {/* Block 2: Documents */}
+            {/* Section 3 Summary */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h3 className="review-block-title">Uploaded Academic Documents</h3>
-                {portalMode !== 'view' && (
-                  <button type="button" className="review-edit-link" onClick={() => setCurrentStep(2)}>
-                    Edit Documents
-                  </button>
-                )}
+                <h4 className="review-block-title">3. Academic Qualifications</h4>
               </div>
               <div className="review-details-grid">
-                {ACADEMIC_DOC_DEFINITIONS.map(doc => {
-                  const uploaded = formData.documents?.[doc.key];
-                  return (
-                    <div key={doc.key} className="review-item">
-                      <span className="review-item-label">{doc.title}</span>
-                      <span className="review-item-val" style={{ color: uploaded ? '#059669' : '#dc2626' }}>
-                        {uploaded ? `✓ ${uploaded.fileName}` : '✗ Missing'}
-                      </span>
-                    </div>
-                  );
-                })}
+                <div className="review-item"><span className="review-item-label">Class 10 Score</span><span className="review-item-val">{formData.class10Score} ({formData.class10ScoreType})</span></div>
+                <div className="review-item"><span className="review-item-label">Class 12 / Intermediate</span><span className="review-item-val">{formData.interPathway}: {formData.interScore} ({formData.interScoreType})</span></div>
+                <div className="review-item"><span className="review-item-label">Qualifying Degree</span><span className="review-item-val">{formData.ugDegree}</span></div>
+                <div className="review-item"><span className="review-item-label">University / Institution</span><span className="review-item-val">{formData.university}</span></div>
+                <div className="review-item"><span className="review-item-label">Department / Branch</span><span className="review-item-val">{formData.department}</span></div>
+                <div className="review-item"><span className="review-item-label">Graduation Year</span><span className="review-item-val">{formData.passingYear}</span></div>
+                <div className="review-item"><span className="review-item-label">Aggregate Score</span><span className="review-item-val">{formData.cgpa} ({formData.gradingScale})</span></div>
               </div>
             </div>
 
-            {/* Block 3: Exams & CV */}
+            {/* Section 4 Summary */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h3 className="review-block-title">Exams &amp; Curriculum Vitae</h3>
-                {portalMode !== 'view' && (
-                  <button type="button" className="review-edit-link" onClick={() => setCurrentStep(3)}>
-                    Edit Section
-                  </button>
-                )}
+                <h4 className="review-block-title">4. Work Experience</h4>
               </div>
               <div className="review-details-grid">
-                <div className="review-item">
-                  <span className="review-item-label">GRE Score</span>
-                  <span className="review-item-val">{formData.greScore || 'Not provided (Optional)'}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">GATE Score</span>
-                  <span className="review-item-val">{formData.gateScore || 'Not provided (Optional)'}</span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Curriculum Vitae (CV)</span>
-                  <span className="review-item-val" style={{ color: formData.cvDocument ? '#059669' : '#dc2626' }}>
-                    {formData.cvDocument ? `✓ ${formData.cvDocument.fileName}` : '✗ Missing (Mandatory)'}
-                  </span>
-                </div>
-                <div className="review-item">
-                  <span className="review-item-label">Scorecard Proof</span>
-                  <span className="review-item-val">
-                    {formData.entranceScorecardDoc ? `✓ ${formData.entranceScorecardDoc.fileName}` : 'None uploaded'}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Block 4: Statement & Referral */}
-            <div className="review-block-card">
-              <div className="review-block-header">
-                <h3 className="review-block-title">Statement of Purpose &amp; Referral Source</h3>
-                {portalMode !== 'view' && (
-                  <button type="button" className="review-edit-link" onClick={() => setCurrentStep(4)}>
-                    Edit Section
-                  </button>
+                <div className="review-item"><span className="review-item-label">Prior Experience</span><span className="review-item-val">{formData.hasExperience === 'Yes' ? 'Experienced' : 'Fresher'}</span></div>
+                {formData.hasExperience === 'Yes' && (
+                  <>
+                    <div className="review-item"><span className="review-item-label">Duration</span><span className="review-item-val">{formData.experienceYears} Years, {formData.experienceMonths} Months</span></div>
+                    <div className="review-item"><span className="review-item-label">Company Name</span><span className="review-item-val">{formData.companyName}</span></div>
+                    <div className="review-item"><span className="review-item-label">Job Title</span><span className="review-item-val">{formData.jobRole}</span></div>
+                  </>
                 )}
               </div>
-              <div>
-                <div style={{ marginBottom: '1rem' }}>
-                  <span className="review-item-label">Statement about MSIT ({currentStatementWords} / 200 words)</span>
-                  <p style={{ margin: '0.4rem 0 0 0', fontSize: '0.9rem', color: '#334155', fontStyle: 'italic', background: '#ffffff', padding: '0.75rem', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
-                    "{formData.statementText}"
-                  </p>
-                </div>
-                <div className="review-details-grid">
-                  <div className="review-item">
-                    <span className="review-item-label">Referral Source</span>
-                    <span className="review-item-val">{formData.referralSource}</span>
-                  </div>
-                  {formData.referralSource === 'Other' && (
-                    <div className="review-item">
-                      <span className="review-item-label">Referral Details</span>
-                      <span className="review-item-val">{formData.referralExplanation}</span>
-                    </div>
-                  )}
-                </div>
+            </div>
+
+            {/* Section 5 Summary */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">5. Purpose of Joining MSIT</h4>
+              </div>
+              <p style={{ fontStyle: 'italic', background: '#ffffff', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', margin: 0 }}>
+                "{formData.statementText}"
+              </p>
+            </div>
+
+            {/* Section 6 & 7 Summary */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">6 & 7. Referral & Entrance Examination</h4>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Referral Source</span><span className="review-item-val">{formData.referralSource} {formData.referralExplanation ? `(${formData.referralExplanation})` : ''}</span></div>
+                <div className="review-item"><span className="review-item-label">Entrance Exam</span><span className="review-item-val">{formData.entranceExamStatus}</span></div>
+                {formData.greScore && <div className="review-item"><span className="review-item-label">GRE Score</span><span className="review-item-val">{formData.greScore} ({formData.greYear})</span></div>}
+                {formData.gateScore && <div className="review-item"><span className="review-item-label">GATE Score</span><span className="review-item-val">{formData.gateScore} ({formData.gateYear})</span></div>}
               </div>
             </div>
 
-            {/* Action Bar */}
-            <div className="app-step-actions">
-              <div className="app-action-left">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={handlePrevStep}
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
+              <button 
+                type="button" 
+                className="btn btn-primary" 
+                onClick={() => navigate('/programme')}
+              >
+                Back to Student Dashboard
+              </button>
+              {formData.status === 'Additional Information Required' && (
+                <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  onClick={() => setPortalMode('edit')}
                 >
-                  Back
+                  Edit / Update Application
                 </button>
-              </div>
-
-              {portalMode !== 'view' && (
-                <div className="app-action-right">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={handleSaveDraft}
-                  >
-                    Save Draft
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    disabled={isSubmitting || currentStatementWords > 200 || !formData.cvDocument}
-                    onClick={handleSubmitApplication}
-                    style={{ background: '#0b2a6b', borderColor: '#0b2a6b' }}
-                  >
-                    {isSubmitting ? (
-                      <span>Submitting Application...</span>
-                    ) : (
-                      <>
-                        <span>{portalMode === 'edit' ? 'Resubmit Application' : 'Submit Final Application'}</span>
-                        <ArrowRightIcon size={16} />
-                      </>
-                    )}
-                  </button>
-                </div>
               )}
             </div>
           </div>
-        )}
+        </div>
+      </div>
+    );
+  }
 
-        {/* ============================================================
-            CONFIRMATION / SUCCESS VIEW (After successful submission)
-            ============================================================ */}
-        {portalMode === 'success' && (
-          <div className="form-section-card" style={{ textAlign: 'center', padding: '3.5rem 2rem' }}>
-            <div style={{ width: '64px', height: '64px', borderRadius: '50%', background: '#ecfdf5', color: '#059669', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2rem' }}>
-              ✓
+  // SUCCESS CONFIRMATION SCREEN
+  if (portalMode === 'success') {
+    return (
+      <div className="single-app-wrapper">
+        <header className="single-app-header">
+          <div className="container single-app-header-inner">
+            <div className="single-app-brand">
+              <img src="/assets/msit-logo.png" alt="MSIT Logo" className="single-app-logo" />
+              <div>
+                <span className="brand-title">MSIT Application Portal</span>
+                <span className="brand-cohort">{APPLICATION_CONFIG.cohort} • IIIT Hyderabad</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div className="single-app-container">
+          <div className="single-app-success-card">
+            <div className="success-icon-badge">
+              <CheckCircleIcon size={38} />
             </div>
 
-            <h1 style={{ fontSize: '1.85rem', fontWeight: 900, color: '#0b2a6b', marginBottom: '0.5rem' }}>
-              Application Successfully Submitted!
-            </h1>
-            <p style={{ fontSize: '1.05rem', color: '#64748b', maxWidth: '580px', margin: '0 auto 1.75rem' }}>
-              Thank you for applying to the Master of Science in Information Technology (MSIT) program. Your application has been logged and queued for admissions committee review.
+            <span className="success-status-pill">Application Submitted Successfully</span>
+
+            <h2 style={{ fontSize: '1.75rem', fontWeight: '800', color: '#0b2a6b', margin: '1rem 0 0.5rem 0' }}>
+              Congratulations, {formData.fullName}!
+            </h2>
+
+            <p style={{ color: '#475569', fontSize: '1rem', maxWidth: '540px', margin: '0 auto 1.5rem auto', lineHeight: '1.6' }}>
+              Your application for the <strong>{APPLICATION_CONFIG.cohort}</strong> has been received by the Consortium of Institutions of Higher Learning (CIHL) at IIIT Hyderabad.
             </p>
 
-            <div style={{ background: '#f8fafc', border: '1.5px solid #e2e8f0', borderRadius: '12px', padding: '1.25rem 2rem', display: 'inline-block', marginBottom: '2rem' }}>
-              <span style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.08em', color: '#64748b', fontWeight: 700, display: 'block', marginBottom: '0.25rem' }}>
-                Official Application Reference Number
-              </span>
-              <strong style={{ fontSize: '1.45rem', letterSpacing: '0.05em', color: '#0b2a6b' }}>
-                {formData.applicationId}
-              </strong>
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1.25rem 1.5rem', maxWidth: '440px', margin: '0 auto 2rem auto', textAlign: 'left' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Application Reference ID:</span>
+                <strong style={{ fontSize: '0.95rem', color: '#0b2a6b', fontFamily: 'monospace' }}>{formData.applicationId}</strong>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Registered Email:</span>
+                <span style={{ fontSize: '0.88rem', fontWeight: '600', color: '#0f172a' }}>{formData.email}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Cohort:</span>
+                <span style={{ fontSize: '0.88rem', fontWeight: '600', color: '#0f172a' }}>{APPLICATION_CONFIG.cohort}</span>
+              </div>
+            </div>
+
+            {/* Next Steps Guidance */}
+            <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '12px', padding: '1.25rem', textAlign: 'left', maxWidth: '540px', margin: '0 auto 2rem auto' }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: '#1e40af', fontSize: '0.95rem', fontWeight: '700' }}>
+                What Happens Next?
+              </h4>
+              <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.86rem', color: '#1e3a8a', lineHeight: '1.5' }}>
+                <li><strong>Document Verification:</strong> The admissions team will verify your Class 10, Class 12, and Qualifying Degree memos.</li>
+                <li><strong>Holistic Review:</strong> Your statement of purpose, technical background, and academic history will be evaluated.</li>
+                <li><strong>Status Notifications:</strong> Updates will be sent to <code>{formData.email}</code> and visible on your student dashboard.</li>
+              </ul>
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
@@ -1399,21 +984,1359 @@ export default function ApplicationPortalPage() {
                 className="btn btn-primary"
                 onClick={() => navigate('/programme')}
               >
-                <span>Return to Student Dashboard</span>
-                <ArrowRightIcon size={16} />
+                Go to Student Dashboard →
               </button>
               <button
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => window.print()}
               >
-                <DownloadIcon size={16} />
-                <span>Print Application Summary</span>
+                Print / Save Application Summary
               </button>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  // STANDARD FORM EDIT / FILL EXPERIENCE
+  return (
+    <div className="single-app-wrapper">
+      {/* Top Application Bar */}
+      <header className="single-app-header">
+        <div className="container single-app-header-inner">
+          <div className="single-app-brand">
+            <img src="/assets/msit-logo.png" alt="MSIT Logo" className="single-app-logo" />
+            <div>
+              <span className="brand-title">MSIT Application Portal</span>
+              <span className="brand-cohort">{APPLICATION_CONFIG.cohort} • IIIT Hyderabad</span>
+            </div>
+          </div>
+
+          <div className="single-app-controls">
+            {saveDraftMessage && (
+              <span className="draft-saved-pill" style={{ background: '#dcfce7', color: '#15803d', borderColor: '#86efac' }}>
+                <CheckCircleIcon size={13} />
+                <span>{saveDraftMessage}</span>
+              </span>
+            )}
+
+            {lastSavedTime && !saveDraftMessage && (
+              <span className="draft-saved-pill">
+                <CheckCircleIcon size={13} />
+                <span>Draft Saved: {lastSavedTime}</span>
+              </span>
+            )}
+
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleSaveDraft}
+              title="Save in-progress application draft"
+            >
+              Save Draft
+            </button>
+
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => navigate('/programme')}
+            >
+              Back to Dashboard
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div className="multi-section-app-container">
+        {/* Banner if in edit mode after Additional Info Requested */}
+        {portalMode === 'edit' && (
+          <div className="app-edit-banner">
+            <InfoIcon size={24} />
+            <div>
+              <h4 style={{ margin: '0 0 0.25rem 0', fontWeight: '800' }}>Update Requested by Admissions Team</h4>
+              <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                Please review the fields below, supply any missing documentation or details, and re-submit your application.
+              </p>
+            </div>
+          </div>
         )}
-      </main>
+
+        {/* 8-STEP HORIZONTAL PROGRESS BAR / TABS */}
+        <nav className="app-stepper-wrap" aria-label="Application Form Steps">
+          {FORM_SECTIONS.map((sec) => {
+            const isActive = currentStep === sec.id;
+            const isCompleted = currentStep > sec.id;
+
+            return (
+              <button
+                key={sec.id}
+                type="button"
+                className={`stepper-tab-btn ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}`}
+                onClick={() => handleJumpToSection(sec.id)}
+                title={sec.fullTitle}
+              >
+                <span className="stepper-tab-num">
+                  {isCompleted ? '✓' : sec.id}
+                </span>
+                <span>{sec.shortLabel}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* =========================================================================
+            SECTION 1: PERSONAL & CONTACT INFORMATION
+            ========================================================================= */}
+        {currentStep === 1 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 1 OF 8</span>
+              <h3 className="form-section-title">Personal & Contact Information</h3>
+              <p className="form-section-desc">
+                Provide your legal candidate identity and residential contact details. Saved values are preserved when resuming drafts.
+              </p>
+            </div>
+
+            <div className="form-fields-grid">
+              {/* Full Name */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-fullName">Full Name</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <input
+                  id="field-fullName"
+                  type="text"
+                  className={`app-form-input ${errors.fullName ? 'has-error' : ''}`}
+                  value={formData.fullName}
+                  onChange={(e) => handleFieldChange('fullName', e.target.value)}
+                  placeholder="Candidate Legal Full Name"
+                />
+                {errors.fullName && <span className="field-error-text">{errors.fullName}</span>}
+              </div>
+
+              {/* Email Address (Pre-filled & Read-only) */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-email">Email Address</label>
+                  <span className="field-badge-required">Verified</span>
+                </div>
+                <input
+                  id="field-email"
+                  type="email"
+                  className="app-form-input is-readonly"
+                  value={formData.email}
+                  readOnly
+                  title="Email Address is linked to your verified registration account"
+                />
+                <span className="field-helper-hint">Linked to your verified registration account and read-only.</span>
+              </div>
+
+              {/* Phone Number */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-phone">Mobile Phone Number</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <input
+                  id="field-phone"
+                  type="tel"
+                  className={`app-form-input ${errors.phone ? 'has-error' : ''}`}
+                  value={formData.phone}
+                  onChange={(e) => handleFieldChange('phone', e.target.value)}
+                  placeholder="+91 98765 43210"
+                />
+                {errors.phone && <span className="field-error-text">{errors.phone}</span>}
+              </div>
+
+              {/* Date of Birth */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-dob">Date of Birth</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <input
+                  id="field-dob"
+                  type="date"
+                  className={`app-form-input ${errors.dob ? 'has-error' : ''}`}
+                  value={formData.dob}
+                  onChange={(e) => handleFieldChange('dob', e.target.value)}
+                  max={new Date().toISOString().split('T')[0]}
+                />
+                {errors.dob && <span className="field-error-text">{errors.dob}</span>}
+              </div>
+
+              {/* Address */}
+              <div className="form-field-group form-field-full">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-address">Residential Address</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <textarea
+                  id="field-address"
+                  rows={3}
+                  className={`app-form-textarea ${errors.address ? 'has-error' : ''}`}
+                  value={formData.address}
+                  onChange={(e) => handleFieldChange('address', e.target.value)}
+                  placeholder="Door/Flat No., Street, City, State, PIN Code"
+                />
+                {errors.address && <span className="field-error-text">{errors.address}</span>}
+              </div>
+            </div>
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Continue to Parent / Guardian</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 2: PARENT / GUARDIAN INFORMATION
+            ========================================================================= */}
+        {currentStep === 2 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 2 OF 8</span>
+              <h3 className="form-section-title">Parent / Guardian Information</h3>
+              <p className="form-section-desc">
+                Provide relationship and contact details for emergency and official communications. Contact labels adapt to your chosen relationship.
+              </p>
+            </div>
+
+            <div className="form-fields-grid">
+              {/* Relationship Dropdown */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-relationship">Relationship</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <select
+                  id="field-relationship"
+                  className="app-form-select"
+                  value={formData.parentRelationship}
+                  onChange={(e) => handleFieldChange('parentRelationship', e.target.value)}
+                >
+                  {PARENT_RELATIONSHIP_OPTIONS.map(rel => (
+                    <option key={rel} value={rel}>{rel}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Dynamic Name Field */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-parentName">{getParentNameLabel()}</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <input
+                  id="field-parentName"
+                  type="text"
+                  className={`app-form-input ${errors.parentName ? 'has-error' : ''}`}
+                  value={formData.parentName}
+                  onChange={(e) => handleFieldChange('parentName', e.target.value)}
+                  placeholder={`Enter ${getParentNameLabel()}`}
+                />
+                {errors.parentName && <span className="field-error-text">{errors.parentName}</span>}
+              </div>
+
+              {/* Dynamic Mobile Phone Field */}
+              <div className="form-field-group">
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-altPhone">{getParentPhoneLabel()}</label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <input
+                  id="field-altPhone"
+                  type="tel"
+                  className={`app-form-input ${errors.altPhone ? 'has-error' : ''}`}
+                  value={formData.altPhone}
+                  onChange={(e) => handleFieldChange('altPhone', e.target.value)}
+                  placeholder="+91 98765 43210"
+                />
+                {errors.altPhone && <span className="field-error-text">{errors.altPhone}</span>}
+              </div>
+            </div>
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Personal Info
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Continue to Academic Qualifications</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 3: ACADEMIC QUALIFICATIONS
+            ========================================================================= */}
+        {currentStep === 3 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 3 OF 8</span>
+              <h3 className="form-section-title">Academic Qualifications</h3>
+              <p className="form-section-desc">
+                Organised into separate subsections for Class 10, Class 12 / Intermediate, and your Qualifying Degree.
+              </p>
+            </div>
+
+            {/* Subsection 3A: Class 10 / SSC */}
+            <div style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '1.75rem', marginBottom: '2rem' }}>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0b2a6b', margin: '0 0 1rem 0' }}>
+                A. Class 10 / SSC
+              </h4>
+
+              <div className="form-fields-grid" style={{ marginBottom: '1.25rem' }}>
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-class10Score">Class 10 / SSC Score</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <input
+                    id="field-class10Score"
+                    type="number"
+                    step="any"
+                    className={`app-form-input ${errors.class10Score ? 'has-error' : ''}`}
+                    value={formData.class10Score}
+                    onChange={(e) => handleFieldChange('class10Score', e.target.value)}
+                    placeholder="e.g. 85.5 or 9.2"
+                  />
+                  {errors.class10Score && <span className="field-error-text">{errors.class10Score}</span>}
+                </div>
+
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-class10ScoreType">Score Type</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-class10ScoreType"
+                    className="app-form-select"
+                    value={formData.class10ScoreType}
+                    onChange={(e) => handleFieldChange('class10ScoreType', e.target.value)}
+                  >
+                    <option value="Percentage">Percentage (out of 100%)</option>
+                    <option value="CGPA">CGPA (out of 10.0)</option>
+                  </select>
+                </div>
+              </div>
+
+              {renderDocumentUploadCard(
+                'class10Doc',
+                DOCUMENT_DEFINITIONS.class10Doc.title,
+                DOCUMENT_DEFINITIONS.class10Doc.required,
+                DOCUMENT_DEFINITIONS.class10Doc.helper
+              )}
+            </div>
+
+            {/* Subsection 3B: Class 12 / Intermediate */}
+            <div style={{ borderBottom: '1px solid #e2e8f0', paddingBottom: '1.75rem', marginBottom: '2rem' }}>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0b2a6b', margin: '0 0 1rem 0' }}>
+                B. Class 12 / Intermediate
+              </h4>
+
+              <div className="form-fields-grid" style={{ marginBottom: '1.25rem' }}>
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-interPathway">Educational Pathway</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-interPathway"
+                    className="app-form-select"
+                    value={formData.interPathway}
+                    onChange={(e) => handleFieldChange('interPathway', e.target.value)}
+                  >
+                    {INTER_PATHWAY_OPTIONS.map(opt => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-interScore">Intermediate / Class 12 Score</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <input
+                    id="field-interScore"
+                    type="number"
+                    step="any"
+                    className={`app-form-input ${errors.interScore ? 'has-error' : ''}`}
+                    value={formData.interScore}
+                    onChange={(e) => handleFieldChange('interScore', e.target.value)}
+                    placeholder="e.g. 91.2 or 9.5"
+                  />
+                  {errors.interScore && <span className="field-error-text">{errors.interScore}</span>}
+                </div>
+
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-interScoreType">Score Type</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-interScoreType"
+                    className="app-form-select"
+                    value={formData.interScoreType}
+                    onChange={(e) => handleFieldChange('interScoreType', e.target.value)}
+                  >
+                    <option value="Percentage">Percentage (out of 100%)</option>
+                    <option value="CGPA">CGPA (out of 10.0)</option>
+                  </select>
+                </div>
+              </div>
+
+              {renderDocumentUploadCard(
+                'class12Doc',
+                DOCUMENT_DEFINITIONS.class12Doc.title,
+                DOCUMENT_DEFINITIONS.class12Doc.required,
+                DOCUMENT_DEFINITIONS.class12Doc.helper
+              )}
+            </div>
+
+            {/* Subsection 3C: Qualifying Degree */}
+            <div>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0b2a6b', margin: '0 0 1rem 0' }}>
+                C. Qualifying Degree
+              </h4>
+
+              <div className="form-fields-grid" style={{ marginBottom: '1.5rem' }}>
+                {/* Qualifying Degree Dropdown */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-ugDegree">Qualifying Degree</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-ugDegree"
+                    className="app-form-select"
+                    value={formData.ugDegree}
+                    onChange={(e) => handleFieldChange('ugDegree', e.target.value)}
+                  >
+                    {UG_DEGREE_OPTIONS.map(deg => (
+                      <option key={deg} value={deg}>{deg}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* University / Institution */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-university">University / Institution</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <input
+                    id="field-university"
+                    type="text"
+                    className={`app-form-input ${errors.university ? 'has-error' : ''}`}
+                    value={formData.university}
+                    onChange={(e) => handleFieldChange('university', e.target.value)}
+                    placeholder="e.g. JNTU Hyderabad / Osmania University"
+                  />
+                  {errors.university && <span className="field-error-text">{errors.university}</span>}
+                </div>
+
+                {/* Department / Branch */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-department">Department / Branch</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-department"
+                    className="app-form-select"
+                    value={formData.department}
+                    onChange={(e) => handleFieldChange('department', e.target.value)}
+                  >
+                    {DEPARTMENT_OPTIONS.map(dept => (
+                      <option key={dept} value={dept}>{dept}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Graduation Year */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-passingYear">Graduation Year</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-passingYear"
+                    className="app-form-select"
+                    value={formData.passingYear}
+                    onChange={(e) => handleFieldChange('passingYear', e.target.value)}
+                  >
+                    {PASSING_YEAR_OPTIONS.map(yr => (
+                      <option key={yr} value={yr}>{yr}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Aggregate CGPA / Percentage */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-cgpa">Aggregate CGPA / Percentage</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <input
+                    id="field-cgpa"
+                    type="number"
+                    step="any"
+                    className={`app-form-input ${errors.cgpa ? 'has-error' : ''}`}
+                    value={formData.cgpa}
+                    onChange={(e) => handleFieldChange('cgpa', e.target.value)}
+                    placeholder="e.g. 74.5 or 7.8"
+                  />
+                  {errors.cgpa && <span className="field-error-text">{errors.cgpa}</span>}
+                </div>
+
+                {/* Grading Scale */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-gradingScale">Grading Scale</label>
+                    <span className="field-badge-required">Required</span>
+                  </div>
+                  <select
+                    id="field-gradingScale"
+                    className="app-form-select"
+                    value={formData.gradingScale}
+                    onChange={(e) => handleFieldChange('gradingScale', e.target.value)}
+                  >
+                    {GRADING_SCALE_OPTIONS.map(s => (
+                      <option key={s.value} value={s.value}>{s.label}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Eligibility Advisory Alert */}
+              {eligibilityAdvisory && (
+                <div className="eligibility-advisory-box">
+                  <HelpCircleIcon size={20} />
+                  <div>
+                    <strong>Undergraduate Eligibility Benchmark Advisory ({eligibilityAdvisory.thresholdLabel})</strong>
+                    <p>{eligibilityAdvisory.message}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Degree Marksheet / Consolidated Marks Memo Upload */}
+              {renderDocumentUploadCard(
+                'ugDegreeDoc',
+                DOCUMENT_DEFINITIONS.ugDegreeDoc.title,
+                DOCUMENT_DEFINITIONS.ugDegreeDoc.required,
+                DOCUMENT_DEFINITIONS.ugDegreeDoc.helper
+              )}
+
+              {/* Degree Certificate Upload (Optional if appearing in final year) */}
+              {renderDocumentUploadCard(
+                'degreeCertDoc',
+                DOCUMENT_DEFINITIONS.degreeCertDoc.title,
+                false,
+                DOCUMENT_DEFINITIONS.degreeCertDoc.helper
+              )}
+
+              {/* Conditional 16-Year Education Proof for MCA candidates */}
+              {requires16YearProof(formData.ugDegree) && (
+                <div style={{ marginTop: '1.25rem' }}>
+                  <div className="doc-overlap-note" style={{ marginBottom: '0.75rem' }}>
+                    Note: For candidates applying with {formData.ugDegree}, proof of 16 years of formal education is required.
+                  </div>
+                  {renderDocumentUploadCard(
+                    'additionalDegree16YearDoc',
+                    DOCUMENT_DEFINITIONS.additionalDegree16YearDoc.title,
+                    true,
+                    DOCUMENT_DEFINITIONS.additionalDegree16YearDoc.helper
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Parent Info
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Continue to Work Experience</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 4: WORK EXPERIENCE
+            ========================================================================= */}
+        {currentStep === 4 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 4 OF 8</span>
+              <h3 className="form-section-title">Work Experience & Resume</h3>
+              <p className="form-section-desc">
+                Indicate whether you have prior professional work experience or are applying as a fresher.
+              </p>
+            </div>
+
+            <div className="form-field-group" style={{ marginBottom: '1.75rem' }}>
+              <div className="field-label-row">
+                <label className="field-label">Do you have prior work experience?</label>
+                <span className="field-badge-required">Required</span>
+              </div>
+              <div className="experience-radio-group">
+                <label className={`radio-option-card ${formData.hasExperience === 'No' ? 'selected' : ''}`}>
+                  <input
+                    type="radio"
+                    name="hasExperience"
+                    value="No"
+                    checked={formData.hasExperience === 'No'}
+                    onChange={() => handleFieldChange('hasExperience', 'No')}
+                  />
+                  <span>No — Fresher</span>
+                </label>
+                <label className={`radio-option-card ${formData.hasExperience === 'Yes' ? 'selected' : ''}`}>
+                  <input
+                    type="radio"
+                    name="hasExperience"
+                    value="Yes"
+                    checked={formData.hasExperience === 'Yes'}
+                    onChange={() => handleFieldChange('hasExperience', 'Yes')}
+                  />
+                  <span>Yes — Experienced</span>
+                </label>
+              </div>
+            </div>
+
+            {/* If Experienced: Display Required Experience Fields */}
+            {formData.hasExperience === 'Yes' && (
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1.5rem', marginBottom: '2rem' }}>
+                <h4 style={{ margin: '0 0 1.25rem 0', fontSize: '1.05rem', fontWeight: '800', color: '#0b2a6b' }}>
+                  Professional Experience Details
+                </h4>
+
+                <div className="form-fields-grid">
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-expYears">Years of Work Experience</label>
+                      <span className="field-badge-required">Required</span>
+                    </div>
+                    <select
+                      id="field-expYears"
+                      className="app-form-select"
+                      value={formData.experienceYears}
+                      onChange={(e) => handleFieldChange('experienceYears', e.target.value)}
+                    >
+                      {WORK_EXP_YEAR_OPTIONS.map(yr => (
+                        <option key={yr} value={yr}>{yr} {yr === '1' ? 'Year' : 'Years'}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-expMonths">Additional Duration (Months)</label>
+                      <span className="field-badge-required">Required</span>
+                    </div>
+                    <select
+                      id="field-expMonths"
+                      className="app-form-select"
+                      value={formData.experienceMonths}
+                      onChange={(e) => handleFieldChange('experienceMonths', e.target.value)}
+                    >
+                      {WORK_EXP_MONTH_OPTIONS.map(mo => (
+                        <option key={mo} value={mo}>{mo} {mo === '1' ? 'Month' : 'Months'}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-companyName">Company Name</label>
+                      <span className="field-badge-required">Required</span>
+                    </div>
+                    <input
+                      id="field-companyName"
+                      type="text"
+                      className={`app-form-input ${errors.companyName ? 'has-error' : ''}`}
+                      value={formData.companyName}
+                      onChange={(e) => handleFieldChange('companyName', e.target.value)}
+                      placeholder="e.g. Infosys, TCS, Startup Inc."
+                    />
+                    {errors.companyName && <span className="field-error-text">{errors.companyName}</span>}
+                  </div>
+
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-jobRole">Job Title / Role</label>
+                      <span className="field-badge-required">Required</span>
+                    </div>
+                    <input
+                      id="field-jobRole"
+                      type="text"
+                      className={`app-form-input ${errors.jobRole ? 'has-error' : ''}`}
+                      value={formData.jobRole}
+                      onChange={(e) => handleFieldChange('jobRole', e.target.value)}
+                      placeholder="e.g. Software Engineer, QA Analyst"
+                    />
+                    {errors.jobRole && <span className="field-error-text">{errors.jobRole}</span>}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Mandatory CV / Resume Upload */}
+            <div style={{ marginTop: '1.5rem' }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1.05rem', fontWeight: '800', color: '#0b2a6b' }}>
+                Curriculum Vitae (CV) / Resume
+              </h4>
+              <p style={{ margin: '0 0 1rem 0', color: '#64748b', fontSize: '0.88rem' }}>
+                All candidates must upload an up-to-date resume highlighting their academic history, technical projects, and skills.
+              </p>
+              {renderDocumentUploadCard(
+                'cvDocument',
+                DOCUMENT_DEFINITIONS.cvDocument.title,
+                DOCUMENT_DEFINITIONS.cvDocument.required,
+                DOCUMENT_DEFINITIONS.cvDocument.helper,
+                '.pdf,.doc,.docx'
+              )}
+            </div>
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Academics
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Continue to Purpose Statement</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 5: PURPOSE OF JOINING MSIT
+            ========================================================================= */}
+        {currentStep === 5 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 5 OF 8</span>
+              <h3 className="form-section-title">Purpose of Joining MSIT</h3>
+              <p className="form-section-desc">
+                Tell us about your interests, learning goals, and career aspirations. (Maximum 200 words).
+              </p>
+            </div>
+
+            <div className="form-field-group">
+              <div className="field-label-row">
+                <label className="field-label" htmlFor="field-statementText">
+                  Why do you want to join MSIT, and what do you hope to achieve through the programme?
+                </label>
+                <span className="field-badge-required">Required</span>
+              </div>
+              <p className="field-helper-hint" style={{ marginTop: 0, marginBottom: '0.5rem' }}>
+                Helper guidance: “Tell us about your interests, learning goals, and career aspirations.”
+              </p>
+              <textarea
+                id="field-statementText"
+                rows={7}
+                className={`app-form-textarea ${errors.statementText ? 'has-error' : ''}`}
+                value={formData.statementText}
+                onChange={(e) => handleFieldChange('statementText', e.target.value)}
+                placeholder="Write your response here in your own words (maximum 200 words)..."
+              />
+
+              <div className="statement-counter-bar">
+                <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                  Word Limit: Maximum 200 words strictly evaluated
+                </span>
+                <span className={`word-count-badge ${currentStatementWords > 200 ? 'is-over' : (currentStatementWords > 0 ? 'is-valid' : '')}`}>
+                  {currentStatementWords} / 200 words
+                </span>
+              </div>
+
+              {errors.statementText && <span className="field-error-text">{errors.statementText}</span>}
+            </div>
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Work Experience
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Continue to Referral Source</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 6: HOW DID YOU HEAR ABOUT MSIT?
+            ========================================================================= */}
+        {currentStep === 6 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 6 OF 8</span>
+              <h3 className="form-section-title">How Did You Hear About MSIT?</h3>
+              <p className="form-section-desc">
+                Help us understand how prospective candidates discover the MSIT programme.
+              </p>
+            </div>
+
+            <div className="form-field-group" style={{ marginBottom: '1.5rem' }}>
+              <div className="field-label-row">
+                <label className="field-label">How did you hear about the MSIT programme?</label>
+                <span className="field-badge-required">Required</span>
+              </div>
+              <div className="experience-radio-group">
+                {REFERRAL_SOURCE_OPTIONS.map(opt => (
+                  <label 
+                    key={opt} 
+                    className={`radio-option-card ${formData.referralSource === opt ? 'selected' : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      name="referralSource"
+                      value={opt}
+                      checked={formData.referralSource === opt}
+                      onChange={() => handleFieldChange('referralSource', opt)}
+                    />
+                    <span>{opt}</span>
+                  </label>
+                ))}
+              </div>
+              {errors.referralSource && <span className="field-error-text">{errors.referralSource}</span>}
+            </div>
+
+            {/* Conditional "Other" text field */}
+            {formData.referralSource === 'Other' && (
+              <div className="form-field-group" style={{ maxWidth: '540px', marginTop: '1rem' }}>
+                <div className="field-label-row">
+                  <label className="field-label" htmlFor="field-referralExplanation">
+                    Please specify how you heard about MSIT
+                  </label>
+                  <span className="field-badge-required">Required</span>
+                </div>
+                <input
+                  id="field-referralExplanation"
+                  type="text"
+                  className={`app-form-input ${errors.referralExplanation ? 'has-error' : ''}`}
+                  value={formData.referralExplanation}
+                  onChange={(e) => handleFieldChange('referralExplanation', e.target.value)}
+                  placeholder="e.g. University seminar, newspaper advertisement, faculty recommendation"
+                />
+                {errors.referralExplanation && <span className="field-error-text">{errors.referralExplanation}</span>}
+              </div>
+            )}
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Purpose Statement
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Continue to Entrance Examination Details</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 7: ENTRANCE EXAMINATION DETAILS
+            ========================================================================= */}
+        {currentStep === 7 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 7 OF 8</span>
+              <h3 className="form-section-title">Entrance Examination Details</h3>
+              <p className="form-section-desc">
+                Provide your GRE or GATE examination details if you have taken either examination.
+              </p>
+            </div>
+
+            <div className="form-field-group" style={{ marginBottom: '1.75rem' }}>
+              <div className="field-label-row">
+                <label className="field-label">Have you taken GRE or GATE?</label>
+                <span className="field-badge-required">Required</span>
+              </div>
+              <div className="experience-radio-group">
+                {ENTRANCE_EXAM_OPTIONS.map(opt => (
+                  <label 
+                    key={opt} 
+                    className={`radio-option-card ${formData.entranceExamStatus === opt ? 'selected' : ''}`}
+                  >
+                    <input
+                      type="radio"
+                      name="entranceExamStatus"
+                      value={opt}
+                      checked={formData.entranceExamStatus === opt}
+                      onChange={() => handleFieldChange('entranceExamStatus', opt)}
+                    />
+                    <span>{opt}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* If Neither: Helpful note */}
+            {formData.entranceExamStatus === 'Neither' && (
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '1.25rem', color: '#475569' }}>
+                <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                  No entrance examination details are required for this admission route. You may proceed directly to the Review &amp; Submit section.
+                </p>
+              </div>
+            )}
+
+            {/* If GRE is selected (or Both) */}
+            {(formData.entranceExamStatus === 'GRE' || formData.entranceExamStatus === 'Both') && (
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1.5rem', marginBottom: '1.75rem' }}>
+                <h4 style={{ margin: '0 0 1.25rem 0', fontSize: '1.05rem', fontWeight: '800', color: '#0b2a6b' }}>
+                  GRE Examination Details
+                </h4>
+
+                <div className="form-fields-grid" style={{ marginBottom: '1.25rem' }}>
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-greScore">GRE Score</label>
+                      <span className="field-badge-required">Required</span>
+                    </div>
+                    <input
+                      id="field-greScore"
+                      type="number"
+                      className={`app-form-input ${errors.greScore ? 'has-error' : ''}`}
+                      value={formData.greScore}
+                      onChange={(e) => handleFieldChange('greScore', e.target.value)}
+                      placeholder="e.g. 315"
+                    />
+                    {errors.greScore && <span className="field-error-text">{errors.greScore}</span>}
+                  </div>
+
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-greYear">GRE Examination Year</label>
+                      <span className="field-badge-optional">Optional</span>
+                    </div>
+                    <select
+                      id="field-greYear"
+                      className="app-form-select"
+                      value={formData.greYear}
+                      onChange={(e) => handleFieldChange('greYear', e.target.value)}
+                    >
+                      <option value="">Select Year</option>
+                      {EXAM_YEAR_OPTIONS.map(yr => (
+                        <option key={yr} value={yr}>{yr}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {renderDocumentUploadCard(
+                  'greScorecardDoc',
+                  DOCUMENT_DEFINITIONS.greScorecardDoc.title,
+                  true,
+                  DOCUMENT_DEFINITIONS.greScorecardDoc.helper
+                )}
+              </div>
+            )}
+
+            {/* If GATE is selected (or Both) */}
+            {(formData.entranceExamStatus === 'GATE' || formData.entranceExamStatus === 'Both') && (
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1.5rem', marginBottom: '1.75rem' }}>
+                <h4 style={{ margin: '0 0 1.25rem 0', fontSize: '1.05rem', fontWeight: '800', color: '#0b2a6b' }}>
+                  GATE Examination Details
+                </h4>
+
+                <div className="form-fields-grid" style={{ marginBottom: '1.25rem' }}>
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-gateScore">GATE Score / Marks</label>
+                      <span className="field-badge-required">Required</span>
+                    </div>
+                    <input
+                      id="field-gateScore"
+                      type="number"
+                      className={`app-form-input ${errors.gateScore ? 'has-error' : ''}`}
+                      value={formData.gateScore}
+                      onChange={(e) => handleFieldChange('gateScore', e.target.value)}
+                      placeholder="e.g. 520"
+                    />
+                    {errors.gateScore && <span className="field-error-text">{errors.gateScore}</span>}
+                  </div>
+
+                  <div className="form-field-group">
+                    <div className="field-label-row">
+                      <label className="field-label" htmlFor="field-gateYear">GATE Examination Year</label>
+                      <span className="field-badge-optional">Optional</span>
+                    </div>
+                    <select
+                      id="field-gateYear"
+                      className="app-form-select"
+                      value={formData.gateYear}
+                      onChange={(e) => handleFieldChange('gateYear', e.target.value)}
+                    >
+                      <option value="">Select Year</option>
+                      {EXAM_YEAR_OPTIONS.map(yr => (
+                        <option key={yr} value={yr}>{yr}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {renderDocumentUploadCard(
+                  'gateScorecardDoc',
+                  DOCUMENT_DEFINITIONS.gateScorecardDoc.title,
+                  true,
+                  DOCUMENT_DEFINITIONS.gateScorecardDoc.helper
+                )}
+              </div>
+            )}
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Referral Source
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button type="button" className="btn btn-primary" onClick={handleNextSection}>
+                  <span>Review &amp; Submit Application</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* =========================================================================
+            SECTION 8: REVIEW & SUBMIT APPLICATION
+            ========================================================================= */}
+        {currentStep === 8 && (
+          <div className="form-section-card">
+            <div className="form-section-header">
+              <span className="form-section-kicker">SECTION 8 OF 8</span>
+              <h3 className="form-section-title">Review & Submit Application</h3>
+              <p className="form-section-desc">
+                Review your application across all 7 sections. Click "Edit Section" on any item if you need to make changes before final submission.
+              </p>
+            </div>
+
+            {/* Section 1 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">1. Personal & Contact Information</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(1)}>
+                  Edit Section 1
+                </button>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Full Name</span><span className="review-item-val">{formData.fullName || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Email</span><span className="review-item-val">{formData.email || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Phone</span><span className="review-item-val">{formData.phone || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Date of Birth</span><span className="review-item-val">{formData.dob || '—'}</span></div>
+                <div className="review-item" style={{ gridColumn: '1 / -1' }}><span className="review-item-label">Residential Address</span><span className="review-item-val">{formData.address || '—'}</span></div>
+              </div>
+            </div>
+
+            {/* Section 2 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">2. Parent / Guardian Information</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(2)}>
+                  Edit Section 2
+                </button>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Relationship</span><span className="review-item-val">{formData.parentRelationship}</span></div>
+                <div className="review-item"><span className="review-item-label">{getParentNameLabel()}</span><span className="review-item-val">{formData.parentName || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">{getParentPhoneLabel()}</span><span className="review-item-val">{formData.altPhone || '—'}</span></div>
+              </div>
+            </div>
+
+            {/* Section 3 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">3. Academic Qualifications</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(3)}>
+                  Edit Section 3
+                </button>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Class 10 Score</span><span className="review-item-val">{formData.class10Score ? `${formData.class10Score} (${formData.class10ScoreType})` : '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Class 12 Pathway</span><span className="review-item-val">{formData.interPathway}</span></div>
+                <div className="review-item"><span className="review-item-label">Class 12 Score</span><span className="review-item-val">{formData.interScore ? `${formData.interScore} (${formData.interScoreType})` : '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Qualifying Degree</span><span className="review-item-val">{formData.ugDegree}</span></div>
+                <div className="review-item"><span className="review-item-label">University / Institution</span><span className="review-item-val">{formData.university || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Department / Branch</span><span className="review-item-val">{formData.department || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Graduation Year</span><span className="review-item-val">{formData.passingYear}</span></div>
+                <div className="review-item"><span className="review-item-label">Aggregate Score</span><span className="review-item-val">{formData.cgpa ? `${formData.cgpa} (${formData.gradingScale})` : '—'}</span></div>
+              </div>
+            </div>
+
+            {/* Section 4 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">4. Work Experience & Resume</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(4)}>
+                  Edit Section 4
+                </button>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Experience Status</span><span className="review-item-val">{formData.hasExperience === 'Yes' ? 'Experienced' : 'Fresher'}</span></div>
+                {formData.hasExperience === 'Yes' && (
+                  <>
+                    <div className="review-item"><span className="review-item-label">Total Duration</span><span className="review-item-val">{formData.experienceYears} Yrs, {formData.experienceMonths} Mos</span></div>
+                    <div className="review-item"><span className="review-item-label">Company Name</span><span className="review-item-val">{formData.companyName || '—'}</span></div>
+                    <div className="review-item"><span className="review-item-label">Role / Job Title</span><span className="review-item-val">{formData.jobRole || '—'}</span></div>
+                  </>
+                )}
+                <div className="review-item"><span className="review-item-label">CV / Resume Status</span><span className="review-item-val">{formData.cvDocument ? `Uploaded (${formData.cvDocument.fileName})` : 'Missing'}</span></div>
+              </div>
+            </div>
+
+            {/* Section 5 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">5. Purpose of Joining MSIT</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(5)}>
+                  Edit Section 5
+                </button>
+              </div>
+              <div>
+                <span className="review-item-label">Statement ({currentStatementWords} / 200 words)</span>
+                <p style={{ fontStyle: 'italic', background: '#ffffff', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', margin: 0, fontSize: '0.9rem' }}>
+                  "{formData.statementText || 'No statement provided yet'}"
+                </p>
+              </div>
+            </div>
+
+            {/* Section 6 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">6. How Did You Hear About MSIT?</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(6)}>
+                  Edit Section 6
+                </button>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Referral Source</span><span className="review-item-val">{formData.referralSource || '—'}</span></div>
+                {formData.referralExplanation && (
+                  <div className="review-item"><span className="review-item-label">Specification</span><span className="review-item-val">{formData.referralExplanation}</span></div>
+                )}
+              </div>
+            </div>
+
+            {/* Section 7 Review */}
+            <div className="review-block-card">
+              <div className="review-block-header">
+                <h4 className="review-block-title">7. Entrance Examination Details</h4>
+                <button type="button" className="review-edit-link" onClick={() => setCurrentStep(7)}>
+                  Edit Section 7
+                </button>
+              </div>
+              <div className="review-details-grid">
+                <div className="review-item"><span className="review-item-label">Exam Taken</span><span className="review-item-val">{formData.entranceExamStatus}</span></div>
+                {(formData.entranceExamStatus === 'GRE' || formData.entranceExamStatus === 'Both') && (
+                  <div className="review-item"><span className="review-item-label">GRE Score</span><span className="review-item-val">{formData.greScore ? `${formData.greScore} (${formData.greYear || 'N/A'})` : '—'}</span></div>
+                )}
+                {(formData.entranceExamStatus === 'GATE' || formData.entranceExamStatus === 'Both') && (
+                  <div className="review-item"><span className="review-item-label">GATE Score</span><span className="review-item-val">{formData.gateScore ? `${formData.gateScore} (${formData.gateYear || 'N/A'})` : '—'}</span></div>
+                )}
+              </div>
+            </div>
+
+            {/* Comprehensive Document Verification Status Checklist */}
+            <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '1.5rem', marginBottom: '2rem' }}>
+              <h4 style={{ margin: '0 0 1rem 0', fontSize: '1.05rem', fontWeight: '800', color: '#0b2a6b' }}>
+                Application Document Verification Checklist
+              </h4>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {/* Class 10 Doc */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>Class 10 Marksheet / Memo</span>
+                  {formData.documents?.class10Doc ? (
+                    <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.class10Doc.fileName || formData.documents.class10Doc.file_name})</span>
+                  ) : (
+                    <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                  )}
+                </div>
+
+                {/* Class 12 Doc */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>Class 12 / Intermediate Marksheet</span>
+                  {formData.documents?.class12Doc ? (
+                    <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.class12Doc.fileName || formData.documents.class12Doc.file_name})</span>
+                  ) : (
+                    <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                  )}
+                </div>
+
+                {/* Degree Marksheet */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>Qualifying Degree Consolidated Marksheet</span>
+                  {formData.documents?.ugDegreeDoc ? (
+                    <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.ugDegreeDoc.fileName || formData.documents.ugDegreeDoc.file_name})</span>
+                  ) : (
+                    <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                  )}
+                </div>
+
+                {/* Degree Certificate */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>Degree / Provisional Certificate</span>
+                  {formData.documents?.degreeCertDoc ? (
+                    <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.degreeCertDoc.fileName || formData.documents.degreeCertDoc.file_name})</span>
+                  ) : (
+                    <span style={{ color: '#64748b', fontSize: '0.85rem' }}>Optional</span>
+                  )}
+                </div>
+
+                {/* Conditional 16-Year Proof */}
+                {requires16YearProof(formData.ugDegree) && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>16-Year Education Proof ({formData.ugDegree})</span>
+                    {formData.documents?.additionalDegree16YearDoc ? (
+                      <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.additionalDegree16YearDoc.fileName || formData.documents.additionalDegree16YearDoc.file_name})</span>
+                    ) : (
+                      <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                    )}
+                  </div>
+                )}
+
+                {/* CV / Resume */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                  <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>Curriculum Vitae (CV) / Resume</span>
+                  {formData.cvDocument ? (
+                    <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.cvDocument.fileName})</span>
+                  ) : (
+                    <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                  )}
+                </div>
+
+                {/* GRE Scorecard if applicable */}
+                {(formData.entranceExamStatus === 'GRE' || formData.entranceExamStatus === 'Both') && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>GRE Scorecard</span>
+                    {formData.documents?.greScorecardDoc ? (
+                      <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.greScorecardDoc.fileName || formData.documents.greScorecardDoc.file_name})</span>
+                    ) : (
+                      <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                    )}
+                  </div>
+                )}
+
+                {/* GATE Scorecard if applicable */}
+                {(formData.entranceExamStatus === 'GATE' || formData.entranceExamStatus === 'Both') && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', padding: '0.65rem 1rem', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                    <span style={{ fontSize: '0.88rem', fontWeight: '600' }}>GATE Scorecard</span>
+                    {formData.documents?.gateScorecardDoc ? (
+                      <span style={{ color: '#059669', fontSize: '0.85rem', fontWeight: '700' }}>✓ Uploaded ({formData.documents.gateScorecardDoc.fileName || formData.documents.gateScorecardDoc.file_name})</span>
+                    ) : (
+                      <span style={{ color: '#dc2626', fontSize: '0.85rem', fontWeight: '700' }}>✗ Required — Missing</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Declaration & Submission Action */}
+            <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '12px', padding: '1.25rem', marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
+                <CheckCircleIcon size={20} className="text-success" style={{ flexShrink: 0, marginTop: '2px' }} />
+                <div>
+                  <h5 style={{ margin: '0 0 0.35rem 0', color: '#166534', fontWeight: '700' }}>
+                    Candidate Verification Declaration
+                  </h5>
+                  <p style={{ margin: 0, fontSize: '0.86rem', color: '#14532d', lineHeight: '1.45' }}>
+                    I hereby declare that the particulars furnished above are true and complete to the best of my knowledge and that the uploaded transcripts are genuine representations of my academic records.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Step Navigation Bar */}
+            <div className="app-step-actions">
+              <div className="app-action-left">
+                <button type="button" className="btn btn-secondary" onClick={handlePrevSection}>
+                  ← Back to Entrance Exams
+                </button>
+                <button type="button" className="btn btn-secondary" onClick={handleSaveDraft}>
+                  Save Draft
+                </button>
+              </div>
+              <div className="app-action-right">
+                <button
+                  type="button"
+                  className="btn btn-primary btn-submit-app"
+                  disabled={isSubmitting}
+                  onClick={handleSubmitApplication}
+                >
+                  <span>{isSubmitting ? 'Submitting Application...' : (portalMode === 'edit' ? 'Update & Re-submit Application' : 'Submit Application')}</span>
+                  <ArrowRightIcon size={16} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

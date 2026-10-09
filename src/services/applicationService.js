@@ -373,6 +373,13 @@ export async function submitStudentApplication(applicationData, authUser = null)
     parent_relationship: applicationData.parentRelationship || 'Father',
     parent_name: applicationData.parentName || '',
     alt_phone: applicationData.altPhone || '',
+
+    // Section 3: Academic Qualifications breakdown
+    class10_score: applicationData.class10Score || null,
+    class10_score_type: applicationData.class10ScoreType || 'Percentage',
+    inter_pathway: applicationData.interPathway || 'Class 12 / Intermediate',
+    inter_score: applicationData.interScore || null,
+    inter_score_type: applicationData.interScoreType || 'Percentage',
     ug_degree: applicationData.ugDegree || '',
     university: applicationData.university || '',
     department: applicationData.department || '',
@@ -380,21 +387,41 @@ export async function submitStudentApplication(applicationData, authUser = null)
     grading_scale: applicationData.gradingScale || 'Percentage (out of 100%)',
     score_eligibility_note: applicationData.scoreEligibilityNote || '',
     passing_year: applicationData.passingYear || '',
+
+    // Section 4: Work Experience
     has_experience: applicationData.hasExperience || 'No',
-    experience_details: applicationData.experienceDetails || '',
-    gre_score: applicationData.greScore || null,
-    gate_score: applicationData.gateScore || null,
-    exam_name: applicationData.examName || null,
-    exam_year: applicationData.examYear || null,
-    cv_url: applicationData.cvDocument?.fileUrl || applicationData.cv_url || '',
-    cv_filename: applicationData.cvDocument?.fileName || applicationData.cv_filename || '',
+    experience_years: applicationData.experienceYears || '0',
+    experience_months: applicationData.experienceMonths || '0',
+    company_name: applicationData.companyName || '',
+    job_role: applicationData.jobRole || '',
+    experience_details: applicationData.hasExperience === 'Yes'
+      ? `${applicationData.companyName || ''} - ${applicationData.jobRole || ''} (${applicationData.experienceYears || 0} yrs ${applicationData.experienceMonths || 0} mos)`
+      : 'Fresher',
+
+    // Section 5: Purpose of Joining MSIT
     statement_text: applicationData.statementText || '',
     statement_word_count: applicationData.statementWordCount || 0,
+    purpose_to_join: applicationData.statementText || '',
+
+    // Section 6: Referral Source
     referral_source: applicationData.referralSource || '',
     referral_explanation: applicationData.referralExplanation || '',
+
+    // Section 7: Entrance Examination Details
+    entrance_exam_status: applicationData.entranceExamStatus || 'Neither',
+    gre_score: applicationData.greScore || null,
+    gre_year: applicationData.greYear || null,
+    gate_score: applicationData.gateScore || null,
+    gate_year: applicationData.gateYear || null,
+    exam_name: applicationData.entranceExamStatus || null,
+    exam_year: applicationData.greYear || applicationData.gateYear || null,
+
+    // Documents & Metadata
+    cv_url: applicationData.cvDocument?.fileUrl || applicationData.cv_url || '',
+    cv_filename: applicationData.cvDocument?.fileName || applicationData.cv_filename || '',
     status: 'Submitted',
     document_status: 'Pending Review',
-    cohort: 'January 2027 Intake',
+    cohort: applicationData.cohort || 'January 2027 Intake',
     decision_reason: null,
     decided_by: null,
     decided_at: null,

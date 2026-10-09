@@ -16,60 +16,100 @@ export const APPLICATION_CONFIG = {
 };
 
 export const INITIAL_APPLICATION_STATE = {
-  // Section A: Candidate details
+  // Section 1: Personal & Contact Information
   fullName: '',
   email: '',
   phone: '',
+  dob: '',
+  address: '',
 
-  // Section B: Academic details
+  // Section 2: Parent / Guardian Information
+  parentRelationship: 'Father', // 'Father' | 'Mother' | 'Legal Guardian'
+  parentName: '',
+  altPhone: '',
+
+  // Section 3: Academic Qualifications
+  // 3A. Class 10 / SSC
+  class10Score: '',
+  class10ScoreType: 'Percentage', // 'Percentage' | 'CGPA'
+
+  // 3B. Class 12 / Intermediate
+  interPathway: 'Class 12 / Intermediate', // 'Class 12 / Intermediate' | 'Polytechnic / Diploma' | 'Other Recognized Higher Secondary'
+  interScore: '',
+  interScoreType: 'Percentage', // 'Percentage' | 'CGPA'
+
+  // 3C. Qualifying Degree
   ugDegree: 'B.Tech / B.E.',
   university: '',
   department: 'Computer Science & Engineering (CSE)',
   passingYear: '2026',
   gradingScale: 'Percentage (out of 100%)',
-  cgpa: '', // score value
+  cgpa: '',
   scoreEligibilityNote: '',
 
-  // Section C: Academic documents (metadata for uploaded files)
-  documents: {
-    ugDegreeDoc: null,
-    class10Doc: null,
-    sscMemoDoc: null,
-    class12Doc: null
-  },
+  // Section 4: Work Experience
+  hasExperience: 'No', // 'No' (Fresher) | 'Yes' (Experienced)
+  experienceYears: '0',
+  experienceMonths: '0',
+  companyName: '',
+  jobRole: '',
 
-  // Section D: Entrance exam scores (optional)
-  hasEntranceExam: 'No',
-  greScore: '',
-  gateScore: '',
-  examName: '',
-  examYear: '',
-  entranceScorecardDoc: null,
-
-  // Section E: CV / Resume (mandatory)
-  cvDocument: null,
-
-  // Section F: Statement about MSIT (mandatory, <= 200 words)
+  // Section 5: Purpose of Joining MSIT (Mandatory, max 200 words)
   statementText: '',
   statementWordCount: 0,
 
-  // Section G: How did you hear about MSIT?
+  // Section 6: How did you hear about MSIT?
   referralSource: '',
   referralExplanation: '',
 
-  // Workflow meta
+  // Section 7: Entrance Examination Details (GRE / GATE)
+  entranceExamStatus: 'Neither', // 'GRE' | 'GATE' | 'Both' | 'Neither'
+  greScore: '',
+  greYear: '',
+  gateScore: '',
+  gateYear: '',
+
+  // Uploaded Documents Metadata Map
+  documents: {
+    class10Doc: null,
+    class12Doc: null,
+    ugDegreeDoc: null,
+    degreeCertDoc: null,
+    additionalDegree16YearDoc: null,
+    greScorecardDoc: null,
+    gateScorecardDoc: null
+  },
+
+  // Mandatory CV
+  cvDocument: null,
+
+  // Meta status
   isSubmitted: false,
   applicationId: null,
   submittedAt: null,
   status: 'Not Started'
 };
 
+export const PARENT_RELATIONSHIP_OPTIONS = [
+  'Father',
+  'Mother',
+  'Legal Guardian'
+];
+
+export const INTER_PATHWAY_OPTIONS = [
+  'Class 12 / Intermediate',
+  'Polytechnic / Diploma',
+  'Other Recognized Higher Secondary'
+];
+
 export const UG_DEGREE_OPTIONS = [
   'B.Tech / B.E.',
+  'MCA (Master of Computer Applications)',
+  'M.Sc (Computer Science / IT / Mathematics)',
   'B.Sc (Computer Science / IT / Allied)',
   'BCA (Bachelor of Computer Applications)',
-  'B.S. in Computing / Engineering',
-  'Other Bachelor’s Degree (16 Years Formal Education)'
+  'B.S. in Engineering / Computing',
+  'Other Accepted Bachelor’s / Master’s Degree'
 ];
 
 export const DEPARTMENT_OPTIONS = [
@@ -80,7 +120,8 @@ export const DEPARTMENT_OPTIONS = [
   'Data Science / AI / ML',
   'Mechanical Engineering',
   'Civil Engineering',
-  'Other Engineering Branch'
+  'Computer Applications / Software Systems',
+  'Other Engineering / Computing Branch'
 ];
 
 export const GRADING_SCALE_OPTIONS = [
@@ -106,38 +147,102 @@ export const REFERRAL_SOURCE_OPTIONS = [
   'Other'
 ];
 
-export const ACADEMIC_DOC_DEFINITIONS = [
-  {
-    key: 'ugDegreeDoc',
-    title: 'Undergraduate Degree Certificate / Marksheet',
-    subtitle: 'Upload your degree certificate, provisional certificate, or consolidated score memo.',
-    required: true,
-    accept: '.pdf,.jpg,.jpeg,.png',
-    maxSize: '10 MB'
-  },
-  {
-    key: 'class10Doc',
-    title: 'Class 10 Marksheet',
-    subtitle: 'Official secondary school examination marksheet / grade card.',
-    required: true,
-    accept: '.pdf,.jpg,.jpeg,.png',
-    maxSize: '10 MB'
-  },
-  {
-    key: 'sscMemoDoc',
-    title: 'SSC Memo',
-    subtitle: 'Secondary School Certificate memo. Note: For state boards, Class 10 and SSC memo may be the same certificate; you may upload the document here.',
-    required: true,
-    accept: '.pdf,.jpg,.jpeg,.png',
-    maxSize: '10 MB',
-    isFlaggedOverlap: true
-  },
-  {
-    key: 'class12Doc',
-    title: 'Class 12 Marksheet / Score-Proof Memo',
-    subtitle: 'Higher secondary / Intermediate (10+2) marksheet or diploma memo.',
-    required: true,
-    accept: '.pdf,.jpg,.jpeg,.png',
-    maxSize: '10 MB'
-  }
+export const ENTRANCE_EXAM_OPTIONS = [
+  'Neither',
+  'GRE',
+  'GATE',
+  'Both'
 ];
+
+export const EXAM_YEAR_OPTIONS = [
+  '2026',
+  '2025',
+  '2024',
+  '2023',
+  '2022 or earlier'
+];
+
+export const WORK_EXP_YEAR_OPTIONS = [
+  '0', '1', '2', '3', '4', '5', '6', '7', '8+'
+];
+
+export const WORK_EXP_MONTH_OPTIONS = [
+  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'
+];
+
+/**
+ * Checks whether the qualifying degree requires 16-year education proof
+ * e.g., MCA candidates or non-4-year degree graduates.
+ */
+export function requires16YearProof(ugDegree) {
+  if (!ugDegree) return false;
+  const d = ugDegree.toLowerCase();
+  return d.includes('mca') || d.includes('m.sc') || d.includes('bca') || d.includes('b.sc');
+}
+
+export const DOCUMENT_DEFINITIONS = {
+  class10Doc: {
+    key: 'class10Doc',
+    title: 'Class 10 / SSC Marksheet or Memo',
+    required: true,
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Upload your Class 10 / SSC or equivalent secondary school marksheet / pass certificate.'
+  },
+  class12Doc: {
+    key: 'class12Doc',
+    title: 'Intermediate / Class 12 / Diploma Marksheet or Memo',
+    required: true,
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Upload your Higher Secondary / Intermediate / Diploma consolidated marks memo.'
+  },
+  ugDegreeDoc: {
+    key: 'ugDegreeDoc',
+    title: 'Degree Marksheet / Consolidated Marks Memo',
+    required: true,
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Upload your semester-wise or consolidated undergraduate marks memo.'
+  },
+  degreeCertDoc: {
+    key: 'degreeCertDoc',
+    title: 'Degree Certificate / Provisional Certificate',
+    required: false,
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Upload your provisional certificate or convocation degree certificate (optional if currently appearing in final year).'
+  },
+  additionalDegree16YearDoc: {
+    key: 'additionalDegree16YearDoc',
+    title: 'Additional Qualifying Degree / 16-Year Education Proof',
+    required: false, // dynamically enforced if requires16YearProof(ugDegree)
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Required for MCA or non-4-year degree holders to verify 16 years of formal education (e.g., prior degree marksheets or certificate).'
+  },
+  greScorecardDoc: {
+    key: 'greScorecardDoc',
+    title: 'GRE Scorecard',
+    required: false, // dynamically enforced if GRE is selected
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Upload your official or downloaded ETS GRE score report.'
+  },
+  gateScorecardDoc: {
+    key: 'gateScorecardDoc',
+    title: 'GATE Scorecard',
+    required: false, // dynamically enforced if GATE is selected
+    acceptedFormats: 'PDF, JPG, PNG (Max 10 MB)',
+    helper: 'Upload your official GATE scorecard.'
+  },
+  cvDocument: {
+    key: 'cvDocument',
+    title: 'Curriculum Vitae (CV) / Resume',
+    required: true,
+    acceptedFormats: 'PDF, DOC, DOCX (Max 5 MB)',
+    helper: 'Upload your updated resume detailing education, technical projects, and skills.'
+  }
+};
+
+export const ACADEMIC_DOC_DEFINITIONS = [
+  DOCUMENT_DEFINITIONS.class10Doc,
+  DOCUMENT_DEFINITIONS.class12Doc,
+  DOCUMENT_DEFINITIONS.ugDegreeDoc,
+  DOCUMENT_DEFINITIONS.degreeCertDoc
+];
+
