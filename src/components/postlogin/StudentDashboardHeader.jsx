@@ -169,35 +169,79 @@ export default function StudentDashboardHeader({
 
   const currentStatusConfig = statusConfigMap[applicationStatus] || statusConfigMap['Not Started'];
 
-  // Check state of application
-  const isAppSubmitted = ['Submitted', 'Under Review', 'Accepted', 'Rejected', 'Additional Information Required'].includes(applicationStatus);
-  const hasSelectedExamMode = isAppSubmitted && application?.entrance_exam_status && application?.entrance_exam_status !== 'Neither';
+  // 1. Application Submission: Mark complete when the student has submitted the application.
+  const submittedStatuses = [
+    'Submitted', 
+    'Under Review', 
+    'Accepted', 
+    'Declined', 
+    'Rejected', 
+    'Additional Information Required', 
+    'Interview Scheduled', 
+    'Interview Completed', 
+    'Onboarded', 
+    'Enrolled'
+  ];
+  const isAppSubmitted = Boolean(
+    submittedStatuses.includes(applicationStatus) ||
+    submittedStatuses.includes(application?.status) ||
+    application?.submitted_at ||
+    application?.isSubmitted
+  );
 
-  // Dynamic Recommended Next Action Checklist constructed from Admin Settings & Application State
-  const dynamicChecklist = [
+  // 2. Admission Mode Selection: Mark complete when the student has selected or confirmed an admission mode.
+  const isAdmissionModeSelected = Boolean(
+    (isAppSubmitted && (application?.entrance_exam_status || application?.admission_mode || true)) ||
+    (application?.entrance_exam_status && application?.entrance_exam_status !== '') ||
+    application?.admission_mode ||
+    application?.selected_admission_mode ||
+    application?.admission_mode_confirmed ||
+    application?.draft_data?.entranceExamStatus
+  );
+
+  // 3. Technical Interview & Counselling: Mark complete when the relevant interview/counselling stage has been completed or the admin has updated its status accordingly.
+  const isInterviewComplete = Boolean(
+    ['Accepted', 'Interview Completed', 'Counselling Completed', 'Onboarded', 'Enrolled'].includes(application?.status) ||
+    ['Accepted', 'Interview Completed', 'Counselling Completed', 'Onboarded', 'Enrolled'].includes(applicationStatus) ||
+    application?.interview_status === 'Completed' ||
+    application?.interview_status === 'Passed' ||
+    application?.interview_completed === true ||
+    application?.counselling_status === 'Completed' ||
+    admissionSettings?.interviewCompleted === true
+  );
+
+  // 4. Batch Onboarding: Mark complete when the student has completed the required onboarding steps or the admin has marked onboarding as complete.
+  const isOnboardingComplete = Boolean(
+    ['Onboarded', 'Enrolled'].includes(application?.status) ||
+    ['Onboarded', 'Enrolled'].includes(applicationStatus) ||
+    application?.onboarding_status === 'Completed' ||
+    application?.onboarding_status === 'Onboarded' ||
+    application?.is_onboarded === true ||
+    application?.onboarding_completed === true ||
+    admissionSettings?.onboardingCompleted === true
+  );
+
+  // Dynamic Admission Status Checklist reflecting prospective student's admission progress
+  const admissionSteps = [
     {
       id: "1",
-      title: "Apply Through Admission Portal",
-      text: `Fill the online application form with personal and academic details between ${appStart} and ${appDeadline}.`,
+      title: "Application Submission",
       done: isAppSubmitted
     },
     {
       id: "2",
-      title: `Select Admission Mode (${appModes})`,
-      text: admissionSettings?.admissionModesDesc || `Confirm your evaluation mode: submit valid ${appModes} scorecards or register for MSIT's own entrance exam.`,
-      done: Boolean(hasSelectedExamMode)
+      title: "Admission Mode Selection",
+      done: isAdmissionModeSelected
     },
     {
       id: "3",
-      title: "Prepare for Technical Interview & Counselling",
-      text: admissionSettings?.interviewInstructions || `Brush up on computational logic and problem-solving for the technical interaction (Interview & counselling dates: ${admissionSettings?.interviewSchedule || 'TBD'}).`,
-      done: applicationStatus === 'Accepted'
+      title: "Technical Interview & Counselling",
+      done: isInterviewComplete
     },
     {
       id: "4",
-      title: "Batch Commencement Onboarding",
-      text: admissionSettings?.onboardingInstructions || `Confirmed batch commencement date is ${commencementDate} at ${commencementVenue}.`,
-      done: false
+      title: "Batch Onboarding",
+      done: isOnboardingComplete
     }
   ];
 
@@ -323,40 +367,31 @@ export default function StudentDashboardHeader({
           </div>
         </div>
 
-        {/* Actionable "Recommended Next Action" Checklist Area (Dynamically Sourced from Admin Settings) */}
+        {/* Actionable Admission Status Checklist Area */}
         <div className="decision-prep-area">
           <div className="decision-prep-header">
             <div className="prep-title-group">
               <SparklesIcon size={20} className="prep-icon" />
               <div>
-                <h2>{admissionSettings?.nextActionTitle || data?.nextActionTitle || 'Recommended Next Action'}</h2>
-                <p>
-                  {admissionSettings?.nextActionDesc || 
-                    `Submit your application through the portal between ${appStart} and ${appDeadline}. Prepare for evaluation via ${appModes}.`}
-                </p>
+                <h2>Admission Status</h2>
               </div>
             </div>
           </div>
 
           {loadingSettings ? (
-            <div className="prep-checklist-grid" aria-label="Loading recommended actions">
+            <div className="prep-checklist-grid" aria-label="Loading admission status">
               {[1, 2, 3, 4].map((n) => (
                 <div key={n} className="prep-skeleton-card">
                   <div className="prep-skeleton-circle" />
                   <div className="prep-skeleton-lines">
                     <div className="prep-skeleton-bar-title" />
-                    <div className="prep-skeleton-bar-desc" />
                   </div>
                 </div>
               ))}
             </div>
-          ) : dynamicChecklist.length === 0 ? (
-            <div className="prep-empty-box">
-              <p>No admission actions currently scheduled for this cycle. Please check back soon or contact admissions.</p>
-            </div>
           ) : (
             <div className="prep-checklist-grid">
-              {dynamicChecklist.map((item) => (
+              {admissionSteps.map((item) => (
                 <div key={item.id} className={`prep-checklist-card ${item.done ? 'is-done' : ''}`}>
                   <div className="checklist-num-wrap">
                     {item.done ? (
@@ -367,7 +402,6 @@ export default function StudentDashboardHeader({
                   </div>
                   <div className="checklist-card-content">
                     <h4>{item.title}</h4>
-                    <p>{item.text}</p>
                   </div>
                 </div>
               ))}

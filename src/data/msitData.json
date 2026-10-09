@@ -17,31 +17,26 @@
     "welcomeSubtitle": "Explore official programme specifications, academic learning structure, admissions criteria, and application preparation for the upcoming cohort.",
     "cohortBadge": "Batch Commencement: January 2, 2027",
     "statusBadge": "Applications Open Now",
-    "nextActionTitle": "Recommended Next Action",
-    "nextActionDesc": "Submit your application through the portal between October 1, 2026 and November 30, 2026. Prepare for evaluation via GRE, GATE, or MSIT's entrance exam.",
+    "nextActionTitle": "Admission Status",
     "actionChecklist": [
       {
         "id": "1",
-        "title": "Apply Through Admission Portal",
-        "desc": "Fill the online application form with personal and academic details between October 1, 2026 and November 30, 2026.",
-        "done": true
+        "title": "Application Submission",
+        "done": false
       },
       {
         "id": "2",
-        "title": "Select Admission Mode (GRE, GATE, or MSIT Exam)",
-        "desc": "Confirm your evaluation mode: submit valid GRE/GATE scorecards or register for MSIT's own entrance exam.",
+        "title": "Admission Mode Selection",
         "done": false
       },
       {
         "id": "3",
-        "title": "Prepare for Technical Interview & Counselling",
-        "desc": "Brush up on computational logic and problem-solving for the technical interaction (Interview & counselling dates: TBD).",
+        "title": "Technical Interview & Counselling",
         "done": false
       },
       {
         "id": "4",
-        "title": "Batch Commencement Onboarding",
-        "desc": "Confirmed batch commencement date is January 2, 2027 at IIIT Hyderabad.",
+        "title": "Batch Onboarding",
         "done": false
       }
     ]
@@ -290,10 +285,8 @@
     "table": [
       { "component": "Tuition Fee", "amount": "INR 1,50,000", "period": "Per Semester" },
       { "component": "Admission / Registration Fee", "amount": "To be published with admission notification", "period": "One-time at admission" },
-      { "component": "Refundable Caution Deposit", "amount": "To be published with admission notification", "period": "Refundable on completion" },
       { "component": "Hostel & Accommodation Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" },
-      { "component": "Mess / Dining Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" },
-      { "component": "Other Institute Charges", "amount": "To be published with admission notification", "period": "As per institutional circular" }
+      { "component": "Mess / Dining Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" }
     ],
     "loanGuidance": {
       "title": "Education Loan Facilitation",

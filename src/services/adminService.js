@@ -315,6 +315,9 @@ export async function updateApplicationStatus(applicationId, newStatus, reason =
       };
       updatedApp = localApps[idx];
       localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedApp }));
+      }
     }
   } catch (e) {}
 

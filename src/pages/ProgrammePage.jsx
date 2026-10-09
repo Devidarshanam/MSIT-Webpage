@@ -76,9 +76,35 @@ export default function ProgrammePage() {
     };
     window.addEventListener('msit:admission-settings-updated', handleSettingsUpdate);
 
+    // Live update listener for applicant updates made by admin
+    const handleAppStatusUpdate = (e) => {
+      if (e.detail && isMounted && user?.email && (e.detail.email || '').toLowerCase() === user.email.toLowerCase()) {
+        setApplication(e.detail);
+        setApplicationStatus(e.detail.status || 'Submitted');
+      }
+    };
+    window.addEventListener('msit:application-status-updated', handleAppStatusUpdate);
+
+    // Cross-tab sync via storage events
+    const handleStorageChange = (e) => {
+      if (e.key === 'msit_all_submitted_applications' && isMounted && user?.email) {
+        try {
+          const apps = JSON.parse(e.newValue || '[]');
+          const myApp = apps.find(a => (a.email || '').toLowerCase() === user.email.toLowerCase());
+          if (myApp) {
+            setApplication(myApp);
+            setApplicationStatus(myApp.status || 'Submitted');
+          }
+        } catch (_) {}
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
     return () => { 
       isMounted = false; 
       window.removeEventListener('msit:admission-settings-updated', handleSettingsUpdate);
+      window.removeEventListener('msit:application-status-updated', handleAppStatusUpdate);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, [user]);
 

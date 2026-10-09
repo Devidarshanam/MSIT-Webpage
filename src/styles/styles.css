@@ -6989,20 +6989,19 @@ p {
 
 .prep-title-group {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
 }
 
 .prep-icon {
   color: var(--primary-600);
-  margin-top: 3px;
   flex-shrink: 0;
 }
 
 .prep-title-group h2 {
   font-size: 1.15rem;
   color: var(--neutral-900);
-  margin-bottom: 0.25rem;
+  margin: 0;
 }
 
 .prep-title-group p {
@@ -7019,7 +7018,7 @@ p {
 
 .prep-checklist-card {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 0.75rem;
   background: var(--neutral-50);
   border: 1px solid var(--neutral-200);
@@ -7062,7 +7061,7 @@ p {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--neutral-900);
-  margin-bottom: 0.25rem;
+  margin: 0;
 }
 
 .checklist-card-content p {
