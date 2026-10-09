@@ -23829,12 +23829,12 @@ p {
 
 .auth-modal-close-btn {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.25rem;
+  right: 1.25rem;
   background: #f1f5f9;
-  border: none;
-  width: 34px;
-  height: 34px;
+  border: 1px solid #e2e8f0;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -23848,10 +23848,46 @@ p {
 .auth-modal-close-btn:hover {
   background: #e2e8f0;
   color: #0f172a;
+  transform: scale(1.05);
 }
 
 .auth-modal-body {
-  padding: 1rem;
+  padding: 2rem 2.25rem;
+}
+
+/* Modal-specific overrides for AuthFlow inside dialog to prevent icon/close-button collision */
+.auth-modal-dialog .simple-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 1.25rem;
+  padding-right: 3rem;
+}
+
+.auth-modal-dialog .simple-card-icon {
+  display: none !important;
+}
+
+.auth-modal-dialog .simple-card-content {
+  margin-bottom: 1.25rem;
+}
+
+.auth-modal-dialog .simple-card-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0b2a6b;
+  margin-bottom: 0.5rem;
+}
+
+.auth-modal-dialog .simple-card-desc {
+  font-size: 0.92rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.auth-modal-dialog .simple-card-footer {
+  margin-top: 0.75rem;
 }
 
 /* Explore Top Nav User State & Brand Link */
