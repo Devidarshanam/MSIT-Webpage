@@ -9,10 +9,31 @@ import {
 } from '../Icons';
 import { getStudentDisplayName } from '../../utils/userUtils';
 
-export default function StudentDashboardHeader({ user, data, onApply }) {
+export default function StudentDashboardHeader({ 
+  user, 
+  data, 
+  application = null,
+  applicationStatus = 'Not Started',
+  onApply 
+}) {
   const navigate = useNavigate();
   // Extract real student name cleanly
   const displayName = getStudentDisplayName(user);
+
+  const getButtonLabel = () => {
+    if (applicationStatus === 'Draft') return 'Continue Application';
+    if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(applicationStatus)) return 'View Application';
+    if (applicationStatus === 'Additional Information Required') return 'Update Application';
+    return 'Apply Now (Jan 2027)';
+  };
+
+  const handleActionClick = () => {
+    if (onApply) {
+      onApply(applicationStatus);
+    } else {
+      navigate('/apply');
+    }
+  };
 
   return (
     <section className="student-dashboard-hero" id="overview">
@@ -46,9 +67,9 @@ export default function StudentDashboardHeader({ user, data, onApply }) {
               <button 
                 type="button" 
                 className="btn btn-primary"
-                onClick={() => onApply ? onApply() : navigate('/apply')}
+                onClick={handleActionClick}
               >
-                <span>Apply Now (Jan 2027)</span>
+                <span>{getButtonLabel()}</span>
                 <ArrowRightIcon size={16} />
               </button>
             </div>
@@ -88,15 +109,11 @@ export default function StudentDashboardHeader({ user, data, onApply }) {
             {(data?.actionChecklist || []).map((item) => (
               <div key={item.id} className={`prep-checklist-card ${item.done ? 'is-done' : ''}`}>
                 <div className="checklist-num-wrap">
-                  {item.done ? (
-                    <span className="checklist-check-icon">✓</span>
-                  ) : (
-                    <span className="checklist-num">{item.id}</span>
-                  )}
+                  <span className="checklist-step-num">{item.id}</span>
                 </div>
                 <div className="checklist-card-content">
                   <h4>{item.title}</h4>
-                  <p>{item.desc}</p>
+                  <p>{item.text}</p>
                 </div>
               </div>
             ))}

@@ -78,7 +78,7 @@ export default function ApplicationDetailModal({
     let targetStatus = 'Under Review';
     if (decisionType === 'Accept') targetStatus = 'Accepted';
     else if (decisionType === 'Decline') targetStatus = 'Declined';
-    else if (decisionType === 'Pending') targetStatus = 'Documents Pending';
+    else if (decisionType === 'Pending' || decisionType === 'ActionRequired') targetStatus = 'Additional Information Required';
 
     const res = await updateApplicationStatus(application.application_id, targetStatus, reason, adminEmail);
     if (res.updatedApp) {
@@ -174,10 +174,11 @@ export default function ApplicationDetailModal({
               <button
                 type="button"
                 className="btn btn-sm btn-secondary"
-                onClick={() => handleOpenDecision('Pending')}
-                disabled={application.status === 'Documents Pending'}
+                onClick={() => handleOpenDecision('ActionRequired')}
+                disabled={application.status === 'Additional Information Required'}
+                style={{ background: '#fff7ed', color: '#9a3412', borderColor: '#fed7aa', fontWeight: '600' }}
               >
-                Documents Pending
+                Request Additional Info
               </button>
             </div>
           </div>
@@ -236,7 +237,7 @@ export default function ApplicationDetailModal({
                 <div className="applicant-info-card">
                   <h4 className="info-card-title">
                     <UserIcon size={18} />
-                    <span>Personal & Contact Information</span>
+                    <span>1. Personal & Contact Information</span>
                   </h4>
                   <div className="info-grid">
                     <div className="info-item">
@@ -259,61 +260,189 @@ export default function ApplicationDetailModal({
                       <span className="label">Residential Address:</span>
                       <span className="value">{application.address || 'N/A'}</span>
                     </div>
+                  </div>
+                </div>
+
+                {/* Section 2: Parent / Guardian Information */}
+                <div className="applicant-info-card">
+                  <h4 className="info-card-title">
+                    <UsersIcon size={18} />
+                    <span>2. Parent / Guardian Information</span>
+                  </h4>
+                  <div className="info-grid">
                     <div className="info-item">
-                      <span className="label">{application.parent_relationship || 'Parent'} Name:</span>
+                      <span className="label">Relationship:</span>
+                      <strong className="value">{application.parent_relationship || 'Father'}</strong>
+                    </div>
+                    <div className="info-item">
+                      <span className="label">{application.parent_relationship || 'Parent'}'s Name:</span>
                       <span className="value">{application.parent_name || 'N/A'}</span>
                     </div>
                     <div className="info-item">
-                      <span className="label">{application.parent_relationship || 'Parent'} Mobile Number:</span>
+                      <span className="label">{application.parent_relationship || 'Parent'}'s Mobile:</span>
                       <span className="value">{application.alt_phone || 'N/A'}</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Section 2: Academics & Experience */}
+                {/* Section 3: Academic Qualifications */}
                 <div className="applicant-info-card">
                   <h4 className="info-card-title">
                     <GraduationCapIcon size={18} />
-                    <span>Undergraduate Academic Qualifications</span>
+                    <span>3. Academic Qualifications</span>
                   </h4>
                   <div className="info-grid">
                     <div className="info-item">
+                      <span className="label">Class 10 / SSC:</span>
+                      <span className="value">{application.class10_score ? `${application.class10_score} (${application.class10_score_type || 'Percentage'})` : 'N/A'}</span>
+                    </div>
+                    <div className="info-item">
+                      <span className="label">Class 12 / Intermediate:</span>
+                      <span className="value">{application.inter_score ? `${application.inter_score} (${application.inter_score_type || 'Percentage'}) [${application.inter_pathway || 'Class 12'}]` : 'N/A'}</span>
+                    </div>
+                    <div className="info-item">
                       <span className="label">Qualifying Degree:</span>
-                      <strong className="value">{application.ug_degree || 'N/A'}</strong>
+                      <strong className="value">{application.ug_degree || 'B.Tech / B.E.'}</strong>
+                    </div>
+                    <div className="info-item">
+                      <span className="label">University / Institution:</span>
+                      <span className="value">{application.university || 'N/A'}</span>
                     </div>
                     <div className="info-item">
                       <span className="label">Department / Branch:</span>
                       <span className="value">{application.department || 'N/A'}</span>
                     </div>
                     <div className="info-item">
-                      <span className="label">CGPA / Percentage:</span>
-                      <strong className="value text-primary">{application.cgpa || 'N/A'}</strong>
-                    </div>
-                    <div className="info-item">
-                      <span className="label">Year of Passing:</span>
+                      <span className="label">Graduation Year:</span>
                       <span className="value">{application.passing_year || 'N/A'}</span>
                     </div>
+                    <div className="info-item">
+                      <span className="label">Degree Aggregate Score:</span>
+                      <strong className="value text-primary">{application.cgpa || 'N/A'} {application.grading_scale ? `(${application.grading_scale})` : ''}</strong>
+                    </div>
+                    {application.score_eligibility_note && (
+                      <div className="info-item full" style={{ background: '#fffbeb', padding: '0.65rem 0.85rem', borderRadius: '6px', border: '1px solid #fde68a' }}>
+                        <span className="label" style={{ color: '#92400e' }}>Eligibility Threshold Advisory:</span>
+                        <span className="value" style={{ color: '#92400e', fontSize: '0.85rem' }}>{application.score_eligibility_note}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Section 4: Work Experience */}
+                <div className="applicant-info-card">
+                  <h4 className="info-card-title">
+                    <BriefcaseIcon size={18} />
+                    <span>4. Work Experience</span>
+                  </h4>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <span className="label">Experience Status:</span>
+                      <strong className="value">{application.has_experience === 'Yes' ? 'Experienced' : 'Fresher'}</strong>
+                    </div>
+                    {application.has_experience === 'Yes' && (
+                      <>
+                        <div className="info-item">
+                          <span className="label">Duration:</span>
+                          <span className="value">{application.experience_years || '0'} Years, {application.experience_months || '0'} Months</span>
+                        </div>
+                        <div className="info-item">
+                          <span className="label">Company Name:</span>
+                          <span className="value">{application.company_name || 'N/A'}</span>
+                        </div>
+                        <div className="info-item">
+                          <span className="label">Job Title / Role:</span>
+                          <span className="value">{application.job_role || 'N/A'}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                {/* Section 5: Purpose of Joining MSIT */}
+                {(application.statement_text || application.purpose_to_join) && (
+                  <div className="applicant-info-card">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                      <h4 className="info-card-title" style={{ margin: 0 }}>
+                        <BookOpenIcon size={18} />
+                        <span>5. Purpose of Joining MSIT</span>
+                      </h4>
+                      <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#0b2a6b', background: '#eff6ff', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                        {application.statement_word_count || (application.statement_text ? application.statement_text.trim().split(/\s+/).length : 0)} / 200 words
+                      </span>
+                    </div>
+                    <p className="sop-text" style={{ fontStyle: 'italic', background: '#f8fafc', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', margin: 0 }}>
+                      "{application.statement_text || application.purpose_to_join}"
+                    </p>
+                  </div>
+                )}
+
+                {/* Section 6: Referral Source */}
+                {application.referral_source && (
+                  <div className="applicant-info-card">
+                    <h4 className="info-card-title">
+                      <UsersIcon size={18} />
+                      <span>6. How Candidate Heard About MSIT</span>
+                    </h4>
+                    <div className="info-grid">
+                      <div className="info-item">
+                        <span className="label">Source:</span>
+                        <strong className="value">{application.referral_source}</strong>
+                      </div>
+                      {application.referral_explanation && (
+                        <div className="info-item">
+                          <span className="label">Specification:</span>
+                          <span className="value">{application.referral_explanation}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Section 7: Entrance Examination Details & CV */}
+                <div className="applicant-info-card">
+                  <h4 className="info-card-title">
+                    <AwardIcon size={18} />
+                    <span>7. Entrance Examination Details &amp; CV</span>
+                  </h4>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <span className="label">Entrance Exam Status:</span>
+                      <strong className="value">{application.entrance_exam_status || 'Neither'}</strong>
+                    </div>
+                    {application.gre_score && (
+                      <div className="info-item">
+                        <span className="label">GRE Score:</span>
+                        <span className="value">{application.gre_score} {application.gre_year ? `(${application.gre_year})` : ''}</span>
+                      </div>
+                    )}
+                    {application.gate_score && (
+                      <div className="info-item">
+                        <span className="label">GATE Score:</span>
+                        <span className="value">{application.gate_score} {application.gate_year ? `(${application.gate_year})` : ''}</span>
+                      </div>
+                    )}
                     <div className="info-item full">
-                      <span className="label">Prior Work Experience:</span>
+                      <span className="label">Curriculum Vitae (CV) / Resume:</span>
                       <span className="value">
-                        {application.has_experience === 'Yes'
-                          ? `Yes — ${application.experience_details || 'Specified in application'}`
-                          : 'No (Fresher)'}
+                        {application.cv_url ? (
+                          <a 
+                            href={application.cv_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="btn btn-sm btn-secondary" 
+                            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.25rem' }}
+                          >
+                            <DownloadIcon size={14} />
+                            <span>Download CV ({application.cv_filename || 'Candidate_CV.pdf'})</span>
+                          </a>
+                        ) : (
+                          application.cv_filename || 'Uploaded with application'
+                        )}
                       </span>
                     </div>
                   </div>
                 </div>
-
-                {/* Section 3: Purpose to Join */}
-                {application.purpose_to_join && (
-                  <div className="applicant-info-card">
-                    <h4 className="info-card-title">
-                      <AwardIcon size={18} />
-                      <span>Purpose to Join MSIT</span>
-                    </h4>
-                    <p className="sop-text">{application.purpose_to_join}</p>
-                  </div>
-                )}
 
               </div>
             )}
@@ -359,13 +488,27 @@ export default function ApplicationDetailModal({
                             )}
                           </td>
                           <td>
-                            <button
-                              type="button"
-                              className="btn btn-secondary btn-sm"
-                              onClick={() => handleOpenDocReview(doc)}
-                            >
-                              Review / Update
-                            </button>
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                              <button
+                                type="button"
+                                className="btn btn-secondary btn-sm"
+                                onClick={() => handleOpenDocReview(doc)}
+                              >
+                                Review / Update
+                              </button>
+                              {doc.file_url && (
+                                <a
+                                  href={doc.file_url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="btn btn-sm"
+                                  style={{ background: '#f1f5f9', border: '1px solid #cbd5e1', padding: '0.25rem 0.5rem', fontSize: '0.78rem', textDecoration: 'none', color: '#0f172a' }}
+                                  title="Open document securely in new tab"
+                                >
+                                  View File
+                                </a>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}
