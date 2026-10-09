@@ -402,9 +402,50 @@ export async function updateDocumentStatus(applicationId, docId, newDocStatus, r
         localApps[appIdx] = app;
         updatedApp = app;
         localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedApp }));
+        }
       }
     }
   } catch (e) {}
+
+  return { success: true, updatedApp };
+}
+
+/**
+ * Generic helper to update candidate-level workflow records (interview schedule, GAT result, onboarding).
+ */
+export async function updateApplicationRecord(applicationId, patchData, adminEmail = 'admin') {
+  const now = new Date().toISOString();
+  let localApps = [];
+  let updatedApp = null;
+  try {
+    localApps = JSON.parse(localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY) || '[]');
+    const idx = localApps.findIndex(a => a.application_id === applicationId || a.id === applicationId);
+    if (idx !== -1) {
+      localApps[idx] = {
+        ...localApps[idx],
+        ...patchData,
+        updated_at: now
+      };
+      updatedApp = localApps[idx];
+      localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedApp }));
+      }
+    }
+  } catch (e) {}
+
+  if (isSupabaseConfigured() && supabase) {
+    try {
+      await supabase
+        .from('applications')
+        .update({ ...patchData, updated_at: now })
+        .or(`application_id.eq.${applicationId},id.eq.${applicationId}`);
+    } catch (err) {
+      console.warn('[MSIT Admin] Supabase record update warning:', err);
+    }
+  }
 
   return { success: true, updatedApp };
 }
@@ -508,13 +549,17 @@ export const DEFAULT_ADMISSION_SETTINGS = {
   applicationDeadline: 'November 30, 2026',
   admissionModes: 'GRE, GATE, or MSIT Exam',
   admissionModesDesc: "Confirm your evaluation mode: submit valid GRE/GATE scorecards or register for MSIT's own entrance exam.",
+  gatExamDate: 'December 15, 2026',
+  gatSchedule: 'December 15, 2026',
   interviewSchedule: 'TBD',
   interviewInstructions: 'Brush up on computational logic and problem-solving for the technical interaction (Interview & counselling dates: TBD).',
   commencementDate: 'January 2, 2027',
   commencementVenue: 'IIIT Hyderabad',
   onboardingInstructions: 'Confirmed batch commencement date is January 2, 2027 at IIIT Hyderabad.',
-  nextActionTitle: 'Recommended Next Action',
-  nextActionDesc: "Submit your application through the portal between October 1, 2026 and November 30, 2026. Prepare for evaluation via GRE, GATE, or MSIT's entrance exam."
+  nextActionTitle: 'Admission Status',
+  nextActionDesc: "Review your admission progress across the five key evaluation and onboarding milestones.",
+  greMinScore: 300,
+  gateMinScore: 350
 };
 
 /**

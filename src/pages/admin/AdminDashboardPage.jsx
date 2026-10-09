@@ -998,6 +998,19 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
 
                       <div className="form-group">
                         <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
+                          GAT Examination Date (For Candidates Without GRE/GATE)
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          value={admissionSettings.gatExamDate || ''}
+                          onChange={(e) => setAdmissionSettings(prev => ({ ...prev, gatExamDate: e.target.value }))}
+                          placeholder="e.g. December 15, 2026"
+                        />
+                      </div>
+
+                      <div className="form-group">
+                        <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
                           Technical Interview Timeline
                         </label>
                         <input

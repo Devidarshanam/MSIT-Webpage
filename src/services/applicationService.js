@@ -721,6 +721,10 @@ export async function updateStudentApplication(applicationId, updateData, authUs
     safeJsonSet(LOCAL_STORAGE_APPS_KEY, allApps);
   }
 
+  if (typeof window !== 'undefined' && updatedRecord) {
+    window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedRecord }));
+  }
+
   // Update Supabase if available
   if (isSupabaseConfigured() && supabase) {
     try {

@@ -26,17 +26,22 @@
       },
       {
         "id": "2",
-        "title": "Admission Mode Selection",
+        "title": "Application Review & Document Verification",
         "done": false
       },
       {
         "id": "3",
-        "title": "Technical Interview & Counselling",
+        "title": "Eligibility & Evaluation",
         "done": false
       },
       {
         "id": "4",
-        "title": "Batch Onboarding",
+        "title": "Technical Interview & Counselling",
+        "done": false
+      },
+      {
+        "id": "5",
+        "title": "Final Decision & Onboarding",
         "done": false
       }
     ]

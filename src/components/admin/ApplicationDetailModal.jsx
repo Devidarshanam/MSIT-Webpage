@@ -19,7 +19,8 @@ import {
   getApplicationNotes, 
   getStatusHistory, 
   updateDocumentStatus, 
-  updateApplicationStatus 
+  updateApplicationStatus,
+  updateApplicationRecord
 } from '../../services/adminService';
 import { useAdminAuth } from '../../context/AdminAuthContext';
 
@@ -50,7 +51,53 @@ export default function ApplicationDetailModal({
   const [selectedDoc, setSelectedDoc] = useState(null);
   const [docReviewModalOpen, setDocReviewModalOpen] = useState(false);
 
+  // Workflow evaluation state
+  const [workflowGatDate, setWorkflowGatDate] = useState(application?.gat_exam_date || '');
+  const [workflowGatScore, setWorkflowGatScore] = useState(application?.gat_score || '');
+  const [workflowGatResult, setWorkflowGatResult] = useState(application?.gat_result || 'Pending');
+  const [workflowGatStatus, setWorkflowGatStatus] = useState(application?.gat_status || 'Pending');
+
+  const [workflowInterviewDate, setWorkflowInterviewDate] = useState(application?.interview_date || '');
+  const [workflowInterviewTime, setWorkflowInterviewTime] = useState(application?.interview_time || '');
+  const [workflowInterviewOutcome, setWorkflowInterviewOutcome] = useState(application?.interview_outcome || 'Pending');
+  const [workflowInterviewStatus, setWorkflowInterviewStatus] = useState(application?.interview_status || 'Pending');
+
+  const [workflowOnboardingDate, setWorkflowOnboardingDate] = useState(application?.onboarding_date || '');
+  const [workflowOnboardingStatus, setWorkflowOnboardingStatus] = useState(application?.onboarding_status || 'Pending');
+  const [isSavingWorkflow, setIsSavingWorkflow] = useState(false);
+  const [workflowSaveMessage, setWorkflowSaveMessage] = useState('');
+
   if (!isOpen || !application) return null;
+
+  const handleSaveWorkflow = async (e) => {
+    e.preventDefault();
+    setIsSavingWorkflow(true);
+    setWorkflowSaveMessage('');
+    try {
+      const patch = {
+        gat_exam_date: workflowGatDate || null,
+        gat_score: workflowGatScore || null,
+        gat_result: workflowGatResult,
+        gat_status: workflowGatStatus,
+        interview_date: workflowInterviewDate || null,
+        interview_time: workflowInterviewTime || null,
+        interview_outcome: workflowInterviewOutcome,
+        interview_status: workflowInterviewStatus,
+        onboarding_date: workflowOnboardingDate || null,
+        onboarding_status: workflowOnboardingStatus
+      };
+      const res = await updateApplicationRecord(application.application_id, patch, adminEmail);
+      if (res.updatedApp) {
+        onApplicationUpdated(res.updatedApp);
+        setWorkflowSaveMessage('Workflow updates saved & synced successfully!');
+        setTimeout(() => setWorkflowSaveMessage(''), 3000);
+      }
+    } catch (err) {
+      console.error('Failed to save workflow:', err);
+    } finally {
+      setIsSavingWorkflow(false);
+    }
+  };
 
   const adminEmail = adminUser?.email || 'admin@getskills.io';
 
@@ -192,6 +239,13 @@ export default function ApplicationDetailModal({
               onClick={() => setActiveSection('details')}
             >
               Candidate Profile & Academics
+            </button>
+            <button
+              type="button"
+              className={`detail-tab-btn ${activeSection === 'workflow' ? 'active' : ''}`}
+              onClick={() => setActiveSection('workflow')}
+            >
+              Admission Workflow & Evaluation
             </button>
             <button
               type="button"
@@ -516,6 +570,188 @@ export default function ApplicationDetailModal({
                     </tbody>
                   </table>
                 </div>
+              </div>
+            )}
+
+            {/* TAB: WORKFLOW & EVALUATION */}
+            {activeSection === 'workflow' && (
+              <div className="detail-tab-content">
+                <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '1rem', marginBottom: '1.25rem' }}>
+                  <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '0.95rem', color: '#0f172a' }}>
+                    Candidate Evaluation Pathway &amp; Progress
+                  </h4>
+                  <p style={{ margin: 0, fontSize: '0.85rem', color: '#475569' }}>
+                    Evaluation Mode: <strong>{application.entrance_exam_status || 'Neither'}</strong>
+                    {application.gre_score ? ` · GRE Score: ${application.gre_score}` : ''}
+                    {application.gate_score ? ` · GATE Score: ${application.gate_score}` : ''}
+                    {(application.entrance_exam_status === 'GRE' || application.entrance_exam_status === 'GATE' || application.entrance_exam_status === 'Both')
+                      ? ' — Qualifies via GATE/GRE Pathway (GAT Exam Exempt)'
+                      : ' — Qualifies via GAT Examination Pathway'}
+                  </p>
+                </div>
+
+                <form onSubmit={handleSaveWorkflow} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                  {/* Section A: GAT Examination */}
+                  <div className="applicant-info-card">
+                    <h4 className="info-card-title">
+                      <span>1. GAT Examination Evaluation (For Non-GATE/GRE Candidates)</span>
+                    </h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '0.75rem' }}>
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Exam Status</label>
+                        <select 
+                          className="form-control"
+                          value={workflowGatStatus}
+                          onChange={e => setWorkflowGatStatus(e.target.value)}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Scheduled">Scheduled</option>
+                          <option value="Completed">Completed</option>
+                          <option value="Exempt">Exempt (GATE/GRE)</option>
+                        </select>
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Exam Date</label>
+                        <input 
+                          type="text"
+                          className="form-control"
+                          placeholder="e.g. Dec 15, 2026"
+                          value={workflowGatDate}
+                          onChange={e => setWorkflowGatDate(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Score</label>
+                        <input 
+                          type="text"
+                          className="form-control"
+                          placeholder="e.g. 82 / 100"
+                          value={workflowGatScore}
+                          onChange={e => setWorkflowGatScore(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Result</label>
+                        <select 
+                          className="form-control"
+                          value={workflowGatResult}
+                          onChange={e => setWorkflowGatResult(e.target.value)}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Qualified">Qualified</option>
+                          <option value="Not Qualified">Not Qualified</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section B: Technical Interview & Counselling */}
+                  <div className="applicant-info-card">
+                    <h4 className="info-card-title">
+                      <span>2. Technical Interview &amp; Counselling Scheduling</span>
+                    </h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '0.75rem' }}>
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Interview Status</label>
+                        <select 
+                          className="form-control"
+                          value={workflowInterviewStatus}
+                          onChange={e => setWorkflowInterviewStatus(e.target.value)}
+                        >
+                          <option value="Pending">Pending Scheduling</option>
+                          <option value="Scheduled">Scheduled</option>
+                          <option value="Completed">Completed</option>
+                        </select>
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Interview Scheduled Date</label>
+                        <input 
+                          type="text"
+                          className="form-control"
+                          placeholder="e.g. Dec 22, 2026"
+                          value={workflowInterviewDate}
+                          onChange={e => setWorkflowInterviewDate(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Interview Scheduled Time</label>
+                        <input 
+                          type="text"
+                          className="form-control"
+                          placeholder="e.g. 10:30 AM IST"
+                          value={workflowInterviewTime}
+                          onChange={e => setWorkflowInterviewTime(e.target.value)}
+                        />
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Interview Outcome</label>
+                        <select 
+                          className="form-control"
+                          value={workflowInterviewOutcome}
+                          onChange={e => setWorkflowInterviewOutcome(e.target.value)}
+                        >
+                          <option value="Pending">Pending Evaluation</option>
+                          <option value="Cleared">Cleared / Recommended</option>
+                          <option value="Not Cleared">Not Cleared</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Section C: Final Decision & Onboarding */}
+                  <div className="applicant-info-card">
+                    <h4 className="info-card-title">
+                      <span>3. Batch Onboarding Details</span>
+                    </h4>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '0.75rem' }}>
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Onboarding Status</label>
+                        <select 
+                          className="form-control"
+                          value={workflowOnboardingStatus}
+                          onChange={e => setWorkflowOnboardingStatus(e.target.value)}
+                        >
+                          <option value="Pending">Pending</option>
+                          <option value="Scheduled">Scheduled</option>
+                          <option value="Completed">Completed / Onboarded</option>
+                        </select>
+                      </div>
+
+                      <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Onboarding Date</label>
+                        <input 
+                          type="text"
+                          className="form-control"
+                          placeholder="e.g. January 2, 2027"
+                          value={workflowOnboardingDate}
+                          onChange={e => setWorkflowOnboardingDate(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {workflowSaveMessage && (
+                    <div style={{ padding: '0.6rem 0.75rem', background: '#ecfdf5', border: '1px solid #a7f3d0', borderRadius: '6px', color: '#065f46', fontSize: '0.85rem' }}>
+                      {workflowSaveMessage}
+                    </div>
+                  )}
+
+                  <div>
+                    <button 
+                      type="submit" 
+                      className="btn btn-primary btn-sm"
+                      disabled={isSavingWorkflow}
+                    >
+                      {isSavingWorkflow ? 'Saving Workflow...' : 'Save Workflow & Sync to Student'}
+                    </button>
+                  </div>
+                </form>
               </div>
             )}
 

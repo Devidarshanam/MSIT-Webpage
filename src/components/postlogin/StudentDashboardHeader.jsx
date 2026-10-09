@@ -169,7 +169,11 @@ export default function StudentDashboardHeader({
 
   const currentStatusConfig = statusConfigMap[applicationStatus] || statusConfigMap['Not Started'];
 
-  // 1. Application Submission: Mark complete when the student has submitted the application.
+  // =========================================================================
+  // FIVE-STEP ADMISSION WORKFLOW EVALUATION
+  // =========================================================================
+
+  // --- Step 1: Application Submission ---
   const submittedStatuses = [
     'Submitted', 
     'Under Review', 
@@ -189,59 +193,216 @@ export default function StudentDashboardHeader({
     application?.isSubmitted
   );
 
-  // 2. Admission Mode Selection: Mark complete when the student has selected or confirmed an admission mode.
-  const isAdmissionModeSelected = Boolean(
-    (isAppSubmitted && (application?.entrance_exam_status || application?.admission_mode || true)) ||
-    (application?.entrance_exam_status && application?.entrance_exam_status !== '') ||
-    application?.admission_mode ||
-    application?.selected_admission_mode ||
-    application?.admission_mode_confirmed ||
-    application?.draft_data?.entranceExamStatus
+  // --- Step 2: Application Review & Document Verification ---
+  const docs = application?.documents || [];
+  const rejectedDocs = docs.filter(d => d.status === 'Rejected');
+  const hasRejectedDoc = rejectedDocs.length > 0 || application?.document_status === 'Rejected';
+  const allDocsVerified = docs.length > 0 && docs.every(d => d.status === 'Verified');
+  const isDocVerified = allDocsVerified || 
+    application?.document_status === 'Verified' || 
+    application?.document_status === 'Documents Verified' ||
+    ['Accepted', 'Interview Scheduled', 'Interview Completed', 'Onboarded', 'Enrolled'].includes(application?.status);
+
+  // --- Step 3: Eligibility & Evaluation Pathway (GATE/GRE vs GAT) ---
+  const greScoreNum = Number(application?.gre_score);
+  const gateScoreNum = Number(application?.gate_score);
+  const greMin = Number(admissionSettings?.greMinScore || 300);
+  const gateMin = Number(admissionSettings?.gateMinScore || 350);
+
+  const hasValidGre = Boolean(
+    (application?.entrance_exam_status === 'GRE' || application?.entrance_exam_status === 'Both') &&
+    application?.gre_score &&
+    (!isNaN(greScoreNum) ? greScoreNum >= greMin : true)
   );
 
-  // 3. Technical Interview & Counselling: Mark complete when the relevant interview/counselling stage has been completed or the admin has updated its status accordingly.
-  const isInterviewComplete = Boolean(
-    ['Accepted', 'Interview Completed', 'Counselling Completed', 'Onboarded', 'Enrolled'].includes(application?.status) ||
-    ['Accepted', 'Interview Completed', 'Counselling Completed', 'Onboarded', 'Enrolled'].includes(applicationStatus) ||
+  const hasValidGate = Boolean(
+    (application?.entrance_exam_status === 'GATE' || application?.entrance_exam_status === 'Both') &&
+    application?.gate_score &&
+    (!isNaN(gateScoreNum) ? gateScoreNum >= gateMin : true)
+  );
+
+  const isGateGrePathway = hasValidGre || hasValidGate;
+
+  const isGatCompleted = Boolean(
+    application?.gat_status === 'Completed' ||
+    application?.gat_result === 'Qualified' ||
+    application?.gat_score ||
+    ['Interview Scheduled', 'Interview Completed', 'Accepted', 'Onboarded', 'Enrolled'].includes(application?.status)
+  );
+  const gatExamDate = application?.gat_exam_date || admissionSettings?.gatExamDate || admissionSettings?.gatSchedule || 'December 15, 2026';
+
+  // --- Step 4: Technical Interview & Counselling ---
+  const interviewDate = application?.interview_date || (admissionSettings?.interviewSchedule && admissionSettings.interviewSchedule !== 'TBD' ? admissionSettings.interviewSchedule : null);
+  const interviewTime = application?.interview_time || '';
+  const hasInterviewScheduled = Boolean(
+    (interviewDate && interviewDate !== 'TBD') ||
+    application?.interview_status === 'Scheduled' ||
+    application?.status === 'Interview Scheduled'
+  );
+  const isInterviewPassed = Boolean(
+    application?.interview_outcome === 'Cleared' ||
+    application?.interview_outcome === 'Recommended' ||
     application?.interview_status === 'Completed' ||
-    application?.interview_status === 'Passed' ||
-    application?.interview_completed === true ||
-    application?.counselling_status === 'Completed' ||
-    admissionSettings?.interviewCompleted === true
+    ['Interview Completed', 'Accepted', 'Onboarded', 'Enrolled'].includes(application?.status)
+  );
+  const isInterviewUnsuccessful = Boolean(
+    application?.interview_outcome === 'Not Cleared' ||
+    application?.interview_outcome === 'Declined'
   );
 
-  // 4. Batch Onboarding: Mark complete when the student has completed the required onboarding steps or the admin has marked onboarding as complete.
-  const isOnboardingComplete = Boolean(
+  // --- Step 5: Final Decision & Onboarding ---
+  const isSelected = Boolean(
+    ['Accepted', 'Onboarded', 'Enrolled'].includes(application?.status) ||
+    application?.final_decision === 'Accepted' ||
+    application?.admission_offer === 'Issued'
+  );
+  const isRejected = Boolean(
+    ['Declined', 'Rejected'].includes(application?.status) ||
+    application?.final_decision === 'Rejected'
+  );
+  const isOnboarded = Boolean(
     ['Onboarded', 'Enrolled'].includes(application?.status) ||
-    ['Onboarded', 'Enrolled'].includes(applicationStatus) ||
-    application?.onboarding_status === 'Completed' ||
-    application?.onboarding_status === 'Onboarded' ||
-    application?.is_onboarded === true ||
-    application?.onboarding_completed === true ||
-    admissionSettings?.onboardingCompleted === true
+    application?.onboarding_status === 'Completed'
   );
+  const onboardingDate = application?.onboarding_date || admissionSettings?.commencementDate || 'January 2, 2027';
+  const onboardingVenue = application?.onboarding_venue || admissionSettings?.commencementVenue || 'IIIT Hyderabad';
 
-  // Dynamic Admission Status Checklist reflecting prospective student's admission progress
+  // Construct Dynamic 5-Step Admission Progress
   const admissionSteps = [
+    // Step 1: Application Submission
     {
       id: "1",
       title: "Application Submission",
-      done: isAppSubmitted
+      done: isAppSubmitted,
+      statusState: isAppSubmitted ? 'completed' : 'pending',
+      badgeText: isAppSubmitted ? 'Completed' : 'Pending',
+      metaText: isAppSubmitted 
+        ? (application?.submitted_at ? `Submitted on ${new Date(application.submitted_at).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' })}` : `Ref: ${application?.application_id || 'Submitted'}`)
+        : 'Online submission required'
     },
+
+    // Step 2: Application Review & Document Verification
     {
       id: "2",
-      title: "Admission Mode Selection",
-      done: isAdmissionModeSelected
+      title: hasRejectedDoc ? "Document Verification" : "Application Review & Document Verification",
+      done: isAppSubmitted && isDocVerified,
+      statusState: !isAppSubmitted 
+        ? 'pending' 
+        : hasRejectedDoc 
+          ? 'rejected' 
+          : isDocVerified 
+            ? 'completed' 
+            : 'review',
+      badgeText: !isAppSubmitted
+        ? 'Pending'
+        : hasRejectedDoc
+          ? 'Document Rejected'
+          : isDocVerified
+            ? 'Documents Verified'
+            : 'Application Under Review',
+      metaText: !isAppSubmitted
+        ? 'Awaiting application submission'
+        : hasRejectedDoc
+          ? null
+          : isDocVerified
+            ? 'All documents verified'
+            : 'Review in progress by admissions committee',
+      rejectedDocInfo: hasRejectedDoc ? {
+        name: rejectedDocs[0]?.doc_type || 'Uploaded Document',
+        reason: rejectedDocs[0]?.rejection_reason || application?.decision_reason || 'Document does not meet institutional verification criteria.'
+      } : null
     },
+
+    // Step 3: Eligibility & Evaluation (GATE/GRE vs GAT)
     {
       id: "3",
-      title: "Technical Interview & Counselling",
-      done: isInterviewComplete
+      title: isGateGrePathway 
+        ? "Eligibility & Evaluation"
+        : "GAT Examination Required",
+      done: isDocVerified && (isGateGrePathway ? true : isGatCompleted),
+      statusState: !isDocVerified
+        ? 'pending'
+        : isGateGrePathway
+          ? 'completed'
+          : isGatCompleted
+            ? 'completed'
+            : 'warning',
+      badgeText: !isDocVerified
+        ? 'Pending'
+        : isGateGrePathway
+          ? 'Eligible for Interview'
+          : isGatCompleted
+            ? 'GAT Cleared'
+            : 'GAT Exam Required',
+      metaText: !isDocVerified
+        ? 'Awaiting document verification'
+        : isGateGrePathway
+          ? (interviewDate && interviewDate !== 'TBD'
+              ? `Scheduled: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}`
+              : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (GAT exempt)`)
+          : isGatCompleted
+            ? (application?.gat_score ? `GAT Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
+            : (gatExamDate ? `Exam Date: ${gatExamDate}` : 'Exam date to be announced')
     },
+
+    // Step 4: Technical Interview & Counselling
     {
       id: "4",
-      title: "Batch Onboarding",
-      done: isOnboardingComplete
+      title: "Technical Interview & Counselling",
+      done: isInterviewPassed,
+      statusState: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
+        ? 'pending'
+        : isInterviewPassed
+          ? 'completed'
+          : isInterviewUnsuccessful
+            ? 'rejected'
+            : hasInterviewScheduled
+              ? 'review'
+              : 'pending',
+      badgeText: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
+        ? 'Pending'
+        : isInterviewPassed
+          ? 'Interview Cleared'
+          : isInterviewUnsuccessful
+            ? 'Not Cleared'
+            : hasInterviewScheduled
+              ? 'Interview Scheduled'
+              : 'Awaiting Scheduling',
+      metaText: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
+        ? (!isGateGrePathway ? 'Awaiting GAT exam result' : 'Awaiting prior verification')
+        : isInterviewPassed
+          ? 'Outcome: Recommended for Admission'
+          : isInterviewUnsuccessful
+            ? 'Interview outcome not cleared'
+            : hasInterviewScheduled
+              ? `Interview Date: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}`
+              : (admissionSettings?.interviewInstructions || 'Interview schedule to be announced by admissions team')
+    },
+
+    // Step 5: Final Decision & Onboarding
+    {
+      id: "5",
+      title: isSelected 
+        ? "Selected — Onboarding Scheduled" 
+        : isRejected 
+          ? "Application Rejected" 
+          : "Final Decision & Onboarding",
+      done: isSelected,
+      statusState: isSelected 
+        ? 'selected' 
+        : isRejected 
+          ? 'rejected' 
+          : 'pending',
+      badgeText: isSelected 
+        ? (isOnboarded ? 'Onboarded' : 'Admission Offered')
+        : isRejected 
+          ? 'Application Rejected' 
+          : 'Pending Decision',
+      metaText: isSelected 
+        ? `Commencement: ${onboardingDate} (${onboardingVenue})`
+        : isRejected 
+          ? (application?.decision_reason ? `Reason: ${application.decision_reason}` : 'Evaluation concluded for this cycle.')
+          : 'Awaiting final selection outcome and onboarding confirmation'
     }
   ];
 
@@ -379,8 +540,8 @@ export default function StudentDashboardHeader({
           </div>
 
           {loadingSettings ? (
-            <div className="prep-checklist-grid" aria-label="Loading admission status">
-              {[1, 2, 3, 4].map((n) => (
+            <div className="prep-checklist-grid five-steps-grid" aria-label="Loading admission status">
+              {[1, 2, 3, 4, 5].map((n) => (
                 <div key={n} className="prep-skeleton-card">
                   <div className="prep-skeleton-circle" />
                   <div className="prep-skeleton-lines">
@@ -390,21 +551,68 @@ export default function StudentDashboardHeader({
               ))}
             </div>
           ) : (
-            <div className="prep-checklist-grid">
-              {admissionSteps.map((item) => (
-                <div key={item.id} className={`prep-checklist-card ${item.done ? 'is-done' : ''}`}>
-                  <div className="checklist-num-wrap">
-                    {item.done ? (
-                      <span className="checklist-check-icon">✓</span>
-                    ) : (
-                      <span className="checklist-step-num">{item.id}</span>
-                    )}
+            <div className="prep-checklist-grid five-steps-grid">
+              {admissionSteps.map((item) => {
+                let cardClass = 'prep-checklist-card';
+                if (item.statusState === 'completed' || item.done) cardClass += ' is-done';
+                else if (item.statusState === 'rejected') cardClass += ' is-rejected';
+                else if (item.statusState === 'review') cardClass += ' is-review';
+                else if (item.statusState === 'warning') cardClass += ' is-warning';
+                else if (item.statusState === 'selected') cardClass += ' is-selected';
+
+                return (
+                  <div key={item.id} className={cardClass}>
+                    <div className="checklist-num-wrap">
+                      {item.statusState === 'completed' || item.done ? (
+                        <span className="checklist-check-icon">✓</span>
+                      ) : item.statusState === 'rejected' ? (
+                        <span className="checklist-fail-icon">✕</span>
+                      ) : item.statusState === 'warning' ? (
+                        <span className="checklist-warn-icon">!</span>
+                      ) : (
+                        <span className="checklist-step-num">{item.id}</span>
+                      )}
+                    </div>
+                    <div className="checklist-card-content">
+                      <h4>{item.title}</h4>
+
+                      {item.badgeText && (
+                        <span className={`checklist-status-badge badge-${
+                          item.statusState === 'completed' || item.done ? 'success' :
+                          item.statusState === 'rejected' ? 'danger' :
+                          item.statusState === 'review' ? 'review' :
+                          item.statusState === 'warning' ? 'warning' : 'neutral'
+                        }`}>
+                          {item.badgeText}
+                        </span>
+                      )}
+
+                      {item.metaText && (
+                        <div className="checklist-status-meta">
+                          <span>{item.metaText}</span>
+                        </div>
+                      )}
+
+                      {item.rejectedDocInfo && (
+                        <div className="checklist-rejection-box">
+                          <div style={{ fontWeight: 600 }}>{item.rejectedDocInfo.name}</div>
+                          <div style={{ marginTop: '0.2rem', color: '#9f1239' }}>
+                            {item.rejectedDocInfo.reason}
+                          </div>
+                          <button 
+                            type="button" 
+                            className="checklist-reupload-btn"
+                            onClick={() => navigate('/apply?mode=edit')}
+                          >
+                            <span>Resubmit Document</span>
+                            <ArrowRightIcon size={12} />
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="checklist-card-content">
-                    <h4>{item.title}</h4>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
