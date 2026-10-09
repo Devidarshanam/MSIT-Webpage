@@ -2,13 +2,22 @@ import React from 'react';
 import { 
   AwardIcon, 
   RocketIcon, 
-  BrainIcon, 
-  CloudIcon, 
-  CodeIcon, 
-  ShieldCheckIcon,
   UsersIcon,
   CalendarIcon
 } from '../Icons';
+
+const ALUMNI_TOP_EMPLOYERS = [
+  { rank: 1, name: 'Kore.AI', placements: 9 },
+  { rank: 2, name: 'Skill Intern Pvt. Ltd.', placements: 8 },
+  { rank: 3, name: 'BizAcuity', placements: 8 },
+  { rank: 4, name: 'Zest Labs', placements: 7 },
+  { rank: 5, name: 'Q3 Veni Financial Information Pvt. Ltd.', placements: 6 },
+  { rank: 6, name: 'Quantana', placements: 4 },
+  { rank: 7, name: 'Saavan', placements: 4 },
+  { rank: 8, name: 'Synactive', placements: 4 },
+  { rank: 9, name: 'Synectiks', placements: 4 },
+  { rank: 10, name: 'Modak Analytics', placements: 3 },
+];
 
 export default function ExploreCareerOutcomes() {
   return (
@@ -19,7 +28,7 @@ export default function ExploreCareerOutcomes() {
         <div className="explore-section-header">
           <span className="career-kicker-badge">
             <span className="career-kicker-dot"></span>
-            Career Pathways
+            Career Outcomes
           </span>
           <h2>Where Can MSIT Take You?</h2>
           <p className="section-lead">
@@ -27,7 +36,7 @@ export default function ExploreCareerOutcomes() {
           </p>
         </div>
 
-        {/* Verified Outcome Stats Banner: Refined Deep-Navy Panel */}
+        {/* Outcome Stats Banner: Deep-Navy Horizontal Panel */}
         <div className="career-stats-banner">
           <div className="career-stat-col">
             <div className="c-stat-icon-wrap icon-amber" aria-hidden="true">
@@ -80,193 +89,34 @@ export default function ExploreCareerOutcomes() {
           </div>
         </div>
 
-        {/* 3 Career Pathway Cards */}
-        <div className="career-pathways-grid">
-          
-          {/* Card 1: Software Development */}
-          <div className="career-pathway-card card-software">
-            <div className="pathway-card-header">
-              <div className="pathway-title-row">
-                <div className="pathway-icon-badge icon-software" aria-hidden="true">
-                  <CodeIcon size={18} />
+        {/* Employers Recorded in Alumni Outcomes */}
+        <div className="career-ecosystem-card alumni-outcomes-card">
+          <div className="alumni-outcomes-header">
+            <h3 className="alumni-outcomes-title">Employers Recorded in Alumni Outcomes</h3>
+            <p className="alumni-outcomes-desc">
+              MSIT graduates have recorded career outcomes across technology, financial services, analytics, and enterprise software organizations.
+            </p>
+          </div>
+
+          <div className="alumni-employers-grid">
+            {ALUMNI_TOP_EMPLOYERS.map((company) => (
+              <div 
+                className={`alumni-employer-card ${company.rank <= 3 ? 'top-rank' : ''}`} 
+                key={company.rank}
+              >
+                <div className="employer-rank-badge">
+                  #{company.rank}
                 </div>
-                <h3 className="pathway-title">Software Development</h3>
-              </div>
-              <p className="pathway-desc">
-                Learn to build applications, develop software, work with databases, and solve real-world problems.
-              </p>
-            </div>
-
-            <div className="pathway-skills-block">
-              <span className="skills-heading">Key Focus Areas</span>
-              <ul className="pathway-skills-list">
-                <li>
-                  <span className="skill-bullet bullet-software" aria-hidden="true">•</span>
-                  <span>Building web and software applications</span>
-                </li>
-                <li>
-                  <span className="skill-bullet bullet-software" aria-hidden="true">•</span>
-                  <span>Working with databases, APIs, and modern frameworks</span>
-                </li>
-                <li>
-                  <span className="skill-bullet bullet-software" aria-hidden="true">•</span>
-                  <span>Writing clean code and solving practical problems</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="pathway-roles-footer">
-              <span className="roles-label">Example Roles:</span>
-              <div className="roles-tags-wrap">
-                <span className="role-tag">Software Developer</span>
-                <span className="role-tag">Full-Stack Developer</span>
-              </div>
-              <p className="roles-disclaimer">
-                *Illustrative career directions, not guaranteed placement.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 2: Artificial Intelligence & Data Science */}
-          <div className="career-pathway-card card-ai">
-            <div className="pathway-card-header">
-              <div className="pathway-title-row">
-                <div className="pathway-icon-badge icon-ai" aria-hidden="true">
-                  <BrainIcon size={18} />
+                <div className="employer-info">
+                  <h4 className="employer-name">{company.name}</h4>
+                  <span className="employer-subtext">Recorded Alumni Placement</span>
                 </div>
-                <h3 className="pathway-title">Artificial Intelligence &amp; Data Science</h3>
-              </div>
-              <p className="pathway-desc">
-                Learn how to work with data, build machine-learning models, and develop AI-powered solutions.
-              </p>
-            </div>
-
-            <div className="pathway-skills-block">
-              <span className="skills-heading">Key Focus Areas</span>
-              <ul className="pathway-skills-list">
-                <li>
-                  <span className="skill-bullet bullet-ai" aria-hidden="true">•</span>
-                  <span>Analyzing and understanding real-world datasets</span>
-                </li>
-                <li>
-                  <span className="skill-bullet bullet-ai" aria-hidden="true">•</span>
-                  <span>Building and evaluating machine learning models</span>
-                </li>
-                <li>
-                  <span className="skill-bullet bullet-ai" aria-hidden="true">•</span>
-                  <span>Developing practical AI and intelligent features</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="pathway-roles-footer">
-              <span className="roles-label">Example Roles:</span>
-              <div className="roles-tags-wrap">
-                <span className="role-tag">Data Analyst</span>
-                <span className="role-tag">Data Scientist</span>
-                <span className="role-tag">AI/ML Engineer</span>
-              </div>
-              <p className="roles-disclaimer">
-                *Illustrative career directions, not guaranteed placement.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 3: Cloud & Modern Applications */}
-          <div className="career-pathway-card card-cloud">
-            <div className="pathway-card-header">
-              <div className="pathway-title-row">
-                <div className="pathway-icon-badge icon-cloud" aria-hidden="true">
-                  <CloudIcon size={18} />
+                <div className="employer-count-badge">
+                  <span className="count-number">{company.placements}</span>
+                  <span className="count-label">{company.placements === 1 ? 'Placement' : 'Placements'}</span>
                 </div>
-                <h3 className="pathway-title">Cloud &amp; Modern Applications</h3>
               </div>
-              <p className="pathway-desc">
-                Explore how applications are deployed, connected, and maintained using modern technologies.
-              </p>
-            </div>
-
-            <div className="pathway-skills-block">
-              <span className="skills-heading">Key Focus Areas</span>
-              <ul className="pathway-skills-list">
-                <li>
-                  <span className="skill-bullet bullet-cloud" aria-hidden="true">•</span>
-                  <span>Deploying applications to modern cloud platforms</span>
-                </li>
-                <li>
-                  <span className="skill-bullet bullet-cloud" aria-hidden="true">•</span>
-                  <span>Building backend services, APIs, and data layers</span>
-                </li>
-                <li>
-                  <span className="skill-bullet bullet-cloud" aria-hidden="true">•</span>
-                  <span>Maintaining reliable application workflows</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="pathway-roles-footer">
-              <span className="roles-label">Example Roles:</span>
-              <div className="roles-tags-wrap">
-                <span className="role-tag">Cloud Engineer</span>
-                <span className="role-tag">Backend Developer</span>
-              </div>
-              <p className="roles-disclaimer">
-                *Illustrative career directions, not guaranteed placement.
-              </p>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Industry Recruiter & Employer Partner Card */}
-        <div className="career-ecosystem-card">
-          <div className="ecosystem-header-row">
-            <div>
-              <span className="ecosystem-tag">Industry &amp; Alumni Network</span>
-              <h4>Organizations Where MSIT Alumni &amp; Interns Work</h4>
-            </div>
-            <div className="integrity-note-badge">
-              <ShieldCheckIcon size={16} />
-              <span>Institutional Transparency</span>
-            </div>
-          </div>
-
-          <p className="ecosystem-desc">
-            MSIT graduates and interns have contributed across top technology firms, product companies, 
-            and global IT services organizations through campus recruitment and practical industry internships.
-          </p>
-
-          <div className="ecosystem-sectors-grid">
-            <div className="sector-group">
-              <span className="sector-title">Technology &amp; Products</span>
-              <div className="sector-tags-row">
-                <span className="sector-tag">Amazon</span>
-                <span className="sector-tag">ZOHO</span>
-                <span className="sector-tag">Teradata</span>
-              </div>
-            </div>
-
-            <div className="sector-group">
-              <span className="sector-title">Enterprise Software</span>
-              <div className="sector-tags-row">
-                <span className="sector-tag">CA Technologies</span>
-                <span className="sector-tag">Cyient</span>
-              </div>
-            </div>
-
-            <div className="sector-group">
-              <span className="sector-title">IT Services &amp; Consulting</span>
-              <div className="sector-tags-row">
-                <span className="sector-tag">TCS</span>
-                <span className="sector-tag">Tech Mahindra</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="ecosystem-notice-box">
-            <span className="ecosystem-notice-text">
-              <strong>Reporting Notice:</strong> Company names reflect sample organizations where MSIT students and alumni have worked or interned. Formal verified placement reports and recruiter lists for recent cohorts are published in the official admission circular.
-            </span>
+            ))}
           </div>
         </div>
 
