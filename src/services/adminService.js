@@ -380,6 +380,20 @@ export function enrichApplicationRecord(app, localApps = []) {
         ])
   };
 
+  // Preserve latest admission decisions recorded in local storage or candidate keys
+  if (localMatch && localMatch.status && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(localMatch.status)) {
+    enriched.status = localMatch.status;
+    enriched.decision_reason = localMatch.decision_reason || enriched.decision_reason;
+    enriched.decided_by = localMatch.decided_by || enriched.decided_by;
+    enriched.decided_at = localMatch.decided_at || enriched.decided_at;
+  }
+  if (candidateEmail && typeof localStorage !== 'undefined') {
+    const directStatus = localStorage.getItem(`msit_app_status_${candidateEmail}`) || localStorage.getItem(`msit_application_status_${candidateEmail}`);
+    if (directStatus && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(directStatus)) {
+      enriched.status = directStatus;
+    }
+  }
+
   // If Supabase was missing critical fields or contained stale dummy values, sync cleansed values
   if (isSupabaseConfigured() && supabase && app.application_id && !app.isMock) {
     const patch = {};
@@ -524,7 +538,30 @@ export async function fetchAllApplications() {
   let localModified = false;
 
   liveApps.forEach(app => {
-    const enriched = enrichApplicationRecord(app, localApps);
+    // Check if localApps has an explicit decision recorded
+    const localMatch = localApps.find(a => 
+      (a.application_id && a.application_id === app.application_id) ||
+      (a.id && a.id === app.id) ||
+      (a.email && app.email && a.email.toLowerCase() === app.email.toLowerCase())
+    );
+
+    let effectiveApp = { ...app };
+    if (localMatch && localMatch.status && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(localMatch.status)) {
+      effectiveApp.status = localMatch.status;
+      effectiveApp.decision_reason = localMatch.decision_reason || effectiveApp.decision_reason;
+      effectiveApp.decided_by = localMatch.decided_by || effectiveApp.decided_by;
+      effectiveApp.decided_at = localMatch.decided_at || effectiveApp.decided_at;
+    }
+
+    const candidateEmail = (effectiveApp.email || '').toLowerCase().trim();
+    if (candidateEmail && typeof localStorage !== 'undefined') {
+      const directStatus = localStorage.getItem(`msit_app_status_${candidateEmail}`) || localStorage.getItem(`msit_application_status_${candidateEmail}`);
+      if (directStatus && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(directStatus)) {
+        effectiveApp.status = directStatus;
+      }
+    }
+
+    const enriched = enrichApplicationRecord(effectiveApp, localApps);
     mergedMap.set(enriched.application_id, enriched);
   });
   localApps.forEach((localApp, idx) => {
@@ -587,8 +624,9 @@ export function calculateDashboardMetrics(applications = []) {
  * @param {string} adminEmail
  * @returns {Promise<{ success: boolean, updatedApp: object|null }>}
  */
-export async function updateApplicationStatus(applicationId, newStatus, reason = null, adminEmail = 'admin') {
+export async function updateApplicationStatus(applicationId, newStatus, reason = null, adminEmail = 'admin', fallbackApp = null) {
   const now = new Date().toISOString();
+  const isUuid = (val) => Boolean(val && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(val).trim()));
 
   // 1. Update local storage
   let localApps = [];
@@ -596,53 +634,121 @@ export async function updateApplicationStatus(applicationId, newStatus, reason =
   let updatedApp = null;
   try {
     localApps = JSON.parse(localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY) || '[]');
-    const idx = localApps.findIndex(a => a.application_id === applicationId || a.id === applicationId);
+    const idx = localApps.findIndex(a => 
+      (applicationId && (a.application_id === applicationId || a.id === applicationId)) ||
+      (fallbackApp?.email && (a.email || '').toLowerCase() === fallbackApp.email.toLowerCase())
+    );
+
     if (idx !== -1) {
       previousStatus = localApps[idx].status;
       localApps[idx] = {
         ...localApps[idx],
+        ...(fallbackApp || {}),
         status: newStatus,
         decision_reason: reason,
         decided_by: adminEmail,
         decided_at: now,
         updated_at: now
       };
-      updatedApp = localApps[idx];
-      localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedApp }));
-      }
+      updatedApp = enrichApplicationRecord(localApps[idx], localApps);
+      localApps[idx] = updatedApp;
+    } else {
+      const base = fallbackApp || { application_id: applicationId };
+      previousStatus = base.status || 'Submitted';
+      updatedApp = enrichApplicationRecord({
+        ...base,
+        application_id: applicationId || base.application_id,
+        status: newStatus,
+        decision_reason: reason,
+        decided_by: adminEmail,
+        decided_at: now,
+        updated_at: now
+      }, localApps);
+      localApps.unshift(updatedApp);
     }
-  } catch (e) {}
+
+    localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+
+    // Also persist student-specific keys for immediate student dashboard sync!
+    const candidateEmail = (updatedApp.email || fallbackApp?.email || '').toLowerCase().trim();
+    if (candidateEmail) {
+      try {
+        localStorage.setItem(`msit_student_application_${candidateEmail}`, JSON.stringify(updatedApp));
+        localStorage.setItem(`msit_app_status_${candidateEmail}`, newStatus);
+        localStorage.setItem(`msit_application_status_${candidateEmail}`, newStatus);
+      } catch (_) {}
+    }
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedApp }));
+      window.dispatchEvent(new CustomEvent('msit:student-status-changed', { detail: { email: candidateEmail, status: newStatus, app: updatedApp } }));
+    }
+  } catch (e) {
+    console.error('[MSIT Admin] Local status update error:', e);
+  }
 
   // 2. Add to status history
   logStatusHistory(applicationId, previousStatus, newStatus, adminEmail, reason);
 
-  // 3. Update Supabase if available
+  // 3. Update Supabase if available (safely without Postgres UUID cast syntax error)
   if (isSupabaseConfigured() && supabase) {
     try {
-      await supabase
-        .from('applications')
-        .update({
-          status: newStatus,
-          decision_reason: reason,
-          decided_by: adminEmail,
-          decided_at: now,
-          updated_at: now
-        })
-        .or(`application_id.eq.${applicationId},id.eq.${applicationId}`);
+      const candidateEmail = (updatedApp?.email || fallbackApp?.email || '').toLowerCase().trim();
+      const updatePayload = {
+        status: newStatus,
+        decision_reason: reason,
+        decided_by: adminEmail,
+        decided_at: now,
+        updated_at: now
+      };
 
-      // Try inserting into status history table
-      await supabase
-        .from('application_status_history')
-        .insert([{
-          application_id: updatedApp?.id || applicationId,
-          previous_status: previousStatus,
-          new_status: newStatus,
-          changed_by: adminEmail,
-          reason: reason,
-          created_at: now
-        }]);
+      let query = supabase.from('applications').update(updatePayload);
+      if (isUuid(applicationId)) {
+        query = query.eq('id', applicationId);
+      } else if (applicationId) {
+        query = query.eq('application_id', applicationId);
+      } else if (fallbackApp?.id && isUuid(fallbackApp.id)) {
+        query = query.eq('id', fallbackApp.id);
+      } else if (candidateEmail) {
+        query = query.eq('email', candidateEmail);
+      }
+
+      let { data, error } = await query.select();
+
+      // If updating with decision columns threw column-not-found error, retry with only status
+      if (error && error.message && error.message.includes('column')) {
+        let retryQuery = supabase.from('applications').update({ status: newStatus, updated_at: now });
+        if (isUuid(applicationId)) retryQuery = retryQuery.eq('id', applicationId);
+        else if (applicationId) retryQuery = retryQuery.eq('application_id', applicationId);
+        else if (candidateEmail) retryQuery = retryQuery.eq('email', candidateEmail);
+        const retryRes = await retryQuery.select();
+        data = retryRes.data;
+        error = retryRes.error;
+      }
+
+      if (!error && Array.isArray(data) && data.length > 0) {
+        updatedApp = enrichApplicationRecord({ ...updatedApp, ...data[0] }, localApps);
+        const sIdx = localApps.findIndex(a => a.application_id === applicationId || a.id === applicationId);
+        if (sIdx !== -1) {
+          localApps[sIdx] = updatedApp;
+          localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+        }
+      }
+
+      // Try inserting into status history table if application id is UUID
+      const targetHistoryId = isUuid(updatedApp?.id) ? updatedApp.id : (isUuid(applicationId) ? applicationId : null);
+      if (targetHistoryId) {
+        await supabase
+          .from('application_status_history')
+          .insert([{
+            application_id: targetHistoryId,
+            previous_status: previousStatus,
+            new_status: newStatus,
+            changed_by: adminEmail,
+            reason: reason,
+            created_at: now
+          }]).catch(() => {});
+      }
     } catch (err) {
       console.warn('[MSIT Admin] Supabase status update warning:', err);
     }

@@ -171,6 +171,21 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
 
   useEffect(() => {
     loadApplications();
+
+    const handleRealtimeStatusSync = (e) => {
+      if (e.detail) {
+        const updated = e.detail;
+        setApplications(prev => prev.map(a => 
+          ((a.application_id && a.application_id === updated.application_id) ||
+           (a.id && a.id === updated.id) ||
+           (a.email && updated.email && a.email.toLowerCase() === updated.email.toLowerCase()))
+            ? updated 
+            : a
+        ));
+      }
+    };
+    window.addEventListener('msit:application-status-updated', handleRealtimeStatusSync);
+    return () => window.removeEventListener('msit:application-status-updated', handleRealtimeStatusSync);
   }, []);
 
   // Calculate Metrics dynamically
@@ -226,7 +241,13 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
   };
 
   const handleApplicationUpdated = (updatedApp) => {
-    setApplications(prev => prev.map(a => a.application_id === updatedApp.application_id ? updatedApp : a));
+    setApplications(prev => prev.map(a => 
+      ((a.application_id && a.application_id === updatedApp.application_id) ||
+       (a.id && a.id === updatedApp.id) ||
+       (a.email && updatedApp.email && a.email.toLowerCase() === updatedApp.email.toLowerCase()))
+        ? updatedApp 
+        : a
+    ));
     setSelectedApp(updatedApp);
   };
 

@@ -85,6 +85,14 @@ export default function ProgrammePage() {
     };
     window.addEventListener('msit:application-status-updated', handleAppStatusUpdate);
 
+    const handleStudentStatusUpdate = (e) => {
+      if (e.detail && isMounted && user?.email && (e.detail.email || '').toLowerCase() === user.email.toLowerCase()) {
+        if (e.detail.app) setApplication(e.detail.app);
+        if (e.detail.status) setApplicationStatus(e.detail.status);
+      }
+    };
+    window.addEventListener('msit:student-status-changed', handleStudentStatusUpdate);
+
     // Cross-tab sync via storage events
     const handleStorageChange = (e) => {
       if (e.key === 'msit_all_submitted_applications' && isMounted && user?.email) {
@@ -96,6 +104,11 @@ export default function ProgrammePage() {
             setApplicationStatus(myApp.status || 'Submitted');
           }
         } catch (_) {}
+      } else if (e.key && e.key.startsWith('msit_app_status_') && isMounted && user?.email) {
+        const keyEmail = e.key.replace('msit_app_status_', '').toLowerCase();
+        if (keyEmail === user.email.toLowerCase() && e.newValue) {
+          setApplicationStatus(e.newValue);
+        }
       }
     };
     window.addEventListener('storage', handleStorageChange);
@@ -104,6 +117,7 @@ export default function ProgrammePage() {
       isMounted = false; 
       window.removeEventListener('msit:admission-settings-updated', handleSettingsUpdate);
       window.removeEventListener('msit:application-status-updated', handleAppStatusUpdate);
+      window.removeEventListener('msit:student-status-changed', handleStudentStatusUpdate);
       window.removeEventListener('storage', handleStorageChange);
     };
   }, [user]);
@@ -218,7 +232,7 @@ export default function ProgrammePage() {
                 type="button"
                 className="btn btn-primary programme-apply-btn"
                 onClick={() => {
-                  if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(applicationStatus)) {
+                  if (['Submitted', 'Under Review', 'Accepted', 'Declined', 'Rejected'].includes(applicationStatus)) {
                     navigate('/apply?mode=view');
                   } else if (applicationStatus === 'Additional Information Required') {
                     navigate('/apply?mode=edit');
@@ -229,7 +243,7 @@ export default function ProgrammePage() {
               >
                 <span>
                   {applicationStatus === 'Draft' && 'Continue Application'}
-                  {['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(applicationStatus) && 'View Application'}
+                  {['Submitted', 'Under Review', 'Accepted', 'Declined', 'Rejected'].includes(applicationStatus) && 'View Application'}
                   {applicationStatus === 'Additional Information Required' && 'Update Application'}
                   {applicationStatus === 'Not Started' && 'Apply Now'}
                 </span>
@@ -263,7 +277,7 @@ export default function ProgrammePage() {
         admissionSettings={admissionSettings}
         loadingSettings={loadingSettings}
         onApply={(status) => {
-          if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(status)) {
+          if (['Submitted', 'Under Review', 'Accepted', 'Declined', 'Rejected'].includes(status)) {
             navigate('/apply?mode=view');
           } else if (status === 'Additional Information Required') {
             navigate('/apply?mode=edit');

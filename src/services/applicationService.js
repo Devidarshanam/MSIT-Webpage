@@ -137,7 +137,28 @@ export async function getUserApplication(authUser) {
           ((a.email || '').toLowerCase() === email)
         );
 
+        const directStatus = typeof localStorage !== 'undefined' ? 
+          (localStorage.getItem(`msit_app_status_${email}`) || localStorage.getItem(`msit_application_status_${email}`)) : null;
+        const directStudentApp = typeof localStorage !== 'undefined' ? 
+          safeJsonParse(`msit_student_application_${email}`, null) : null;
+
+        if (directStatus && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(directStatus)) {
+          app.status = directStatus;
+        }
+        if (directStudentApp) {
+          if (directStudentApp.decision_reason) app.decision_reason = directStudentApp.decision_reason;
+          if (directStudentApp.decided_by) app.decided_by = directStudentApp.decided_by;
+          if (directStudentApp.decided_at) app.decided_at = directStudentApp.decided_at;
+        }
+
         if (matchingSubmitted) {
+          if (!directStatus && matchingSubmitted?.status && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(matchingSubmitted.status)) {
+            app.status = matchingSubmitted.status;
+            app.decision_reason = matchingSubmitted.decision_reason || app.decision_reason;
+            app.decided_by = matchingSubmitted.decided_by || app.decided_by;
+            app.decided_at = matchingSubmitted.decided_at || app.decided_at;
+          }
+
           const hasAppDocs = app.documents && (
             (Array.isArray(app.documents) && app.documents.length > 0) ||
             (typeof app.documents === 'object' && Object.keys(app.documents).length > 0)
@@ -161,7 +182,10 @@ export async function getUserApplication(authUser) {
             'ug_degree', 'university', 'department', 'cgpa', 'grading_scale', 'passing_year',
             'has_experience', 'experience_years', 'experience_months', 'company_name', 'job_role', 'experience_details',
             'statement_text', 'purpose_to_join', 'referral_source', 'referral_explanation',
-            'entrance_exam_status', 'gre_score', 'gre_year', 'gate_score', 'gate_year'
+            'entrance_exam_status', 'gre_score', 'gre_year', 'gate_score', 'gate_year',
+            'gat_exam_date', 'gat_score', 'gat_result', 'gat_status',
+            'interview_date', 'interview_time', 'interview_outcome', 'interview_status',
+            'onboarding_date', 'onboarding_status'
           ];
           fieldsToMerge.forEach(f => {
             if ((app[f] === undefined || app[f] === null || app[f] === '') && matchingSubmitted[f]) {
@@ -213,14 +237,24 @@ export async function getUserApplication(authUser) {
     }
   }
 
-  // 2. Check submitted applications in localStorage
+  // 2. Check submitted applications in localStorage or student-specific cache
   const allSubmitted = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
-  const matchingSubmitted = allSubmitted.find(a => (a.email || '').toLowerCase() === email);
-  if (matchingSubmitted) {
-    cleanseStudentRecord(matchingSubmitted, email);
+  const matchingSubmitted = allSubmitted.find(a => 
+    (a.email || '').toLowerCase() === email || 
+    (authUser?.id && a.user_id === authUser.id)
+  );
+  const directStatus = typeof localStorage !== 'undefined' ? 
+    (localStorage.getItem(`msit_app_status_${email}`) || localStorage.getItem(`msit_application_status_${email}`)) : null;
+  const directStudentApp = typeof localStorage !== 'undefined' ? 
+    safeJsonParse(`msit_student_application_${email}`, null) : null;
+
+  const targetApp = matchingSubmitted || directStudentApp;
+  if (targetApp) {
+    cleanseStudentRecord(targetApp, email);
+    const finalStatus = directStatus || targetApp.status || 'Submitted';
     return {
-      application: matchingSubmitted,
-      status: matchingSubmitted.status || 'Submitted'
+      application: { ...targetApp, status: finalStatus },
+      status: finalStatus
     };
   }
 

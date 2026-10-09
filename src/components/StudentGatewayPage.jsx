@@ -9,6 +9,7 @@ import {
 } from './Icons';
 import { isAuthorizedAdminEmail } from '../context/AdminAuthContext';
 import KnowAboutMSITPage from './KnowAboutMSITPage';
+import { getUserApplication } from '../services/applicationService';
 
 export default function StudentGatewayPage() {
   const { user, signOut } = useAuth();
@@ -20,7 +21,42 @@ export default function StudentGatewayPage() {
   // Exploration modal for 1-page summary
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
-  // If user is already authenticated and lands on gateway, route based on role & intent
+  // Student application state
+  const [studentApp, setStudentApp] = useState(null);
+  const [studentStatus, setStudentStatus] = useState(null);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    if (user) {
+      getUserApplication(user).then(res => {
+        if (isMounted) {
+          setStudentApp(res.application);
+          setStudentStatus(res.status || 'Not Started');
+        }
+      }).catch(() => {});
+    }
+
+    const handleStatusSync = (e) => {
+      if (e.detail && isMounted && user?.email && (e.detail.email || '').toLowerCase() === user.email.toLowerCase()) {
+        setStudentApp(e.detail);
+        setStudentStatus(e.detail.status);
+      }
+    };
+    window.addEventListener('msit:application-status-updated', handleStatusSync);
+    window.addEventListener('msit:student-status-changed', (e) => {
+      if (e.detail && isMounted && user?.email && (e.detail.email || '').toLowerCase() === user.email.toLowerCase()) {
+        if (e.detail.app) setStudentApp(e.detail.app);
+        if (e.detail.status) setStudentStatus(e.detail.status);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener('msit:application-status-updated', handleStatusSync);
+    };
+  }, [user]);
+
+  // If user arrived with intent to login to admin, route to admin
   React.useEffect(() => {
     if (user && view === 'gateway') {
       const authIntent = localStorage.getItem('msit_auth_intent') || sessionStorage.getItem('msit_auth_intent');
@@ -32,7 +68,6 @@ export default function StudentGatewayPage() {
         navigate('/admin/dashboard', { replace: true });
         return;
       }
-      navigate('/programme', { replace: true });
     }
   }, [user, view, navigate]);
 
@@ -136,7 +171,29 @@ export default function StudentGatewayPage() {
               ) : (
                 <div className="signed-in-content-view">
                   <div className="simple-card-top">
-                    <span className="simple-mini-badge success">VERIFIED</span>
+                    {studentStatus === 'Accepted' && (
+                      <span className="simple-mini-badge" style={{ background: '#ecfdf5', color: '#065f46', border: '1px solid #a7f3d0', fontWeight: '700' }}>
+                        🎉 ADMISSION OFFERED
+                      </span>
+                    )}
+                    {studentStatus === 'Declined' && (
+                      <span className="simple-mini-badge" style={{ background: '#fef2f2', color: '#991b1b', border: '1px solid #fecaca', fontWeight: '700' }}>
+                        APPLICATION DECLINED
+                      </span>
+                    )}
+                    {(studentStatus === 'Under Review' || studentStatus === 'Submitted') && (
+                      <span className="simple-mini-badge" style={{ background: '#eff6ff', color: '#1e40af', border: '1px solid #bfdbfe', fontWeight: '700' }}>
+                        UNDER REVIEW
+                      </span>
+                    )}
+                    {studentStatus === 'Additional Information Required' && (
+                      <span className="simple-mini-badge" style={{ background: '#fff7ed', color: '#9a3412', border: '1px solid #fed7aa', fontWeight: '700' }}>
+                        ACTION REQUIRED
+                      </span>
+                    )}
+                    {(!studentStatus || studentStatus === 'Not Started' || studentStatus === 'Draft') && (
+                      <span className="simple-mini-badge success">VERIFIED</span>
+                    )}
                     <button 
                       type="button" 
                       className="simple-signout-link"
@@ -147,32 +204,155 @@ export default function StudentGatewayPage() {
                   </div>
 
                   <div className="simple-card-content">
-                    <h2 className="simple-card-title">Welcome Back!</h2>
-                    <p className="student-email-tag">{user.email}</p>
-                    
-                    <p className="simple-card-desc">
-                      Your email is verified. Access the full programme details,
-                      curriculum, admissions roadmap, and application information.
-                    </p>
+                    {studentStatus === 'Accepted' ? (
+                      <>
+                        <h2 className="simple-card-title" style={{ color: '#065f46' }}>Admission Offer Issued! 🎉</h2>
+                        <p className="student-email-tag">{user.email}</p>
+                        <p className="simple-card-desc">
+                          Congratulations! Your application has been approved by the admissions committee for the MSIT January 2027 cohort.
+                        </p>
+                      </>
+                    ) : studentStatus === 'Declined' ? (
+                      <>
+                        <h2 className="simple-card-title" style={{ color: '#991b1b' }}>Admissions Decision</h2>
+                        <p className="student-email-tag">{user.email}</p>
+                        <p className="simple-card-desc">
+                          The admissions committee has concluded evaluation for this intake. {studentApp?.decision_reason ? `Remarks: "${studentApp.decision_reason}"` : 'Thank you for your interest in MSIT.'}
+                        </p>
+                      </>
+                    ) : (studentStatus === 'Under Review' || studentStatus === 'Submitted') ? (
+                      <>
+                        <h2 className="simple-card-title">Application Under Review</h2>
+                        <p className="student-email-tag">{user.email}</p>
+                        <p className="simple-card-desc">
+                          Your application {studentApp?.application_id ? `(${studentApp.application_id})` : ''} is submitted and currently under evaluation by the admissions committee.
+                        </p>
+                      </>
+                    ) : studentStatus === 'Additional Information Required' ? (
+                      <>
+                        <h2 className="simple-card-title" style={{ color: '#9a3412' }}>Information Requested</h2>
+                        <p className="student-email-tag">{user.email}</p>
+                        <p className="simple-card-desc">
+                          {studentApp?.decision_reason ? `Instructions: "${studentApp.decision_reason}". Please update and resubmit your details.` : 'Please provide the requested documents.'}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <h2 className="simple-card-title">Welcome Back!</h2>
+                        <p className="student-email-tag">{user.email}</p>
+                        <p className="simple-card-desc">
+                          Your email is verified. Access the full programme details, curriculum, admissions roadmap, and application information.
+                        </p>
+                      </>
+                    )}
                   </div>
 
                   <div className="simple-card-footer" style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-                    <button
-                      type="button"
-                      className="btn btn-primary card-arrow-btn full-width"
-                      onClick={() => navigate('/apply')}
-                    >
-                      <span>Apply Now (January 2027)</span>
-                      <ArrowRightIcon size={18} />
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-secondary card-arrow-btn full-width"
-                      onClick={() => navigate('/programme')}
-                    >
-                      <span>Open Programme Dashboard</span>
-                      <ArrowRightIcon size={18} />
-                    </button>
+                    {studentStatus === 'Accepted' && (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-primary card-arrow-btn full-width"
+                          onClick={() => navigate('/programme')}
+                          style={{ background: '#059669', borderColor: '#059669' }}
+                        >
+                          <span>View Offer & Dashboard</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary card-arrow-btn full-width"
+                          onClick={() => navigate('/apply?mode=view')}
+                        >
+                          <span>View Full Application</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                      </>
+                    )}
+
+                    {studentStatus === 'Declined' && (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-secondary card-arrow-btn full-width"
+                          onClick={() => navigate('/programme')}
+                        >
+                          <span>Open Student Dashboard</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary card-arrow-btn full-width"
+                          onClick={() => navigate('/apply?mode=view')}
+                        >
+                          <span>View Application Summary</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                      </>
+                    )}
+
+                    {(studentStatus === 'Under Review' || studentStatus === 'Submitted') && (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-primary card-arrow-btn full-width"
+                          onClick={() => navigate('/programme')}
+                        >
+                          <span>Open Programme Dashboard</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary card-arrow-btn full-width"
+                          onClick={() => navigate('/apply?mode=view')}
+                        >
+                          <span>View Submitted Application</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                      </>
+                    )}
+
+                    {studentStatus === 'Additional Information Required' && (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-primary card-arrow-btn full-width"
+                          onClick={() => navigate('/apply?mode=edit')}
+                        >
+                          <span>Update Application Now</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary card-arrow-btn full-width"
+                          onClick={() => navigate('/programme')}
+                        >
+                          <span>Open Programme Dashboard</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                      </>
+                    )}
+
+                    {(!studentStatus || studentStatus === 'Not Started' || studentStatus === 'Draft') && (
+                      <>
+                        <button
+                          type="button"
+                          className="btn btn-primary card-arrow-btn full-width"
+                          onClick={() => navigate('/apply')}
+                        >
+                          <span>{studentStatus === 'Draft' ? 'Continue Application' : 'Apply Now (January 2027)'}</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary card-arrow-btn full-width"
+                          onClick={() => navigate('/programme')}
+                        >
+                          <span>Open Programme Dashboard</span>
+                          <ArrowRightIcon size={18} />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               )}

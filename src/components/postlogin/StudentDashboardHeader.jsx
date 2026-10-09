@@ -6,7 +6,8 @@ import {
   ClockIcon,
   ArrowRightIcon, 
   SparklesIcon,
-  DownloadIcon
+  DownloadIcon,
+  XCircleIcon
 } from '../Icons';
 import { getStudentDisplayName } from '../../utils/userUtils';
 
@@ -132,7 +133,7 @@ export default function StudentDashboardHeader({
       badgeColor: '#065f46',
       badgeBorder: '#a7f3d0',
       dotColor: '#10b981',
-      title: 'Admission Offered',
+      title: 'Admission Offered 🎉',
       description: `Congratulations! You have received an admission offer for the MSIT ${commencementDate} cohort at IIIT Hyderabad.`,
       noteIcon: <CheckCircleIcon size={16} />,
       noteBg: '#ecfdf5',
@@ -141,18 +142,37 @@ export default function StudentDashboardHeader({
       noteText: 'Formal admission decision recorded',
       buttonLabel: 'View Application'
     },
+    'Declined': {
+      badge: 'Application Declined',
+      badgeBg: '#fef2f2',
+      badgeColor: '#991b1b',
+      badgeBorder: '#fecaca',
+      dotColor: '#ef4444',
+      title: 'Admissions Decision: Declined',
+      description: application?.decision_reason 
+        ? `Admissions committee remarks: "${application.decision_reason}". Thank you for your interest in MSIT.`
+        : 'The admissions committee has reviewed your application and was unable to offer admission for this intake.',
+      noteIcon: <XCircleIcon size={16} />,
+      noteBg: '#fef2f2',
+      noteBorder: '#fecaca',
+      noteColor: '#991b1b',
+      noteText: 'Evaluation finalized by admissions committee',
+      buttonLabel: 'View Application'
+    },
     'Rejected': {
-      badge: 'Decision Released',
-      badgeBg: '#f8fafc',
-      badgeColor: '#334155',
-      badgeBorder: '#e2e8f0',
-      dotColor: '#64748b',
-      title: 'Admissions Decision',
-      description: 'The admissions committee has finalized review for this cohort. Thank you for applying to MSIT.',
-      noteIcon: <CheckCircleIcon size={16} />,
-      noteBg: '#f8fafc',
-      noteBorder: '#e2e8f0',
-      noteColor: '#334155',
+      badge: 'Application Declined',
+      badgeBg: '#fef2f2',
+      badgeColor: '#991b1b',
+      badgeBorder: '#fecaca',
+      dotColor: '#ef4444',
+      title: 'Admissions Decision: Declined',
+      description: application?.decision_reason 
+        ? `Admissions committee remarks: "${application.decision_reason}". Thank you for your interest in MSIT.`
+        : 'The admissions committee has finalized review for this cohort. Thank you for applying to MSIT.',
+      noteIcon: <XCircleIcon size={16} />,
+      noteBg: '#fef2f2',
+      noteBorder: '#fecaca',
+      noteColor: '#991b1b',
       noteText: 'Evaluation completed for this intake',
       buttonLabel: 'View Application'
     }
@@ -394,7 +414,7 @@ export default function StudentDashboardHeader({
       title: isSelected 
         ? "Selected — Onboarding Scheduled" 
         : isRejected 
-          ? "Application Rejected" 
+          ? "Application Declined" 
           : "Final Decision & Onboarding",
       done: isSelected,
       statusState: isSelected 
@@ -405,7 +425,7 @@ export default function StudentDashboardHeader({
       badgeText: isSelected 
         ? (isOnboarded ? 'Onboarded' : 'Admission Offered')
         : isRejected 
-          ? 'Application Rejected' 
+          ? 'Declined' 
           : 'Pending Decision',
       metaText: isSelected 
         ? `Commencement: ${onboardingDate} (${onboardingVenue})`

@@ -20,22 +20,23 @@ export default function ConfirmDecisionModal({
   const isActionRequired = decisionType === 'ActionRequired' || decisionType === 'Pending';
 
   const handleConfirm = async () => {
-    if (isDecline && !reason.trim()) {
-      setError('A decline reason / comment is required before declining an application.');
-      return;
-    }
-    if (isActionRequired && !reason.trim()) {
-      setError('Please specify the documents or information requested from the candidate.');
-      return;
+    let finalReason = reason.trim();
+    if (!finalReason) {
+      if (isDecline) finalReason = 'Application declined by Admissions Committee';
+      else if (isAccept) finalReason = 'Offer of Admission approved by Admissions Committee';
+      else if (isActionRequired) finalReason = 'Please provide required document updates.';
+      else finalReason = 'Status moved to Under Review';
     }
 
     setIsSubmitting(true);
+    setError('');
     try {
-      await onConfirm(reason.trim());
+      await onConfirm(finalReason);
       setReason('');
       setError('');
       onClose();
     } catch (err) {
+      console.error('Failed to confirm decision:', err);
       setError('Failed to update application decision.');
     } finally {
       setIsSubmitting(false);

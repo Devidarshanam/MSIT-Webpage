@@ -26,6 +26,27 @@ export default function AuthFlow() {
   const [emailLoading, setEmailLoading] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
 
+  const detectedCandidateApp = React.useMemo(() => {
+    const trimmed = (email || '').trim().toLowerCase();
+    if (!trimmed || !trimmed.includes('@') || trimmed.length < 5) return null;
+    try {
+      const directStatus = localStorage.getItem(`msit_app_status_${trimmed}`) || localStorage.getItem(`msit_application_status_${trimmed}`);
+      const studentApp = JSON.parse(localStorage.getItem(`msit_student_application_${trimmed}`) || 'null');
+      const apps = JSON.parse(localStorage.getItem('msit_all_submitted_applications') || '[]');
+      const match = apps.find(a => (a.email || '').toLowerCase() === trimmed);
+      const app = studentApp || match;
+      const status = directStatus || app?.status;
+      if (status || app) {
+        return {
+          application_id: app?.application_id || 'Submitted',
+          status: status || 'Under Review',
+          decision_reason: app?.decision_reason
+        };
+      }
+    } catch (_) {}
+    return null;
+  }, [email]);
+
   // Auto-detect when user is authenticated via magic link
   useEffect(() => {
     if (user) {
@@ -203,6 +224,45 @@ export default function AuthFlow() {
                   autoComplete="email"
                   disabled={emailLoading}
                 />
+                {detectedCandidateApp && (
+                  <div style={{
+                    marginTop: '0.65rem',
+                    padding: '0.65rem 0.85rem',
+                    borderRadius: '8px',
+                    fontSize: '0.82rem',
+                    lineHeight: '1.4',
+                    fontWeight: '500',
+                    background: detectedCandidateApp.status === 'Accepted' ? '#ecfdf5' : (detectedCandidateApp.status === 'Declined' ? '#fef2f2' : '#eff6ff'),
+                    border: `1px solid ${detectedCandidateApp.status === 'Accepted' ? '#a7f3d0' : (detectedCandidateApp.status === 'Declined' ? '#fecaca' : '#bfdbfe')}`,
+                    color: detectedCandidateApp.status === 'Accepted' ? '#065f46' : (detectedCandidateApp.status === 'Declined' ? '#991b1b' : '#1e40af'),
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '0.2rem'
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontWeight: '700' }}>
+                      <span>Application Status:</span>
+                      <span style={{
+                        padding: '0.15rem 0.5rem',
+                        borderRadius: '999px',
+                        fontSize: '0.75rem',
+                        fontWeight: '700',
+                        background: detectedCandidateApp.status === 'Accepted' ? '#059669' : (detectedCandidateApp.status === 'Declined' ? '#dc2626' : '#2563eb'),
+                        color: '#ffffff'
+                      }}>
+                        {detectedCandidateApp.status === 'Accepted' ? 'Accepted 🎉' : (detectedCandidateApp.status === 'Declined' ? 'Declined' : detectedCandidateApp.status)}
+                      </span>
+                    </div>
+                    {detectedCandidateApp.status === 'Accepted' && (
+                      <span style={{ fontSize: '0.78rem' }}>🎉 Congratulations! Admission offer recorded for this account. Sign in to view offer letter & onboarding steps.</span>
+                    )}
+                    {detectedCandidateApp.status === 'Declined' && (
+                      <span style={{ fontSize: '0.78rem' }}>The admissions committee has concluded evaluation for this cycle.</span>
+                    )}
+                    {detectedCandidateApp.status !== 'Accepted' && detectedCandidateApp.status !== 'Declined' && (
+                      <span style={{ fontSize: '0.78rem' }}>Application {detectedCandidateApp.application_id} is currently under evaluation.</span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>

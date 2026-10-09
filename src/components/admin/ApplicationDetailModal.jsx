@@ -44,10 +44,21 @@ export default function ApplicationDetailModal({
   // Certificate Viewer Modal State
   const [viewingCertificate, setViewingCertificate] = useState(null);
 
+  // Local override state to instantly reflect decision changes in the modal UI
+  const [localAppOverride, setLocalAppOverride] = useState(null);
+
   // Enriched application data guarantees no missing fields slip through
   const currentApp = useMemo(() => {
-    return application ? enrichApplicationRecord(application) : null;
-  }, [application]);
+    const base = localAppOverride || application;
+    return base ? enrichApplicationRecord(base) : null;
+  }, [application, localAppOverride]);
+
+  // Only clear local override when switching to a different application or when modal re-opens
+  useEffect(() => {
+    setLocalAppOverride(null);
+  }, [application?.application_id, application?.id, isOpen]);
+
+  const [decisionSuccessMsg, setDecisionSuccessMsg] = useState(null);
 
   // Notes state
   const [notes, setNotes] = useState(() => currentApp ? getApplicationNotes(currentApp.application_id) : []);
@@ -312,10 +323,15 @@ export default function ApplicationDetailModal({
     else if (decisionType === 'Decline') targetStatus = 'Declined';
     else if (decisionType === 'Pending' || decisionType === 'ActionRequired') targetStatus = 'Additional Information Required';
 
-    const res = await updateApplicationStatus(currentApp.application_id, targetStatus, reason, adminEmail);
+    const res = await updateApplicationStatus(currentApp.application_id, targetStatus, reason, adminEmail, currentApp);
     if (res.updatedApp) {
-      onApplicationUpdated(res.updatedApp);
+      setLocalAppOverride(res.updatedApp);
+      if (onApplicationUpdated) {
+        onApplicationUpdated(res.updatedApp);
+      }
       setHistory(getStatusHistory(currentApp.application_id));
+      setDecisionSuccessMsg(`Application status successfully updated to "${targetStatus}"!`);
+      setTimeout(() => setDecisionSuccessMsg(null), 4000);
     }
   };
 
@@ -373,6 +389,26 @@ export default function ApplicationDetailModal({
             </button>
           </div>
 
+          {/* Decision Success Message Banner */}
+          {decisionSuccessMsg && (
+            <div style={{
+              background: '#ecfdf5',
+              border: '1px solid #a7f3d0',
+              color: '#065f46',
+              padding: '0.65rem 1rem',
+              borderRadius: '8px',
+              fontSize: '0.9rem',
+              fontWeight: '600',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              margin: '0.75rem 1.25rem 0'
+            }}>
+              <CheckCircleIcon size={18} />
+              <span>{decisionSuccessMsg}</span>
+            </div>
+          )}
+
           {/* Quick Decision Banner */}
           <div className="detail-decision-bar">
             <div className="decision-bar-label">
@@ -384,16 +420,18 @@ export default function ApplicationDetailModal({
                 className="btn btn-sm btn-primary-accent"
                 onClick={() => handleOpenDecision('Accept')}
                 disabled={currentApp.status === 'Accepted'}
+                style={currentApp.status === 'Accepted' ? { background: '#10b981', color: '#fff', borderColor: '#10b981', opacity: 0.95 } : {}}
               >
-                Accept Application
+                {currentApp.status === 'Accepted' ? '✓ Accepted' : 'Accept Application'}
               </button>
               <button
                 type="button"
                 className="btn btn-sm btn-danger"
                 onClick={() => handleOpenDecision('Decline')}
                 disabled={currentApp.status === 'Declined'}
+                style={currentApp.status === 'Declined' ? { background: '#ef4444', color: '#fff', borderColor: '#ef4444', opacity: 0.95 } : {}}
               >
-                Decline Application
+                {currentApp.status === 'Declined' ? '✕ Declined' : 'Decline Application'}
               </button>
               <button
                 type="button"
@@ -401,7 +439,7 @@ export default function ApplicationDetailModal({
                 onClick={() => handleOpenDecision('Review')}
                 disabled={currentApp.status === 'Under Review'}
               >
-                Move to Review
+                {currentApp.status === 'Under Review' ? '✓ In Review' : 'Move to Review'}
               </button>
               <button
                 type="button"
