@@ -1,221 +1,157 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { 
+  BookOpenIcon, 
+  CodeIcon, 
+  TerminalIcon, 
+  TrendingUpIcon, 
+  ArrowRightIcon 
+} from '../Icons';
 
 export default function ExploreWhatIsMSIT() {
+  const [showStoryModal, setShowStoryModal] = useState(false);
+
   return (
-    <section className="explore-section bg-light" id="what-is-msit">
+    <section className="explore-section bg-light how-msit-section" id="what-is-msit">
       <div className="explore-container">
         
-        {/* ========================================================
-            PART 1: Heritage & Founder's Vision
-            ======================================================== */}
-        <div className="heritage-founder-block">
-          <div className="explore-section-header">
-            <span className="section-kicker">Heritage & Leadership</span>
-            <h2>Founded on Active Learning</h2>
-            <p className="section-lead">
-              Conceived in 2001 by Turing Award Laureate Prof. Raj Reddy with Carnegie Mellon University guidance,
-              MSIT pioneered studio-based computing education in India.
-            </p>
-          </div>
+        {/* Section Header */}
+        <div className="explore-section-header">
+          <span className="section-kicker">HOW MSIT STARTED</span>
+          <h2>Learning by Doing, Since 2001</h2>
+          <p className="section-lead">
+            MSIT began in 2001 with a simple idea: students learn technology best by building, practicing, and solving real problems.
+          </p>
+        </div>
 
-          <div className="heritage-founder-grid">
-            {/* Left Column: Portrait Card */}
-            <div className="heritage-profile-panel">
-              <div className="heritage-portrait-frame">
-                <img 
-                  src="/assets/rajreddy.jpg" 
-                  alt="Prof. Raj Reddy - Turing Award Laureate & MSIT Founding Chair" 
-                />
-              </div>
-              <div className="heritage-profile-header">
-                <div className="heritage-badges">
-                  <span className="heritage-badge">Academic Visionary</span>
-                  <span className="heritage-badge accent">Turing Laureate 1994</span>
+        {/* Visual Flow: LEARN → BUILD → PRACTICE → GROW */}
+        <div className="how-msit-flow-container">
+          <div className="how-msit-flow-grid">
+            
+            {/* Step 1: LEARN */}
+            <div className="how-flow-card">
+              <div className="how-flow-card-top">
+                <span className="how-flow-step-num">01</span>
+                <div className="how-flow-icon">
+                  <BookOpenIcon size={20} />
                 </div>
-                <h3>Prof. Raj Reddy</h3>
-                <p className="heritage-profile-title">
-                  Founding Chair, MSIT • Former Dean, School of Computer Science, Carnegie Mellon University
-                </p>
               </div>
+              <h3 className="how-flow-title">LEARN</h3>
+              <p className="how-flow-desc">Understand the fundamentals.</p>
             </div>
 
-            {/* Right Column: Narrative, Stats & Quote */}
-            <div className="heritage-narrative-panel">
-              <div className="heritage-story-card">
-                <h4>A Breakthrough in Computer Science Pedagogy</h4>
-                <p>
-                  In 2001, Prof. Raj Reddy envisioned an educational paradigm where students would master computer science not by listening to passive lectures, but by building real systems under mentorship.
-                </p>
-                <p>
-                  In partnership with Carnegie Mellon University, the Consortium of Institutes of Higher Learning (CIHL) launched MSIT at IIIT Hyderabad, establishing India's premier studio-based computing master's program with continuous mastery evaluation.
-                </p>
-              </div>
-
-              {/* 3 Impact Stat Cards */}
-              <div className="heritage-stats-grid">
-                <div className="heritage-stat-box">
-                  <span className="stat-number">25+</span>
-                  <span className="stat-label">Years of Innovation</span>
-                </div>
-                <div className="heritage-stat-box">
-                  <span className="stat-number">3,000+</span>
-                  <span className="stat-label">Global Alumni</span>
-                </div>
-                <div className="heritage-stat-box">
-                  <span className="stat-number">100%</span>
-                  <span className="stat-label">Active Studio Pedagogy</span>
+            {/* Step 2: BUILD */}
+            <div className="how-flow-card">
+              <div className="how-flow-card-top">
+                <span className="how-flow-step-num">02</span>
+                <div className="how-flow-icon">
+                  <CodeIcon size={20} />
                 </div>
               </div>
-
-              {/* Quote Box */}
-              <div className="heritage-quote-card">
-                <div className="quote-mark">“</div>
-                <blockquote>
-                  In computing, learning is not a spectator sport. You don't learn by watching; you learn by building, breaking, debugging, and deploying.
-                </blockquote>
-                <cite>— Prof. Raj Reddy, Turing Award Laureate & MSIT Founding Chair</cite>
-              </div>
+              <h3 className="how-flow-title">BUILD</h3>
+              <p className="how-flow-desc">Create practical projects.</p>
             </div>
+
+            {/* Step 3: PRACTICE */}
+            <div className="how-flow-card">
+              <div className="how-flow-card-top">
+                <span className="how-flow-step-num">03</span>
+                <div className="how-flow-icon">
+                  <TerminalIcon size={20} />
+                </div>
+              </div>
+              <h3 className="how-flow-title">PRACTICE</h3>
+              <p className="how-flow-desc">Apply what you learn to real problems.</p>
+            </div>
+
+            {/* Step 4: GROW */}
+            <div className="how-flow-card">
+              <div className="how-flow-card-top">
+                <span className="how-flow-step-num">04</span>
+                <div className="how-flow-icon">
+                  <TrendingUpIcon size={20} />
+                </div>
+              </div>
+              <h3 className="how-flow-title">GROW</h3>
+              <p className="how-flow-desc">Develop skills for your technology career.</p>
+            </div>
+
           </div>
         </div>
 
-        {/* ========================================================
-            PART 2: Quarter-Century Evolution (4 Eras Across Full Width)
-            ======================================================== */}
-        <div className="heritage-evolution-block">
-          <div className="explore-section-header">
-            <span className="evolution-kicker-badge">
-              <span className="evolution-kicker-dot"></span>
-              Quarter-Century Evolution
-            </span>
-            <h2>The 25-Year Journey: 2001 to 2026</h2>
-            <p className="section-lead">
-              From the original CMU mastery studios to modern AI-native engineering, 
-              MSIT has continuously adapted its curriculum to lead industry shifts.
-            </p>
+        {/* Compact Historical / Founding Vision Card */}
+        <div className="how-founder-bar">
+          <div className="how-founder-image-wrap">
+            <img 
+              src="/assets/rajreddy.jpg" 
+              alt="Prof. Raj Reddy - MSIT Founding Visionary" 
+              className="how-founder-image"
+            />
           </div>
 
-          {/* Interactive Connected Timeline Track Rail */}
-          <div className="journey-timeline-track" aria-hidden="true">
-            <div className="journey-track-nodes">
-              <div className="journey-node">
-                <div className="journey-marker">
-                  <span className="journey-core"></span>
-                </div>
-                <div className="journey-info">
-                  <span className="journey-year">2001</span>
-                  <span className="journey-caption">Inception</span>
-                </div>
-              </div>
-
-              <div className="journey-node">
-                <div className="journey-marker">
-                  <span className="journey-core"></span>
-                </div>
-                <div className="journey-info">
-                  <span className="journey-year">2006</span>
-                  <span className="journey-caption">Expansion</span>
-                </div>
-              </div>
-
-              <div className="journey-node">
-                <div className="journey-marker">
-                  <span className="journey-core"></span>
-                </div>
-                <div className="journey-info">
-                  <span className="journey-year">2016</span>
-                  <span className="journey-caption">Cloud & Modern Tech</span>
-                </div>
-              </div>
-
-              <div className="journey-node active">
-                <div className="journey-marker active">
-                  <span className="journey-pulse"></span>
-                  <span className="journey-core active"></span>
-                </div>
-                <div className="journey-info">
-                  <span className="journey-year active">Present</span>
-                  <span className="journey-caption active">AI-Native</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* 4 Cards Grid */}
-          <div className="heritage-timeline-progression">
-            {/* Step 1 */}
-            <div className="heritage-milestone-card era-1">
-              <div className="milestone-accent-bar"></div>
-              <div className="milestone-top">
-                <div className="milestone-step-wrapper">
-                  <span className="milestone-step">01</span>
-                </div>
-                <span className="milestone-year">2001–2005</span>
-              </div>
-              <span className="milestone-tag tag-pedagogy">Inception & Pedagogy</span>
-              <h4>CIHL & CMU Mastery Model</h4>
-              <p>
-                Founded at IIIT Hyderabad under CIHL with Carnegie Mellon guidance. Pioneered mastery-based learning and collaborative coding studios under dedicated full-time mentors.
-              </p>
-            </div>
-
-            {/* Step 2 */}
-            <div className="heritage-milestone-card era-2">
-              <div className="milestone-accent-bar"></div>
-              <div className="milestone-top">
-                <div className="milestone-step-wrapper">
-                  <span className="milestone-step">02</span>
-                </div>
-                <span className="milestone-year">2006–2015</span>
-              </div>
-              <span className="milestone-tag tag-expansion">Evolution & Expansion</span>
-              <h4>Growing the Learning-by-Doing Model</h4>
-              <p>
-                MSIT strengthened its hands-on learning approach, expanded its learning-centre network, and evolved its curriculum with emerging technologies.
-              </p>
-            </div>
-
-            {/* Step 3 */}
-            <div className="heritage-milestone-card era-3">
-              <div className="milestone-accent-bar"></div>
-              <div className="milestone-top">
-                <div className="milestone-step-wrapper">
-                  <span className="milestone-step">03</span>
-                </div>
-                <span className="milestone-year">2016–2023</span>
-              </div>
-              <span className="milestone-tag tag-cloud">Cloud & Modern Engineering</span>
-              <h4>DevOps & Specializations</h4>
-              <p>
-                Transitioned to Cloud, Data Science, and Machine Learning tracks, embedding collaborative team projects and hands-on software development directly into student learning.
-              </p>
-            </div>
-
-            {/* Step 4 */}
-            <div className="heritage-milestone-card era-4 active">
-              <div className="milestone-accent-bar"></div>
-              <div className="milestone-top">
-                <div className="milestone-step-wrapper">
-                  <span className="milestone-step">04</span>
-                </div>
-                <div className="milestone-year-wrapper">
-                  <span className="milestone-live-pill">
-                    <span className="live-pulse-dot"></span>
-                    ACTIVE
-                  </span>
-                  <span className="milestone-year current">2024–Present</span>
-                </div>
-              </div>
-              <span className="milestone-tag current">Current Era</span>
-              <h4>The AI-Native Core</h4>
-              <p>
-                Curriculum fully rebuilt for the LLM era. Students use agentic workflows, Copilots, and advanced AI systems, focusing on higher-order system architecture.
-              </p>
+          <div className="how-founder-content">
+            <span className="how-founder-tag">FOUNDING VISION</span>
+            <h3 className="how-founder-title">Founded with a vision from Prof. Raj Reddy</h3>
+            <p className="how-founder-desc">MSIT was founded in 2001 with a focus on practical, hands-on learning.</p>
+            <div className="how-founder-action">
+              <button 
+                type="button" 
+                className="how-story-btn"
+                onClick={() => setShowStoryModal(true)}
+                aria-haspopup="dialog"
+              >
+                <span>Explore Our Story</span>
+                <ArrowRightIcon size={16} />
+              </button>
             </div>
           </div>
         </div>
 
       </div>
+
+      {/* Lightweight History Story Modal */}
+      {showStoryModal && (
+        <div 
+          className="story-modal-backdrop" 
+          onClick={() => setShowStoryModal(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="story-modal-card" onClick={(e) => e.stopPropagation()}>
+            <button 
+              type="button" 
+              className="story-modal-close" 
+              onClick={() => setShowStoryModal(false)}
+              aria-label="Close dialog"
+            >
+              ✕
+            </button>
+
+            <span className="how-founder-tag" style={{ marginBottom: '0.4rem', display: 'inline-block' }}>OUR STORY</span>
+            <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#0f172a', margin: '0 0 1rem 0' }}>
+              Learning by Doing Since 2001
+            </h3>
+            
+            <p style={{ fontSize: '0.94rem', color: '#334155', lineHeight: 1.6, margin: '0 0 0.85rem 0' }}>
+              In 2001, Turing Award Laureate <strong>Prof. Raj Reddy</strong> envisioned an educational model where students learn technology best not through passive lectures, but by actively building real systems.
+            </p>
+            <p style={{ fontSize: '0.94rem', color: '#334155', lineHeight: 1.6, margin: '0 0 1.25rem 0' }}>
+              MSIT was founded at IIIT Hyderabad with that simple, powerful focus on practical, hands-on learning. Today, the program continues to help motivated students from all backgrounds develop the confidence and practical skills needed for long-term technology careers.
+            </p>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <button 
+                type="button" 
+                className="btn btn-primary"
+                onClick={() => setShowStoryModal(false)}
+                style={{ padding: '0.5rem 1.25rem', fontSize: '0.88rem' }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }

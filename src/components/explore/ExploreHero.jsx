@@ -11,9 +11,7 @@ export default function ExploreHero({ onGoToSignIn }) {
             Master of Science in <span className="highlight">Information Technology</span>
           </h1>
           <p className="hero-lead">
-            An advanced, active-learning master's degree preparing the next generation of 
-            technology leaders through hands-on studios, AI-native workflows, and real-world 
-            systems engineering.
+            Learn technology by building real projects, solving practical problems, and developing the skills you need for a career in the IT industry.
           </p>
           <div className="hero-actions">
             <button className="btn btn-primary" onClick={onGoToSignIn}>
@@ -30,23 +28,23 @@ export default function ExploreHero({ onGoToSignIn }) {
             <AwardIcon size={28} className="metric-icon" />
             <div className="metric-text">
               <strong>25+ Years</strong>
-              <span>Academic Legacy</span>
+              <span>Learning &amp; Experience</span>
             </div>
           </div>
           <div className="metric-divider"></div>
           <div className="metric-item">
             <BuildingIcon size={28} className="metric-icon" />
             <div className="metric-text">
-              <strong>100% Studio</strong>
-              <span>Active Pedagogy</span>
+              <strong>Learn by Doing</strong>
+              <span>Practical Projects</span>
             </div>
           </div>
           <div className="metric-divider"></div>
           <div className="metric-item">
             <BriefcaseIcon size={28} className="metric-icon" />
             <div className="metric-text">
-              <strong>Real-World</strong>
-              <span>Industry Co-ops</span>
+              <strong>Industry Exposure</strong>
+              <span>Real-World Experience</span>
             </div>
           </div>
         </div>

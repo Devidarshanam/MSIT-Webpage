@@ -18818,6 +18818,321 @@ p {
    2. Heritage & Evolution (Separated Webpage Sections)
    ========================================================================== */
 
+/* ==========================================================================
+   HOW MSIT STARTED: Learning by Doing (Section 2 Redesign)
+   ========================================================================== */
+.how-msit-section {
+  padding: 4.5rem 0 5rem 0;
+}
+
+.how-msit-flow-container {
+  margin: 2.75rem 0 3rem 0;
+}
+
+.how-msit-flow-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  position: relative;
+}
+
+.how-flow-card {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200, #e2e8f0);
+  border-radius: 18px;
+  padding: 1.85rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 4px 16px rgba(11, 42, 107, 0.04);
+}
+
+.how-flow-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(11, 42, 107, 0.09);
+  border-color: #cbd5e1;
+}
+
+.how-flow-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.how-flow-step-num {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #0b2a6b;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+.how-flow-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.how-flow-card:nth-child(1) .how-flow-icon {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.how-flow-card:nth-child(2) .how-flow-icon {
+  background: #f0fdf4;
+  color: #059669;
+}
+
+.how-flow-card:nth-child(3) .how-flow-icon {
+  background: #faf5ff;
+  color: #7c3aed;
+}
+
+.how-flow-card:nth-child(4) .how-flow-icon {
+  background: #ecfeff;
+  color: #0891b2;
+}
+
+.how-flow-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #0f172a;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.how-flow-desc {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0;
+}
+
+@media (min-width: 992px) {
+  .how-flow-card:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -1.05rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #94a3b8;
+    z-index: 2;
+  }
+}
+
+/* Founder & Vision Banner - Prominent Square Image Layout */
+.how-founder-bar {
+  background: #ffffff;
+  border: 1px solid var(--neutral-200, #e2e8f0);
+  border-radius: 20px;
+  padding: 1.75rem 2.25rem;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2.75rem;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(11, 42, 107, 0.05);
+  margin-top: 2rem;
+}
+
+.how-founder-image-wrap {
+  width: 280px;
+  height: 280px;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(11, 42, 107, 0.09);
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.how-founder-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.how-founder-bar:hover .how-founder-image {
+  transform: scale(1.025);
+}
+
+.how-founder-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.how-founder-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #2563eb;
+  margin-bottom: 0.45rem;
+}
+
+.how-founder-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.65rem 0;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.how-founder-desc {
+  font-size: 1rem;
+  color: #475569;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+.how-founder-action {
+  display: flex;
+  align-items: center;
+}
+
+.how-story-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8fafc;
+  color: #0b2a6b;
+  border: 1px solid #cbd5e1;
+  padding: 0.7rem 1.4rem;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.how-story-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+  transform: translateX(2px);
+}
+
+/* Modal styles for "Explore Our Story" */
+.story-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.story-modal-card {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 560px;
+  width: 100%;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 24px 48px -12px rgba(11, 42, 107, 0.25);
+  border: 1px solid #e2e8f0;
+  position: relative;
+}
+
+.story-modal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.story-modal-close:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+@media (max-width: 991px) {
+  .how-msit-flow-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  .how-founder-bar {
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    padding: 1.5rem 1.75rem;
+  }
+  .how-founder-image-wrap {
+    width: 240px;
+    height: 240px;
+  }
+  .how-founder-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .how-founder-bar {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 1.25rem;
+    text-align: center;
+  }
+  .how-founder-image-wrap {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+  }
+  .how-founder-content {
+    align-items: center;
+  }
+  .how-founder-desc {
+    margin-bottom: 1.25rem;
+  }
+  .how-story-btn {
+    align-self: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .how-msit-flow-grid {
+    grid-template-columns: 1fr;
+  }
+  .how-founder-image-wrap {
+    width: 220px;
+    height: 220px;
+  }
+}
+
 /* PART 1: Founder & Heritage Block */
 .heritage-founder-block {
   margin-bottom: 5rem;
@@ -19961,9 +20276,331 @@ p {
   font-weight: 700;
 }
 
+/* Enhanced Clean Lists for Redesigned Who is MSIT For */
+.who-points-list,
+.who-eligibility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1.15rem;
+  background: #f8fafc;
+  border: 1px solid #edf2f7;
+  border-radius: 14px;
+  padding: 1.25rem 1.4rem;
+}
+
+.who-point-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+  color: #1e293b;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.who-check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #1d4ed8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.who-eligibility-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+}
+
+.who-eligibility-item strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.who-eligibility-bullet {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4338ca;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.who-eligibility-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.35rem;
+  padding: 0.65rem 1.35rem;
+  border-radius: 10px;
+  background: #eef2ff;
+  color: #3730a3;
+  border: 1px solid #c7d2fe;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.who-eligibility-btn:hover {
+  background: #e0e7ff;
+  border-color: #a5b4fc;
+  color: #1e1b4b;
+  transform: translateX(2px);
+}
+
 /* ========================================================
-   CURRICULUM PHILOSOPHY / PEDAGOGY LEARNING CYCLE
+   HOW STUDENTS LEARN - 4-STEP LEARNING JOURNEY
    ======================================================== */
+.learn-journey-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.75rem;
+  position: relative;
+  align-items: stretch;
+}
+
+.learn-journey-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 2.15rem 1.45rem 1.85rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 4px 18px -2px rgba(11, 42, 107, 0.04), 0 2px 6px -1px rgba(11, 42, 107, 0.02);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.learn-journey-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px -8px rgba(11, 42, 107, 0.11), 0 4px 10px -2px rgba(11, 42, 107, 0.04);
+  border-color: #cbd5e1;
+}
+
+/* Top Accent Bar */
+.learn-journey-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 18px 18px 0 0;
+  transition: height 0.25s ease;
+}
+
+.learn-journey-card:hover .learn-journey-accent {
+  height: 6px;
+}
+
+.learn-stage-1 .learn-journey-accent { background: linear-gradient(90deg, #1e3a8a, #2563eb); }
+.learn-stage-2 .learn-journey-accent { background: linear-gradient(90deg, #2563eb, #3b82f6); }
+.learn-stage-3 .learn-journey-accent { background: linear-gradient(90deg, #3b82f6, #0284c7); }
+.learn-stage-4 .learn-journey-accent { background: linear-gradient(90deg, #0284c7, #06b6d4); }
+
+/* Top Row */
+.learn-journey-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.learn-journey-step-num {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.02em;
+}
+
+.learn-journey-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease;
+}
+
+.learn-stage-1 .learn-journey-icon-box {
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  color: #1d4ed8;
+}
+
+.learn-stage-2 .learn-journey-icon-box {
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+  color: #4338ca;
+}
+
+.learn-stage-3 .learn-journey-icon-box {
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  color: #059669;
+}
+
+.learn-stage-4 .learn-journey-icon-box {
+  background: #ecfeff;
+  border: 1px solid #cffafe;
+  color: #0891b2;
+}
+
+.learn-journey-card:hover .learn-journey-icon-box {
+  transform: scale(1.08);
+}
+
+/* Stage Badge */
+.learn-journey-stage-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  margin-bottom: 0.65rem;
+}
+
+.learn-stage-1 .learn-journey-stage-badge {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.learn-stage-2 .learn-journey-stage-badge {
+  background: #eef2ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+}
+
+.learn-stage-3 .learn-journey-stage-badge {
+  background: #f0fdf4;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.learn-stage-4 .learn-journey-stage-badge {
+  background: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #a5f3fc;
+}
+
+/* Title & Description */
+.learn-journey-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary-900, #0b2a6b);
+  margin: 0 0 0.55rem 0;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.learn-journey-desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0;
+  flex: 1;
+}
+
+/* Visual Connection Between Steps (Journey arrows) */
+@media (min-width: 992px) {
+  .learn-journey-card:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -1.05rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #2563eb;
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(11, 42, 107, 0.08);
+    z-index: 3;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 641px) {
+  .learn-journey-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .learn-journey-grid {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+    margin-top: 1.75rem;
+  }
+
+  .learn-journey-card {
+    padding: 1.6rem 1.25rem;
+  }
+
+  .learn-journey-card:not(:last-child)::after {
+    content: "↓";
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    top: auto;
+    right: auto;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #2563eb;
+    background: #ffffff;
+    border: 1px solid #dbeafe;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(11, 42, 107, 0.08);
+    z-index: 3;
+    pointer-events: none;
+  }
+}
+
 .pedagogy-kicker-badge {
   display: inline-flex;
   align-items: center;

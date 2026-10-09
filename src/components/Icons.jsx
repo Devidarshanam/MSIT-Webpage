@@ -63,6 +63,24 @@ export function TrendingUpIcon({ className = "icon", size = 20 }) {
   );
 }
 
+export function LayersIcon({ className = "icon", size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+      <polyline points="2 17 12 22 22 17"></polyline>
+      <polyline points="2 12 12 17 22 12"></polyline>
+    </svg>
+  );
+}
+
+export function MessageSquareIcon({ className = "icon", size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+  );
+}
+
 export function RocketIcon({ className = "icon", size = 20 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
@@ -459,6 +477,12 @@ export function getSmartIcon(keyOrEmoji, defaultSize = 20) {
   }
   if (str.includes('trending') || str.includes('trading') || str.includes('fintech') || str.includes('quant')) {
     return <TrendingUpIcon size={defaultSize} />;
+  }
+  if (str.includes('layer') || str.includes('adjacent') || str.includes('stack')) {
+    return <LayersIcon size={defaultSize} />;
+  }
+  if (str.includes('message') || str.includes('communication') || str.includes('feedback') || str.includes('review') || str.includes('chat')) {
+    return <MessageSquareIcon size={defaultSize} />;
   }
   if (str.includes('heart') || str.includes('wellbeing') || str.includes('wellness') || str.includes('health')) {
     return <HeartIcon size={defaultSize} />;

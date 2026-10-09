@@ -1,9 +1,9 @@
 import React from 'react';
 import { 
   GenAIIcon, 
-  CpuIcon, 
-  CloudIcon, 
-  UsersIcon 
+  CodeIcon, 
+  LayersIcon, 
+  MessageSquareIcon 
 } from '../Icons';
 
 export default function ExploreCurriculum() {
@@ -15,20 +15,18 @@ export default function ExploreCurriculum() {
         <div className="explore-section-header">
           <span className="curriculum-kicker-badge">
             <span className="curriculum-kicker-dot"></span>
-            Academic Structure
+            What You'll Learn
           </span>
           <h2>The T-Shaped Curriculum</h2>
           <p className="section-lead">
-            MSIT prepares developers for the AI era through a balanced T-shaped model: 
-            anchored by deep core software engineering, capped by generative AI proficiency, and complemented by 
-            adjacent engineering and professional breadth.
+            Learn the fundamentals, explore different areas of technology, and build deeper skills in the areas that matter to your career.
           </p>
         </div>
 
         {/* The Exact Figure 3 T-Shape Visual Architecture Container */}
         <div className="fse-tshape-container">
           
-          {/* TOP BAR OF THE 'T': GenAI Usage (Domain 1) */}
+          {/* TOP BAR OF THE 'T': Generative AI (Domain 1) */}
           <div className="tshape-top-bar">
             <div className="tshape-top-header">
               <div className="tshape-top-icon-title">
@@ -37,170 +35,169 @@ export default function ExploreCurriculum() {
                 </div>
                 <div>
                   <span className="tshape-domain-badge">Domain 1 • Horizontal Breadth</span>
-                  <h3>GenAI Usage</h3>
+                  <h3>Generative AI</h3>
                 </div>
               </div>
-              <span className="tshape-role-chip">Everyday Force Multiplier</span>
+              <span className="tshape-role-chip">Modern AI Tools</span>
             </div>
             <p className="tshape-top-desc">
-              Learning to use AI tools responsibly and productively to explore ideas, solve problems faster, and write better code.
+              Learn how to use modern AI tools to learn, create, and solve problems.
             </p>
             <div className="tshape-top-pills">
-              <span className="tshape-pill pill-ai">AI Coding Tools & Copilots</span>
-              <span className="tshape-pill pill-ai">Prompting & Problem Framing</span>
-              <span className="tshape-pill pill-ai">Reviewing & Testing AI Outputs</span>
-              <span className="tshape-pill pill-ai">Responsible AI Best Practices</span>
+              <span className="tshape-pill pill-ai">AI Tools</span>
+              <span className="tshape-pill pill-ai">Working with AI</span>
+              <span className="tshape-pill pill-ai">Using AI Responsibly</span>
             </div>
           </div>
 
           {/* LOWER SECTION: Flanked Wings + Deep Center Stem */}
           <div className="tshape-lower-grid">
             
-            {/* LEFT WING: Adjacent Engineering (Domain 3) */}
+            {/* LEFT WING: Technology Areas (Domain 3) */}
             <div className="tshape-wing-card wing-left">
               <div className="tshape-wing-header">
                 <div className="tshape-wing-icon icon-adjacent">
-                  <CloudIcon size={20} />
+                  <LayersIcon size={20} />
                 </div>
                 <div>
                   <span className="wing-domain-badge">Domain 3</span>
-                  <h4>Adjacent Engineering</h4>
+                  <h4>Technology Areas</h4>
                 </div>
               </div>
               <p className="wing-desc">
-                Broad practical exposure to modern technologies that connect with core software systems.
+                Explore different areas of technology and understand how they work together.
               </p>
               <ul className="wing-list">
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Cloud Platforms & Deployment</strong>
-                    <span className="wing-subtext">Deploying applications to modern cloud environments</span>
+                    <strong>Web Development</strong>
+                    <span className="wing-subtext">Build websites and applications.</span>
                   </div>
                 </li>
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Data Science & AI Basics</strong>
-                    <span className="wing-subtext">Understanding data workflows and intelligence pipelines</span>
+                    <strong>Data & AI</strong>
+                    <span className="wing-subtext">Work with data and explore artificial intelligence.</span>
                   </div>
                 </li>
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>DevOps & Automation</strong>
-                    <span className="wing-subtext">Version control, continuous integration, and delivery</span>
+                    <strong>Cloud & Deployment</strong>
+                    <span className="wing-subtext">Learn how applications are made available to users.</span>
                   </div>
                 </li>
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Web & API Technologies</strong>
-                    <span className="wing-subtext">Building responsive interfaces and connecting services</span>
+                    <strong>APIs & Modern Applications</strong>
+                    <span className="wing-subtext">Learn how different applications communicate with each other.</span>
                   </div>
                 </li>
               </ul>
             </div>
 
-            {/* CENTER STEM: Core Software Engineering (Domain 2) - DIGNIFIED & NEAT */}
+            {/* CENTER STEM: Software Development (Domain 2) - CORE DEPTH */}
             <div className="tshape-center-stem">
               <div className="tshape-stem-header">
                 <div className="tshape-stem-icon">
-                  <CpuIcon size={24} />
+                  <CodeIcon size={24} />
                 </div>
                 <div>
                   <span className="stem-domain-badge">Domain 2 • Core Depth</span>
-                  <h3>Core Software Engineering</h3>
+                  <h3>Software Development</h3>
                 </div>
               </div>
               <p className="tshape-stem-lead">
-                Deep foundations in building robust, reliable software that withstand technological shifts.
+                Build a strong foundation in programming and learn how to create reliable software.
               </p>
 
               <div className="tshape-stem-clean-list">
                 <div className="stem-clean-item">
                   <span className="stem-item-icon">✓</span>
                   <div>
-                    <strong>System Design & Architecture</strong>
-                    <span>Building scalable, maintainable software systems</span>
+                    <strong>Programming Fundamentals</strong>
+                    <span>Learn how to write clear and structured programs.</span>
                   </div>
                 </div>
 
                 <div className="stem-clean-item">
                   <span className="stem-item-icon">✓</span>
                   <div>
-                    <strong>Data Structures & Algorithms</strong>
-                    <span>Strong computational thinking and problem-solving</span>
+                    <strong>Problem Solving</strong>
+                    <span>Learn how to break down problems and find solutions.</span>
                   </div>
                 </div>
 
                 <div className="stem-clean-item">
                   <span className="stem-item-icon">✓</span>
                   <div>
-                    <strong>Backend & Database Engineering</strong>
-                    <span>Practical application logic and reliable data systems</span>
+                    <strong>Software Design</strong>
+                    <span>Understand how different parts of a software application work together.</span>
                   </div>
                 </div>
 
                 <div className="stem-clean-item">
                   <span className="stem-item-icon">✓</span>
                   <div>
-                    <strong>Core Programming Principles</strong>
-                    <span>Clean, well-structured, and readable codebases</span>
+                    <strong>Databases</strong>
+                    <span>Learn how applications store and work with information.</span>
                   </div>
                 </div>
 
                 <div className="stem-clean-item">
                   <span className="stem-item-icon">✓</span>
                   <div>
-                    <strong>Code Quality & Testing</strong>
-                    <span>Rigorous testing, debugging, and continuous improvement</span>
+                    <strong>Building & Testing Software</strong>
+                    <span>Build software, test it, and improve it.</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT WING: Non-Engineering (Domain 4) - SOFT SKILLS & REVIEWS */}
+            {/* RIGHT WING: Professional Skills (Domain 4) */}
             <div className="tshape-wing-card wing-right">
               <div className="tshape-wing-header">
                 <div className="tshape-wing-icon icon-non-eng">
-                  <UsersIcon size={20} />
+                  <MessageSquareIcon size={20} />
                 </div>
                 <div>
                   <span className="wing-domain-badge">Domain 4</span>
-                  <h4>Non-Engineering</h4>
+                  <h4>Professional Skills</h4>
                 </div>
               </div>
               <p className="wing-desc">
-                Developing soft skills, professional communication, and constructive review habits for collaborative excellence.
+                Build the communication and teamwork skills needed to work effectively in the technology industry.
               </p>
               <ul className="wing-list">
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Communication & Presentation</strong>
-                    <span className="wing-subtext">Expressing technical ideas clearly to team members</span>
+                    <strong>Communication</strong>
+                    <span className="wing-subtext">Express your ideas clearly.</span>
                   </div>
                 </li>
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Peer Reviews & Feedback</strong>
-                    <span className="wing-subtext">Giving and receiving constructive code walkthroughs</span>
+                    <strong>Teamwork</strong>
+                    <span className="wing-subtext">Work effectively with others.</span>
                   </div>
                 </li>
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Behavioral & Professional Skills</strong>
-                    <span className="wing-subtext">Teamwork, workplace etiquette, and accountability</span>
+                    <strong>Presenting Ideas</strong>
+                    <span className="wing-subtext">Explain your work with confidence.</span>
                   </div>
                 </li>
                 <li>
                   <span className="wing-bullet">•</span>
                   <div>
-                    <strong>Soft Skills & Adaptability</strong>
-                    <span className="wing-subtext">Empathy, active listening, and continuous learning</span>
+                    <strong>Feedback & Improvement</strong>
+                    <span className="wing-subtext">Learn from feedback and improve your work.</span>
                   </div>
                 </li>
               </ul>
