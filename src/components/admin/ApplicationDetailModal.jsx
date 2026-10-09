@@ -8,7 +8,8 @@ import {
   UserIcon, 
   GraduationCapIcon, 
   AwardIcon, 
-  BookOpenIcon 
+  BookOpenIcon,
+  UsersIcon
 } from '../Icons';
 import { StatusBadge, TestDataBadge } from './StatusBadge';
 import ConfirmDecisionModal from './ConfirmDecisionModal';

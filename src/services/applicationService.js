@@ -1,9 +1,9 @@
 import { supabase, isSupabaseConfigured } from '../lib/supabase.js';
 export { getAdmissionSettings } from './adminService.js';
 
-const LOCAL_STORAGE_APPS_KEY = 'msit_all_submitted_applications';
-const LOCAL_STORAGE_DRAFT_PREFIX = 'msit_app_draft_';
-const LOCAL_STORAGE_HISTORY_KEY = 'msit_application_status_history';
+export const LOCAL_STORAGE_APPS_KEY = 'msit_all_submitted_applications';
+export const LOCAL_STORAGE_DRAFT_PREFIX = 'msit_app_draft_';
+export const LOCAL_STORAGE_HISTORY_KEY = 'msit_application_status_history';
 
 /**
  * Generate a consistent application reference ID.
@@ -16,7 +16,7 @@ export function generateApplicationId() {
 /**
  * Helper to build storage draft key
  */
-function getDraftKey(email) {
+export function getDraftKey(email) {
   const cleanEmail = (email || 'guest').trim().toLowerCase();
   return `${LOCAL_STORAGE_DRAFT_PREFIX}${cleanEmail}`;
 }
@@ -24,7 +24,7 @@ function getDraftKey(email) {
 /**
  * Safely parse JSON from localStorage
  */
-function safeJsonParse(key, fallback = null) {
+export function safeJsonParse(key, fallback = null) {
   if (typeof localStorage === 'undefined') return fallback;
   try {
     const raw = localStorage.getItem(key);
@@ -38,7 +38,7 @@ function safeJsonParse(key, fallback = null) {
 /**
  * Safely write JSON to localStorage
  */
-function safeJsonSet(key, value) {
+export function safeJsonSet(key, value) {
   if (typeof localStorage === 'undefined') return;
   try {
     localStorage.setItem(key, JSON.stringify(value));
@@ -110,7 +110,96 @@ export async function getUserApplication(authUser) {
       const { data, error } = await query;
 
       if (!error && Array.isArray(data) && data.length > 0) {
-        const app = data[0];
+        const app = { ...data[0] };
+
+        // Fetch uploaded documents from application_documents table if present
+        try {
+          let docQuery = supabase.from('application_documents').select('*');
+          if (app.id && app.application_id) {
+            docQuery = docQuery.or(`application_id.eq.${app.id},application_ref.eq.${app.application_id}`);
+          } else if (app.id) {
+            docQuery = docQuery.eq('application_id', app.id);
+          } else if (app.application_id) {
+            docQuery = docQuery.eq('application_ref', app.application_id);
+          }
+          const { data: docRows, error: docErr } = await docQuery;
+          if (!docErr && Array.isArray(docRows) && docRows.length > 0) {
+            app.documents = docRows;
+          }
+        } catch (docEx) {
+          console.warn('[MSIT] Supabase documents query warning:', docEx);
+        }
+
+        // Merge from localStorage for any fields or documents not present in Supabase row
+        const allSubmitted = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
+        const matchingSubmitted = allSubmitted.find(a => 
+          (a.application_id && (a.application_id === app.application_id || a.id === app.id)) ||
+          ((a.email || '').toLowerCase() === email)
+        );
+
+        if (matchingSubmitted) {
+          const hasAppDocs = app.documents && (
+            (Array.isArray(app.documents) && app.documents.length > 0) ||
+            (typeof app.documents === 'object' && Object.keys(app.documents).length > 0)
+          );
+          if (!hasAppDocs && matchingSubmitted.documents) {
+            app.documents = matchingSubmitted.documents;
+          }
+          if (!app.cv_url && matchingSubmitted.cv_url) {
+            app.cv_url = matchingSubmitted.cv_url;
+          }
+          if (!app.cv_filename && matchingSubmitted.cv_filename) {
+            app.cv_filename = matchingSubmitted.cv_filename;
+          }
+          if (!app.cvDocument && matchingSubmitted.cvDocument) {
+            app.cvDocument = matchingSubmitted.cvDocument;
+          }
+
+          const fieldsToMerge = [
+            'dob', 'address', 'parent_relationship', 'parent_name', 'alt_phone',
+            'class10_score', 'class10_score_type', 'inter_pathway', 'inter_score', 'inter_score_type',
+            'ug_degree', 'university', 'department', 'cgpa', 'grading_scale', 'passing_year',
+            'has_experience', 'experience_years', 'experience_months', 'company_name', 'job_role', 'experience_details',
+            'statement_text', 'purpose_to_join', 'referral_source', 'referral_explanation',
+            'entrance_exam_status', 'gre_score', 'gre_year', 'gate_score', 'gate_year'
+          ];
+          fieldsToMerge.forEach(f => {
+            if ((app[f] === undefined || app[f] === null || app[f] === '') && matchingSubmitted[f]) {
+              app[f] = matchingSubmitted[f];
+            }
+          });
+        }
+
+        // Also check saved draft if documents or CV are still missing
+        const draft = safeJsonParse(getDraftKey(email), null);
+        if (draft) {
+          const hasAppDocs = app.documents && (
+            (Array.isArray(app.documents) && app.documents.length > 0) ||
+            (typeof app.documents === 'object' && Object.keys(app.documents).length > 0)
+          );
+          if (!hasAppDocs && draft.documents) {
+            app.documents = draft.documents;
+          }
+          if (!app.cv_url && (draft.cv_url || draft.cvDocument?.fileUrl)) {
+            app.cv_url = draft.cv_url || draft.cvDocument?.fileUrl;
+          }
+          if (!app.cv_filename && (draft.cv_filename || draft.cvDocument?.fileName)) {
+            app.cv_filename = draft.cv_filename || draft.cvDocument?.fileName;
+          }
+          if (!app.cvDocument && draft.cvDocument) {
+            app.cvDocument = draft.cvDocument;
+          }
+          if ((!app.university || app.university === '') && draft.university) {
+            app.university = draft.university;
+          }
+          if ((!app.class10_score || app.class10_score === '') && draft.class10Score) {
+            app.class10_score = draft.class10Score;
+          }
+          if ((!app.inter_score || app.inter_score === '') && draft.interScore) {
+            app.inter_score = draft.interScore;
+          }
+        }
+
         return {
           application: app,
           status: app.status || 'Submitted'
@@ -510,7 +599,7 @@ export async function submitStudentApplication(applicationData, authUser = null)
           });
         }
 
-        return { data: { ...data, isMock: false }, error: null };
+        return { data: { ...record, ...data, documents: formattedDocs, cvDocument: applicationData.cvDocument, isMock: false }, error: null };
       }
       console.warn('[MSIT] Supabase insert warning (schema may be pending):', error?.message);
     } catch (err) {
@@ -529,14 +618,91 @@ export async function updateStudentApplication(applicationId, updateData, authUs
   const allApps = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
   const idx = allApps.findIndex(a => a.application_id === applicationId);
 
+  // Format documents array
+  const formattedDocs = [];
+  if (updateData.documents && typeof updateData.documents === 'object') {
+    Object.entries(updateData.documents).forEach(([key, doc]) => {
+      if (doc && (doc.fileName || doc.file_name)) {
+        formattedDocs.push({
+          id: doc.id || `doc_${key}`,
+          doc_type: doc.docType || doc.doc_type || key,
+          file_name: doc.fileName || doc.file_name,
+          file_size: doc.fileSize || doc.file_size || '1.0 MB',
+          file_url: doc.fileUrl || doc.file_url || '',
+          storage_path: doc.storagePath || doc.storage_path || '',
+          status: doc.status || 'Pending',
+          uploaded_at: doc.uploadedAt || doc.uploaded_at || now
+        });
+      }
+    });
+  }
+
+  if (updateData.cvDocument && !formattedDocs.some(d => (d.doc_type || '').toLowerCase().includes('cv') || (d.doc_type || '').toLowerCase().includes('resume'))) {
+    formattedDocs.push({
+      id: updateData.cvDocument.id || 'doc_cv',
+      doc_type: 'CV / Resume',
+      file_name: updateData.cvDocument.fileName || updateData.cvDocument.file_name,
+      file_size: updateData.cvDocument.fileSize || updateData.cvDocument.file_size || '1.0 MB',
+      file_url: updateData.cvDocument.fileUrl || updateData.cvDocument.file_url || '',
+      storage_path: updateData.cvDocument.storagePath || updateData.cvDocument.storage_path || '',
+      status: 'Pending',
+      uploaded_at: updateData.cvDocument.uploadedAt || updateData.cvDocument.uploaded_at || now
+    });
+  }
+
+  const mergedUpdates = {
+    ...updateData,
+    full_name: updateData.fullName || updateData.full_name,
+    phone: updateData.phone,
+    dob: updateData.dob,
+    address: updateData.address,
+    parent_relationship: updateData.parentRelationship || updateData.parent_relationship,
+    parent_name: updateData.parentName || updateData.parent_name,
+    alt_phone: updateData.altPhone || updateData.alt_phone,
+    class10_score: updateData.class10Score || updateData.class10_score,
+    class10_score_type: updateData.class10ScoreType || updateData.class10_score_type,
+    inter_pathway: updateData.interPathway || updateData.inter_pathway,
+    inter_score: updateData.interScore || updateData.inter_score,
+    inter_score_type: updateData.interScoreType || updateData.inter_score_type,
+    ug_degree: updateData.ugDegree || updateData.ug_degree,
+    university: updateData.university,
+    department: updateData.department,
+    cgpa: updateData.cgpa,
+    grading_scale: updateData.gradingScale || updateData.grading_scale,
+    score_eligibility_note: updateData.scoreEligibilityNote || updateData.score_eligibility_note,
+    passing_year: updateData.passingYear || updateData.passing_year,
+    has_experience: updateData.hasExperience || updateData.has_experience,
+    experience_years: updateData.experienceYears || updateData.experience_years,
+    experience_months: updateData.experienceMonths || updateData.experience_months,
+    company_name: updateData.companyName || updateData.company_name,
+    job_role: updateData.jobRole || updateData.job_role,
+    experience_details: (updateData.hasExperience === 'Yes' || updateData.has_experience === 'Yes')
+      ? `${updateData.companyName || updateData.company_name || ''} - ${updateData.jobRole || updateData.job_role || ''} (${updateData.experienceYears || updateData.experience_years || 0} yrs ${updateData.experienceMonths || updateData.experience_months || 0} mos)`
+      : 'Fresher',
+    statement_text: updateData.statementText || updateData.statement_text,
+    statement_word_count: updateData.statementWordCount || updateData.statement_word_count,
+    purpose_to_join: updateData.statementText || updateData.statement_text,
+    referral_source: updateData.referralSource || updateData.referral_source,
+    referral_explanation: updateData.referralExplanation || updateData.referral_explanation,
+    entrance_exam_status: updateData.entranceExamStatus || updateData.entrance_exam_status,
+    gre_score: updateData.greScore || updateData.gre_score,
+    gre_year: updateData.greYear || updateData.gre_year,
+    gate_score: updateData.gateScore || updateData.gate_score,
+    gate_year: updateData.gateYear || updateData.gate_year,
+    cv_url: updateData.cvDocument?.fileUrl || updateData.cv_url,
+    cv_filename: updateData.cvDocument?.fileName || updateData.cv_filename,
+    documents: formattedDocs.length > 0 ? formattedDocs : (updateData.documents || []),
+    status: 'Submitted',
+    document_status: 'Pending Review',
+    updated_at: now
+  };
+
   let updatedRecord = null;
   if (idx !== -1) {
     const prevStatus = allApps[idx].status;
     allApps[idx] = {
       ...allApps[idx],
-      ...updateData,
-      status: 'Submitted',
-      updated_at: now
+      ...mergedUpdates
     };
     updatedRecord = allApps[idx];
     safeJsonSet(LOCAL_STORAGE_APPS_KEY, allApps);
@@ -546,21 +712,39 @@ export async function updateStudentApplication(applicationId, updateData, authUs
       prevStatus,
       'Submitted',
       authUser?.email || 'Candidate',
-      'Candidate submitted updated application details'
+      'Candidate updated application details and documents'
     );
+  } else {
+    // If not in local array, prepend it
+    allApps.unshift(mergedUpdates);
+    updatedRecord = mergedUpdates;
+    safeJsonSet(LOCAL_STORAGE_APPS_KEY, allApps);
   }
 
   // Update Supabase if available
   if (isSupabaseConfigured() && supabase) {
     try {
+      const { isMock: _mock, draft_data: _draft, ...dbRecord } = mergedUpdates;
       await supabase
         .from('applications')
-        .update({
-          ...updateData,
-          status: 'Submitted',
-          updated_at: now
-        })
+        .update(dbRecord)
         .eq('application_id', applicationId);
+
+      // Also upsert documents in application_documents table
+      if (formattedDocs.length > 0) {
+        const docRecords = formattedDocs.map(d => ({
+          application_ref: applicationId,
+          user_id: authUser?.id || null,
+          doc_type: d.doc_type,
+          file_name: d.file_name,
+          file_size: d.file_size,
+          file_url: d.file_url,
+          storage_path: d.storage_path,
+          status: 'Pending',
+          uploaded_at: now
+        }));
+        await supabase.from('application_documents').upsert(docRecords, { onConflict: 'application_ref,doc_type' }).catch(() => {});
+      }
     } catch (err) {
       console.warn('[MSIT] Supabase update warning:', err);
     }

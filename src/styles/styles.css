@@ -24638,3 +24638,333 @@ p {
   }
 }
 
+/* ==========================================================================
+   CONGRATULATIONS & SUCCESS SCREEN ENHANCEMENTS
+   ========================================================================== */
+.success-page-layout {
+  max-width: 900px;
+  margin: 2rem auto 5rem auto;
+  padding: 0 1.25rem;
+}
+
+.success-hero-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 25px -5px rgba(11, 42, 107, 0.06), 0 8px 10px -6px rgba(11, 42, 107, 0.04);
+  padding: 2.75rem 2.25rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.success-hero-badge {
+  width: 76px;
+  height: 76px;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem auto;
+  box-shadow: 0 0 0 10px rgba(34, 197, 94, 0.12);
+  animation: pulseSuccessRing 2s infinite ease-in-out;
+}
+
+@keyframes pulseSuccessRing {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.25); }
+  70% { box-shadow: 0 0 0 14px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.success-status-pill {
+  display: inline-block;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+  margin-bottom: 0.85rem;
+}
+
+.success-hero-title {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #0b2a6b;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.015em;
+}
+
+.success-hero-subtitle {
+  font-size: 0.98rem;
+  color: #475569;
+  max-width: 620px;
+  margin: 0 auto 1.75rem auto;
+  line-height: 1.6;
+}
+
+.success-action-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.btn-edit-action {
+  background: #ffffff;
+  color: #1d4ed8;
+  border: 1.5px solid #2563eb;
+  padding: 0.75rem 1.4rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.08);
+}
+
+.btn-edit-action:hover {
+  background: #eff6ff;
+  border-color: #1d4ed8;
+  color: #1e40af;
+  transform: translateY(-1px);
+}
+
+.success-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.success-meta-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.35rem 1.5rem;
+}
+
+.success-meta-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.success-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.45rem 0;
+  font-size: 0.88rem;
+}
+
+.success-meta-row:not(:last-child) {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.success-meta-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.success-meta-value {
+  color: #0f172a;
+  font-weight: 700;
+  text-align: right;
+}
+
+.success-ref-code {
+  font-family: monospace;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0b2a6b;
+  background: #eff6ff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #bfdbfe;
+}
+
+.success-docs-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.success-docs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.success-docs-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0b2a6b;
+  margin: 0;
+}
+
+.success-doc-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.85rem 1.15rem;
+  margin-bottom: 0.75rem;
+  gap: 1rem;
+}
+
+.success-doc-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.success-doc-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.success-doc-meta {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.success-doc-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.success-roadmap-card {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.success-roadmap-header {
+  margin-bottom: 1rem;
+}
+
+.success-roadmap-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1e40af;
+  margin: 0 0 0.25rem 0;
+}
+
+.success-roadmap-desc {
+  font-size: 0.85rem;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.roadmap-steps-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.roadmap-step-box {
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.roadmap-step-num {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #2563eb;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.roadmap-step-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.2rem;
+}
+
+.roadmap-step-text {
+  font-size: 0.76rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.success-edit-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.success-edit-banner-text h5 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #166534;
+  margin: 0 0 0.25rem 0;
+}
+
+.success-edit-banner-text p {
+  font-size: 0.84rem;
+  color: #14532d;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .success-summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .roadmap-steps-list {
+    grid-template-columns: 1fr;
+  }
+  .success-edit-banner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+
