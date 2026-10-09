@@ -5,7 +5,6 @@ import {
   CheckCircleIcon, 
   ClockIcon,
   ArrowRightIcon, 
-  BookOpenIcon,
   SparklesIcon,
   DownloadIcon
 } from '../Icons';
@@ -238,21 +237,6 @@ export default function StudentDashboardHeader({
               >
                 <span>{getButtonLabel()}</span>
                 <ArrowRightIcon size={16} />
-              </button>
-              <button 
-                type="button" 
-                className="btn btn-secondary"
-                onClick={() => {
-                  const el = document.getElementById('curriculum');
-                  if (el) {
-                    scrollToSection('curriculum');
-                  } else {
-                    navigate('/#curriculum');
-                  }
-                }}
-              >
-                <BookOpenIcon size={16} />
-                <span>Explore Curriculum</span>
               </button>
             </div>
 
