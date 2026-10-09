@@ -34,6 +34,24 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
     }
   }, [searchParams]);
 
+  // Auto-redirect to Student Dashboard if candidate arrives via an authentication magic link
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash;
+      if (
+        hash.includes('access_token') ||
+        hash.includes('type=magiclink') ||
+        hash.includes('type=signup') ||
+        hash.includes('type=recovery')
+      ) {
+        const timer = setTimeout(() => {
+          navigate('/programme', { replace: true });
+        }, 350);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [navigate]);
+
   const handleApplyClick = () => {
     if (user) {
       navigate('/programme');

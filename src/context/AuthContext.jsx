@@ -8,18 +8,19 @@ const AuthContext = createContext(null);
  * Priority: VITE_SITE_URL env var > window.location.origin > hardcoded fallback.
  * This prevents magic-link emails from redirecting to localhost:3000.
  */
-function getSiteUrl() {
+function getSiteUrl(targetPath = '/programme') {
   // 1. Env var set in Vercel / .env (most reliable for deployed environments)
   const envUrl = import.meta?.env?.VITE_SITE_URL;
-  if (envUrl) return envUrl.replace(/\/+$/, ''); // strip trailing slash
-
-  // 2. Runtime origin (works for both http://localhost:3000 and deployed domains)
-  if (typeof window !== 'undefined' && window.location.origin) {
-    return window.location.origin;
+  let base = 'https://msit-webpage.vercel.app';
+  if (envUrl) {
+    base = envUrl.replace(/\/+$/, '');
+  } else if (typeof window !== 'undefined' && window.location.origin) {
+    // 2. Runtime origin (e.g. http://localhost:3000)
+    base = window.location.origin;
   }
 
-  // 3. Hardcoded fallback — the current Vercel deployment
-  return 'https://msit-webpage.vercel.app';
+  const cleanPath = targetPath ? (targetPath.startsWith('/') ? targetPath : `/${targetPath}`) : '';
+  return `${base}${cleanPath}`;
 }
 
 export function useAuth() {
@@ -77,7 +78,7 @@ export function AuthProvider({ children }) {
    * @param {string} fullName
    * @returns {{ data: object|null, error: object|null }}
    */
-  const signInWithOtp = async (email, fullName = '') => {
+  const signInWithOtp = async (email, fullName = '', redirectTo = '/programme') => {
     if (!isSupabaseConfigured()) {
       // Store pending lead locally so it persists even in preview mode
       try {
@@ -97,14 +98,14 @@ export function AuthProvider({ children }) {
       let result = await supabase.auth.signInWithOtp({ 
         email,
         options: {
-          emailRedirectTo: getSiteUrl(),
+          emailRedirectTo: getSiteUrl(redirectTo),
           data: {
             full_name: fullName
           }
         }
       });
 
-      // If Supabase rejects because the Vercel domain is not in the Redirect URLs allowlist,
+      // If Supabase rejects because the domain is not in the Redirect URLs allowlist,
       // retry without emailRedirectTo so the OTP email is still sent directly to user's inbox!
       if (result?.error?.message && (
         result.error.message.toLowerCase().includes('redirect') ||
@@ -131,7 +132,7 @@ export function AuthProvider({ children }) {
           const retryResult = await supabase.auth.signInWithOtp({
             email,
             options: {
-              emailRedirectTo: getSiteUrl(),
+              emailRedirectTo: getSiteUrl(redirectTo),
               data: {
                 full_name: fullName
               }
