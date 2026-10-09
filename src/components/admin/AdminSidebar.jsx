@@ -63,8 +63,15 @@ export default function AdminSidebar({
       )}
 
       <aside className={`admin-sidebar ${isOpen ? 'open' : ''}`}>
-        <div className="admin-sidebar-header">
-          <span className="sidebar-section-title">NAVIGATION</span>
+        {/* Top brand header so sidebar starts from the very top */}
+        <div className="admin-sidebar-top-brand">
+          <div className="admin-brand">
+            <img src="/assets/msit-logo.png" alt="MSIT Logo" className="admin-logo" />
+            <div className="admin-brand-text">
+              <span className="admin-portal-title">Admissions Portal</span>
+              <span className="admin-portal-sub">Admin Console</span>
+            </div>
+          </div>
           <button 
             type="button" 
             className="sidebar-close-btn" 
@@ -75,7 +82,12 @@ export default function AdminSidebar({
           </button>
         </div>
 
-        <nav className="admin-nav-list">
+        <div className="admin-sidebar-body">
+          <div className="admin-sidebar-header">
+            <span className="sidebar-section-title">NAVIGATION</span>
+          </div>
+
+          <nav className="admin-nav-list">
           {navItems.map(item => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -102,8 +114,9 @@ export default function AdminSidebar({
             );
           })}
         </nav>
+      </div>
 
-        <div className="admin-sidebar-footer">
+      <div className="admin-sidebar-footer">
           <div className="sidebar-cohort-card">
             <span className="cohort-sub">ACTIVE CYCLE</span>
             <strong>January 2027 Intake</strong>

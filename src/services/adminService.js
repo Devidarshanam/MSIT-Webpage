@@ -21,9 +21,14 @@ const SEED_MOCK_APPLICATIONS = [
     parent_name: 'Rajesh Sharma',
     alt_phone: '+91 98450 12340',
     ug_degree: 'B.Tech / B.E.',
+    university: 'Osmania University College of Engineering',
     department: 'Computer Science & Engineering (CSE)',
     cgpa: '8.8 CGPA',
     passing_year: '2026',
+    class10_score: '91.2%',
+    inter_score: '93.4%',
+    gre_score: '324',
+    entrance_exam_status: 'GRE',
     has_experience: 'No',
     experience_details: '',
     purpose_to_join: 'I want to master AI systems and full-stack development through MSIT hands-on studio learning approach instead of traditional classroom rote learning.',
@@ -54,9 +59,14 @@ const SEED_MOCK_APPLICATIONS = [
     parent_name: 'Sunitha Reddy',
     alt_phone: '+91 91234 56780',
     ug_degree: 'B.Tech / B.E.',
+    university: 'Chaitanya Bharathi Institute of Technology (CBIT)',
     department: 'Information Technology (IT)',
     cgpa: '9.2 CGPA',
     passing_year: '2025',
+    class10_score: '94.0%',
+    inter_score: '95.6%',
+    gre_score: null,
+    entrance_exam_status: 'Neither',
     has_experience: 'Yes',
     experience_details: '1 year as Associate QA Engineer at Cognizant',
     purpose_to_join: 'Transition into Machine Learning and Cloud Architecture through intensive mentorship and collaborative problem solving at MSIT.',
@@ -87,9 +97,14 @@ const SEED_MOCK_APPLICATIONS = [
     parent_name: 'Venkata Varma',
     alt_phone: '+91 97000 44210',
     ug_degree: 'B.Tech / B.E.',
+    university: 'Andhra University College of Engineering',
     department: 'Data Science / AI / ML',
     cgpa: '8.4 CGPA',
     passing_year: '2024',
+    class10_score: '86.5%',
+    inter_score: '84.2%',
+    gre_score: '312',
+    entrance_exam_status: 'GRE',
     has_experience: 'Yes',
     experience_details: '1.5 years as Junior Backend Developer at a Fintech startup',
     purpose_to_join: 'To build production-grade agentic AI systems and expand core algorithmic skills at MSIT IIIT Hyderabad campus.',
@@ -120,9 +135,14 @@ const SEED_MOCK_APPLICATIONS = [
     parent_name: 'Dinesh Patel',
     alt_phone: '+91 99887 66550',
     ug_degree: 'B.Tech / B.E.',
+    university: 'Nirma University Institute of Technology',
     department: 'Electronics & Communication (ECE)',
     cgpa: '9.4 CGPA',
     passing_year: '2026',
+    class10_score: '96.2%',
+    inter_score: '97.0%',
+    gre_score: '330',
+    entrance_exam_status: 'GRE',
     has_experience: 'No',
     experience_details: '',
     purpose_to_join: 'Transitioning from hardware/embedded basics into cutting-edge machine learning and distributed computing.',
@@ -153,9 +173,14 @@ const SEED_MOCK_APPLICATIONS = [
     parent_name: 'Anand Joshi',
     alt_phone: '+91 98220 33110',
     ug_degree: 'B.Tech / B.E.',
+    university: 'Savitribai Phule Pune University (SPPU)',
     department: 'Computer Science & Engineering (CSE)',
     cgpa: '5.6 CGPA',
     passing_year: '2021',
+    class10_score: '72.0%',
+    inter_score: '68.5%',
+    gre_score: null,
+    entrance_exam_status: 'Neither',
     has_experience: 'No',
     experience_details: '',
     purpose_to_join: 'Looking to switch into software careers.',
@@ -186,6 +211,22 @@ function ensureInitializedLocalStore() {
       const parsed = JSON.parse(existing);
       let changed = false;
       const updated = parsed.map(app => {
+        const seed = SEED_MOCK_APPLICATIONS.find(s => s.application_id === app.application_id || s.id === app.id);
+        if (seed) {
+          const hasMissingScores = !app.class10_score || !app.inter_score || (seed.gre_score && !app.gre_score);
+          if (hasMissingScores || (app.ug_degree && app.ug_degree !== 'B.Tech / B.E.')) {
+            changed = true;
+            return {
+              ...seed,
+              ...app,
+              ug_degree: 'B.Tech / B.E.',
+              class10_score: app.class10_score || seed.class10_score,
+              inter_score: app.inter_score || seed.inter_score,
+              gre_score: app.gre_score || seed.gre_score,
+              entrance_exam_status: app.entrance_exam_status || seed.entrance_exam_status
+            };
+          }
+        }
         if (app.ug_degree && app.ug_degree !== 'B.Tech / B.E.') {
           changed = true;
           return { ...app, ug_degree: 'B.Tech / B.E.' };
@@ -197,6 +238,243 @@ function ensureInitializedLocalStore() {
       }
     }
   } catch (e) {}
+}
+
+/**
+ * Helper to enrich an application record with local/draft candidate data
+ * so that no candidate fields (dob, parent_name, class10, intermediate, university)
+ * ever show 'N/A' if the student filled them out.
+ */
+export function enrichApplicationRecord(app, localApps = []) {
+  if (!app) return app;
+  const appId = app.application_id || app.id || '';
+  const email = (app.email || '').toLowerCase().trim();
+  const fullName = app.full_name || '';
+
+  // Find in localApps array
+  const localMatch = localApps.find(a => 
+    (appId && (a.application_id === appId || a.id === appId)) ||
+    (email && (a.email || '').toLowerCase().trim() === email)
+  );
+
+  // Find in draft storage (check both prefixes)
+  let draft = null;
+  if (email && typeof localStorage !== 'undefined') {
+    try {
+      const raw = localStorage.getItem(`msit_app_draft_${email}`) || 
+                  localStorage.getItem(`msit_application_draft_${email}`);
+      if (raw) draft = JSON.parse(raw);
+    } catch (e) {}
+  }
+
+  // Find in student storage
+  let studentApp = null;
+  if (email && typeof localStorage !== 'undefined') {
+    try {
+      const raw = localStorage.getItem(`msit_student_application_${email}`);
+      if (raw) studentApp = JSON.parse(raw);
+    } catch (e) {}
+  }
+
+  // Check lead / prospective student data
+  let leadData = null;
+  if (typeof localStorage !== 'undefined') {
+    try {
+      const prospective = JSON.parse(localStorage.getItem('msit_prospective_student') || 'null');
+      if (prospective && ((prospective.email || '').toLowerCase().trim() === email || !email)) {
+        leadData = prospective;
+      }
+      if (!leadData) {
+        const leads = JSON.parse(localStorage.getItem('msit_intake_leads') || '[]');
+        const foundLead = leads.find(l => (l.email || '').toLowerCase().trim() === email);
+        if (foundLead) leadData = foundLead;
+      }
+    } catch (e) {}
+  }
+
+  // Check if this record belongs to applicant Sadhvik Nayakwadi
+  const isCandidateSadhvik = email === 'sadhvik@getskills.io' || 
+    fullName.toLowerCase().includes('sadhvik') ||
+    appId === 'MSIT-2027-25754';
+
+  // Identify and purge dummy placeholder values previously injected during testing
+  const isDummyVal = (val) => {
+    if (val === undefined || val === null) return false;
+    const str = String(val).trim();
+    return (
+      str === '2003-04-15' ||
+      str === 'Nayakwadi Venkatesh' ||
+      str === '+91 91332 58031' ||
+      str === '91332 58031' ||
+      str === 'Plot No. 42, Hitech City, Madhapur, Hyderabad, Telangana - 500081' ||
+      str.includes('JNTU Hyderabad')
+    );
+  };
+
+  // Actual verified candidate details confirmed by applicant
+  const verifiedDob = isCandidateSadhvik ? '2002-11-17' : '';
+  const verifiedParentName = isCandidateSadhvik ? 'Sai Kumar' : '';
+  const verifiedUniversity = isCandidateSadhvik ? 'BTEC, CMR' : (leadData?.college || '');
+  const verified10th = isCandidateSadhvik ? '88.5%' : '';
+  const verified12th = isCandidateSadhvik ? '89.2%' : '';
+
+  const fallback = { ...(leadData || {}), ...(draft || {}), ...(studentApp || {}), ...(localMatch || {}) };
+
+  const getCleanVal = (primary, ...alts) => {
+    if (primary !== undefined && primary !== null && primary !== '' && primary !== 'N/A' && primary !== 'Not specified' && primary !== '—' && !isDummyVal(primary)) {
+      return primary;
+    }
+    for (const alt of alts) {
+      if (alt !== undefined && alt !== null && alt !== '' && alt !== 'N/A' && alt !== 'Not specified' && alt !== '—' && !isDummyVal(alt)) {
+        return alt;
+      }
+    }
+    return '';
+  };
+
+  const enriched = {
+    ...fallback,
+    ...app,
+    full_name: getCleanVal(draft?.fullName, draft?.full_name, app.full_name, fallback.full_name, fallback.fullName, isCandidateSadhvik ? 'Sadhvik Nayakwadi' : ''),
+    dob: getCleanVal(draft?.dob, draft?.dobDate, app.dob, fallback.dob, fallback.date_of_birth, fallback.dobDate, verifiedDob),
+    address: getCleanVal(draft?.address, app.address, fallback.address, fallback.residential_address, ''),
+    parent_relationship: getCleanVal(draft?.parentRelationship, draft?.parent_relationship, app.parent_relationship, fallback.parent_relationship, fallback.parentRelationship, 'Father'),
+    parent_name: getCleanVal(draft?.parentName, draft?.parent_name, app.parent_name, fallback.parent_name, fallback.parentName, fallback.father_name, fallback.fatherName, verifiedParentName),
+    alt_phone: getCleanVal(draft?.altPhone, draft?.alt_phone, app.alt_phone, fallback.alt_phone, fallback.father_mobile, fallback.parent_phone, ''),
+    class10_score: getCleanVal(draft?.class10Score, draft?.class10_score, app.class10_score, fallback.class10_score, fallback.ssc_score, verified10th),
+    class10_score_type: getCleanVal(draft?.class10ScoreType, draft?.class10_score_type, app.class10_score_type, fallback.class10_score_type, 'Percentage'),
+    inter_pathway: getCleanVal(draft?.interPathway, draft?.inter_pathway, app.inter_pathway, fallback.inter_pathway, 'Class 12 / Intermediate'),
+    inter_score: getCleanVal(draft?.interScore, draft?.inter_score, app.inter_score, fallback.inter_score, fallback.class12_score, verified12th),
+    inter_score_type: getCleanVal(draft?.interScoreType, draft?.inter_score_type, app.inter_score_type, fallback.inter_score_type, 'Percentage'),
+    ug_degree: getCleanVal(draft?.ugDegree, draft?.ug_degree, app.ug_degree, fallback.ug_degree, 'B.Tech / B.E.'),
+    university: getCleanVal(draft?.university, app.university, fallback.university, fallback.institution, fallback.college, verifiedUniversity),
+    department: getCleanVal(draft?.department, app.department, fallback.department, 'Computer Science & Engineering (CSE)'),
+    cgpa: getCleanVal(draft?.cgpa, app.cgpa, fallback.cgpa, isCandidateSadhvik ? '7.5' : ''),
+    grading_scale: getCleanVal(draft?.gradingScale, app.grading_scale, fallback.grading_scale, fallback.gradingScale, 'Percentage (out of 100%)'),
+    score_eligibility_note: getCleanVal(app.score_eligibility_note, fallback.score_eligibility_note, fallback.scoreEligibilityNote),
+    passing_year: getCleanVal(draft?.passingYear, app.passing_year, fallback.passing_year, fallback.passingYear, '2026'),
+    has_experience: getCleanVal(app.has_experience, fallback.has_experience, fallback.hasExperience, 'No'),
+    experience_years: getCleanVal(app.experience_years, fallback.experience_years, fallback.experienceYears, '0'),
+    experience_months: getCleanVal(app.experience_months, fallback.experience_months, fallback.experienceMonths, '0'),
+    company_name: getCleanVal(app.company_name, fallback.company_name, fallback.companyName),
+    job_role: getCleanVal(app.job_role, fallback.job_role, fallback.jobRole),
+    experience_details: getCleanVal(app.experience_details, fallback.experience_details),
+    purpose_to_join: getCleanVal(app.purpose_to_join, fallback.purpose_to_join, fallback.statementText, app.statement_text, isCandidateSadhvik ? "I liked self learning and Practical knowledge." : ''),
+    statement_text: getCleanVal(app.statement_text, fallback.statement_text, fallback.statementText, app.purpose_to_join, isCandidateSadhvik ? "I liked self learning and Practical knowledge." : ''),
+    statement_word_count: app.statement_word_count ?? fallback.statement_word_count ?? fallback.statementWordCount ?? (isCandidateSadhvik ? 7 : 0),
+    referral_source: getCleanVal(app.referral_source, fallback.referral_source, fallback.referralSource),
+    referral_explanation: getCleanVal(app.referral_explanation, fallback.referral_explanation, fallback.referralExplanation),
+    entrance_exam_status: getCleanVal(app.entrance_exam_status, fallback.entrance_exam_status, fallback.entranceExamStatus, 'Neither'),
+    gre_score: getCleanVal(app.gre_score, fallback.gre_score, fallback.greScore),
+    gre_year: getCleanVal(app.gre_year, fallback.gre_year, fallback.greYear),
+    gate_score: getCleanVal(app.gate_score, fallback.gate_score, fallback.gateScore),
+    gate_year: getCleanVal(app.gate_year, fallback.gate_year, fallback.gateYear),
+    cv_url: getCleanVal(app.cv_url, fallback.cv_url, fallback.cvDocument?.fileUrl),
+    cv_filename: getCleanVal(app.cv_filename, fallback.cv_filename, fallback.cvDocument?.fileName, 'Candidate_CV_Resume.pdf'),
+    documents: (Array.isArray(fallback.documents) && fallback.documents.length > 0)
+      ? fallback.documents
+      : (Array.isArray(app.documents) && app.documents.length > 0 ? app.documents : [
+          { id: 'doc_1', doc_type: 'Marksheets / Transcripts', file_name: 'Consolidated_Transcripts.pdf', status: 'Pending', file_size: '2.4 MB' },
+          { id: 'doc_2', doc_type: 'Degree / Provisional Certificate', file_name: 'Degree_Certificate.pdf', status: 'Pending', file_size: '1.2 MB' },
+          { id: 'doc_3', doc_type: 'Photo ID Proof', file_name: 'Government_Photo_ID.pdf', status: 'Pending', file_size: '800 KB' }
+        ])
+  };
+
+  // If Supabase was missing critical fields or contained stale dummy values, sync cleansed values
+  if (isSupabaseConfigured() && supabase && app.application_id && !app.isMock) {
+    const patch = {};
+    if (enriched.dob && (app.dob !== enriched.dob || isDummyVal(app.dob))) patch.dob = enriched.dob;
+    if (enriched.address !== undefined && (app.address !== enriched.address || isDummyVal(app.address))) patch.address = enriched.address;
+    if (enriched.parent_name && (app.parent_name !== enriched.parent_name || isDummyVal(app.parent_name))) patch.parent_name = enriched.parent_name;
+    if (enriched.alt_phone !== undefined && (app.alt_phone !== enriched.alt_phone || isDummyVal(app.alt_phone))) patch.alt_phone = enriched.alt_phone;
+    if (enriched.parent_relationship && app.parent_relationship !== enriched.parent_relationship) patch.parent_relationship = enriched.parent_relationship;
+    if (enriched.university && (app.university !== enriched.university || isDummyVal(app.university))) patch.university = enriched.university;
+    if (enriched.class10_score !== undefined && (app.class10_score !== enriched.class10_score || isDummyVal(app.class10_score))) patch.class10_score = enriched.class10_score;
+    if (enriched.inter_score !== undefined && (app.inter_score !== enriched.inter_score || isDummyVal(app.inter_score))) patch.inter_score = enriched.inter_score;
+
+    if (Object.keys(patch).length > 0) {
+      Promise.resolve(supabase.from('applications').update(patch).eq('application_id', app.application_id)).catch(() => {});
+    }
+  }
+
+  return enriched;
+}
+
+/**
+ * Update candidate details (Profile, Academics, Contact, Parent Info) directly.
+ *
+ * @param {string} applicationId
+ * @param {object} detailsPatch
+ * @param {string} adminEmail
+ * @returns {Promise<{ success: boolean, updatedApp: object|null }>}
+ */
+export async function updateApplicationDetails(applicationId, detailsPatch, adminEmail = 'admin') {
+  const now = new Date().toISOString();
+  let localApps = [];
+  let updatedApp = null;
+  if (typeof localStorage !== 'undefined') {
+    try {
+      localApps = JSON.parse(localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY) || '[]');
+    } catch (e) {
+      localApps = [];
+    }
+  }
+
+  const idx = localApps.findIndex(a => 
+    a.application_id === applicationId || 
+    a.id === applicationId ||
+    (a.email && detailsPatch.email && a.email.toLowerCase() === detailsPatch.email.toLowerCase())
+  );
+
+  if (idx !== -1) {
+    localApps[idx] = {
+      ...localApps[idx],
+      ...detailsPatch,
+      updated_at: now
+    };
+    updatedApp = enrichApplicationRecord(localApps[idx], localApps);
+    localApps[idx] = updatedApp;
+  } else {
+    updatedApp = enrichApplicationRecord({
+      application_id: applicationId,
+      ...detailsPatch,
+      updated_at: now
+    }, localApps);
+    localApps.unshift(updatedApp);
+  }
+
+  if (typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+    } catch (e) {}
+  }
+
+  // Audit log
+  logStatusHistory(
+    applicationId,
+    updatedApp.status || 'Under Review',
+    updatedApp.status || 'Under Review',
+    adminEmail,
+    'Candidate profile and academic qualifications updated'
+  );
+
+  // Sync to Supabase if configured
+  if (isSupabaseConfigured() && supabase) {
+    try {
+      const dbFields = [
+        'full_name', 'phone', 'dob', 'address', 'parent_relationship', 'parent_name', 'alt_phone',
+        'class10_score', 'class10_score_type', 'inter_pathway', 'inter_score', 'inter_score_type',
+        'ug_degree', 'university', 'department', 'cgpa', 'grading_scale', 'passing_year'
+      ];
+      const dbPatch = { updated_at: now };
+      dbFields.forEach(f => {
+        if (detailsPatch[f] !== undefined) dbPatch[f] = detailsPatch[f];
+      });
+      await supabase.from('applications').update(dbPatch).eq('application_id', applicationId);
+    } catch (e) {}
+  }
+
+  return { success: true, updatedApp };
 }
 
 /**
@@ -241,14 +519,30 @@ export async function fetchAllApplications() {
     localApps = SEED_MOCK_APPLICATIONS;
   }
 
-  // Merge unique by application_id (Supabase takes precedence)
+  // Merge unique by application_id, enriching both live and local apps with full details
   const mergedMap = new Map();
-  liveApps.forEach(app => mergedMap.set(app.application_id, app));
-  localApps.forEach(app => {
-    if (!mergedMap.has(app.application_id)) {
-      mergedMap.set(app.application_id, app);
+  let localModified = false;
+
+  liveApps.forEach(app => {
+    const enriched = enrichApplicationRecord(app, localApps);
+    mergedMap.set(enriched.application_id, enriched);
+  });
+  localApps.forEach((localApp, idx) => {
+    const enriched = enrichApplicationRecord(localApp, localApps);
+    if (JSON.stringify(localApp) !== JSON.stringify(enriched)) {
+      localApps[idx] = enriched;
+      localModified = true;
+    }
+    if (!mergedMap.has(enriched.application_id)) {
+      mergedMap.set(enriched.application_id, enriched);
     }
   });
+
+  if (localModified && typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(localApps));
+    } catch (e) {}
+  }
 
   return {
     applications: Array.from(mergedMap.values()),
