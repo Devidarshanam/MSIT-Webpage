@@ -479,23 +479,23 @@
       },
       {
         "id": "faq-7",
-        "question": "Is daily on-campus studio attendance mandatory, or can this be done online/hybrid?",
-        "answer": "Daily on-campus presence is mandatory. The MSIT pedagogy is built entirely around in-person collaborative studio pods, peer programming, daily standups, and face-to-face mentor reviews."
+        "question": "Is daily on-campus attendance mandatory, or can this be done online/hybrid?",
+        "answer": "MSIT is a full-time residential programme at IIIT Hyderabad. Attending classes and academic activities on campus is mandatory."
       },
       {
         "id": "faq-8",
         "question": "Can I pursue MSIT while working at a full-time or part-time job?",
-        "answer": "No. MSIT is an intensive, full-time master's program that mirrors real corporate engineering workplace hours. It requires your complete, undivided focus."
+        "answer": "No. MSIT is a full-time residential programme at IIIT Hyderabad. Students are required to attend classes and academic activities on campus, and the programme requires their full-time commitment."
       },
       {
         "id": "faq-9",
         "question": "Do I need to purchase an expensive high-end laptop before joining?",
-        "answer": "No. Studios are equipped with computing workstations, high-speed networks, and access to cloud development environments. A standard personal laptop for note-taking and basic study is more than sufficient."
+        "answer": "Students should have a suitable laptop for programming, data science, and other MSIT coursework, but an expensive high-end configuration is not mandatory. For a new purchase, the recommended configuration is 32 GB RAM and a 1 TB SSD. A dedicated GPU is optional, as larger GPU-intensive workloads can use institute or cloud computing resources. Refer to the **MSIT Student Laptop Specification 2027** for complete minimum, recommended, and high-end configurations."
       },
       {
         "id": "faq-10",
         "question": "Is the MSIT degree recognized for government examinations and higher studies (Ph.D.) abroad?",
-        "answer": "Yes. MSIT is a recognized master’s degree offered through a consortium of leading state universities and IIIT Hyderabad, making graduates eligible for public sector opportunities, government examinations, and doctoral programs abroad."
+        "answer": "Upon successful completion, students are awarded the Master of Science in Information Technology degree by IIIT Hyderabad. Graduates can pursue higher studies in India and abroad, subject to the eligibility and admission requirements of the respective institution or examination authority."
       },
       {
         "id": "faq-11",
@@ -505,7 +505,7 @@
       {
         "id": "faq-12",
         "question": "What support is available if I struggle with a particular topic or module?",
-        "answer": "Because MSIT follows a mastery-based learning model, students advance only when concepts are clear. Mentors offer personalized guidance, extra code reviews, and peer tutoring sessions to help you overcome difficult topics."
+        "answer": "Mentors are available to support students who find a topic or module challenging. Personalized guidance will be provided to help students clarify concepts and progress confidently through the programme."
       },
       {
         "id": "faq-13",
@@ -520,17 +520,17 @@
       {
         "id": "faq-dates-2",
         "question": "What are the confirmed application dates for MSIT admission?",
-        "answer": "The online application window is confirmed from October 1, 2026 to November 30, 2026. All prospective candidates must apply through the official admission portal by providing their details before November 30, 2026."
+        "answer": "The MSIT admission process follows two cycles. For Cycle I, applications must be submitted by November 7, 2026, with the examination scheduled for November 11, 2026. For Cycle II, applications must be submitted by December 7, 2026, with the examination scheduled for December 11, 2026. Interviews follow the examination in each cycle, and the final admit list will be announced on December 20, 2026."
       },
       {
         "id": "faq-modes-3",
         "question": "What are the accepted admission modes and exam scores for MSIT?",
-        "answer": "MSIT has three confirmed admission modes: applicants can qualify through a valid GRE score, a valid national GATE score, or by taking MSIT’s own entrance examination evaluating analytical logic, programming foundation, and computational mathematics."
+        "answer": "MSIT offers three admission modes: applicants can qualify through a valid GRE score, a valid national GATE score, or by taking the MSIT Postgraduate Entrance Examination (MSIT PGEE), which evaluates analytical logic, programming fundamentals, and computational mathematics."
       },
       {
         "id": "faq-interview-4",
         "question": "What is the interview and counselling process, and when will the dates be announced?",
-        "answer": "The admission process includes three core steps: (1) Apply through the admission portal, (2) Aptitude evaluation via GRE, GATE, or MSIT's own entrance exam, and (3) Technical interview and counselling. The interview assesses problem-solving intuition, computational thinking, and readiness for studio-based active learning. The exact interview and counselling process and dates are To Be Confirmed (TBD) and will be officially notified to registered applicants."
+        "answer": "The admission process includes three core steps: (1) Apply through the admission portal, (2) Aptitude evaluation via GRE, GATE, or the MSIT Postgraduate Entrance Examination (MSIT PGEE), and (3) One-on-one discussion. The discussion assesses problem-solving skills, computational thinking, and readiness for the programme. Interviews follow the examination in each admission cycle, and the final admit list will be announced on December 20, 2026."
       }
     ]
   },

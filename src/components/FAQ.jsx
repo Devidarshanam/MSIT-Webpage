@@ -1,5 +1,30 @@
 import React, { useState } from 'react';
 
+function renderFaqAnswer(answer) {
+  if (!answer) return null;
+  const targetText = 'MSIT Student Laptop Specification 2027';
+  if (answer.includes(targetText)) {
+    const cleaned = answer.replace(/\*\*MSIT Student Laptop Specification 2027\*\*/g, targetText);
+    const parts = cleaned.split(targetText);
+    return (
+      <>
+        {parts[0]}
+        <a
+          href="/documents/MSIT_Student_Laptop_Specification_2027_updated.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="faq-pdf-link"
+          style={{ fontWeight: 600, color: '#0284c7', textDecoration: 'underline' }}
+        >
+          {targetText}
+        </a>
+        {parts.slice(1).join(targetText)}
+      </>
+    );
+  }
+  return answer;
+}
+
 export default function FAQ({ data }) {
   const [activeCategory, setActiveCategory] = useState('All');
   const [openIndex, setOpenIndex] = useState(0);
@@ -66,7 +91,7 @@ export default function FAQ({ data }) {
                   role="region"
                   aria-labelledby={triggerId}
                 >
-                  <p>{item.answer}</p>
+                  <p>{renderFaqAnswer(item.answer)}</p>
                 </div>
               </div>
             );

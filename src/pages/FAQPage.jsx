@@ -20,6 +20,31 @@ const QUICK_TAGS = [
   { label: 'Alumni Network', query: 'alumni' },
 ];
 
+function renderFaqAnswer(answer) {
+  if (!answer) return null;
+  const targetText = 'MSIT Student Laptop Specification 2027';
+  if (answer.includes(targetText)) {
+    const cleaned = answer.replace(/\*\*MSIT Student Laptop Specification 2027\*\*/g, targetText);
+    const parts = cleaned.split(targetText);
+    return (
+      <>
+        {parts[0]}
+        <a
+          href="/documents/MSIT_Student_Laptop_Specification_2027_updated.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="faq-pdf-link"
+          style={{ fontWeight: 600, color: '#0284c7', textDecoration: 'underline' }}
+        >
+          {targetText}
+        </a>
+        {parts.slice(1).join(targetText)}
+      </>
+    );
+  }
+  return answer;
+}
+
 export default function FAQPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -216,7 +241,7 @@ export default function FAQPage() {
                       aria-labelledby={triggerId}
                     >
                       <div className="faq-panel-content">
-                        <p>{item.answer}</p>
+                        <p>{renderFaqAnswer(item.answer)}</p>
                       </div>
                     </div>
                   </div>
