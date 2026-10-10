@@ -4,8 +4,9 @@ import { MenuIcon, XIcon, ArrowRightIcon } from '../Icons';
 const NAV_ITEMS = [
   { num: '01', label: 'Overview', href: '#overview', desc: 'MSIT charter, consortium & cohort targets' },
   { num: '02', label: 'Programme Structure', href: '#programme-specs', desc: '4-semester structure, co-op & venture studio' },
-  { num: '03', label: 'Fees & Loans', href: '#fees', desc: 'Verified fee schedule, installment plan & loan facilitation' },
-  { num: '04', label: 'Documents & FAQ', href: '#documents-faq', desc: 'Circular downloads, FAQs & helpdesk channels' },
+  { num: '03', label: 'Real-World Experience', href: '#real-world-practicum', desc: 'Industry practicum, mentored projects & corporate co-op' },
+  { num: '04', label: 'Fees & Loans', href: '#fees', desc: 'Verified fee schedule, installment plan & loan facilitation' },
+  { num: '05', label: 'Documents & FAQ', href: '#documents-faq', desc: 'Circular downloads, FAQs & helpdesk channels' },
 ];
 
 export default function DashboardSubNav() {
