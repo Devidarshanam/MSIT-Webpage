@@ -47,6 +47,10 @@ export function safeJsonSet(key, value) {
   }
 }
 
+export const isUuid = (val) => Boolean(val && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(val).trim()));
+
+let candidateProfilesTableMissing = false;
+
 /**
  * Retrieve candidate profile or create initial entry.
  */
@@ -55,19 +59,21 @@ export async function getCandidateProfile(authUser) {
   const email = authUser.email.toLowerCase().trim();
 
   // Try Supabase first
-  if (isSupabaseConfigured() && supabase) {
+  if (!candidateProfilesTableMissing && isSupabaseConfigured() && supabase && authUser?.id && isUuid(authUser.id)) {
     try {
-      const { data, error } = await supabase
+      const { data, error, status } = await supabase
         .from('candidate_profiles')
         .select('*')
         .eq('user_id', authUser.id)
         .maybeSingle();
 
-      if (!error && data) {
+      if (error || status === 404) {
+        candidateProfilesTableMissing = true;
+      } else if (data) {
         return data;
       }
     } catch (err) {
-      console.warn('[MSIT] Candidate profile fetch warning:', err);
+      candidateProfilesTableMissing = true;
     }
   }
 
@@ -101,7 +107,7 @@ export async function getUserApplication(authUser) {
         .select('*')
         .order('submitted_at', { ascending: false });
 
-      if (authUser?.id) {
+      if (authUser?.id && isUuid(authUser.id)) {
         query = query.or(`user_id.eq.${authUser.id},email.eq.${email}`);
       } else {
         query = query.eq('email', email);
@@ -112,18 +118,28 @@ export async function getUserApplication(authUser) {
       if (!error && Array.isArray(data) && data.length > 0) {
         const app = { ...data[0] };
 
-        // Fetch uploaded documents from application_documents table if present
+        // Fetch uploaded documents from application_documents table safely
         try {
-          let docQuery = supabase.from('application_documents').select('*');
-          if (app.id && app.application_id) {
-            docQuery = docQuery.or(`application_id.eq.${app.id},application_ref.eq.${app.application_id}`);
-          } else if (app.id) {
-            docQuery = docQuery.eq('application_id', app.id);
-          } else if (app.application_id) {
-            docQuery = docQuery.eq('application_ref', app.application_id);
+          let docRows = null;
+          if (app.id && isUuid(app.id)) {
+            const { data: dRows, error: dErr } = await supabase
+              .from('application_documents')
+              .select('*')
+              .eq('application_id', app.id);
+            if (!dErr && Array.isArray(dRows) && dRows.length > 0) {
+              docRows = dRows;
+            }
           }
-          const { data: docRows, error: docErr } = await docQuery;
-          if (!docErr && Array.isArray(docRows) && docRows.length > 0) {
+          if (!docRows && app.application_id) {
+            const { data: dRows, error: dErr } = await supabase
+              .from('application_documents')
+              .select('*')
+              .eq('application_ref', app.application_id);
+            if (!dErr && Array.isArray(dRows) && dRows.length > 0) {
+              docRows = dRows;
+            }
+          }
+          if (Array.isArray(docRows) && docRows.length > 0) {
             app.documents = docRows;
           }
         } catch (docEx) {
@@ -353,9 +369,9 @@ export async function saveApplicationDraft(draftData, authUser = null) {
   safeJsonSet(getDraftKey(email), draftRecord);
 
   // 2. Sync to Supabase if configured
-  if (isSupabaseConfigured() && supabase && authUser?.id) {
+  if (!candidateProfilesTableMissing && isSupabaseConfigured() && supabase && authUser?.id && isUuid(authUser.id)) {
     try {
-      await supabase
+      const { error, status } = await supabase
         .from('candidate_profiles')
         .upsert({
           user_id: authUser.id,
@@ -364,9 +380,12 @@ export async function saveApplicationDraft(draftData, authUser = null) {
           phone: draftData.phone || '',
           updated_at: now
         }, { onConflict: 'user_id' });
+      if (error || status === 404) {
+        candidateProfilesTableMissing = true;
+      }
     } catch (err) {
       // Non-blocking
-      console.warn('[MSIT] Draft cloud sync warning:', err);
+      candidateProfilesTableMissing = true;
     }
   }
 
@@ -616,6 +635,26 @@ export async function submitStudentApplication(applicationData, authUser = null)
     filtered.unshift(record);
     safeJsonSet(LOCAL_STORAGE_APPS_KEY, filtered);
 
+    // Persist candidate-specific keys for immediate student dashboard sync
+    if (email && typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem(`msit_student_application_${email}`, JSON.stringify(record));
+        localStorage.setItem(`msit_app_status_${email}`, 'Submitted');
+        localStorage.setItem(`msit_application_status_${email}`, 'Submitted');
+      } catch (e) {
+        console.warn('[MSIT] Candidate localStorage write warning:', e);
+      }
+    }
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: record }));
+      if (email) {
+        window.dispatchEvent(new CustomEvent('msit:student-status-changed', {
+          detail: { email, status: 'Submitted', application: record }
+        }));
+      }
+    }
+
     // Clear saved draft once submitted
     localStorage.removeItem(getDraftKey(email));
     localStorage.removeItem(`msit_application_draft_${email}`);
@@ -709,12 +748,19 @@ export async function submitStudentApplication(applicationData, authUser = null)
 /**
  * Update an application when Additional Information is requested.
  */
+/**
+ * Update an application when re-submitting or when Additional Information is requested.
+ */
 export async function updateStudentApplication(applicationId, updateData, authUser = null) {
   const now = new Date().toISOString();
+  const allApps = safeJsonParse(LOCAL_STORAGE_APPS_KEY, []);
+  const candidateEmail = (updateData.email || authUser?.email || '').toLowerCase().trim();
+  const targetId = applicationId || updateData.applicationId || updateData.application_id;
+
   const idx = allApps.findIndex(a => 
-    a.application_id === applicationId || 
-    a.id === applicationId ||
-    (a.email && updateData.email && a.email.toLowerCase() === updateData.email.toLowerCase())
+    (a.application_id && (a.application_id === targetId || a.application_id === applicationId)) || 
+    (a.id && (a.id === targetId || a.id === applicationId)) ||
+    (candidateEmail && a.email && a.email.toLowerCase().trim() === candidateEmail)
   );
 
   // Format documents array
@@ -751,7 +797,9 @@ export async function updateStudentApplication(applicationId, updateData, authUs
 
   const mergedUpdates = {
     ...updateData,
+    application_id: targetId,
     full_name: updateData.fullName || updateData.full_name,
+    email: candidateEmail || updateData.email,
     phone: updateData.phone,
     dob: updateData.dob,
     address: updateData.address,
@@ -801,30 +849,55 @@ export async function updateStudentApplication(applicationId, updateData, authUs
     const prevStatus = allApps[idx].status;
     allApps[idx] = {
       ...allApps[idx],
-      ...mergedUpdates
+      ...mergedUpdates,
+      id: allApps[idx].id || targetId,
+      application_id: allApps[idx].application_id || targetId,
+      email: candidateEmail || allApps[idx].email
     };
     updatedRecord = allApps[idx];
     safeJsonSet(LOCAL_STORAGE_APPS_KEY, allApps);
 
     logApplicationHistory(
-      applicationId,
+      targetId,
       prevStatus,
       'Submitted',
-      authUser?.email || 'Candidate',
+      authUser?.email || candidateEmail || 'Candidate',
       'Candidate updated application details and documents'
     );
   } else {
     // If not in local array, prepend it
-    allApps.unshift(mergedUpdates);
-    updatedRecord = mergedUpdates;
+    const newRecord = {
+      ...mergedUpdates,
+      id: targetId,
+      application_id: targetId,
+      email: candidateEmail
+    };
+    allApps.unshift(newRecord);
+    updatedRecord = newRecord;
     safeJsonSet(LOCAL_STORAGE_APPS_KEY, allApps);
+  }
+
+  // Also persist student-specific local storage keys
+  if (candidateEmail && typeof localStorage !== 'undefined') {
+    try {
+      localStorage.setItem(`msit_student_application_${candidateEmail}`, JSON.stringify(updatedRecord));
+      localStorage.setItem(`msit_app_status_${candidateEmail}`, 'Submitted');
+      localStorage.setItem(`msit_application_status_${candidateEmail}`, 'Submitted');
+    } catch (e) {
+      console.warn('[MSIT] Candidate localStorage write warning:', e);
+    }
   }
 
   if (typeof window !== 'undefined' && updatedRecord) {
     window.dispatchEvent(new CustomEvent('msit:application-status-updated', { detail: updatedRecord }));
+    if (candidateEmail) {
+      window.dispatchEvent(new CustomEvent('msit:student-status-changed', {
+        detail: { email: candidateEmail, status: 'Submitted', application: updatedRecord }
+      }));
+    }
   }
 
-  // Update Supabase if available
+  // Update Supabase if available (resilient, non-blocking)
   if (isSupabaseConfigured() && supabase) {
     try {
       const validCols = [
@@ -843,10 +916,14 @@ export async function updateStudentApplication(applicationId, updateData, authUs
         if (mergedUpdates[k] !== undefined) sanitizedRecord[k] = mergedUpdates[k];
       });
 
-      const { error: updateErr } = await supabase
-        .from('applications')
-        .update(sanitizedRecord)
-        .eq('application_id', applicationId);
+      let updateQuery = supabase.from('applications').update(sanitizedRecord);
+      if (isUuid(targetId)) {
+        updateQuery = updateQuery.eq('id', targetId);
+      } else {
+        updateQuery = updateQuery.eq('application_id', targetId);
+      }
+
+      const { error: updateErr } = await updateQuery;
 
       if (updateErr) {
         // Fallback to base columns if extended columns fail
@@ -859,14 +936,25 @@ export async function updateStudentApplication(applicationId, updateData, authUs
         baseCols.forEach(k => {
           if (mergedUpdates[k] !== undefined) baseRecord[k] = mergedUpdates[k];
         });
-        await supabase.from('applications').update(baseRecord).eq('application_id', applicationId).catch(() => {});
+
+        let baseQuery = supabase.from('applications').update(baseRecord);
+        if (isUuid(targetId)) {
+          baseQuery = baseQuery.eq('id', targetId);
+        } else {
+          baseQuery = baseQuery.eq('application_id', targetId);
+        }
+        const { error: baseErr } = await baseQuery;
+
+        if (baseErr && candidateEmail) {
+          await supabase.from('applications').update(baseRecord).eq('email', candidateEmail).catch(() => {});
+        }
       }
 
-      // Also upsert documents in application_documents table
+      // Also upsert documents in application_documents table if present
       if (formattedDocs.length > 0) {
         const docRecords = formattedDocs.map(d => ({
-          application_ref: applicationId,
-          user_id: authUser?.id || null,
+          application_ref: targetId,
+          user_id: authUser?.id && isUuid(authUser.id) ? authUser.id : null,
           doc_type: d.doc_type,
           file_name: d.file_name,
           file_size: d.file_size,

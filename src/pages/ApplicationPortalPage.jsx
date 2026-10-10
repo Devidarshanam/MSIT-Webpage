@@ -237,6 +237,7 @@ export default function ApplicationPortalPage() {
           setFormData({
             ...INITIAL_APPLICATION_STATE,
             ...app,
+            applicationId: app.application_id || app.id || INITIAL_APPLICATION_STATE.applicationId,
             fullName: app.full_name || resolvedName,
             email: app.email || email,
             phone: app.phone || '',
@@ -718,30 +719,43 @@ export default function ApplicationPortalPage() {
     setCurrentStep(stepNum);
   };
 
-  // Verify all sections for final submission
+  // Verify all sections for final submission (returns first failing step, or 0 if all pass)
   const validateAllSections = () => {
-    const sectionErrors = {};
     for (let s = 1; s <= 7; s++) {
       if (!validateSection(s)) {
-        sectionErrors[s] = true;
+        return s;
       }
     }
-    return Object.keys(sectionErrors).length === 0;
+    return 0;
   };
 
   // Final Application Submission
   const handleSubmitApplication = async (e) => {
-    e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
 
-    if (!validateAllSections()) {
-      alert('Please complete all required fields and upload required documents across all sections before submitting.');
+    const failingStep = validateAllSections();
+    if (failingStep > 0) {
+      setCurrentStep(failingStep);
+      validateSection(failingStep);
+      const sectionNames = {
+        1: 'Personal Details',
+        2: 'Parent / Guardian Information',
+        3: 'Academic Qualifications',
+        4: 'Work Experience',
+        5: 'Purpose of Joining',
+        6: 'Referral Source',
+        7: 'Entrance Examination Details'
+      };
+      alert(`Please complete the required fields in Section ${failingStep} (${sectionNames[failingStep] || ''}) before submitting.`);
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const generatedRef = formData.applicationId || generateApplicationId();
+      const generatedRef = formData.applicationId || formData.application_id || serverApp?.application_id || serverApp?.id || generateApplicationId();
       const submissionPayload = {
         ...formData,
         applicationId: generatedRef,
@@ -776,8 +790,9 @@ export default function ApplicationPortalPage() {
       }));
       setPortalMode('success');
     } catch (err) {
+      console.error('[MSIT] Application submit exception:', err);
       setIsSubmitting(false);
-      alert('An unexpected error occurred while saving your application. Please try again.');
+      alert('An unexpected error occurred while saving your application. Please check your network and try again.');
     }
   };
 

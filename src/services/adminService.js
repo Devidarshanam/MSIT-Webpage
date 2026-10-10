@@ -838,10 +838,13 @@ export async function updateApplicationRecord(applicationId, patchData, adminEma
 
   if (isSupabaseConfigured() && supabase) {
     try {
-      await supabase
-        .from('applications')
-        .update({ ...patchData, updated_at: now })
-        .or(`application_id.eq.${applicationId},id.eq.${applicationId}`);
+      let query = supabase.from('applications').update({ ...patchData, updated_at: now });
+      if (isUuid(applicationId)) {
+        query = query.eq('id', applicationId);
+      } else {
+        query = query.eq('application_id', applicationId);
+      }
+      await query;
     } catch (err) {
       console.warn('[MSIT Admin] Supabase record update warning:', err);
     }
@@ -962,25 +965,29 @@ export const DEFAULT_ADMISSION_SETTINGS = {
   gateMinScore: 350
 };
 
+let admissionSettingsTableMissing = false;
+
 /**
  * Retrieve admission configuration from Supabase or localStorage.
  * Connects Recommended Next Action and cycle information to real admin settings.
  */
 export async function getAdmissionSettings() {
   // 1. Try Supabase
-  if (isSupabaseConfigured() && supabase) {
+  if (!admissionSettingsTableMissing && isSupabaseConfigured() && supabase) {
     try {
-      const { data, error } = await supabase
+      const { data, error, status } = await supabase
         .from('admission_settings')
         .select('*')
         .eq('id', 'current')
         .maybeSingle();
 
-      if (!error && data && data.settings) {
+      if (error || status === 404) {
+        admissionSettingsTableMissing = true;
+      } else if (data && data.settings) {
         return { ...DEFAULT_ADMISSION_SETTINGS, ...data.settings };
       }
     } catch (err) {
-      console.warn('[MSIT Admin] Supabase getAdmissionSettings warning:', err);
+      admissionSettingsTableMissing = true;
     }
   }
 
@@ -1020,9 +1027,9 @@ export async function saveAdmissionSettings(updatedSettings) {
   }
 
   // 2. Write to Supabase if configured
-  if (isSupabaseConfigured() && supabase) {
+  if (!admissionSettingsTableMissing && isSupabaseConfigured() && supabase) {
     try {
-      await supabase
+      const { error, status } = await supabase
         .from('admission_settings')
         .upsert({
           id: 'current',
@@ -1030,8 +1037,11 @@ export async function saveAdmissionSettings(updatedSettings) {
           settings: merged,
           updated_at: merged.updated_at
         }, { onConflict: 'id' });
+      if (error || status === 404) {
+        admissionSettingsTableMissing = true;
+      }
     } catch (err) {
-      console.warn('[MSIT Admin] Supabase saveAdmissionSettings warning:', err);
+      admissionSettingsTableMissing = true;
     }
   }
 
