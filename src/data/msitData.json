@@ -36,7 +36,7 @@
       },
       {
         "id": "4",
-        "title": "Technical Interview & Counselling",
+        "title": "One-on-One Discussion",
         "done": false
       },
       {
@@ -272,15 +272,14 @@
       }
     ],
     "importantDates": [
-      { "activity": "Online Applications Open", "date": "October 1, 2026" },
-      { "activity": "Application Submission Deadline", "date": "November 30, 2026" },
-      { "activity": "Accepted Admission Modes", "date": "GRE, GATE, or MSIT Exam" },
-      { "activity": "Batch Commencement Date", "date": "January 2, 2027" },
-      { "activity": "Admission Evaluation / MSIT Exam", "date": "To be confirmed (TBD)" },
-      { "activity": "Technical Interview & Counselling", "date": "To be confirmed (TBD)" },
-      { "activity": "Formal Admission Offers", "date": "To be confirmed (TBD)" }
+      { "activity": "Cycle I Application Deadline", "date": "7 November 2026" },
+      { "activity": "Cycle I MSIT PGEE Examination", "date": "11 November 2026" },
+      { "activity": "Cycle II Application Deadline", "date": "7 December 2026" },
+      { "activity": "Cycle II MSIT PGEE Examination", "date": "11 December 2026" },
+      { "activity": "Final Admit List Published", "date": "20 December 2026" },
+      { "activity": "Programme Commencement", "date": "2 January 2027" }
     ],
-    "disclaimer": "Application window: October 1 to November 30, 2026. Accepted admission modes: GRE, GATE, and MSIT's own entrance exam. Batch commences January 2, 2027. Technical interview and counselling schedule will be announced (TBD)."
+    "disclaimer": "Confirmed admission schedule for the January 2027 cohort. Interviews follow the examination in each cycle. Final admit list: 20 December 2026. Programme commencement: 2 January 2027."
   },
   "fees": {
     "sectionId": "fees",
@@ -289,9 +288,8 @@
     "description": "Transparent breakdown of fee heads and official guidance on educational loan facilitation.",
     "table": [
       { "component": "Tuition Fee", "amount": "INR 1,50,000", "period": "Per Semester" },
-      { "component": "Admission / Registration Fee", "amount": "To be published with admission notification", "period": "One-time at admission" },
-      { "component": "Hostel & Accommodation Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" },
-      { "component": "Mess / Dining Charges", "amount": "To be announced upon accommodation confirmation", "period": "If applicable" }
+      { "component": "Hostel & Accommodation Charges", "amount": "TBD — Under Review by IIITH", "period": "Per Semester" },
+      { "component": "Mess / Dining Charges", "amount": "TBD — Under Review by IIITH", "period": "Per Semester" }
     ],
     "loanGuidance": {
       "title": "Education Loan Facilitation",
@@ -306,7 +304,7 @@
         }
       ]
     },
-    "note": "Exact fee figures, payment schedules, refund policies, and hostel arrangements are currently under institutional review and will be formally published in the admission circular."
+    "note": "Hostel, accommodation, and mess charges are currently under review by IIITH and will be formally published. Tuition fee is confirmed at INR 1,50,000 per semester."
   },
   "careers": {
     "sectionId": "careers",

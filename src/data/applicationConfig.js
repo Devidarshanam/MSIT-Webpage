@@ -10,7 +10,7 @@ export const APPLICATION_CONFIG = {
   portalTitle: 'MSIT Application Portal',
   supportEmail: 'admissions@msit.ac.in',
   supportPhone: '+91 40 6653 1000',
-  statementMaxWords: 200,
+  statementMaxWords: 300,
   recommendedEligibilityThresholdPercentage: 68,
   recommendedEligibilityThresholdCgpa: 6.8
 };
@@ -23,10 +23,10 @@ export const INITIAL_APPLICATION_STATE = {
   dob: '',
   address: '',
 
-  // Section 2: Parent / Guardian Information
-  parentRelationship: 'Father', // 'Father' | 'Mother' | 'Legal Guardian'
+  // Section 2: Emergency Contact Number
+  parentRelationship: '',
   parentName: '',
-  altPhone: '',
+  altPhone: '', // Contact Number
 
   // Section 3: Academic Qualifications
   // 3A. Class 10 / SSC
@@ -41,7 +41,9 @@ export const INITIAL_APPLICATION_STATE = {
   // 3C. Qualifying Degree
   ugDegree: 'B.Tech / B.E.',
   university: '',
-  department: 'Computer Science & Engineering (CSE)',
+  branch: '',
+  specialization: '',
+  department: '',
   passingYear: '2026',
   gradingScale: 'Percentage (out of 100%)',
   cgpa: '',
@@ -54,7 +56,7 @@ export const INITIAL_APPLICATION_STATE = {
   companyName: '',
   jobRole: '',
 
-  // Section 5: Purpose of Joining MSIT (Mandatory, max 200 words)
+  // Section 5: Statement of Purpose (Mandatory, max 300 words)
   statementText: '',
   statementWordCount: 0,
 
@@ -62,8 +64,8 @@ export const INITIAL_APPLICATION_STATE = {
   referralSource: '',
   referralExplanation: '',
 
-  // Section 7: Entrance Examination Details (GRE / GATE)
-  entranceExamStatus: 'Neither', // 'GRE' | 'GATE' | 'Both' | 'Neither'
+  // Section 7: Entrance Examination Details
+  entranceExamStatus: 'Neither', // 'Neither' | 'GRE' | 'GATE' | 'Both'
   greScore: '',
   greYear: '',
   gateScore: '',
@@ -93,7 +95,7 @@ export const INITIAL_APPLICATION_STATE = {
 export const PARENT_RELATIONSHIP_OPTIONS = [
   'Father',
   'Mother',
-  'Legal Guardian'
+  'Other / Emergency Contact'
 ];
 
 export const INTER_PATHWAY_OPTIONS = [

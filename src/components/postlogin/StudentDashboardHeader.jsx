@@ -232,7 +232,7 @@ export default function StudentDashboardHeader({
     application?.document_status === 'Documents Verified' ||
     ['Accepted', 'Interview Scheduled', 'Interview Completed', 'Onboarded', 'Enrolled'].includes(application?.status);
 
-  // --- Step 3: Eligibility & Evaluation Pathway (GATE/GRE vs GAT) ---
+  // --- Step 3: Eligibility & Evaluation Pathway (GATE/GRE vs MSIT PGEE) ---
   const greScoreNum = Number(application?.gre_score);
   const gateScoreNum = Number(application?.gate_score);
   const greMin = Number(admissionSettings?.greMinScore || 300);
@@ -260,7 +260,7 @@ export default function StudentDashboardHeader({
   );
   const gatExamDate = application?.gat_exam_date || admissionSettings?.gatExamDate || admissionSettings?.gatSchedule || 'December 15, 2026';
 
-  // --- Step 4: Technical Interview & Counselling ---
+  // --- Step 4: One-on-One Discussion ---
   const interviewDate = application?.interview_date || (admissionSettings?.interviewSchedule && admissionSettings.interviewSchedule !== 'TBD' ? admissionSettings.interviewSchedule : null);
   const interviewTime = application?.interview_time || '';
   const hasInterviewScheduled = Boolean(
@@ -342,12 +342,12 @@ export default function StudentDashboardHeader({
       } : null
     },
 
-    // Step 3: Eligibility & Evaluation (GATE/GRE vs GAT)
+    // Step 3: Eligibility & Evaluation (GATE/GRE vs MSIT PGEE)
     {
       id: "3",
       title: isGateGrePathway 
         ? "Eligibility & Evaluation"
-        : "GAT Examination Required",
+        : "MSIT PGEE Examination Required",
       done: isDocVerified && (isGateGrePathway ? true : isGatCompleted),
       statusState: !isDocVerified
         ? 'pending'
@@ -361,23 +361,23 @@ export default function StudentDashboardHeader({
         : isGateGrePathway
           ? 'Eligible for Interview'
           : isGatCompleted
-            ? 'GAT Cleared'
-            : 'GAT Exam Required',
+            ? 'MSIT PGEE Cleared'
+            : 'MSIT PGEE Exam Required',
       metaText: !isDocVerified
         ? 'Awaiting document verification'
         : isGateGrePathway
           ? (interviewDate && interviewDate !== 'TBD'
               ? `Scheduled: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}`
-              : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (GAT exempt)`)
+              : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (MSIT PGEE exempt)`)
           : isGatCompleted
-            ? (application?.gat_score ? `GAT Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
+            ? (application?.gat_score ? `MSIT PGEE Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
             : (gatExamDate ? `Exam Date: ${gatExamDate}` : 'Exam date to be announced')
     },
 
-    // Step 4: Technical Interview & Counselling
+    // Step 4: One-on-One Discussion
     {
       id: "4",
-      title: "Technical Interview & Counselling",
+      title: "One-on-One Discussion",
       done: isInterviewPassed,
       statusState: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
         ? 'pending'
@@ -398,7 +398,7 @@ export default function StudentDashboardHeader({
               ? 'Interview Scheduled'
               : 'Awaiting Scheduling',
       metaText: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
-        ? (!isGateGrePathway ? 'Awaiting GAT exam result' : 'Awaiting prior verification')
+        ? (!isGateGrePathway ? 'Awaiting MSIT PGEE exam result' : 'Awaiting prior verification')
         : isInterviewPassed
           ? 'Outcome: Recommended for Admission'
           : isInterviewUnsuccessful

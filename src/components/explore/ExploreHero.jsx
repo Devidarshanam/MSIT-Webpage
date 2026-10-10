@@ -19,6 +19,11 @@ export default function ExploreHero({ onGoToSignIn }) {
               <ArrowRightIcon size={18} />
             </button>
           </div>
+          <div className="hero-programme-highlights">
+            <span className="hero-highlight-pill">Full-Time Programme at IIIT Hyderabad</span>
+            <span className="hero-highlight-pill">Fully Residential Programme</span>
+            <span className="hero-highlight-pill">Degree Awarded by IIIT Hyderabad</span>
+          </div>
         </div>
       </div>
 

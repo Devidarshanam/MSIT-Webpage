@@ -26,7 +26,6 @@ import {
 import { 
   APPLICATION_CONFIG, 
   INITIAL_APPLICATION_STATE, 
-  PARENT_RELATIONSHIP_OPTIONS,
   INTER_PATHWAY_OPTIONS,
   UG_DEGREE_OPTIONS, 
   DEPARTMENT_OPTIONS, 
@@ -54,10 +53,10 @@ import { getStudentDisplayName } from '../utils/userUtils';
 // Stepper Step Metadata (8 Sections)
 const FORM_SECTIONS = [
   { id: 1, title: 'Personal Info', fullTitle: 'Personal & Contact Information', shortLabel: 'Personal' },
-  { id: 2, title: 'Parent / Guardian', fullTitle: 'Parent / Guardian Information', shortLabel: 'Guardian' },
+  { id: 2, title: 'Emergency Contact', fullTitle: 'Emergency Contact Number', shortLabel: 'Emergency' },
   { id: 3, title: 'Academics', fullTitle: 'Academic Qualifications', shortLabel: 'Academics' },
   { id: 4, title: 'Work Experience', fullTitle: 'Work Experience & Resume', shortLabel: 'Experience' },
-  { id: 5, title: 'Purpose of Joining', fullTitle: 'Purpose of Joining MSIT', shortLabel: 'Purpose' },
+  { id: 5, title: 'Statement of Purpose', fullTitle: 'Statement of Purpose', shortLabel: 'SOP' },
   { id: 6, title: 'Referral Source', fullTitle: 'How Did You Hear About MSIT?', shortLabel: 'Referral' },
   { id: 7, title: 'Entrance Exams', fullTitle: 'Entrance Examination Details', shortLabel: 'Exams' },
   { id: 8, title: 'Review & Submit', fullTitle: 'Review & Submit Application', shortLabel: 'Review' }
@@ -253,7 +252,9 @@ export default function ApplicationPortalPage() {
             interScoreType: app.inter_score_type || 'Percentage',
             ugDegree: app.ug_degree || 'B.Tech / B.E.',
             university: app.university || '',
-            department: app.department || 'Computer Science & Engineering (CSE)',
+            branch: app.branch || '',
+            specialization: app.specialization || '',
+            department: app.department || '',
             passingYear: app.passing_year || '2026',
             gradingScale: app.grading_scale || 'Percentage (out of 100%)',
             cgpa: app.cgpa || '',
@@ -265,7 +266,7 @@ export default function ApplicationPortalPage() {
             statementText: app.statement_text || app.purpose_to_join || '',
             referralSource: app.referral_source || '',
             referralExplanation: app.referral_explanation || '',
-            entranceExamStatus: app.entrance_exam_status || 'Neither',
+            entranceExamStatus: app.entrance_exam_status || 'Appear for the MSIT PGEE exam',
             greScore: app.gre_score || '',
             greYear: app.gre_year || '',
             gateScore: app.gate_score || '',
@@ -375,22 +376,9 @@ export default function ApplicationPortalPage() {
 
   const eligibilityAdvisory = getEligibilityAdvisory();
 
-  // Dynamic Parent / Guardian Label Helpers
-  const getParentNameLabel = () => {
-    switch (formData.parentRelationship) {
-      case 'Mother': return "Mother's Name";
-      case 'Legal Guardian': return "Legal Guardian's Name";
-      default: return "Father's Name";
-    }
-  };
-
-  const getParentPhoneLabel = () => {
-    switch (formData.parentRelationship) {
-      case 'Mother': return "Mother's Mobile Number";
-      case 'Legal Guardian': return "Legal Guardian's Mobile Number";
-      default: return "Father's Mobile Number";
-    }
-  };
+  // Contact Label Helpers
+  const getParentNameLabel = () => "Contact Name";
+  const getParentPhoneLabel = () => "Contact Number";
 
   // Handle generic field change
   const handleFieldChange = (field, value) => {
@@ -539,22 +527,16 @@ export default function ApplicationPortalPage() {
       }
     }
 
-    // SECTION 2: Parent / Guardian Information
+    // SECTION 2: Emergency Contact Number
     if (stepNum === 2) {
-      if (!formData.parentRelationship) {
-        errs.parentRelationship = 'Please select the relationship';
-      }
-
-      const nameLabel = getParentNameLabel();
       if (!formData.parentName.trim()) {
-        errs.parentName = `${nameLabel} is required`;
+        errs.parentName = 'Contact Name is required';
       }
 
-      const phoneLabel = getParentPhoneLabel();
       if (!formData.altPhone.trim()) {
-        errs.altPhone = `${phoneLabel} is required`;
+        errs.altPhone = 'Contact Number is required';
       } else if (!phoneRegex.test(formData.altPhone.replace(/\s+/g, ''))) {
-        errs.altPhone = `Please enter a valid 10-digit mobile number for ${nameLabel}`;
+        errs.altPhone = 'Please enter a valid 10-digit contact number';
       }
     }
 
@@ -599,7 +581,7 @@ export default function ApplicationPortalPage() {
       // 3C. Qualifying Degree
       if (!formData.ugDegree) errs.ugDegree = 'Qualifying Degree is required';
       if (!formData.university.trim()) errs.university = 'University / Institution name is required';
-      if (!formData.department.trim()) errs.department = 'Department / Branch is required';
+      if (!formData.branch || !formData.branch.trim()) errs.branch = 'Branch is required';
       if (!formData.passingYear) errs.passingYear = 'Graduation year is required';
 
       if (!formData.cgpa || !formData.cgpa.trim()) {
@@ -646,12 +628,12 @@ export default function ApplicationPortalPage() {
       }
     }
 
-    // SECTION 5: Purpose of Joining MSIT
+    // SECTION 5: Statement of Purpose
     if (stepNum === 5) {
       if (!formData.statementText.trim()) {
-        errs.statementText = 'Please provide your statement explaining why you want to join MSIT';
+        errs.statementText = 'Please provide your Statement of Purpose explaining why you want to join MSIT';
       } else if (currentStatementWords > APPLICATION_CONFIG.statementMaxWords) {
-        errs.statementText = `Your statement exceeds the 200-word limit (${currentStatementWords} words). Please reduce to 200 words or less.`;
+        errs.statementText = `Your Statement of Purpose exceeds the 300-word limit (${currentStatementWords} words). Please reduce to 300 words or less.`;
       }
     }
 
@@ -666,6 +648,10 @@ export default function ApplicationPortalPage() {
 
     // SECTION 7: Entrance Examination Details
     if (stepNum === 7) {
+      if (!formData.entranceExamStatus) {
+        errs.entranceExamStatus = 'Please select your entrance examination option';
+      }
+
       if (formData.entranceExamStatus === 'GRE' || formData.entranceExamStatus === 'Both') {
         if (!formData.greScore || !formData.greScore.trim()) {
           errs.greScore = 'GRE score is required';
@@ -741,10 +727,10 @@ export default function ApplicationPortalPage() {
       validateSection(failingStep);
       const sectionNames = {
         1: 'Personal Details',
-        2: 'Parent / Guardian Information',
+        2: 'Emergency Contact Number',
         3: 'Academic Qualifications',
         4: 'Work Experience',
-        5: 'Purpose of Joining',
+        5: 'Statement of Purpose',
         6: 'Referral Source',
         7: 'Entrance Examination Details'
       };
@@ -1084,7 +1070,7 @@ export default function ApplicationPortalPage() {
             {/* Section 1 & 2 Summary */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h4 className="review-block-title">1 & 2. Personal & Parent / Guardian Information</h4>
+                <h4 className="review-block-title">1 & 2. Personal &amp; Emergency Contact Details</h4>
               </div>
               <div className="review-details-grid">
                 <div className="review-item"><span className="review-item-label">Full Name</span><span className="review-item-val">{formData.fullName || 'Not specified'}</span></div>
@@ -1092,8 +1078,8 @@ export default function ApplicationPortalPage() {
                 <div className="review-item"><span className="review-item-label">Mobile Phone</span><span className="review-item-val">{formData.phone || 'Not specified'}</span></div>
                 <div className="review-item"><span className="review-item-label">Date of Birth</span><span className="review-item-val">{formData.dob || 'Not specified'}</span></div>
                 <div className="review-item" style={{ gridColumn: '1 / -1' }}><span className="review-item-label">Residential Address</span><span className="review-item-val">{formData.address || 'Not specified'}</span></div>
-                <div className="review-item"><span className="review-item-label">{formData.parentRelationship || 'Father'} Name</span><span className="review-item-val">{formData.parentName || 'Not specified'}</span></div>
-                <div className="review-item"><span className="review-item-label">{formData.parentRelationship || 'Father'} Mobile</span><span className="review-item-val">{formData.altPhone || 'Not specified'}</span></div>
+                <div className="review-item"><span className="review-item-label">Contact Name</span><span className="review-item-val">{formData.parentName || 'Not specified'}</span></div>
+                <div className="review-item"><span className="review-item-label">Contact Number</span><span className="review-item-val">{formData.altPhone || 'Not specified'}</span></div>
               </div>
             </div>
 
@@ -1107,7 +1093,8 @@ export default function ApplicationPortalPage() {
                 <div className="review-item"><span className="review-item-label">Class 12 / Intermediate</span><span className="review-item-val">{formData.interScore ? `${formData.interPathway || 'Class 12'}: ${formData.interScore} (${formData.interScoreType || 'Percentage'})` : 'Not specified'}</span></div>
                 <div className="review-item"><span className="review-item-label">Qualifying Degree</span><span className="review-item-val">{formData.ugDegree || 'Not specified'}</span></div>
                 <div className="review-item"><span className="review-item-label">University / Institution</span><span className="review-item-val">{formData.university || 'Not specified'}</span></div>
-                <div className="review-item"><span className="review-item-label">Department / Branch</span><span className="review-item-val">{formData.department || 'Not specified'}</span></div>
+                <div className="review-item"><span className="review-item-label">Branch</span><span className="review-item-val">{formData.branch || 'Not specified'}</span></div>
+                <div className="review-item"><span className="review-item-label">Specialization</span><span className="review-item-val">{formData.specialization || 'Not specified'}</span></div>
                 <div className="review-item"><span className="review-item-label">Graduation Year</span><span className="review-item-val">{formData.passingYear || 'Not specified'}</span></div>
                 <div className="review-item"><span className="review-item-label">Aggregate Score</span><span className="review-item-val">{formData.cgpa ? `${formData.cgpa} (${formData.gradingScale || 'Percentage'})` : 'Not specified'}</span></div>
               </div>
@@ -1136,7 +1123,7 @@ export default function ApplicationPortalPage() {
             {/* Section 5 Summary */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h4 className="review-block-title">5. Purpose of Joining MSIT</h4>
+                <h4 className="review-block-title">5. Statement of Purpose</h4>
               </div>
               <p style={{ fontStyle: 'italic', background: '#ffffff', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', margin: 0 }}>
                 "{formData.statementText || 'Not specified'}"
@@ -1150,9 +1137,7 @@ export default function ApplicationPortalPage() {
               </div>
               <div className="review-details-grid">
                 <div className="review-item"><span className="review-item-label">Referral Source</span><span className="review-item-val">{formData.referralSource ? `${formData.referralSource} ${formData.referralExplanation ? `(${formData.referralExplanation})` : ''}` : 'Not specified'}</span></div>
-                <div className="review-item"><span className="review-item-label">Entrance Exam</span><span className="review-item-val">{formData.entranceExamStatus || 'Neither'}</span></div>
-                {formData.greScore && <div className="review-item"><span className="review-item-label">GRE Score</span><span className="review-item-val">{formData.greScore} ({formData.greYear || 'N/A'})</span></div>}
-                {formData.gateScore && <div className="review-item"><span className="review-item-label">GATE Score</span><span className="review-item-val">{formData.gateScore} ({formData.gateYear || 'N/A'})</span></div>}
+                <div className="review-item"><span className="review-item-label">Entrance Exam</span><span className="review-item-val">{formData.entranceExamStatus || 'Appear for the MSIT PGEE exam'}</span></div>
               </div>
             </div>
 
@@ -1607,7 +1592,7 @@ export default function ApplicationPortalPage() {
               </div>
               <div className="app-action-right">
                 <button type="button" className="btn btn-primary" onClick={handleNextSection}>
-                  <span>Continue to Parent / Guardian</span>
+                  <span>Continue to Emergency Contact</span>
                   <ArrowRightIcon size={16} />
                 </button>
               </div>
@@ -1616,41 +1601,23 @@ export default function ApplicationPortalPage() {
         )}
 
         {/* =========================================================================
-            SECTION 2: PARENT / GUARDIAN INFORMATION
+            SECTION 2: EMERGENCY CONTACT NUMBER
             ========================================================================= */}
         {currentStep === 2 && (
           <div className="form-section-card">
             <div className="form-section-header">
               <span className="form-section-kicker">SECTION 2 OF 8</span>
-              <h3 className="form-section-title">Parent / Guardian Information</h3>
+              <h3 className="form-section-title">Emergency Contact Number</h3>
               <p className="form-section-desc">
-                Provide relationship and contact details for emergency and official communications. Contact labels adapt to your chosen relationship.
+                Provide emergency contact name and number for official communications.
               </p>
             </div>
 
             <div className="form-fields-grid">
-              {/* Relationship Dropdown */}
+              {/* Contact Name Field */}
               <div className="form-field-group">
                 <div className="field-label-row">
-                  <label className="field-label" htmlFor="field-relationship">Relationship</label>
-                  <span className="field-badge-required">Required</span>
-                </div>
-                <select
-                  id="field-relationship"
-                  className="app-form-select"
-                  value={formData.parentRelationship}
-                  onChange={(e) => handleFieldChange('parentRelationship', e.target.value)}
-                >
-                  {PARENT_RELATIONSHIP_OPTIONS.map(rel => (
-                    <option key={rel} value={rel}>{rel}</option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Dynamic Name Field */}
-              <div className="form-field-group">
-                <div className="field-label-row">
-                  <label className="field-label" htmlFor="field-parentName">{getParentNameLabel()}</label>
+                  <label className="field-label" htmlFor="field-parentName">Contact Name</label>
                   <span className="field-badge-required">Required</span>
                 </div>
                 <input
@@ -1659,15 +1626,15 @@ export default function ApplicationPortalPage() {
                   className={`app-form-input ${errors.parentName ? 'has-error' : ''}`}
                   value={formData.parentName}
                   onChange={(e) => handleFieldChange('parentName', e.target.value)}
-                  placeholder={`Enter ${getParentNameLabel()}`}
+                  placeholder="Enter Contact Name"
                 />
                 {errors.parentName && <span className="field-error-text">{errors.parentName}</span>}
               </div>
 
-              {/* Dynamic Mobile Phone Field */}
+              {/* Contact Number Field */}
               <div className="form-field-group">
                 <div className="field-label-row">
-                  <label className="field-label" htmlFor="field-altPhone">{getParentPhoneLabel()}</label>
+                  <label className="field-label" htmlFor="field-altPhone">Contact Number</label>
                   <span className="field-badge-required">Required</span>
                 </div>
                 <input
@@ -1872,22 +1839,37 @@ export default function ApplicationPortalPage() {
                   {errors.university && <span className="field-error-text">{errors.university}</span>}
                 </div>
 
-                {/* Department / Branch */}
+                {/* Branch */}
                 <div className="form-field-group">
                   <div className="field-label-row">
-                    <label className="field-label" htmlFor="field-department">Department / Branch</label>
+                    <label className="field-label" htmlFor="field-branch">Branch</label>
                     <span className="field-badge-required">Required</span>
                   </div>
-                  <select
-                    id="field-department"
-                    className="app-form-select"
-                    value={formData.department}
-                    onChange={(e) => handleFieldChange('department', e.target.value)}
-                  >
-                    {DEPARTMENT_OPTIONS.map(dept => (
-                      <option key={dept} value={dept}>{dept}</option>
-                    ))}
-                  </select>
+                  <input
+                    id="field-branch"
+                    type="text"
+                    className={`app-form-input ${errors.branch ? 'has-error' : ''}`}
+                    value={formData.branch}
+                    onChange={(e) => handleFieldChange('branch', e.target.value)}
+                    placeholder="Enter Branch"
+                  />
+                  {errors.branch && <span className="field-error-text">{errors.branch}</span>}
+                </div>
+
+                {/* Specialization */}
+                <div className="form-field-group">
+                  <div className="field-label-row">
+                    <label className="field-label" htmlFor="field-specialization">Specialization</label>
+                  </div>
+                  <input
+                    id="field-specialization"
+                    type="text"
+                    className={`app-form-input ${errors.specialization ? 'has-error' : ''}`}
+                    value={formData.specialization}
+                    onChange={(e) => handleFieldChange('specialization', e.target.value)}
+                    placeholder="Enter Specialization"
+                  />
+                  {errors.specialization && <span className="field-error-text">{errors.specialization}</span>}
                 </div>
 
                 {/* Graduation Year */}
@@ -2156,7 +2138,7 @@ export default function ApplicationPortalPage() {
               </div>
               <div className="app-action-right">
                 <button type="button" className="btn btn-primary" onClick={handleNextSection}>
-                  <span>Continue to Purpose Statement</span>
+                  <span>Continue to Statement of Purpose</span>
                   <ArrowRightIcon size={16} />
                 </button>
               </div>
@@ -2165,27 +2147,27 @@ export default function ApplicationPortalPage() {
         )}
 
         {/* =========================================================================
-            SECTION 5: PURPOSE OF JOINING MSIT
+            SECTION 5: STATEMENT OF PURPOSE
             ========================================================================= */}
         {currentStep === 5 && (
           <div className="form-section-card">
             <div className="form-section-header">
               <span className="form-section-kicker">SECTION 5 OF 8</span>
-              <h3 className="form-section-title">Purpose of Joining MSIT</h3>
+              <h3 className="form-section-title">Statement of Purpose</h3>
               <p className="form-section-desc">
-                Tell us about your interests, learning goals, and career aspirations. (Maximum 200 words).
+                Tell us about your interests, learning goals, and career aspirations. (Maximum 300 words).
               </p>
             </div>
 
             <div className="form-field-group">
               <div className="field-label-row">
                 <label className="field-label" htmlFor="field-statementText">
-                  Why do you want to join MSIT, and what do you hope to achieve through the programme?
+                  Statement of Purpose
                 </label>
                 <span className="field-badge-required">Required</span>
               </div>
               <p className="field-helper-hint" style={{ marginTop: 0, marginBottom: '0.5rem' }}>
-                Helper guidance: “Tell us about your interests, learning goals, and career aspirations.”
+                Helper guidance: “Tell us about your interests, learning goals, and career aspirations.” (Maximum 300 words).
               </p>
               <textarea
                 id="field-statementText"
@@ -2193,15 +2175,15 @@ export default function ApplicationPortalPage() {
                 className={`app-form-textarea ${errors.statementText ? 'has-error' : ''}`}
                 value={formData.statementText}
                 onChange={(e) => handleFieldChange('statementText', e.target.value)}
-                placeholder="Write your response here in your own words (maximum 200 words)..."
+                placeholder="Write your Statement of Purpose here in your own words (maximum 300 words)..."
               />
 
               <div className="statement-counter-bar">
                 <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
-                  Word Limit: Maximum 200 words strictly evaluated
+                  Word Limit: Maximum 300 words strictly evaluated
                 </span>
-                <span className={`word-count-badge ${currentStatementWords > 200 ? 'is-over' : (currentStatementWords > 0 ? 'is-valid' : '')}`}>
-                  {currentStatementWords} / 200 words
+                <span className={`word-count-badge ${currentStatementWords > 300 ? 'is-over' : (currentStatementWords > 0 ? 'is-valid' : '')}`}>
+                  {currentStatementWords} / 300 words
                 </span>
               </div>
 
@@ -2344,11 +2326,11 @@ export default function ApplicationPortalPage() {
               </div>
             </div>
 
-            {/* If Neither: Helpful note */}
+            {/* If Neither: Exact requested conditional message */}
             {formData.entranceExamStatus === 'Neither' && (
               <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '1.25rem', color: '#475569' }}>
-                <p style={{ margin: 0, fontSize: '0.9rem' }}>
-                  No entrance examination details are required for this admission route. You may proceed directly to the Review &amp; Submit section.
+                <p style={{ margin: 0, fontSize: '0.9rem', lineHeight: 1.5 }}>
+                  Appear for the MSIT PGEE exam.
                 </p>
               </div>
             )}
@@ -2510,15 +2492,14 @@ export default function ApplicationPortalPage() {
             {/* Section 2 Review */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h4 className="review-block-title">2. Parent / Guardian Information</h4>
+                <h4 className="review-block-title">2. Emergency Contact Number</h4>
                 <button type="button" className="review-edit-link" onClick={() => setCurrentStep(2)}>
                   Edit Section 2
                 </button>
               </div>
               <div className="review-details-grid">
-                <div className="review-item"><span className="review-item-label">Relationship</span><span className="review-item-val">{formData.parentRelationship}</span></div>
-                <div className="review-item"><span className="review-item-label">{getParentNameLabel()}</span><span className="review-item-val">{formData.parentName || '—'}</span></div>
-                <div className="review-item"><span className="review-item-label">{getParentPhoneLabel()}</span><span className="review-item-val">{formData.altPhone || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Contact Name</span><span className="review-item-val">{formData.parentName || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Contact Number</span><span className="review-item-val">{formData.altPhone || '—'}</span></div>
               </div>
             </div>
 
@@ -2536,7 +2517,8 @@ export default function ApplicationPortalPage() {
                 <div className="review-item"><span className="review-item-label">Class 12 Score</span><span className="review-item-val">{formData.interScore ? `${formData.interScore} (${formData.interScoreType})` : '—'}</span></div>
                 <div className="review-item"><span className="review-item-label">Qualifying Degree</span><span className="review-item-val">{formData.ugDegree}</span></div>
                 <div className="review-item"><span className="review-item-label">University / Institution</span><span className="review-item-val">{formData.university || '—'}</span></div>
-                <div className="review-item"><span className="review-item-label">Department / Branch</span><span className="review-item-val">{formData.department || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Branch</span><span className="review-item-val">{formData.branch || '—'}</span></div>
+                <div className="review-item"><span className="review-item-label">Specialization</span><span className="review-item-val">{formData.specialization || '—'}</span></div>
                 <div className="review-item"><span className="review-item-label">Graduation Year</span><span className="review-item-val">{formData.passingYear}</span></div>
                 <div className="review-item"><span className="review-item-label">Aggregate Score</span><span className="review-item-val">{formData.cgpa ? `${formData.cgpa} (${formData.gradingScale})` : '—'}</span></div>
               </div>
@@ -2566,13 +2548,13 @@ export default function ApplicationPortalPage() {
             {/* Section 5 Review */}
             <div className="review-block-card">
               <div className="review-block-header">
-                <h4 className="review-block-title">5. Purpose of Joining MSIT</h4>
+                <h4 className="review-block-title">5. Statement of Purpose</h4>
                 <button type="button" className="review-edit-link" onClick={() => setCurrentStep(5)}>
                   Edit Section 5
                 </button>
               </div>
               <div>
-                <span className="review-item-label">Statement ({currentStatementWords} / 200 words)</span>
+                <span className="review-item-label">Statement ({currentStatementWords} / 300 words)</span>
                 <p style={{ fontStyle: 'italic', background: '#ffffff', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', margin: 0, fontSize: '0.9rem' }}>
                   "{formData.statementText || 'No statement provided yet'}"
                 </p>

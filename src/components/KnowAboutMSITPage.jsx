@@ -13,7 +13,6 @@ import ExploreWhoIsFor from './explore/ExploreWhoIsFor';
 import ExplorePedagogy from './explore/ExplorePedagogy';
 import ExploreCurriculum from './explore/ExploreCurriculum';
 import ExploreResearch from './explore/ExploreResearch';
-import ExplorePracticum from './explore/ExplorePracticum';
 import ExploreCampus from './explore/ExploreCampus';
 import ExploreCareerOutcomes from './explore/ExploreCareerOutcomes';
 import ExploreAdmissions from './explore/ExploreAdmissions';
@@ -48,6 +47,15 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
           navigate('/programme', { replace: true });
         }, 350);
         return () => clearTimeout(timer);
+      } else {
+        const anchorId = hash.replace('#', '');
+        if (anchorId) {
+          const scrollTimer = setTimeout(() => {
+            const el = document.getElementById(anchorId);
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 150);
+          return () => clearTimeout(scrollTimer);
+        }
       }
     }
   }, [navigate]);
@@ -98,7 +106,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         <nav className="explore-inpage-nav" aria-label="Page Sections">
           <a href="#what-is-msit">Overview</a>
           <a href="#t-shaped-curriculum">Curriculum</a>
-          <a href="#real-world-practicum">Practicum</a>
           <a href="#campus-life">Campus Life</a>
           <a href="#admission-journey">Admissions</a>
         </nav>
@@ -157,7 +164,6 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
         <ExplorePedagogy />
         <ExploreCurriculum />
         <ExploreResearch />
-        <ExplorePracticum />
         <ExploreCampus />
         <ExploreCareerOutcomes />
         <ExploreAdmissions onGoToSignIn={handleApplyClick} />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { 
   BuildingIcon, 
   MailIcon, 
@@ -8,6 +9,9 @@ import {
 } from './Icons';
 
 export default function Footer({ onGoToSignIn }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollToTop = () => {
     const root = document.querySelector('.explore-page-root');
     if (root) {
@@ -16,16 +20,33 @@ export default function Footer({ onGoToSignIn }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const scrollToSection = (e, sectionId) => {
+  const handleAcademicLinkClick = (e, sectionId) => {
     e.preventDefault();
-    const elem = document.getElementById(sectionId);
-    if (elem) {
-      elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      if (window.history.pushState) {
-        window.history.pushState(null, null, `#${sectionId}`);
-      } else {
-        window.location.hash = sectionId;
+    const targetId = sectionId;
+    if (location.pathname === '/') {
+      const elem = document.getElementById(targetId);
+      if (elem) {
+        elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (window.history.pushState) {
+          window.history.pushState(null, null, `#${targetId}`);
+        }
+        return;
       }
+    }
+    if (targetId === 'real-world-practicum') {
+      if (location.pathname === '/programme') {
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          elem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (window.history.pushState) {
+            window.history.pushState(null, null, `#${targetId}`);
+          }
+          return;
+        }
+      }
+      navigate(`/programme#${targetId}`);
+    } else {
+      navigate(`/#${targetId}`);
     }
   };
 
@@ -55,7 +76,7 @@ export default function Footer({ onGoToSignIn }) {
               </p>
               <div className="footer-credential-pill">
                 <BuildingIcon size={14} />
-                <span>IIIT Hyderabad Anchor Campus • Est. 2001</span>
+                <span>IIIT Hyderabad Campus • Est. 2001</span>
               </div>
             </div>
 
@@ -64,43 +85,43 @@ export default function Footer({ onGoToSignIn }) {
               <h4>Academic Architecture</h4>
               <ul className="footer-nav-list">
                 <li>
-                  <a href="#what-is-msit" onClick={(e) => scrollToSection(e, 'what-is-msit')}>
+                  <a href="/#what-is-msit" onClick={(e) => handleAcademicLinkClick(e, 'what-is-msit')}>
                     <span className="nav-bullet"></span>
                     <span>Programme Overview</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#pedagogy-foundations" onClick={(e) => scrollToSection(e, 'pedagogy-foundations')}>
+                  <a href="/#pedagogy-foundations" onClick={(e) => handleAcademicLinkClick(e, 'pedagogy-foundations')}>
                     <span className="nav-bullet"></span>
                     <span>Learning-by-Doing Pedagogy</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#t-shaped-curriculum" onClick={(e) => scrollToSection(e, 't-shaped-curriculum')}>
+                  <a href="/#t-shaped-curriculum" onClick={(e) => handleAcademicLinkClick(e, 't-shaped-curriculum')}>
                     <span className="nav-bullet"></span>
                     <span>T-Shaped Core Curriculum</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#learning-sciences" onClick={(e) => scrollToSection(e, 'learning-sciences')}>
+                  <a href="/#learning-sciences" onClick={(e) => handleAcademicLinkClick(e, 'learning-sciences')}>
                     <span className="nav-bullet"></span>
                     <span>Cognitive Apprenticeship</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#real-world-practicum" onClick={(e) => scrollToSection(e, 'real-world-practicum')}>
+                  <a href="/programme#real-world-practicum" onClick={(e) => handleAcademicLinkClick(e, 'real-world-practicum')}>
                     <span className="nav-bullet"></span>
                     <span>Industry Practicum &amp; Co-op</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#campus-life" onClick={(e) => scrollToSection(e, 'campus-life')}>
+                  <a href="/#campus-life" onClick={(e) => handleAcademicLinkClick(e, 'campus-life')}>
                     <span className="nav-bullet"></span>
                     <span>Workstation Studios &amp; Labs</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#career-outcomes" onClick={(e) => scrollToSection(e, 'career-outcomes')}>
+                  <a href="/#career-outcomes" onClick={(e) => handleAcademicLinkClick(e, 'career-outcomes')}>
                     <span className="nav-bullet"></span>
                     <span>Career Outcomes &amp; Alumni</span>
                   </a>

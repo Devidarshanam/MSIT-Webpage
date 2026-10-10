@@ -638,55 +638,39 @@ export default function ApplicationDetailModal({
                 <div className="applicant-info-card">
                   <h4 className="info-card-title">
                     <UsersIcon size={18} />
-                    <span>2. Parent / Guardian Information</span>
+                    <span>2. Emergency Contact Number</span>
                   </h4>
                   {isEditing ? (
                     <div className="info-grid">
                       <div className="info-item">
-                        <span className="label">Relationship:</span>
-                        <select
-                          className="edit-input"
-                          value={editForm.parent_relationship}
-                          onChange={e => setEditForm(p => ({ ...p, parent_relationship: e.target.value }))}
-                        >
-                          <option value="Father">Father</option>
-                          <option value="Mother">Mother</option>
-                          <option value="Legal Guardian">Legal Guardian</option>
-                        </select>
-                      </div>
-                      <div className="info-item">
-                        <span className="label">{editForm.parent_relationship || 'Parent'}'s Name:</span>
+                        <span className="label">Contact Name:</span>
                         <input
                           type="text"
                           className="edit-input"
                           value={editForm.parent_name}
                           onChange={e => setEditForm(p => ({ ...p, parent_name: e.target.value }))}
-                          placeholder="Parent / Guardian Name"
+                          placeholder="Contact Name"
                         />
                       </div>
                       <div className="info-item">
-                        <span className="label">{editForm.parent_relationship || 'Parent'}'s Mobile:</span>
+                        <span className="label">Contact Number:</span>
                         <input
                           type="tel"
                           className="edit-input"
                           value={editForm.alt_phone}
                           onChange={e => setEditForm(p => ({ ...p, alt_phone: e.target.value }))}
-                          placeholder="Parent / Guardian Mobile Phone"
+                          placeholder="Contact Number"
                         />
                       </div>
                     </div>
                   ) : (
                     <div className="info-grid">
                       <div className="info-item">
-                        <span className="label">Relationship:</span>
-                        <strong className="value">{currentApp.parent_relationship || 'Father'}</strong>
-                      </div>
-                      <div className="info-item">
-                        <span className="label">{currentApp.parent_relationship || 'Parent'}'s Name:</span>
+                        <span className="label">Contact Name:</span>
                         <span className="value font-medium">{currentApp.parent_name || 'N/A'}</span>
                       </div>
                       <div className="info-item">
-                        <span className="label">{currentApp.parent_relationship || 'Parent'}'s Mobile:</span>
+                        <span className="label">Contact Number:</span>
                         <span className="value font-medium">{currentApp.alt_phone || 'N/A'}</span>
                       </div>
                     </div>
@@ -821,8 +805,11 @@ export default function ApplicationDetailModal({
                         <span className="value font-medium">{currentApp.university || 'N/A'}</span>
                       </div>
                       <div className="info-item">
-                        <span className="label">Department / Branch:</span>
-                        <span className="value">{currentApp.department || 'N/A'}</span>
+                        <span className="label">Branch / Specialization:</span>
+                        <span className="value">
+                          {currentApp.branch || currentApp.department || 'N/A'}
+                          {currentApp.specialization ? ` (${currentApp.specialization})` : ''}
+                        </span>
                       </div>
                       <div className="info-item">
                         <span className="label">Graduation Year:</span>
@@ -885,16 +872,16 @@ export default function ApplicationDetailModal({
                   </div>
                 </div>
 
-                {/* Section 5: Purpose of Joining MSIT */}
+                {/* Section 5: Statement of Purpose */}
                 {(currentApp.statement_text || currentApp.purpose_to_join) && (
                   <div className="applicant-info-card">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                       <h4 className="info-card-title" style={{ margin: 0 }}>
                         <BookOpenIcon size={18} />
-                        <span>5. Purpose of Joining MSIT</span>
+                        <span>5. Statement of Purpose</span>
                       </h4>
                       <span style={{ fontSize: '0.78rem', fontWeight: '700', color: '#0b2a6b', background: '#eff6ff', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
-                        {currentApp.statement_word_count || (currentApp.statement_text ? currentApp.statement_text.trim().split(/\s+/).length : 0)} / 200 words
+                        {currentApp.statement_word_count || (currentApp.statement_text ? currentApp.statement_text.trim().split(/\s+/).length : 0)} / 300 words
                       </span>
                     </div>
                     <p className="sop-text" style={{ fontStyle: 'italic', background: '#f8fafc', padding: '0.85rem', borderRadius: '8px', border: '1px solid #e2e8f0', margin: 0 }}>
@@ -1078,20 +1065,20 @@ export default function ApplicationDetailModal({
                     {currentApp.gre_score ? ` · GRE Score: ${currentApp.gre_score}` : ''}
                     {currentApp.gate_score ? ` · GATE Score: ${currentApp.gate_score}` : ''}
                     {(currentApp.entrance_exam_status === 'GRE' || currentApp.entrance_exam_status === 'GATE' || currentApp.entrance_exam_status === 'Both')
-                      ? ' — Qualifies via GATE/GRE Pathway (GAT Exam Exempt)'
-                      : ' — Qualifies via GAT Examination Pathway'}
+                      ? ' — Qualifies via GATE/GRE Pathway (MSIT PGEE Exam Exempt)'
+                      : ' — Qualifies via MSIT PGEE Examination Pathway'}
                   </p>
                 </div>
 
                 <form onSubmit={handleSaveWorkflow} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  {/* Section A: GAT Examination */}
+                  {/* Section A: MSIT PGEE Examination */}
                   <div className="applicant-info-card">
                     <h4 className="info-card-title">
-                      <span>1. GAT Examination Evaluation (For Non-GATE/GRE Candidates)</span>
+                      <span>1. MSIT PGEE Examination Evaluation (For Non-GATE/GRE Candidates)</span>
                     </h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '0.75rem' }}>
                       <div className="form-field-group">
-                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Exam Status</label>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>MSIT PGEE Exam Status</label>
                         <select 
                           className="form-control"
                           value={workflowGatStatus}
@@ -1105,7 +1092,7 @@ export default function ApplicationDetailModal({
                       </div>
 
                       <div className="form-field-group">
-                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Exam Date</label>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>MSIT PGEE Exam Date</label>
                         <input 
                           type="text"
                           className="form-control"
@@ -1116,7 +1103,7 @@ export default function ApplicationDetailModal({
                       </div>
 
                       <div className="form-field-group">
-                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Score</label>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>MSIT PGEE Score</label>
                         <input 
                           type="text"
                           className="form-control"
@@ -1127,7 +1114,7 @@ export default function ApplicationDetailModal({
                       </div>
 
                       <div className="form-field-group">
-                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>GAT Result</label>
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>MSIT PGEE Result</label>
                         <select 
                           className="form-control"
                           value={workflowGatResult}

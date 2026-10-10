@@ -813,7 +813,7 @@ export async function updateDocumentStatus(applicationId, docId, newDocStatus, r
 }
 
 /**
- * Generic helper to update candidate-level workflow records (interview schedule, GAT result, onboarding).
+ * Generic helper to update candidate-level workflow records (interview schedule, MSIT PGEE result, onboarding).
  */
 export async function updateApplicationRecord(applicationId, patchData, adminEmail = 'admin') {
   const now = new Date().toISOString();

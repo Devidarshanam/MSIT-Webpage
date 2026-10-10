@@ -10,6 +10,7 @@ import msitData from '../data/msitData.json';
 import DashboardSubNav from '../components/postlogin/DashboardSubNav';
 import StudentDashboardHeader from '../components/postlogin/StudentDashboardHeader';
 import ProgrammeOverviewSection from '../components/postlogin/ProgrammeOverviewSection';
+import ExplorePracticum from '../components/explore/ExplorePracticum';
 import FeesAndFinancialSupportSection from '../components/postlogin/FeesAndFinancialSupportSection';
 import DocumentsAndFAQSection from '../components/postlogin/DocumentsAndFAQSection';
 import AcademicSummaryModal from '../components/postlogin/AcademicSummaryModal';
@@ -121,6 +122,22 @@ export default function ProgrammePage() {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, [user]);
+
+  // Handle hash anchor scrolling when arriving with an anchor hash
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const anchorId = window.location.hash.replace('#', '');
+      if (anchorId) {
+        const timer = setTimeout(() => {
+          const target = document.getElementById(anchorId);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 200);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, []);
 
   // If user arrived with intent to login to admin, auto-redirect to admin dashboard
   React.useEffect(() => {
@@ -291,6 +308,11 @@ export default function ProgrammePage() {
           2. PROGRAMME OVERVIEW (Specifications & Academic Anchor)
           ============================================================ */}
       <ProgrammeOverviewSection data={msitData.overview} />
+
+      {/* ============================================================
+          REAL-WORLD PRACTICUM & PROJECTS
+          ============================================================ */}
+      <ExplorePracticum />
 
       {/* ============================================================
           3. FEES & FINANCIAL SUPPORT

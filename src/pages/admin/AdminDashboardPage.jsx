@@ -1324,7 +1324,7 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
 
                       <div className="form-group">
                         <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '600', color: '#1e293b', marginBottom: '0.4rem' }}>
-                          GAT Examination Date (For Candidates Without GRE/GATE)
+                          MSIT PGEE Examination Date (For Candidates Without GRE/GATE)
                         </label>
                         <input
                           type="text"

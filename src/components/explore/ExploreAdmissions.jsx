@@ -55,7 +55,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
               <span className="detail-check">✓</span>
               <div>
                 <strong>Flexible Entrance Evaluation</strong>
-                <p>Qualify via valid national exam scores (GATE / GRE) or take the dedicated MSIT Graduate Aptitude Test (GAT).</p>
+                <p>Qualify via valid national exam scores (GATE / GRE) or take the dedicated MSIT Postgraduate Entrance Examination (MSIT PGEE).</p>
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
             </div>
             <span className="step-stage-tag">Step 2 • Aptitude Assessment</span>
             <h4>Aptitude Evaluation</h4>
-            <p>Demonstrate logical reasoning and problem-solving through valid GATE / GRE percentiles or the official MSIT online entrance test (GAT).</p>
+            <p>Demonstrate logical reasoning and problem-solving through valid GATE / GRE percentiles or the official MSIT Postgraduate Entrance Examination (MSIT PGEE).</p>
           </div>
 
           {/* Step 3 */}
@@ -111,11 +111,65 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
                 <CheckCircleIcon size={20} />
               </div>
             </div>
-            <span className="step-stage-tag">Step 4 • Studio Onboarding</span>
-            <h4>Studio Allotment &amp; Offer</h4>
-            <p>Receive your admission confirmation, get your workstation, and prepare to begin the programme.</p>
+            <span className="step-stage-tag">STEP 4 · ONBOARDING</span>
+            <h4>Offer Letter</h4>
+            <p>Receive your admission confirmation, reserve your seat, and prepare to begin the programme.</p>
           </div>
 
+        </div>
+
+        {/* Admissions Schedule & Key Dates */}
+        <div className="admissions-schedule-card">
+          <div className="schedule-card-header">
+            <div className="schedule-title-group">
+              <span className="schedule-badge">Admissions Schedule</span>
+              <h3>Admissions Schedule &amp; Confirmed Dates</h3>
+              <p className="schedule-subtitle">Official timeline for the January 2027 Cohort</p>
+            </div>
+            <div className="commencement-highlight-pill">
+              <span className="pill-dot"></span>
+              <span>Programme Commencement: <strong>2 January 2027</strong></span>
+            </div>
+          </div>
+
+          <div className="schedule-table-wrap">
+            <table className="admissions-schedule-table">
+              <thead>
+                <tr>
+                  <th scope="col">Admissions Item</th>
+                  <th scope="col">Cycle I</th>
+                  <th scope="col">Cycle II</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Apply by</strong></td>
+                  <td><span className="schedule-date-badge">7 November 2026</span></td>
+                  <td><span className="schedule-date-badge">7 December 2026</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Exam</strong></td>
+                  <td><span className="schedule-date-badge">11 November 2026</span></td>
+                  <td><span className="schedule-date-badge">11 December 2026</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="schedule-footer-notes">
+            <div className="schedule-note-row">
+              <span className="schedule-note-icon">•</span>
+              <span>Interviews follow the examination in each cycle.</span>
+            </div>
+            <div className="schedule-note-row">
+              <span className="schedule-note-icon">•</span>
+              <span><strong>Final admit list:</strong> 20 December 2026</span>
+            </div>
+            <div className="schedule-note-row">
+              <span className="schedule-note-icon">•</span>
+              <span><strong>Programme commencement:</strong> 2 January 2027</span>
+            </div>
+          </div>
         </div>
 
         {/* Admissions Action & Guidance Card */}
