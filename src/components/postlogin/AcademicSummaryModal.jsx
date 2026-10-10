@@ -17,7 +17,7 @@ export default function AcademicSummaryModal({ isOpen, onClose }) {
           <div className="modal-header-branding">
             <span className="kicker">Official Factsheet Summary</span>
             <h3 id="summaryModalTitle">MSIT — Master of Science in Information Technology</h3>
-            <span className="modal-subtitle">Consortium of Higher Learning · IIIT Hyderabad Anchor</span>
+            <span className="modal-subtitle">Consortium of Institutions of Higher Learning · IIIT Hyderabad Anchor</span>
           </div>
           <button
             className="modal-close-btn"
@@ -37,7 +37,7 @@ export default function AcademicSummaryModal({ isOpen, onClose }) {
               </div>
               <ul className="summary-list compact">
                 <li><strong>Degree:</strong> Master of Science in Information Technology (MSIT).</li>
-                <li><strong>Awarding Body:</strong> Consortium of Higher Learning (IIIT Hyderabad & State Universities).</li>
+                <li><strong>Awarding Body:</strong> IIIT Hyderabad.</li>
                 <li><strong>Founding Legacy:</strong> Conceived in 2001 by Turing Award Laureate Prof. Raj Reddy.</li>
               </ul>
             </div>

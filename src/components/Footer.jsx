@@ -46,7 +46,7 @@ export default function Footer({ onGoToSignIn }) {
                   className="footer-logo-main" 
                 />
               </div>
-              <h3 className="footer-brand-title">Consortium of Higher Learning</h3>
+              <h3 className="footer-brand-title">Consortium of Institutions of Higher Learning</h3>
               <div className="footer-programme-tag">
                 Master of Science in Information Technology (MSIT)
               </div>

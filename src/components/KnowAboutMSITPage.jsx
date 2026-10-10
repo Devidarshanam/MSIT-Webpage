@@ -90,7 +90,7 @@ export default function KnowAboutMSITPage({ onBack, onGoToSignIn }) {
             <img src="/assets/msit-logo.png" alt="MSIT Logo" className="explore-header-logo" width="46" height="46" />
             <div className="explore-brand-text">
               <span className="explore-brand-title">MSIT</span>
-              <span className="explore-brand-sub">Consortium of Higher Learning</span>
+              <span className="explore-brand-sub">Consortium of Institutions of Higher Learning</span>
             </div>
           </a>
         </div>
