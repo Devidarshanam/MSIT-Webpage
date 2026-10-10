@@ -74,7 +74,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
             </div>
             <span className="step-stage-tag">Step 1 • Initial Registration</span>
             <h4>Register Interest &amp; Profile</h4>
-            <p>Create your candidate account on the admissions portal and submit academic details.</p>
+            <p>Create your candidate account on the admissions portal and complete your academic details.</p>
           </div>
 
           {/* Step 2 */}
