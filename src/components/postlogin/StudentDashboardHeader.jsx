@@ -398,7 +398,7 @@ export default function StudentDashboardHeader({
               ? 'Interview Scheduled'
               : 'Awaiting Scheduling',
       metaText: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
-        ? (!isGateGrePathway ? 'Awaiting MSIT PGEE exam result' : 'Awaiting prior verification')
+        ? (!isGateGrePathway ? 'Awaiting evaluation result' : 'Awaiting prior verification')
         : isInterviewPassed
           ? 'Outcome: Recommended for Admission'
           : isInterviewUnsuccessful
