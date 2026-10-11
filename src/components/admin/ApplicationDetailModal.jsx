@@ -600,7 +600,11 @@ export default function ApplicationDetailModal({
                       <strong>Committee Decision ({currentApp.status}):</strong>
                       <span>By {currentApp.decided_by || 'Admissions Team'} on {currentApp.decided_at ? new Date(currentApp.decided_at).toLocaleString() : 'N/A'}</span>
                     </div>
-                    <p className="summary-reason-text">{currentApp.decision_reason}</p>
+                    <p className="summary-reason-text">
+                      {currentApp.decision_reason
+                        ?.replace(/faculty\s*(interview)?\s*round/gi, 'one on one interview')
+                        ?.replace(/faculty interview/gi, 'one on one interview')}
+                    </p>
                   </div>
                 )}
 
@@ -1430,7 +1434,9 @@ export default function ApplicationDetailModal({
                           </p>
                           {item.reason && (
                             <p className="timeline-reason">
-                              Reason / Note: {item.reason}
+                              Reason / Note: {item.reason
+                                ?.replace(/faculty\s*(interview)?\s*round/gi, 'one on one interview')
+                                ?.replace(/faculty interview/gi, 'one on one interview')}
                             </p>
                           )}
                         </div>

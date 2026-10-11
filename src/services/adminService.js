@@ -413,6 +413,12 @@ export function enrichApplicationRecord(app, localApps = []) {
     }
   }
 
+  if (enriched.decision_reason) {
+    enriched.decision_reason = enriched.decision_reason
+      .replace(/faculty\s*(interview)?\s*round/gi, 'one on one interview')
+      .replace(/faculty interview/gi, 'one on one interview');
+  }
+
   // If Supabase was missing critical fields or contained stale dummy values, sync cleansed values
   if (isSupabaseConfigured() && supabase && app.application_id && !app.isMock) {
     const patch = {};
@@ -727,6 +733,9 @@ export function calculateDashboardMetrics(applications = []) {
 export async function updateApplicationStatus(applicationId, newStatus, reason = null, adminEmail = 'admin', fallbackApp = null, extraFields = {}) {
   const now = new Date().toISOString();
   const isUuid = (val) => Boolean(val && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(val).trim()));
+  const cleanReason = reason 
+    ? reason.replace(/faculty\s*(interview)?\s*round/gi, 'one on one interview').replace(/faculty interview/gi, 'one on one interview')
+    : reason;
 
   // 1. Update local storage
   let localApps = [];
@@ -746,7 +755,7 @@ export async function updateApplicationStatus(applicationId, newStatus, reason =
         ...(fallbackApp || {}),
         ...(extraFields || {}),
         status: newStatus,
-        decision_reason: reason,
+        decision_reason: cleanReason,
         decided_by: adminEmail,
         decided_at: now,
         updated_at: now
@@ -981,7 +990,14 @@ function logStatusHistory(applicationId, previousStatus, newStatus, adminEmail, 
 export function getStatusHistory(applicationId) {
   try {
     const logs = JSON.parse(localStorage.getItem(ADMIN_LOCAL_STORAGE_LOGS_KEY) || '[]');
-    return logs.filter(l => l.application_id === applicationId);
+    return logs
+      .filter(l => l.application_id === applicationId)
+      .map(l => ({
+        ...l,
+        reason: l.reason 
+          ? l.reason.replace(/faculty\s*(interview)?\s*round/gi, 'one on one interview').replace(/faculty interview/gi, 'one on one interview') 
+          : l.reason
+      }));
   } catch (e) {
     return [];
   }
