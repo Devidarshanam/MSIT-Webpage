@@ -77,7 +77,7 @@ export default function ExploreWhoIsFor() {
               <div className="who-eligibility-item">
                 <span className="who-eligibility-bullet">01</span>
                 <div>
-                  <strong>16 Years of Education:</strong> B.Tech / B.E. graduates or final-year students from any engineering branch.
+                  <strong>16 Years of Education:</strong> Graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math.
                 </div>
               </div>
               <div className="who-eligibility-item">

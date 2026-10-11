@@ -23,7 +23,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
           <h2>How to Join the MSIT Cohort</h2>
           <p className="section-lead">
             We follow a structured evaluation pathway designed to identify motivated problem-solvers with an active 
-            builder mindset. Open to engineering graduates and final-year students from all engineering disciplines.
+            builder mindset. Graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math.
           </p>
         </div>
 
