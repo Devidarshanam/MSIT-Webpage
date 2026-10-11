@@ -99,7 +99,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
               </div>
             </div>
             <span className="step-stage-tag">Step 3 • Technical Counseling</span>
-            <h4>Interactive Interview</h4>
+            <h4>One-on-One Interview</h4>
             <p>Engage in a constructive 1-on-1 dialogue with academic mentors focused on analytical thinking, curiosity, and learning mindset.</p>
           </div>
 
@@ -181,7 +181,7 @@ export default function ExploreAdmissions({ onGoToSignIn }) {
             </div>
             <h4>Ready to Transform into a Production-Ready Software &amp; AI Engineer?</h4>
             <p>
-              Experience the 100% active learning-by-doing pedagogy. Open to all graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math. Work in dedicated workstation studios and earn a prestigious multi-university Master's degree.
+              Experience the 100% active learning-by-doing pedagogy. Open to all graduates with 16 years of formal education with a willingness to work with Computer Science, AI and Math. Work in dedicated workstation studios and earn a prestigious Master's degree awarded by IIITH.
             </p>
             <div className="admissions-action-badges-row">
               <span className="action-badge-pill">🎓 Degree awarded by IIITH</span>

@@ -16,7 +16,7 @@ export default function ExploreFinalCTA({ onGoToSignIn }) {
             <h2>Ready to Transform into a Production-Ready Software Engineer?</h2>
             
             <p className="final-cta-lead">
-              Experience the 100% active learning-by-doing pedagogy. Work in dedicated workstation studios, solve industry challenges, and graduate with a prestigious multi-university Master's degree.
+              Experience the 100% active learning-by-doing pedagogy. Work in dedicated workstation studios, solve industry challenges, and graduate with a prestigious Master's degree awarded by IIITH.
             </p>
             
             <div className="final-cta-actions">
@@ -36,7 +36,7 @@ export default function ExploreFinalCTA({ onGoToSignIn }) {
             <div className="final-cta-highlights">
               <div className="cta-highlight-item">
                 <GraduationCapIcon size={18} />
-                <span>Multi-University Master's</span>
+                <span>Master's Degree Awarded by IIITH</span>
               </div>
               <div className="cta-highlight-item">
                 <BuildingIcon size={18} />
