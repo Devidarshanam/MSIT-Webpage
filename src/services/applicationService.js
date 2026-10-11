@@ -195,6 +195,16 @@ export async function getUserApplication(authUser) {
             app.decided_by = matchingSubmitted.decided_by || app.decided_by;
             app.decided_at = matchingSubmitted.decided_at || app.decided_at;
           }
+          if (matchingSubmitted.gat_exam_date) app.gat_exam_date = matchingSubmitted.gat_exam_date;
+          if (matchingSubmitted.gat_slot) app.gat_slot = matchingSubmitted.gat_slot;
+          if (matchingSubmitted.gat_mode) app.gat_mode = matchingSubmitted.gat_mode;
+          if (matchingSubmitted.gat_location) app.gat_location = matchingSubmitted.gat_location;
+          if (matchingSubmitted.gat_status) app.gat_status = matchingSubmitted.gat_status;
+          if (matchingSubmitted.interview_date) app.interview_date = matchingSubmitted.interview_date;
+          if (matchingSubmitted.interview_time) app.interview_time = matchingSubmitted.interview_time;
+          if (matchingSubmitted.interview_mode) app.interview_mode = matchingSubmitted.interview_mode;
+          if (matchingSubmitted.interview_location) app.interview_location = matchingSubmitted.interview_location;
+          if (matchingSubmitted.interview_status) app.interview_status = matchingSubmitted.interview_status;
 
           const hasAppDocs = app.documents && (
             (Array.isArray(app.documents) && app.documents.length > 0) ||

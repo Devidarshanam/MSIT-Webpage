@@ -7032,6 +7032,17 @@ p {
   border-color: #bfdbfe;
 }
 
+.prep-checklist-card.is-disabled {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  opacity: 0.65;
+}
+
+.prep-checklist-card.is-disabled .checklist-num-wrap {
+  background: #cbd5e1;
+  color: #64748b;
+}
+
 .checklist-num-wrap {
   width: 26px;
   height: 26px;
@@ -7119,6 +7130,12 @@ p {
 .checklist-status-badge.badge-neutral {
   background: #f1f5f9;
   color: #475569;
+}
+
+.checklist-status-badge.badge-disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  border: 1px solid #e2e8f0;
 }
 
 .checklist-status-meta {
