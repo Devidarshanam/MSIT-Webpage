@@ -17,8 +17,8 @@ export default function ConfirmDecisionModal({
   // Interview state
   const [interviewDate, setInterviewDate] = useState('');
   const [interviewTime, setInterviewTime] = useState('10:30 AM IST');
-  const [interviewMode, setInterviewMode] = useState('Online Video Meeting (Google Meet)');
-  const [interviewLocation, setInterviewLocation] = useState('');
+  const [interviewMode, setInterviewMode] = useState('In-Person (IIITH Nilgiri)');
+  const [interviewLocation, setInterviewLocation] = useState('IIITH Nilgiri');
 
   // PGEE Exam state
   const [gatDate, setGatDate] = useState('2026-12-15');
@@ -72,13 +72,13 @@ export default function ConfirmDecisionModal({
         return;
       }
       if (!finalReason) {
-        finalReason = `Shortlisted for faculty interview round on ${interviewDate} at ${interviewTime} (${interviewMode}).`;
+        finalReason = `Shortlisted for in-person faculty interview round on ${interviewDate} at ${interviewTime} at IIITH Nilgiri.`;
       }
       extraPayload.status = 'Interview Scheduled';
       extraPayload.interview_date = interviewDate;
       extraPayload.interview_time = interviewTime;
-      extraPayload.interview_mode = interviewMode;
-      extraPayload.interview_location = interviewLocation.trim();
+      extraPayload.interview_mode = 'In-Person (IIITH Nilgiri)';
+      extraPayload.interview_location = 'IIITH Nilgiri';
       extraPayload.interview_status = 'Scheduled';
     } else if (isPgee) {
       if (!gatDate) {
@@ -156,7 +156,7 @@ export default function ConfirmDecisionModal({
                   Candidate Qualified for Faculty Interview
                 </p>
                 <span style={{ fontSize: '0.82rem', color: '#3b82f6', display: 'block', marginTop: '0.25rem' }}>
-                  Applicant holds verified entrance scores and documents. Set the interview schedule below to notify the candidate on their portal.
+                  Applicant holds verified entrance scores and documents. Set the interview date and time below for their in-person interview at IIITH Nilgiri.
                 </span>
               </div>
 
@@ -179,7 +179,7 @@ export default function ConfirmDecisionModal({
 
                 <div className="form-field-group">
                   <label htmlFor="interviewTimeSelect" style={{ fontSize: '0.82rem', fontWeight: 600 }}>
-                    Interview Time Slot
+                    Interview Time Slot <span className="req">*</span>
                   </label>
                   <select
                     id="interviewTimeSelect"
@@ -198,36 +198,14 @@ export default function ConfirmDecisionModal({
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem', marginBottom: '1rem' }}>
-                <div className="form-field-group">
-                  <label htmlFor="interviewModeSelect" style={{ fontSize: '0.82rem', fontWeight: 600 }}>
-                    Interview Mode
-                  </label>
-                  <select
-                    id="interviewModeSelect"
-                    className="form-control"
-                    value={interviewMode}
-                    onChange={e => setInterviewMode(e.target.value)}
-                  >
-                    <option value="Online Video Meeting (Google Meet)">Online Video Meeting (Google Meet)</option>
-                    <option value="In-Person (IIIT Hyderabad Campus)">In-Person (IIIT Hyderabad)</option>
-                    <option value="In-Person (JNTU Hyderabad Campus)">In-Person (JNTU Hyderabad)</option>
-                  </select>
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <span style={{ fontSize: '0.74rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '700', display: 'block' }}>Interview Mode &amp; Venue</span>
+                  <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>In-Person (IIITH Nilgiri)</strong>
                 </div>
-
-                <div className="form-field-group">
-                  <label htmlFor="interviewLocInput" style={{ fontSize: '0.82rem', fontWeight: 600 }}>
-                    Meeting Link or Room (Optional)
-                  </label>
-                  <input
-                    id="interviewLocInput"
-                    type="text"
-                    className="form-control"
-                    placeholder="e.g. https://meet.google.com/xyz-abc or Room 204"
-                    value={interviewLocation}
-                    onChange={e => setInterviewLocation(e.target.value)}
-                  />
-                </div>
+                <span style={{ background: '#dbeafe', color: '#1e40af', fontSize: '0.75rem', fontWeight: '700', padding: '0.25rem 0.6rem', borderRadius: '4px' }}>
+                  🏛️ IIITH Campus
+                </span>
               </div>
             </>
           )}
