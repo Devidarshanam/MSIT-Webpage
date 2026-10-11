@@ -109,12 +109,6 @@ export default function Footer({ onGoToSignIn }) {
                   </a>
                 </li>
                 <li>
-                  <a href="/programme#real-world-practicum" onClick={(e) => handleAcademicLinkClick(e, 'real-world-practicum')}>
-                    <span className="nav-bullet"></span>
-                    <span>Industry Practicum &amp; Co-op</span>
-                  </a>
-                </li>
-                <li>
                   <a href="/#campus-life" onClick={(e) => handleAcademicLinkClick(e, 'campus-life')}>
                     <span className="nav-bullet"></span>
                     <span>Workstation Studios &amp; Labs</span>

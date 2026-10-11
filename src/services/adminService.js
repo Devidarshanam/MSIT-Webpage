@@ -96,9 +96,9 @@ const SEED_MOCK_APPLICATIONS = [
     parent_relationship: 'Father',
     parent_name: 'Venkata Varma',
     alt_phone: '+91 97000 44210',
-    ug_degree: 'B.Tech / B.E.',
+    ug_degree: 'MCA (Master of Computer Applications)',
     university: 'Andhra University College of Engineering',
-    department: 'Data Science / AI / ML',
+    department: 'Computer Applications / Software Systems',
     cgpa: '8.4 CGPA',
     passing_year: '2024',
     class10_score: '86.5%',
@@ -118,7 +118,7 @@ const SEED_MOCK_APPLICATIONS = [
     updated_at: new Date(Date.now() - 8 * 3600 * 1000).toISOString(),
     isMock: true,
     documents: [
-      { id: 'doc_003_1', doc_type: 'Marksheets / Transcripts', file_name: 'Karthik_BTech_Marksheets.pdf', file_size: '4.2 MB', status: 'Verified', rejection_reason: null },
+      { id: 'doc_003_1', doc_type: 'Marksheets / Transcripts', file_name: 'Karthik_MCA_Marksheets.pdf', file_size: '4.2 MB', status: 'Verified', rejection_reason: null },
       { id: 'doc_003_2', doc_type: 'Degree / Provisional Certificate', file_name: 'Degree_Certificate_Blurred.jpg', file_size: '450 KB', status: 'Rejected', rejection_reason: 'Document scan is blurry and university stamp is unreadable. Please upload a clear high-resolution color PDF.' },
       { id: 'doc_003_3', doc_type: 'Photo ID Proof', file_name: 'Aadhaar_Karthik.pdf', file_size: '720 KB', status: 'Verified', rejection_reason: null }
     ]
@@ -134,9 +134,9 @@ const SEED_MOCK_APPLICATIONS = [
     parent_relationship: 'Father',
     parent_name: 'Dinesh Patel',
     alt_phone: '+91 99887 66550',
-    ug_degree: 'B.Tech / B.E.',
-    university: 'Nirma University Institute of Technology',
-    department: 'Electronics & Communication (ECE)',
+    ug_degree: 'B.Sc (Computer Science / IT / Allied)',
+    university: 'Nirma University Institute of Science',
+    department: 'Computer Science & Mathematics',
     cgpa: '9.4 CGPA',
     passing_year: '2026',
     class10_score: '96.2%',
@@ -200,41 +200,24 @@ const SEED_MOCK_APPLICATIONS = [
 ];
 
 /**
- * Initialize local storage with mock seed data if empty.
+ * Ensure local store contains only valid candidate applications without injecting dummy data.
  */
 function ensureInitializedLocalStore() {
   try {
     const existing = localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY);
-    if (!existing) {
-      localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(SEED_MOCK_APPLICATIONS));
-    } else {
-      const parsed = JSON.parse(existing);
-      let changed = false;
-      const updated = parsed.map(app => {
-        const seed = SEED_MOCK_APPLICATIONS.find(s => s.application_id === app.application_id || s.id === app.id);
-        if (seed) {
-          const hasMissingScores = !app.class10_score || !app.inter_score || (seed.gre_score && !app.gre_score);
-          if (hasMissingScores || (app.ug_degree && app.ug_degree !== 'B.Tech / B.E.')) {
-            changed = true;
-            return {
-              ...seed,
-              ...app,
-              ug_degree: 'B.Tech / B.E.',
-              class10_score: app.class10_score || seed.class10_score,
-              inter_score: app.inter_score || seed.inter_score,
-              gre_score: app.gre_score || seed.gre_score,
-              entrance_exam_status: app.entrance_exam_status || seed.entrance_exam_status
-            };
-          }
+    if (existing) {
+      let parsed = null;
+      try {
+        parsed = JSON.parse(existing);
+      } catch (e) {
+        parsed = null;
+      }
+      if (Array.isArray(parsed)) {
+        // Strip out any dummy/mock records so only authentic applicant records remain
+        const cleaned = parsed.filter(a => !a.isMock && !(a.id && String(a.id).startsWith('mock_app_')));
+        if (cleaned.length !== parsed.length) {
+          localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(cleaned));
         }
-        if (app.ug_degree && app.ug_degree !== 'B.Tech / B.E.') {
-          changed = true;
-          return { ...app, ug_degree: 'B.Tech / B.E.' };
-        }
-        return app;
-      });
-      if (changed) {
-        localStorage.setItem(ADMIN_LOCAL_STORAGE_APPS_KEY, JSON.stringify(updated));
       }
     }
   } catch (e) {}
@@ -371,6 +354,21 @@ export function enrichApplicationRecord(app, localApps = []) {
     gate_year: getCleanVal(app.gate_year, fallback.gate_year, fallback.gateYear),
     cv_url: getCleanVal(app.cv_url, fallback.cv_url, fallback.cvDocument?.fileUrl),
     cv_filename: getCleanVal(app.cv_filename, fallback.cv_filename, fallback.cvDocument?.fileName, 'Candidate_CV_Resume.pdf'),
+    interview_date: getCleanVal(app.interview_date, fallback.interview_date, localMatch?.interview_date),
+    interview_time: getCleanVal(app.interview_time, fallback.interview_time, localMatch?.interview_time),
+    interview_mode: getCleanVal(app.interview_mode, fallback.interview_mode, localMatch?.interview_mode),
+    interview_location: getCleanVal(app.interview_location, fallback.interview_location, localMatch?.interview_location),
+    interview_status: getCleanVal(app.interview_status, fallback.interview_status, localMatch?.interview_status),
+    interview_outcome: getCleanVal(app.interview_outcome, fallback.interview_outcome, localMatch?.interview_outcome),
+    gat_exam_date: getCleanVal(app.gat_exam_date, fallback.gat_exam_date, localMatch?.gat_exam_date),
+    gat_slot: getCleanVal(app.gat_slot, fallback.gat_slot, localMatch?.gat_slot),
+    gat_mode: getCleanVal(app.gat_mode, fallback.gat_mode, localMatch?.gat_mode),
+    gat_status: getCleanVal(app.gat_status, fallback.gat_status, localMatch?.gat_status),
+    gat_score: getCleanVal(app.gat_score, fallback.gat_score, localMatch?.gat_score),
+    gat_result: getCleanVal(app.gat_result, fallback.gat_result, localMatch?.gat_result),
+    onboarding_date: getCleanVal(app.onboarding_date, fallback.onboarding_date, localMatch?.onboarding_date),
+    onboarding_status: getCleanVal(app.onboarding_status, fallback.onboarding_status, localMatch?.onboarding_status),
+    admission_offer: getCleanVal(app.admission_offer, fallback.admission_offer, localMatch?.admission_offer),
     documents: (Array.isArray(fallback.documents) && fallback.documents.length > 0)
       ? fallback.documents
       : (Array.isArray(app.documents) && app.documents.length > 0 ? app.documents : [
@@ -381,15 +379,36 @@ export function enrichApplicationRecord(app, localApps = []) {
   };
 
   // Preserve latest admission decisions recorded in local storage or candidate keys
-  if (localMatch && localMatch.status && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(localMatch.status)) {
+  const decisionStatuses = [
+    'Accepted', 
+    'Declined', 
+    'Under Review', 
+    'Additional Information Required', 
+    'Interview Scheduled', 
+    'Shortlisted for Interview', 
+    'Scheduled for MSIT PGEE Exam', 
+    'MSIT PGEE Exam Required',
+    'Awaiting MSIT PGEE Result'
+  ];
+
+  if (localMatch && localMatch.status && decisionStatuses.includes(localMatch.status)) {
     enriched.status = localMatch.status;
     enriched.decision_reason = localMatch.decision_reason || enriched.decision_reason;
     enriched.decided_by = localMatch.decided_by || enriched.decided_by;
     enriched.decided_at = localMatch.decided_at || enriched.decided_at;
+    if (localMatch.interview_date) enriched.interview_date = localMatch.interview_date;
+    if (localMatch.interview_time) enriched.interview_time = localMatch.interview_time;
+    if (localMatch.interview_mode) enriched.interview_mode = localMatch.interview_mode;
+    if (localMatch.interview_location) enriched.interview_location = localMatch.interview_location;
+    if (localMatch.interview_status) enriched.interview_status = localMatch.interview_status;
+    if (localMatch.gat_exam_date) enriched.gat_exam_date = localMatch.gat_exam_date;
+    if (localMatch.gat_slot) enriched.gat_slot = localMatch.gat_slot;
+    if (localMatch.gat_mode) enriched.gat_mode = localMatch.gat_mode;
+    if (localMatch.gat_status) enriched.gat_status = localMatch.gat_status;
   }
-  if (candidateEmail && typeof localStorage !== 'undefined') {
-    const directStatus = localStorage.getItem(`msit_app_status_${candidateEmail}`) || localStorage.getItem(`msit_application_status_${candidateEmail}`);
-    if (directStatus && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(directStatus)) {
+  if (email && typeof localStorage !== 'undefined') {
+    const directStatus = localStorage.getItem(`msit_app_status_${email}`) || localStorage.getItem(`msit_application_status_${email}`);
+    if (directStatus && decisionStatuses.includes(directStatus)) {
       enriched.status = directStatus;
     }
   }
@@ -525,19 +544,25 @@ export async function fetchAllApplications() {
     }
   }
 
-  // Retrieve locally stored records
+  // Retrieve locally stored records (real applications only, no dummy data)
   let localApps = [];
   try {
-    localApps = JSON.parse(localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY) || '[]');
+    const raw = localStorage.getItem(ADMIN_LOCAL_STORAGE_APPS_KEY);
+    localApps = raw ? JSON.parse(raw) : [];
   } catch (e) {
-    localApps = SEED_MOCK_APPLICATIONS;
+    localApps = [];
   }
+  if (!Array.isArray(localApps)) {
+    localApps = [];
+  }
+  // Exclude any dummy/mock records
+  localApps = localApps.filter(a => !a.isMock && !(a.id && String(a.id).startsWith('mock_app_')));
 
   // Merge unique by application_id, enriching both live and local apps with full details
   const mergedMap = new Map();
   let localModified = false;
 
-  liveApps.forEach(app => {
+  liveApps.filter(a => !a.isMock).forEach(app => {
     // Check if localApps has an explicit decision recorded
     const localMatch = localApps.find(a => 
       (a.application_id && a.application_id === app.application_id) ||
@@ -562,7 +587,9 @@ export async function fetchAllApplications() {
     }
 
     const enriched = enrichApplicationRecord(effectiveApp, localApps);
-    mergedMap.set(enriched.application_id, enriched);
+    if (!enriched.isMock) {
+      mergedMap.set(enriched.application_id, enriched);
+    }
   });
   localApps.forEach((localApp, idx) => {
     const enriched = enrichApplicationRecord(localApp, localApps);
@@ -570,10 +597,73 @@ export async function fetchAllApplications() {
       localApps[idx] = enriched;
       localModified = true;
     }
-    if (!mergedMap.has(enriched.application_id)) {
+    if (!enriched.isMock && !mergedMap.has(enriched.application_id)) {
       mergedMap.set(enriched.application_id, enriched);
     }
   });
+
+  // Also scan localStorage for any candidate filled applications or drafts
+  if (typeof localStorage !== 'undefined') {
+    try {
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (!key) continue;
+        if (
+          key.startsWith('msit_student_application_') ||
+          key.startsWith('msit_app_draft_') ||
+          key.startsWith('msit_application_draft_')
+        ) {
+          try {
+            const raw = localStorage.getItem(key);
+            if (raw) {
+              const item = JSON.parse(raw);
+              if (item && (item.fullName || item.full_name || item.email || item.applicationId || item.application_id)) {
+                const email = (item.email || '').trim().toLowerCase();
+                const appId = item.application_id || item.applicationId || `MSIT-2027-${Math.floor(10000 + Math.random() * 90000)}`;
+                const appObj = {
+                  id: item.id || appId,
+                  application_id: appId,
+                  full_name: item.fullName || item.full_name || 'Applicant',
+                  email: email,
+                  phone: item.phone || '',
+                  dob: item.dob || null,
+                  address: item.address || '',
+                  parent_relationship: item.parentRelationship || item.parent_relationship || 'Father',
+                  parent_name: item.parentName || item.parent_name || '',
+                  alt_phone: item.altPhone || item.alt_phone || '',
+                  class10_score: item.class10Score || item.class10_score || null,
+                  inter_pathway: item.interPathway || item.inter_pathway || 'Class 12 / Intermediate',
+                  inter_score: item.interScore || item.inter_score || null,
+                  ug_degree: item.ugDegree || item.ug_degree || 'B.Tech / B.E.',
+                  university: item.university || '',
+                  department: item.department || '',
+                  cgpa: item.cgpa || '',
+                  passing_year: item.passingYear || item.passing_year || '2026',
+                  has_experience: item.hasExperience || item.has_experience || 'No',
+                  experience_details: item.experienceDetails || item.experience_details || '',
+                  purpose_to_join: item.statementOfPurpose || item.purpose_to_join || '',
+                  status: item.status || (key.startsWith('msit_student_application_') ? 'Submitted' : 'New'),
+                  document_status: item.document_status || 'Pending Review',
+                  cohort: item.cohort || 'January 2027 Intake',
+                  submitted_at: item.submitted_at || item.updated_at || new Date().toISOString(),
+                  updated_at: item.updated_at || new Date().toISOString(),
+                  isMock: false
+                };
+                const enriched = enrichApplicationRecord(appObj, localApps);
+                const hasExisting = Array.from(mergedMap.values()).some(
+                  a => (a.application_id && a.application_id === enriched.application_id) ||
+                       (a.email && email && a.email.toLowerCase() === email)
+                );
+                if (!hasExisting && !enriched.isMock) {
+                  mergedMap.set(enriched.application_id, enriched);
+                }
+              }
+            }
+          } catch (e) {}
+        }
+      }
+    } catch (e) {}
+  }
 
   if (localModified && typeof localStorage !== 'undefined') {
     try {
@@ -595,15 +685,23 @@ export async function fetchAllApplications() {
  */
 export function calculateDashboardMetrics(applications = []) {
   const total = applications.length;
-  const newCount = applications.filter(a => a.status === 'New').length;
-  const underReview = applications.filter(a => a.status === 'Under Review').length;
+  const newCount = applications.filter(a => a.status === 'New' || a.status === 'Submitted' || a.status === 'Draft' || !a.status).length;
+  const underReview = applications.filter(a => 
+    a.status === 'Under Review' || 
+    a.status === 'Interview Scheduled' || 
+    a.status === 'Shortlisted for Interview' || 
+    a.status === 'Scheduled for MSIT PGEE Exam' || 
+    a.status === 'MSIT PGEE Exam Required' || 
+    a.status === 'Awaiting MSIT PGEE Result'
+  ).length;
   const documentsPending = applications.filter(a => 
     a.status === 'Documents Pending' || 
+    a.status === 'Additional Information Required' ||
     a.document_status === 'Pending Review' || 
     a.document_status === 'Rejected'
   ).length;
   const accepted = applications.filter(a => a.status === 'Accepted').length;
-  const declined = applications.filter(a => a.status === 'Declined').length;
+  const declined = applications.filter(a => a.status === 'Declined' || a.status === 'Rejected').length;
 
   return {
     total,
@@ -616,15 +714,17 @@ export function calculateDashboardMetrics(applications = []) {
 }
 
 /**
- * Update an application status (Accept, Decline, Move to Review).
+ * Update an application status (Accept, Decline, Move to Review, Interview, PGEE Exam).
  *
  * @param {string} applicationId - Application ID or UUID
- * @param {string} newStatus - 'New' | 'Under Review' | 'Documents Pending' | 'Documents Verified' | 'Accepted' | 'Declined'
- * @param {string|null} reason - Required for Decline, optional for others
+ * @param {string} newStatus - 'New' | 'Under Review' | 'Documents Pending' | 'Documents Verified' | 'Accepted' | 'Declined' | 'Interview Scheduled' | 'Scheduled for MSIT PGEE Exam' | etc.
+ * @param {string|null} reason - Reason or note
  * @param {string} adminEmail
+ * @param {object|null} fallbackApp
+ * @param {object} extraFields - Additional workflow fields (e.g. interview_date, gat_exam_date)
  * @returns {Promise<{ success: boolean, updatedApp: object|null }>}
  */
-export async function updateApplicationStatus(applicationId, newStatus, reason = null, adminEmail = 'admin', fallbackApp = null) {
+export async function updateApplicationStatus(applicationId, newStatus, reason = null, adminEmail = 'admin', fallbackApp = null, extraFields = {}) {
   const now = new Date().toISOString();
   const isUuid = (val) => Boolean(val && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(String(val).trim()));
 
@@ -644,6 +744,7 @@ export async function updateApplicationStatus(applicationId, newStatus, reason =
       localApps[idx] = {
         ...localApps[idx],
         ...(fallbackApp || {}),
+        ...(extraFields || {}),
         status: newStatus,
         decision_reason: reason,
         decided_by: adminEmail,
@@ -657,6 +758,7 @@ export async function updateApplicationStatus(applicationId, newStatus, reason =
       previousStatus = base.status || 'Submitted';
       updatedApp = enrichApplicationRecord({
         ...base,
+        ...(extraFields || {}),
         application_id: applicationId || base.application_id,
         status: newStatus,
         decision_reason: reason,
@@ -699,7 +801,8 @@ export async function updateApplicationStatus(applicationId, newStatus, reason =
         decision_reason: reason,
         decided_by: adminEmail,
         decided_at: now,
-        updated_at: now
+        updated_at: now,
+        ...(extraFields || {})
       };
 
       let query = supabase.from('applications').update(updatePayload);

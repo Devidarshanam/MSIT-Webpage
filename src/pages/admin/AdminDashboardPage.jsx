@@ -57,7 +57,7 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
     if (certType === 'btech') {
       certObj = {
         type: 'btech',
-        title: 'Undergraduate Degree Certificate (B.Tech / B.E.)',
+        title: `${app.ug_degree || 'Qualifying Degree'} Certificate (16-Year Education)`,
         subtitle: 'Official Degree Award & Consolidated Transcripts Memo',
         applicantName: name,
         applicationId: appId,
@@ -175,13 +175,20 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
     const handleRealtimeStatusSync = (e) => {
       if (e.detail) {
         const updated = e.detail;
-        setApplications(prev => prev.map(a => 
-          ((a.application_id && a.application_id === updated.application_id) ||
-           (a.id && a.id === updated.id) ||
-           (a.email && updated.email && a.email.toLowerCase() === updated.email.toLowerCase()))
-            ? updated 
-            : a
-        ));
+        setApplications(prev => {
+          const idx = prev.findIndex(a => 
+            (a.application_id && a.application_id === updated.application_id) ||
+            (a.id && a.id === updated.id) ||
+            (a.email && updated.email && a.email.toLowerCase() === updated.email.toLowerCase())
+          );
+          if (idx !== -1) {
+            const next = [...prev];
+            next[idx] = { ...next[idx], ...updated };
+            return next;
+          } else {
+            return [updated, ...prev];
+          }
+        });
       }
     };
     window.addEventListener('msit:application-status-updated', handleRealtimeStatusSync);
@@ -715,8 +722,11 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                       <option value="ALL">All Statuses</option>
                       <option value="New">New</option>
                       <option value="Under Review">Under Review</option>
+                      <option value="Interview Scheduled">Interview Scheduled</option>
+                      <option value="Scheduled for MSIT PGEE Exam">Scheduled for MSIT PGEE Exam</option>
                       <option value="Documents Pending">Documents Pending</option>
                       <option value="Documents Verified">Documents Verified</option>
+                      <option value="Additional Information Required">Action Required</option>
                       <option value="Accepted">Accepted</option>
                       <option value="Declined">Declined</option>
                     </select>
@@ -800,7 +810,7 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                           <th>Applicant Name & Email</th>
                           <th>Application ID</th>
                           <th>Application Date</th>
-                          <th title="B.Tech / Undergraduate Score & Certificate">BTX</th>
+                          <th title="Qualifying Degree (16-Year Education) Score & Certificate">DEG</th>
                           <th title="Class 10 / SSC Score & Certificate">10</th>
                           <th title="Class 12 / Intermediate Score & Certificate">12</th>
                           <th title="GRE / Entrance Exam Score">GR</th>
@@ -1055,10 +1065,10 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                 {/* 1. Degree & Branch distribution */}
                 <div className="admin-content-card">
                   <div className="card-header-with-badge">
-                    <h3>Undergraduate Degree & Branch Breakdown</h3>
+                    <h3>Qualifying Degree & Discipline Breakdown</h3>
                     <span className="status-badge status-badge-success">
                       <span className="status-badge-dot"></span>
-                      B.Tech / B.E. Only
+                      16 Years Formal Education
                     </span>
                   </div>
 
@@ -1066,7 +1076,7 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                   <div className="degree-eligibility-highlight">
                     <div className="degree-eligibility-top">
                       <span className="degree-pill-tag">
-                        <span>🎯</span> Mandatory Qualifying Degree
+                        <span>🎯</span> 16 Years Formal Education Gate
                       </span>
                       <span className="degree-pill-stat">
                         {applications.length > 0 ? `${applications.length} of ${applications.length} (100%)` : '0 (0%)'}
@@ -1077,16 +1087,62 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                     </div>
                   </div>
 
-                  <div className="analytics-subheading">Engineering Branch / Discipline Breakdown</div>
+                  <div className="analytics-subheading">Qualifying Degree / Education Domain Breakdown</div>
                   <div className="stat-bars-list" style={{ marginTop: '0.25rem' }}>
                     {[
-                      { label: 'Computer Science & Engineering (CSE)', color: 'primary', match: d => /computer science|cse/i.test(d) },
-                      { label: 'Information Technology (IT)', color: 'info', match: d => /information tech|\bit\b/i.test(d) },
-                      { label: 'Data Science / AI / ML', color: 'purple', match: d => /data science|ai|ml/i.test(d) },
-                      { label: 'Electronics & Communication (ECE)', color: 'warning', match: d => /electronics|ece/i.test(d) },
-                      { label: 'Mechanical & Core Engineering', color: 'teal', match: d => /mechanical|civil|electrical|eee|other/i.test(d) || !d }
+                      {
+                        id: 'btech',
+                        label: 'B.Tech / B.E.',
+                        color: 'primary',
+                        match: a => {
+                          const deg = (a.ug_degree || a.ugDegree || '').toLowerCase();
+                          const dept = (a.department || '').toLowerCase();
+                          if (/mca|m\.?sc|b\.?sc|bca|b\.?s\b/i.test(deg)) return false;
+                          return /b\.?tech|b\.?e\b/i.test(deg) || (!deg && !/mca|m\.?sc|b\.?sc|bca/i.test(dept));
+                        }
+                      },
+                      {
+                        id: 'bsc',
+                        label: 'B.Sc / BCA (16-Year Pathway)',
+                        color: 'purple',
+                        match: a => {
+                          const deg = (a.ug_degree || a.ugDegree || '').toLowerCase();
+                          const dept = (a.department || '').toLowerCase();
+                          if (/mca|m\.?sc/i.test(deg)) return false;
+                          return /b\.?sc|bca/i.test(deg) || (!deg && /b\.?sc|bca/i.test(dept));
+                        }
+                      },
+                      {
+                        id: 'mca',
+                        label: 'MCA (Master of Computer Applications)',
+                        color: 'info',
+                        match: a => {
+                          const deg = (a.ug_degree || a.ugDegree || '').toLowerCase();
+                          const dept = (a.department || '').toLowerCase();
+                          return /mca/i.test(deg) || (!deg && /mca/i.test(dept));
+                        }
+                      },
+                      {
+                        id: 'msc',
+                        label: 'M.Sc (Computer Science / IT / Mathematics)',
+                        color: 'warning',
+                        match: a => {
+                          const deg = (a.ug_degree || a.ugDegree || '').toLowerCase();
+                          const dept = (a.department || '').toLowerCase();
+                          return /m\.?sc|master of science/i.test(deg) || (!deg && /m\.?sc/i.test(dept));
+                        }
+                      },
+                      {
+                        id: 'bs_other',
+                        label: 'B.S. & Other Accepted Degree Pathways',
+                        color: 'teal',
+                        match: a => {
+                          const deg = (a.ug_degree || a.ugDegree || '').toLowerCase();
+                          return /b\.?s\b|other/i.test(deg);
+                        }
+                      }
                     ].map(br => {
-                      const count = applications.filter(a => br.match(a.department || '')).length;
+                      const count = applications.filter(a => br.match(a)).length;
                       const pct = applications.length > 0 ? Math.round((count / applications.length) * 100) : 0;
                       return (
                         <div key={br.label} className="stat-bar-item">
@@ -1191,7 +1247,7 @@ export default function AdminDashboardPage({ activeTab: initialTab = 'overview' 
                     <div className="compliance-item">
                       <span className="compliance-icon">🎯</span>
                       <div>
-                        <strong>Strict B.Tech Qualification:</strong> 100% of active applicants meet the mandatory B.Tech / B.E. eligibility gate. Non-engineering candidates are strictly excluded.
+                        <strong>16-Year Formal Education Gate:</strong> Applicants must have completed at least 16 years of formal education (e.g. 4-year B.Tech / B.E. / B.S., or equivalent Master's degree pathways like MCA). Candidates from engineering, computing, and allied technical backgrounds are eligible.
                       </div>
                     </div>
                     <div className="compliance-item">

@@ -33,7 +33,7 @@ export default function StudentDashboardHeader({
 
   const getButtonLabel = () => {
     if (applicationStatus === 'Draft') return 'Continue Application';
-    if (['Submitted', 'Under Review', 'Accepted', 'Rejected'].includes(applicationStatus)) return 'View Application';
+    if (['Submitted', 'Under Review', 'Accepted', 'Rejected', 'Declined', 'Interview Scheduled', 'Shortlisted for Interview', 'Scheduled for MSIT PGEE Exam', 'MSIT PGEE Exam Required', 'Awaiting MSIT PGEE Result'].includes(applicationStatus)) return 'View Application';
     if (applicationStatus === 'Additional Information Required') return 'Update Application';
     return 'Apply Now (Jan 2027)';
   };
@@ -108,6 +108,85 @@ export default function StudentDashboardHeader({
       noteBorder: '#e9d5ff',
       noteColor: '#6b21a8',
       noteText: 'Admissions committee review in progress',
+      buttonLabel: 'View Application'
+    },
+    'Shortlisted for Interview': {
+      badge: 'Interview Shortlisted 🎙️',
+      badgeBg: '#eff6ff',
+      badgeColor: '#1d4ed8',
+      badgeBorder: '#bfdbfe',
+      dotColor: '#2563eb',
+      title: 'Shortlisted for Faculty Interview',
+      description: application?.interview_date 
+        ? `Your interview has been scheduled for ${application.interview_date}${application.interview_time ? ` at ${application.interview_time}` : ''}. Please prepare for technical problem solving.`
+        : 'You have been shortlisted for the faculty interaction round. Admissions team will notify you with the slot details shortly.',
+      noteIcon: <ClockIcon size={16} />,
+      noteBg: '#eff6ff',
+      noteBorder: '#bfdbfe',
+      noteColor: '#1d4ed8',
+      noteText: application?.interview_date ? `Interview: ${application.interview_date}` : 'Interview scheduling underway',
+      buttonLabel: 'View Application'
+    },
+    'Interview Scheduled': {
+      badge: 'Interview Scheduled 🎙️',
+      badgeBg: '#eff6ff',
+      badgeColor: '#1d4ed8',
+      badgeBorder: '#bfdbfe',
+      dotColor: '#2563eb',
+      title: 'Faculty Interview Scheduled',
+      description: application?.interview_date 
+        ? `Your interview is confirmed for ${application.interview_date}${application.interview_time ? ` at ${application.interview_time}` : ''}${application?.interview_mode ? ` (${application.interview_mode})` : ''}. Review computer science and mathematical fundamentals.`
+        : 'Your faculty interview slot is being scheduled by the admissions committee.',
+      noteIcon: <CalendarIcon size={16} />,
+      noteBg: '#eff6ff',
+      noteBorder: '#bfdbfe',
+      noteColor: '#1d4ed8',
+      noteText: application?.interview_date ? `Date: ${application.interview_date}${application.interview_time ? ` @ ${application.interview_time}` : ''}` : 'Interview slot confirmed',
+      buttonLabel: 'View Application'
+    },
+    'Scheduled for MSIT PGEE Exam': {
+      badge: 'MSIT PGEE Exam Scheduled 📝',
+      badgeBg: '#fffbeb',
+      badgeColor: '#b45309',
+      badgeBorder: '#fde68a',
+      dotColor: '#f59e0b',
+      title: 'MSIT PGEE Entrance Exam Scheduled',
+      description: `You are scheduled for the MSIT PGEE Exam on ${application?.gat_exam_date || admissionSettings?.gatExamDate || 'December 15, 2026'}${application?.gat_slot ? ` (${application.gat_slot})` : ''}. Successful completion qualifies you for the faculty interview.`,
+      noteIcon: <ClockIcon size={16} />,
+      noteBg: '#fffbeb',
+      noteBorder: '#fde68a',
+      noteColor: '#b45309',
+      noteText: `Exam Date: ${application?.gat_exam_date || admissionSettings?.gatExamDate || 'December 15, 2026'}`,
+      buttonLabel: 'View Application'
+    },
+    'MSIT PGEE Exam Required': {
+      badge: 'MSIT PGEE Exam Required 📝',
+      badgeBg: '#fffbeb',
+      badgeColor: '#b45309',
+      badgeBorder: '#fde68a',
+      dotColor: '#f59e0b',
+      title: 'MSIT PGEE Examination Required',
+      description: `As no prior GRE/GATE score was submitted, you are required to take the MSIT PGEE Examination scheduled for ${application?.gat_exam_date || admissionSettings?.gatExamDate || 'December 15, 2026'}.`,
+      noteIcon: <ClockIcon size={16} />,
+      noteBg: '#fffbeb',
+      noteBorder: '#fde68a',
+      noteColor: '#b45309',
+      noteText: 'Prepare for MSIT PGEE Entrance Test',
+      buttonLabel: 'View Application'
+    },
+    'Awaiting MSIT PGEE Result': {
+      badge: 'Awaiting PGEE Result ⏳',
+      badgeBg: '#fffbeb',
+      badgeColor: '#b45309',
+      badgeBorder: '#fde68a',
+      dotColor: '#f59e0b',
+      title: 'MSIT PGEE Results Under Evaluation',
+      description: 'Your MSIT PGEE entrance test has been recorded. Evaluation results will be published shortly.',
+      noteIcon: <ClockIcon size={16} />,
+      noteBg: '#fffbeb',
+      noteBorder: '#fde68a',
+      noteColor: '#b45309',
+      noteText: 'Results evaluation in progress',
       buttonLabel: 'View Application'
     },
     'Additional Information Required': {
@@ -266,7 +345,18 @@ export default function StudentDashboardHeader({
   const hasInterviewScheduled = Boolean(
     (interviewDate && interviewDate !== 'TBD') ||
     application?.interview_status === 'Scheduled' ||
-    application?.status === 'Interview Scheduled'
+    application?.status === 'Interview Scheduled' ||
+    application?.status === 'Shortlisted for Interview' ||
+    applicationStatus === 'Interview Scheduled' ||
+    applicationStatus === 'Shortlisted for Interview'
+  );
+
+  const isPgeeScheduled = Boolean(
+    application?.status === 'Scheduled for MSIT PGEE Exam' ||
+    application?.status === 'MSIT PGEE Exam Required' ||
+    applicationStatus === 'Scheduled for MSIT PGEE Exam' ||
+    applicationStatus === 'MSIT PGEE Exam Required' ||
+    application?.gat_status === 'Scheduled'
   );
   const isInterviewPassed = Boolean(
     application?.interview_outcome === 'Cleared' ||
@@ -347,7 +437,7 @@ export default function StudentDashboardHeader({
       id: "3",
       title: isGateGrePathway 
         ? "Eligibility & Evaluation"
-        : "MSIT PGEE Examination Required",
+        : (isPgeeScheduled ? "MSIT PGEE Examination Scheduled" : "MSIT PGEE Examination Required"),
       done: isDocVerified && (isGateGrePathway ? true : isGatCompleted),
       statusState: !isDocVerified
         ? 'pending'
@@ -355,14 +445,18 @@ export default function StudentDashboardHeader({
           ? 'completed'
           : isGatCompleted
             ? 'completed'
-            : 'warning',
+            : isPgeeScheduled
+              ? 'review'
+              : 'warning',
       badgeText: !isDocVerified
         ? 'Pending'
         : isGateGrePathway
           ? 'Eligible for Interview'
           : isGatCompleted
             ? 'MSIT PGEE Cleared'
-            : 'MSIT PGEE Exam Required',
+            : isPgeeScheduled
+              ? 'Exam Scheduled'
+              : 'MSIT PGEE Exam Required',
       metaText: !isDocVerified
         ? 'Awaiting document verification'
         : isGateGrePathway
@@ -371,7 +465,7 @@ export default function StudentDashboardHeader({
               : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (MSIT PGEE exempt)`)
           : isGatCompleted
             ? (application?.gat_score ? `MSIT PGEE Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
-            : (gatExamDate ? `Exam Date: ${gatExamDate}` : 'Exam date to be announced')
+            : (gatExamDate ? `Exam Date: ${gatExamDate}${application?.gat_slot ? ` (${application.gat_slot})` : ''}` : 'Exam date to be announced')
     },
 
     // Step 4: One-on-One Discussion
@@ -404,7 +498,7 @@ export default function StudentDashboardHeader({
           : isInterviewUnsuccessful
             ? 'Interview outcome not cleared'
             : hasInterviewScheduled
-              ? `Interview Date: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}`
+              ? `Interview Date: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}${application?.interview_mode ? ` (${application.interview_mode})` : ''}`
               : (admissionSettings?.interviewInstructions || 'Interview schedule to be announced by admissions team')
     },
 

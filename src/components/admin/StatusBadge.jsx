@@ -28,6 +28,15 @@ export function StatusBadge({ status, type = 'application' }) {
       case 'under review':
         badgeClass = 'status-badge-warning';
         break;
+      case 'shortlisted for interview':
+      case 'interview scheduled':
+        badgeClass = 'status-badge-teal';
+        break;
+      case 'scheduled for msit pgee exam':
+      case 'msit pgee exam required':
+      case 'awaiting msit pgee result':
+        badgeClass = 'status-badge-warning';
+        break;
       case 'documents pending':
       case 'additional information required':
         badgeClass = 'status-badge-purple';

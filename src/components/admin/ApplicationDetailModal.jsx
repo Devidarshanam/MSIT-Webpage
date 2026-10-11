@@ -317,13 +317,17 @@ export default function ApplicationDetailModal({
     setDecisionModalOpen(true);
   };
 
-  const handleExecuteDecision = async (reason) => {
-    let targetStatus = 'Under Review';
-    if (decisionType === 'Accept') targetStatus = 'Accepted';
-    else if (decisionType === 'Decline') targetStatus = 'Declined';
-    else if (decisionType === 'Pending' || decisionType === 'ActionRequired') targetStatus = 'Additional Information Required';
+  const handleExecuteDecision = async (reason, extraPayload = {}) => {
+    let targetStatus = extraPayload.status || 'Under Review';
+    if (!extraPayload.status) {
+      if (decisionType === 'Accept') targetStatus = 'Accepted';
+      else if (decisionType === 'Decline') targetStatus = 'Declined';
+      else if (decisionType === 'Interview') targetStatus = 'Interview Scheduled';
+      else if (decisionType === 'PGEE') targetStatus = 'Scheduled for MSIT PGEE Exam';
+      else if (decisionType === 'Pending' || decisionType === 'ActionRequired') targetStatus = 'Additional Information Required';
+    }
 
-    const res = await updateApplicationStatus(currentApp.application_id, targetStatus, reason, adminEmail, currentApp);
+    const res = await updateApplicationStatus(currentApp.application_id, targetStatus, reason, adminEmail, currentApp, extraPayload);
     if (res.updatedApp) {
       setLocalAppOverride(res.updatedApp);
       if (onApplicationUpdated) {
@@ -409,49 +413,139 @@ export default function ApplicationDetailModal({
             </div>
           )}
 
-          {/* Quick Decision Banner */}
-          <div className="detail-decision-bar">
-            <div className="decision-bar-label">
-              <span>Decision Actions:</span>
-            </div>
-            <div className="decision-bar-btns">
-              <button
-                type="button"
-                className="btn btn-sm btn-primary-accent"
-                onClick={() => handleOpenDecision('Accept')}
-                disabled={currentApp.status === 'Accepted'}
-                style={currentApp.status === 'Accepted' ? { background: '#10b981', color: '#fff', borderColor: '#10b981', opacity: 0.95 } : {}}
-              >
-                {currentApp.status === 'Accepted' ? '✓ Accepted' : 'Accept Application'}
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-danger"
-                onClick={() => handleOpenDecision('Decline')}
-                disabled={currentApp.status === 'Declined'}
-                style={currentApp.status === 'Declined' ? { background: '#ef4444', color: '#fff', borderColor: '#ef4444', opacity: 0.95 } : {}}
-              >
-                {currentApp.status === 'Declined' ? '✕ Declined' : 'Decline Application'}
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-secondary"
-                onClick={() => handleOpenDecision('Review')}
-                disabled={currentApp.status === 'Under Review'}
-              >
-                {currentApp.status === 'Under Review' ? '✓ In Review' : 'Move to Review'}
-              </button>
-              <button
-                type="button"
-                className="btn btn-sm btn-secondary"
-                onClick={() => handleOpenDecision('ActionRequired')}
-                disabled={currentApp.status === 'Additional Information Required'}
-                style={{ background: '#fff7ed', color: '#9a3412', borderColor: '#fed7aa', fontWeight: '600' }}
-              >
-                Request Additional Info
-              </button>
-            </div>
-          </div>
+          {/* Smart Admissions Evaluation Advisory Banner */}
+          {(() => {
+            const hasGreScore = Boolean(currentApp.gre_score && currentApp.gre_score !== 'N/A' && currentApp.gre_score !== '—');
+            const hasGateScore = Boolean(currentApp.gate_score && currentApp.gate_score !== 'N/A' && currentApp.gate_score !== '—');
+            const examStatus = currentApp.entrance_exam_status || 'Neither';
+            const hasEntranceScore = hasGreScore || hasGateScore || ['GRE', 'GATE', 'Both'].includes(examStatus);
+            const docsVerified = currentApp.document_status === 'Verified' || currentApp.document_status === 'Partially Verified';
+            const isInterviewReady = hasEntranceScore && docsVerified;
+            const isPgeeCandidate = !hasEntranceScore;
+
+            return (
+              <>
+                <div style={{
+                  margin: '0.85rem 1.25rem 0',
+                  padding: '0.75rem 1rem',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  flexWrap: 'wrap',
+                  gap: '0.75rem',
+                  background: isInterviewReady ? '#eff6ff' : (isPgeeCandidate ? '#fffbeb' : '#f8fafc'),
+                  border: `1px solid ${isInterviewReady ? '#bfdbfe' : (isPgeeCandidate ? '#fde68a' : '#e2e8f0')}`
+                }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                    <span style={{ fontSize: '1.25rem' }}>{isInterviewReady ? '🎙️' : (isPgeeCandidate ? '📝' : '🔍')}</span>
+                    <div>
+                      <strong style={{ fontSize: '0.88rem', color: isInterviewReady ? '#1e40af' : (isPgeeCandidate ? '#92400e' : '#334155'), display: 'block' }}>
+                        {isInterviewReady && 'Recommended Action: Move to Interview Round'}
+                        {isPgeeCandidate && 'Recommended Action: Assign MSIT PGEE Entrance Exam'}
+                        {!isInterviewReady && !isPgeeCandidate && 'Admissions Status & Evaluation Queue'}
+                      </strong>
+                      <span style={{ fontSize: '0.8rem', color: isInterviewReady ? '#3b82f6' : (isPgeeCandidate ? '#b45309' : '#64748b') }}>
+                        {isInterviewReady && `Candidate holds verified ${hasGateScore ? 'GATE' : (hasGreScore ? 'GRE' : 'entrance')} score and verified documents.`}
+                        {isPgeeCandidate && 'Neither GRE nor GATE score submitted — candidate must qualify via MSIT PGEE entrance exam.'}
+                        {!isInterviewReady && !isPgeeCandidate && 'Review candidate documents and academic records before scheduling evaluation.'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '0.76rem', fontWeight: 600, color: '#475569', background: '#fff', padding: '0.2rem 0.55rem', borderRadius: '4px', border: '1px solid #cbd5e1' }}>
+                      Entrance: {currentApp.entrance_exam_status || 'Neither'}
+                    </span>
+                    <span style={{ fontSize: '0.76rem', fontWeight: 600, color: docsVerified ? '#047857' : '#b45309', background: docsVerified ? '#ecfdf5' : '#fffbeb', padding: '0.2rem 0.55rem', borderRadius: '4px', border: `1px solid ${docsVerified ? '#a7f3d0' : '#fde68a'}` }}>
+                      Docs: {currentApp.document_status || 'Pending'}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Quick Decision Action Bar */}
+                <div className="detail-decision-bar">
+                  <div className="decision-bar-label">
+                    <span>Decision Actions:</span>
+                  </div>
+                  <div className="decision-bar-btns" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem' }}>
+                    
+                    {/* Move to Interview button (Recommended when GRE/GATE present and docs verified) */}
+                    <button
+                      type="button"
+                      className={`btn btn-sm ${isInterviewReady ? 'btn-primary' : 'btn-secondary'}`}
+                      onClick={() => handleOpenDecision('Interview')}
+                      style={
+                        ['Interview Scheduled', 'Shortlisted for Interview'].includes(currentApp.status)
+                          ? { background: '#2563eb', color: '#fff', borderColor: '#2563eb', fontWeight: '700' }
+                          : (isInterviewReady ? { background: '#1d4ed8', color: '#fff', borderColor: '#1d4ed8', fontWeight: '700', boxShadow: '0 0 0 2px rgba(37,99,235,0.25)' } : {})
+                      }
+                    >
+                      🎙️ {['Interview Scheduled', 'Shortlisted for Interview'].includes(currentApp.status) ? 'Interview Scheduled ✓' : (isInterviewReady ? 'Move to Interview (Recommended)' : 'Move to Interview')}
+                    </button>
+
+                    {/* Schedule MSIT PGEE Exam button (Recommended when neither GRE nor GATE present) */}
+                    <button
+                      type="button"
+                      className={`btn btn-sm ${isPgeeCandidate ? 'btn-primary' : 'btn-secondary'}`}
+                      onClick={() => handleOpenDecision('PGEE')}
+                      style={
+                        ['Scheduled for MSIT PGEE Exam', 'MSIT PGEE Exam Required'].includes(currentApp.status)
+                          ? { background: '#d97706', color: '#fff', borderColor: '#d97706', fontWeight: '700' }
+                          : (isPgeeCandidate ? { background: '#d97706', color: '#fff', borderColor: '#d97706', fontWeight: '700', boxShadow: '0 0 0 2px rgba(217,119,6,0.25)' } : {})
+                      }
+                    >
+                      📝 {['Scheduled for MSIT PGEE Exam', 'MSIT PGEE Exam Required'].includes(currentApp.status) ? 'PGEE Scheduled ✓' : (isPgeeCandidate ? 'Schedule PGEE Exam (Recommended)' : 'Schedule PGEE Exam')}
+                    </button>
+
+                    {/* Accept Application (Final Offer) */}
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-primary-accent"
+                      onClick={() => handleOpenDecision('Accept')}
+                      disabled={currentApp.status === 'Accepted'}
+                      style={currentApp.status === 'Accepted' ? { background: '#10b981', color: '#fff', borderColor: '#10b981', opacity: 0.95 } : { background: '#059669', color: '#fff', borderColor: '#059669' }}
+                    >
+                      {currentApp.status === 'Accepted' ? '✓ Accepted (Offer Issued)' : 'Grant Final Offer'}
+                    </button>
+
+                    {/* Move to Review */}
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-secondary"
+                      onClick={() => handleOpenDecision('Review')}
+                      disabled={currentApp.status === 'Under Review'}
+                    >
+                      {currentApp.status === 'Under Review' ? '✓ In Review' : 'Move to Review'}
+                    </button>
+
+                    {/* Request Updates */}
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-secondary"
+                      onClick={() => handleOpenDecision('ActionRequired')}
+                      disabled={currentApp.status === 'Additional Information Required'}
+                      style={{ background: '#fff7ed', color: '#9a3412', borderColor: '#fed7aa', fontWeight: '600' }}
+                    >
+                      Request Updates
+                    </button>
+
+                    {/* Decline Application */}
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-danger"
+                      onClick={() => handleOpenDecision('Decline')}
+                      disabled={currentApp.status === 'Declined'}
+                      style={currentApp.status === 'Declined' ? { background: '#ef4444', color: '#fff', borderColor: '#ef4444', opacity: 0.95 } : {}}
+                    >
+                      {currentApp.status === 'Declined' ? '✕ Declined' : 'Decline Application'}
+                    </button>
+
+                  </div>
+                </div>
+              </>
+            );
+          })()}
 
           {/* Nav Tabs within Modal */}
           <div className="detail-modal-tabs">
@@ -1353,6 +1447,7 @@ export default function ApplicationDetailModal({
         decisionType={decisionType}
         applicantName={currentApp.full_name}
         applicationId={currentApp.application_id}
+        applicationData={currentApp}
       />
 
       {/* Document Review Modal */}

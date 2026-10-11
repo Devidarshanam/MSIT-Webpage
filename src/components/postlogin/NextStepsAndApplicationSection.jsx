@@ -20,7 +20,13 @@ export default function NextStepsAndApplicationSection({
       case 'Submitted':
       case 'Under Review':
       case 'Accepted':
+      case 'Declined':
       case 'Rejected':
+      case 'Interview Scheduled':
+      case 'Shortlisted for Interview':
+      case 'Scheduled for MSIT PGEE Exam':
+      case 'MSIT PGEE Exam Required':
+      case 'Awaiting MSIT PGEE Result':
         return {
           label: 'View Application — Submitted Details',
           action: () => navigate('/apply?mode=view')
@@ -71,9 +77,12 @@ export default function NextStepsAndApplicationSection({
                 {applicationStatus === 'Draft' && 'You have an active saved draft. Pick up right where you left off.'}
                 {applicationStatus === 'Submitted' && 'Your application has been received and is queued for admissions review.'}
                 {applicationStatus === 'Under Review' && 'Your application and credentials are being reviewed by the admissions team.'}
+                {['Interview Scheduled', 'Shortlisted for Interview'].includes(applicationStatus) && 'You are shortlisted for faculty interview! Check your interview schedule above.'}
+                {['Scheduled for MSIT PGEE Exam', 'MSIT PGEE Exam Required'].includes(applicationStatus) && 'You are scheduled for the MSIT PGEE examination. Review test schedule details above.'}
+                {applicationStatus === 'Awaiting MSIT PGEE Result' && 'Your entrance exam is recorded. Evaluation outcome will be published shortly.'}
                 {applicationStatus === 'Additional Information Required' && 'Admissions has requested updates. Please review the notes and resubmit.'}
                 {applicationStatus === 'Accepted' && 'Congratulations on your admission offer! Access your submitted application below.'}
-                {applicationStatus === 'Rejected' && 'Admissions review completed for this intake.'}
+                {(applicationStatus === 'Rejected' || applicationStatus === 'Declined') && 'Admissions review completed for this intake.'}
               </p>
               <button
                 type="button"
