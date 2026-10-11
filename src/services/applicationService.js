@@ -158,17 +158,38 @@ export async function getUserApplication(authUser) {
         const directStudentApp = typeof localStorage !== 'undefined' ? 
           safeJsonParse(`msit_student_application_${email}`, null) : null;
 
-        if (directStatus && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(directStatus)) {
+        const VALID_DECISION_STATUSES = [
+          'Accepted', 
+          'Declined', 
+          'Under Review', 
+          'Additional Information Required',
+          'Interview Scheduled',
+          'Shortlisted for Interview',
+          'Scheduled for MSIT PGEE Exam',
+          'MSIT PGEE Exam Required',
+          'Awaiting MSIT PGEE Result'
+        ];
+
+        if (directStatus && VALID_DECISION_STATUSES.includes(directStatus)) {
           app.status = directStatus;
         }
         if (directStudentApp) {
           if (directStudentApp.decision_reason) app.decision_reason = directStudentApp.decision_reason;
           if (directStudentApp.decided_by) app.decided_by = directStudentApp.decided_by;
           if (directStudentApp.decided_at) app.decided_at = directStudentApp.decided_at;
+          if (directStudentApp.gat_exam_date) app.gat_exam_date = directStudentApp.gat_exam_date;
+          if (directStudentApp.gat_slot) app.gat_slot = directStudentApp.gat_slot;
+          if (directStudentApp.gat_mode) app.gat_mode = directStudentApp.gat_mode;
+          if (directStudentApp.gat_location) app.gat_location = directStudentApp.gat_location;
+          if (directStudentApp.gat_status) app.gat_status = directStudentApp.gat_status;
+          if (directStudentApp.interview_date) app.interview_date = directStudentApp.interview_date;
+          if (directStudentApp.interview_time) app.interview_time = directStudentApp.interview_time;
+          if (directStudentApp.interview_mode) app.interview_mode = directStudentApp.interview_mode;
+          if (directStudentApp.interview_location) app.interview_location = directStudentApp.interview_location;
         }
 
         if (matchingSubmitted) {
-          if (!directStatus && matchingSubmitted?.status && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(matchingSubmitted.status)) {
+          if (!directStatus && matchingSubmitted?.status && VALID_DECISION_STATUSES.includes(matchingSubmitted.status)) {
             app.status = matchingSubmitted.status;
             app.decision_reason = matchingSubmitted.decision_reason || app.decision_reason;
             app.decided_by = matchingSubmitted.decided_by || app.decided_by;
@@ -199,8 +220,8 @@ export async function getUserApplication(authUser) {
             'has_experience', 'experience_years', 'experience_months', 'company_name', 'job_role', 'experience_details',
             'statement_text', 'purpose_to_join', 'referral_source', 'referral_explanation',
             'entrance_exam_status', 'gre_score', 'gre_year', 'gate_score', 'gate_year',
-            'gat_exam_date', 'gat_score', 'gat_result', 'gat_status',
-            'interview_date', 'interview_time', 'interview_outcome', 'interview_status',
+            'gat_exam_date', 'gat_slot', 'gat_mode', 'gat_location', 'gat_score', 'gat_result', 'gat_status',
+            'interview_date', 'interview_time', 'interview_mode', 'interview_location', 'interview_outcome', 'interview_status',
             'onboarding_date', 'onboarding_status'
           ];
           fieldsToMerge.forEach(f => {

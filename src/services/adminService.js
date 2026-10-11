@@ -576,8 +576,20 @@ export async function fetchAllApplications() {
       (a.email && app.email && a.email.toLowerCase() === app.email.toLowerCase())
     );
 
+    const allDecisionStatuses = [
+      'Accepted', 
+      'Declined', 
+      'Under Review', 
+      'Additional Information Required', 
+      'Interview Scheduled', 
+      'Shortlisted for Interview', 
+      'Scheduled for MSIT PGEE Exam', 
+      'MSIT PGEE Exam Required',
+      'Awaiting MSIT PGEE Result'
+    ];
+
     let effectiveApp = { ...app };
-    if (localMatch && localMatch.status && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(localMatch.status)) {
+    if (localMatch && localMatch.status && allDecisionStatuses.includes(localMatch.status)) {
       effectiveApp.status = localMatch.status;
       effectiveApp.decision_reason = localMatch.decision_reason || effectiveApp.decision_reason;
       effectiveApp.decided_by = localMatch.decided_by || effectiveApp.decided_by;
@@ -587,7 +599,7 @@ export async function fetchAllApplications() {
     const candidateEmail = (effectiveApp.email || '').toLowerCase().trim();
     if (candidateEmail && typeof localStorage !== 'undefined') {
       const directStatus = localStorage.getItem(`msit_app_status_${candidateEmail}`) || localStorage.getItem(`msit_application_status_${candidateEmail}`);
-      if (directStatus && ['Accepted', 'Declined', 'Under Review', 'Additional Information Required'].includes(directStatus)) {
+      if (directStatus && allDecisionStatuses.includes(directStatus)) {
         effectiveApp.status = directStatus;
       }
     }

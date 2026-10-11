@@ -305,11 +305,27 @@ export default function StudentDashboardHeader({
 
   const rejectedDocs = docs.filter(d => d && (d.status === 'Rejected' || d.verificationStatus === 'Rejected'));
   const hasRejectedDoc = rejectedDocs.length > 0 || application?.document_status === 'Rejected';
-  const allDocsVerified = docs.length > 0 && docs.every(d => d && (d.status === 'Verified' || d.verificationStatus === 'Verified'));
   const isDocVerified = allDocsVerified || 
     application?.document_status === 'Verified' || 
     application?.document_status === 'Documents Verified' ||
-    ['Accepted', 'Interview Scheduled', 'Interview Completed', 'Onboarded', 'Enrolled'].includes(application?.status);
+    [
+      'Accepted', 
+      'Interview Scheduled', 
+      'Shortlisted for Interview',
+      'Interview Completed', 
+      'Scheduled for MSIT PGEE Exam', 
+      'MSIT PGEE Exam Required', 
+      'Awaiting MSIT PGEE Result', 
+      'Onboarded', 
+      'Enrolled'
+    ].includes(application?.status) ||
+    [
+      'Scheduled for MSIT PGEE Exam', 
+      'MSIT PGEE Exam Required', 
+      'Awaiting MSIT PGEE Result', 
+      'Interview Scheduled', 
+      'Shortlisted for Interview'
+    ].includes(applicationStatus);
 
   // --- Step 3: Eligibility & Evaluation Pathway (GATE/GRE vs MSIT PGEE) ---
   const greScoreNum = Number(application?.gre_score);
@@ -438,34 +454,36 @@ export default function StudentDashboardHeader({
       title: isGateGrePathway 
         ? "Eligibility & Evaluation"
         : (isPgeeScheduled ? "MSIT PGEE Examination Scheduled" : "MSIT PGEE Examination Required"),
-      done: isDocVerified && (isGateGrePathway ? true : isGatCompleted),
-      statusState: !isDocVerified
-        ? 'pending'
-        : isGateGrePathway
-          ? 'completed'
-          : isGatCompleted
-            ? 'completed'
-            : isPgeeScheduled
-              ? 'review'
+      done: isGateGrePathway || isGatCompleted,
+      statusState: isGatCompleted
+        ? 'completed'
+        : isPgeeScheduled
+          ? 'review'
+          : !isDocVerified
+            ? 'pending'
+            : isGateGrePathway
+              ? 'completed'
               : 'warning',
-      badgeText: !isDocVerified
-        ? 'Pending'
-        : isGateGrePathway
-          ? 'Eligible for Interview'
-          : isGatCompleted
-            ? 'MSIT PGEE Cleared'
-            : isPgeeScheduled
-              ? 'Exam Scheduled'
+      badgeText: isGatCompleted
+        ? 'MSIT PGEE Cleared'
+        : isPgeeScheduled
+          ? 'Exam Scheduled'
+          : !isDocVerified
+            ? 'Pending'
+            : isGateGrePathway
+              ? 'Eligible for Interview'
               : 'MSIT PGEE Exam Required',
-      metaText: !isDocVerified
-        ? 'Awaiting document verification'
-        : isGateGrePathway
-          ? (interviewDate && interviewDate !== 'TBD'
-              ? `Scheduled: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}`
-              : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (MSIT PGEE exempt)`)
-          : isGatCompleted
-            ? (application?.gat_score ? `MSIT PGEE Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
-            : (gatExamDate ? `Exam Date: ${gatExamDate}${application?.gat_slot ? ` (${application.gat_slot})` : ''} · IIITH Nilgiri` : 'Exam date to be announced')
+      metaText: isGatCompleted
+        ? (application?.gat_score ? `MSIT PGEE Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
+        : isPgeeScheduled
+          ? (gatExamDate ? `Exam Date: ${gatExamDate}${application?.gat_slot ? ` (${application.gat_slot})` : ''} · IIITH Nilgiri` : 'Exam scheduled at IIITH Nilgiri')
+          : !isDocVerified
+            ? 'Awaiting document verification'
+            : isGateGrePathway
+              ? (interviewDate && interviewDate !== 'TBD' && interviewDate !== 'null'
+                  ? `Scheduled: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}`
+                  : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (MSIT PGEE exempt)`)
+              : (gatExamDate ? `Exam Date: ${gatExamDate}${application?.gat_slot ? ` (${application.gat_slot})` : ''} · IIITH Nilgiri` : 'Exam date to be announced')
     },
 
     // Step 4: One-on-One Discussion
@@ -473,32 +491,30 @@ export default function StudentDashboardHeader({
       id: "4",
       title: "One-on-One Discussion",
       done: isInterviewPassed,
-      statusState: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
-        ? 'pending'
-        : isInterviewPassed
-          ? 'completed'
-          : isInterviewUnsuccessful
-            ? 'rejected'
-            : hasInterviewScheduled
-              ? 'review'
+      statusState: isInterviewPassed
+        ? 'completed'
+        : isInterviewUnsuccessful
+          ? 'rejected'
+          : hasInterviewScheduled
+            ? 'review'
+            : (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
+              ? 'pending'
               : 'pending',
-      badgeText: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
-        ? 'Pending'
-        : isInterviewPassed
-          ? 'Interview Cleared'
-          : isInterviewUnsuccessful
-            ? 'Not Cleared'
-            : hasInterviewScheduled
-              ? 'Interview Scheduled'
-              : 'Awaiting Scheduling',
-      metaText: (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
-        ? (!isGateGrePathway ? 'Awaiting evaluation result' : 'Awaiting prior verification')
-        : isInterviewPassed
-          ? 'Outcome: Recommended for Admission'
-          : isInterviewUnsuccessful
-            ? 'Interview outcome not cleared'
-            : hasInterviewScheduled
-              ? `Interview Date: ${interviewDate}${interviewTime ? ` at ${interviewTime}` : ''}${application?.interview_mode ? ` (${application.interview_mode})` : ''}`
+      badgeText: isInterviewPassed
+        ? 'Interview Cleared'
+        : isInterviewUnsuccessful
+          ? 'Not Cleared'
+          : hasInterviewScheduled
+            ? 'Interview Scheduled'
+            : 'Awaiting Scheduling',
+      metaText: isInterviewPassed
+        ? 'Outcome: Recommended for Admission'
+        : isInterviewUnsuccessful
+          ? 'Interview outcome not cleared'
+          : hasInterviewScheduled
+            ? `Interview Date: ${interviewDate && interviewDate !== 'null' ? interviewDate : 'Scheduled · Slot TBD'}${interviewTime ? ` at ${interviewTime}` : ''}${application?.interview_mode ? ` (${application.interview_mode})` : ''}`
+            : (!isDocVerified || (!isGateGrePathway && !isGatCompleted))
+              ? (!isGateGrePathway ? 'Awaiting evaluation result' : 'Awaiting prior verification')
               : (admissionSettings?.interviewInstructions || 'Interview schedule to be announced by admissions team')
     },
 
