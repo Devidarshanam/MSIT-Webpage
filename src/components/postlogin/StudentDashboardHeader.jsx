@@ -151,7 +151,7 @@ export default function StudentDashboardHeader({
       badgeBorder: '#fde68a',
       dotColor: '#f59e0b',
       title: 'MSIT PGEE Entrance Exam Scheduled',
-      description: `You are scheduled for the MSIT PGEE Exam on ${application?.gat_exam_date || admissionSettings?.gatExamDate || 'December 15, 2026'}${application?.gat_slot ? ` (${application.gat_slot})` : ''}. Successful completion qualifies you for the faculty interview.`,
+      description: `You are scheduled for the MSIT PGEE Exam on ${application?.gat_exam_date || admissionSettings?.gatExamDate || 'December 15, 2026'}${application?.gat_slot ? ` (${application.gat_slot})` : ''} at IIITH Nilgiri. Successful completion qualifies you for the faculty interview.`,
       noteIcon: <ClockIcon size={16} />,
       noteBg: '#fffbeb',
       noteBorder: '#fde68a',
@@ -465,7 +465,7 @@ export default function StudentDashboardHeader({
               : `Qualified via ${hasValidGate ? 'GATE' : 'GRE'} score (MSIT PGEE exempt)`)
           : isGatCompleted
             ? (application?.gat_score ? `MSIT PGEE Score: ${application.gat_score} · Qualified` : 'Result: Qualified')
-            : (gatExamDate ? `Exam Date: ${gatExamDate}${application?.gat_slot ? ` (${application.gat_slot})` : ''}` : 'Exam date to be announced')
+            : (gatExamDate ? `Exam Date: ${gatExamDate}${application?.gat_slot ? ` (${application.gat_slot})` : ''} · IIITH Nilgiri` : 'Exam date to be announced')
     },
 
     // Step 4: One-on-One Discussion

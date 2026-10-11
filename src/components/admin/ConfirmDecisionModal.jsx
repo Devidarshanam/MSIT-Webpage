@@ -22,8 +22,9 @@ export default function ConfirmDecisionModal({
 
   // PGEE Exam state
   const [gatDate, setGatDate] = useState('2026-12-15');
-  const [gatSlot, setGatSlot] = useState('10:00 AM - 12:00 PM IST');
-  const [gatMode, setGatMode] = useState('Online Proctored');
+  const [gatSlot, setGatSlot] = useState('10:00 AM - 12:00 PM IST (Morning)');
+  const [gatMode, setGatMode] = useState('In-Person (IIITH Nilgiri)');
+  const [gatLocation, setGatLocation] = useState('IIITH Nilgiri');
 
   useEffect(() => {
     if (isOpen) {
@@ -86,12 +87,13 @@ export default function ConfirmDecisionModal({
         return;
       }
       if (!finalReason) {
-        finalReason = `Scheduled for MSIT PGEE Entrance Examination on ${gatDate} (${gatSlot}).`;
+        finalReason = `Scheduled for MSIT PGEE Entrance Examination on ${gatDate} (${gatSlot}) at IIITH Nilgiri.`;
       }
       extraPayload.status = 'Scheduled for MSIT PGEE Exam';
       extraPayload.gat_exam_date = gatDate;
       extraPayload.gat_slot = gatSlot;
-      extraPayload.gat_mode = gatMode;
+      extraPayload.gat_mode = 'In-Person (IIITH Nilgiri)';
+      extraPayload.gat_location = 'IIITH Nilgiri';
       extraPayload.gat_status = 'Scheduled';
     } else if (isAccept) {
       if (!finalReason) {
@@ -200,8 +202,8 @@ export default function ConfirmDecisionModal({
 
               <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                  <span style={{ fontSize: '0.74rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '700', display: 'block' }}>Interview Mode &amp; Venue</span>
-                  <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>In-Person (IIITH Nilgiri)</strong>
+                  <span style={{ fontSize: '0.74rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '700', display: 'block' }}>Interview Venue</span>
+                  <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>IIITH Nilgiri</strong>
                 </div>
                 <span style={{ background: '#dbeafe', color: '#1e40af', fontSize: '0.75rem', fontWeight: '700', padding: '0.25rem 0.6rem', borderRadius: '4px' }}>
                   🏛️ IIITH Campus
@@ -241,7 +243,7 @@ export default function ConfirmDecisionModal({
 
                 <div className="form-field-group">
                   <label htmlFor="gatSlotSelect" style={{ fontSize: '0.82rem', fontWeight: 600 }}>
-                    Examination Slot
+                    Examination Slot <span className="req">*</span>
                   </label>
                   <select
                     id="gatSlotSelect"
@@ -249,26 +251,20 @@ export default function ConfirmDecisionModal({
                     value={gatSlot}
                     onChange={e => setGatSlot(e.target.value)}
                   >
-                    <option value="10:00 AM - 12:00 PM IST">10:00 AM - 12:00 PM IST (Morning)</option>
-                    <option value="02:00 PM - 04:00 PM IST">02:00 PM - 04:00 PM IST (Afternoon)</option>
+                    <option value="10:00 AM - 12:00 PM IST (Morning)">10:00 AM - 12:00 PM IST (Morning)</option>
+                    <option value="02:00 PM - 04:00 PM IST (Afternoon)">02:00 PM - 04:00 PM IST (Afternoon)</option>
                   </select>
                 </div>
               </div>
 
-              <div className="form-field-group" style={{ marginBottom: '1rem' }}>
-                <label htmlFor="gatModeSelect" style={{ fontSize: '0.82rem', fontWeight: 600 }}>
-                  Assessment Delivery Mode
-                </label>
-                <select
-                  id="gatModeSelect"
-                  className="form-control"
-                  value={gatMode}
-                  onChange={e => setGatMode(e.target.value)}
-                >
-                  <option value="Online Proctored">Online Proctored (National Web-based Assessment)</option>
-                  <option value="IIIT Hyderabad Campus Center">IIIT Hyderabad Campus Examination Center</option>
-                  <option value="JNTU Hyderabad Campus Center">JNTU Hyderabad Campus Examination Center</option>
-                </select>
+              <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <span style={{ fontSize: '0.74rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.5px', fontWeight: '700', display: 'block' }}>Examination Venue</span>
+                  <strong style={{ fontSize: '0.92rem', color: '#0f172a' }}>IIITH Nilgiri</strong>
+                </div>
+                <span style={{ background: '#fef3c7', color: '#92400e', fontSize: '0.75rem', fontWeight: '700', padding: '0.25rem 0.6rem', borderRadius: '4px' }}>
+                  🏛️ IIITH Campus
+                </span>
               </div>
             </>
           )}

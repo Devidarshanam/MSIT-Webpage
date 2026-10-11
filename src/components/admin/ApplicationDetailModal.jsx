@@ -1172,6 +1172,13 @@ export default function ApplicationDetailModal({
                     </h4>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginTop: '0.75rem' }}>
                       <div className="form-field-group">
+                        <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>Examination Venue</label>
+                        <div style={{ padding: '0.55rem 0.75rem', background: '#f1f5f9', borderRadius: '6px', fontSize: '0.85rem', fontWeight: 600, color: '#0f172a', border: '1px solid #e2e8f0' }}>
+                          IIITH Nilgiri
+                        </div>
+                      </div>
+
+                      <div className="form-field-group">
                         <label style={{ fontSize: '0.8rem', fontWeight: 600 }}>MSIT PGEE Exam Status</label>
                         <select 
                           className="form-control"
